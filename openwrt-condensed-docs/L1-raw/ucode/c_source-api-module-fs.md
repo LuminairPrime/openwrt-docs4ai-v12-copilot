@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_fs"></a>
-
-## fs
-# Filesystem Access
+## Filesystem Access
 
 The `fs` module provides functions for interacting with the file system.
 
@@ -15,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { readlink, popen } from 'fs';
 
   let dest = readlink('/sys/class/net/eth0');
@@ -25,7 +22,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as fs from 'fs';
 
   let dest = fs.readlink('/sys/class/net/eth0');
@@ -35,68 +32,6 @@ using a wildcard import statement:
 Additionally, the filesystem module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lfs` switch.
 
-* [fs](#module_fs)
-    * _instance_
-        * [.error()](#module_fs+error) ⇒ `string`
-        * [.popen(command, [mode])](#module_fs+popen) ⇒ [`proc`](#module_fs.proc)
-        * [.open(path, [mode], [perm])](#module_fs+open) ⇒ [`file`](#module_fs.file)
-        * [.fdopen(fd, [mode])](#module_fs+fdopen) ⇒ `Object`
-        * [.dup2(oldfd, newfd)](#module_fs+dup2) ⇒ `boolean`
-        * [.opendir(path)](#module_fs+opendir) ⇒ [`dir`](#module_fs.dir)
-        * [.readlink(path)](#module_fs+readlink) ⇒ `string`
-        * [.stat(path)](#module_fs+stat) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
-        * [.lstat(path)](#module_fs+lstat) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
-        * [.mkdir(path)](#module_fs+mkdir) ⇒ `boolean`
-        * [.rmdir(path)](#module_fs+rmdir) ⇒ `boolean`
-        * [.symlink(target, path)](#module_fs+symlink) ⇒ `boolean`
-        * [.unlink(path)](#module_fs+unlink) ⇒ `boolean`
-        * [.getcwd()](#module_fs+getcwd) ⇒ `string`
-        * [.chdir(path)](#module_fs+chdir) ⇒ `boolean`
-        * [.chmod(path, mode)](#module_fs+chmod) ⇒ `boolean`
-        * [.chown(path, [uid], [gid])](#module_fs+chown) ⇒ `boolean`
-        * [.rename(oldPath, newPath)](#module_fs+rename) ⇒ `boolean`
-        * [.dirname(path)](#module_fs+dirname) ⇒ `string`
-        * [.basename(path)](#module_fs+basename) ⇒ `string`
-        * [.lsdir(path)](#module_fs+lsdir) ⇒ `Array.<string>`
-        * [.mkstemp([template])](#module_fs+mkstemp) ⇒ [`file`](#module_fs.file)
-        * [.mkdtemp([template])](#module_fs+mkdtemp) ⇒ `string`
-        * [.access(path, [mode])](#module_fs+access) ⇒ `boolean`
-        * [.readfile(path, [limit])](#module_fs+readfile) ⇒ `string`
-        * [.writefile(path, data, [limit])](#module_fs+writefile) ⇒ `number`
-        * [.realpath(path)](#module_fs+realpath) ⇒ `string`
-        * [.pipe()](#module_fs+pipe) ⇒ [`Array.<file>`](#module_fs.file)
-    * _static_
-        * [.proc](#module_fs.proc)
-            * [.close()](#module_fs.proc+close) ⇒ `number`
-            * [.read(length)](#module_fs.proc+read) ⇒ `string`
-            * [.write(data)](#module_fs.proc+write) ⇒ `number`
-            * [.flush()](#module_fs.proc+flush) ⇒ `boolean`
-            * [.fileno()](#module_fs.proc+fileno) ⇒ `number`
-            * [.error()](#module_fs.proc+error) ⇒ `string`
-        * [.file](#module_fs.file)
-            * [.close()](#module_fs.file+close) ⇒ `boolean`
-            * [.read(length)](#module_fs.file+read) ⇒ `string`
-            * [.write(data)](#module_fs.file+write) ⇒ `number`
-            * [.seek([offset], [position])](#module_fs.file+seek) ⇒ `boolean`
-            * [.truncate([offset])](#module_fs.file+truncate) ⇒ `boolean`
-            * [.lock([op])](#module_fs.file+lock) ⇒ `boolean`
-            * [.tell()](#module_fs.file+tell) ⇒ `number`
-            * [.isatty()](#module_fs.file+isatty) ⇒ `boolean`
-            * [.flush()](#module_fs.file+flush) ⇒ `boolean`
-            * [.fileno()](#module_fs.file+fileno) ⇒ `number`
-            * [.ioctl(direction, type, num, [value])](#module_fs.file+ioctl) ⇒ `number` \| `string`
-            * [.error()](#module_fs.file+error) ⇒ `string`
-        * [.dir](#module_fs.dir)
-            * [.fileno()](#module_fs.dir+fileno) ⇒ `number`
-            * [.read()](#module_fs.dir+read) ⇒ `string`
-            * [.tell()](#module_fs.dir+tell) ⇒ `number`
-            * [.seek(offset)](#module_fs.dir+seek) ⇒ `boolean`
-            * [.close()](#module_fs.dir+close) ⇒ `boolean`
-            * [.error()](#module_fs.dir+error) ⇒ `string`
-        * [.FileStatResult](#module_fs.FileStatResult) : `Object`
-
-<a name="module_fs+error"></a>
-
 ### fs.error() ⇒ `string`
 Query error information.
 
@@ -105,14 +40,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs+popen"></a>
+```ucode
 
 ### fs.popen(command, [mode]) ⇒ [`proc`](#module_fs.proc)
 Starts a process and returns a handle representing the executed process.
@@ -138,11 +72,10 @@ Returns `null` if an error occurred.
 | [mode] | `string` | `"\"r\""` | The open mode of the process handle. |
 
 **Example**  
-```js
+```ucode
 // Open a process
 const process = popen('command', 'r');
 ```
-<a name="module_fs+open"></a>
 
 ### fs.open(path, [mode], [perm]) ⇒ [`file`](#module_fs.file)
 Opens a file.
@@ -182,11 +115,10 @@ Returns a file handle object associated with the opened file.
 | [perm] | `number` | `0o666` | The file creation permissions (for modes `w…` and `a…`) |
 
 **Example**  
-```js
+```ucode
 // Open a file in read-only mode
 const fileHandle = open('file.txt', 'r');
-```
-<a name="module_fs+fdopen"></a>
+```ucode
 
 ### fs.fdopen(fd, [mode]) ⇒ `Object`
 Associates a file descriptor number with a file handle object.
@@ -215,12 +147,11 @@ Returns the file handle object associated with the file descriptor.
 | [mode] | `string` | `"\"r\""` | The open mode. |
 
 **Example**  
-```js
+```ucode
 // Associate file descriptors of stdin and stdout with handles
 const stdinHandle = fdopen(0, 'r');
 const stdoutHandle = fdopen(1, 'w');
 ```
-<a name="module_fs+dup2"></a>
 
 ### fs.dup2(oldfd, newfd) ⇒ `boolean`
 Duplicates a file descriptor.
@@ -239,13 +170,12 @@ Returns `null` on error.
 | newfd | `number` | The file descriptor number to duplicate to. |
 
 **Example**  
-```js
+```ucode
 // Redirect stderr to a log file
 const logfile = open('/tmp/error.log', 'w');
 dup2(logfile.fileno(), 2);
 logfile.close();
-```
-<a name="module_fs+opendir"></a>
+```ucode
 
 ### fs.opendir(path) ⇒ [`dir`](#module_fs.dir)
 Opens a directory and returns a directory handle associated with the open
@@ -262,11 +192,10 @@ Returns `null` if an error occurred.
 | path | `string` | The path to the directory. |
 
 **Example**  
-```js
+```ucode
 // Open a directory
 const directory = opendir('path/to/directory');
 ```
-<a name="module_fs+readlink"></a>
 
 ### fs.readlink(path) ⇒ `string`
 Reads the target path of a symbolic link.
@@ -282,11 +211,10 @@ Returns `null` if an error occurred.
 | path | `string` | The path to the symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Read the value of a symbolic link
 const targetPath = readlink('symbolicLink');
-```
-<a name="module_fs+stat"></a>
+```ucode
 
 ### fs.stat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory.
@@ -302,11 +230,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Get information about a file
 const fileInfo = stat('path/to/file');
 ```
-<a name="module_fs+lstat"></a>
 
 ### fs.lstat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory, without following symbolic
@@ -323,11 +250,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Get information about a directory
 const dirInfo = lstat('path/to/directory');
-```
-<a name="module_fs+mkdir"></a>
+```ucode
 
 ### fs.mkdir(path) ⇒ `boolean`
 Creates a new directory.
@@ -343,11 +269,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the new directory. |
 
 **Example**  
-```js
+```ucode
 // Create a directory
 mkdir('path/to/new-directory');
 ```
-<a name="module_fs+rmdir"></a>
 
 ### fs.rmdir(path) ⇒ `boolean`
 Removes the specified directory.
@@ -363,11 +288,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the directory to be removed. |
 
 **Example**  
-```js
+```ucode
 // Remove a directory
 rmdir('path/to/directory');
-```
-<a name="module_fs+symlink"></a>
+```ucode
 
 ### fs.symlink(target, path) ⇒ `boolean`
 Creates a new symbolic link.
@@ -384,11 +308,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path of the symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Create a symbolic link
 symlink('target', 'path/to/symlink');
 ```
-<a name="module_fs+unlink"></a>
 
 ### fs.unlink(path) ⇒ `boolean`
 Removes the specified file or symbolic link.
@@ -404,11 +327,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the file or symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Remove a file
 unlink('path/to/file');
-```
-<a name="module_fs+getcwd"></a>
+```ucode
 
 ### fs.getcwd() ⇒ `string`
 Retrieves the current working directory.
@@ -419,11 +341,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Get the current working directory
 const cwd = getcwd();
 ```
-<a name="module_fs+chdir"></a>
 
 ### fs.chdir(path) ⇒ `boolean`
 Changes the current working directory to the specified path.
@@ -440,11 +361,10 @@ invalid arguments.
 | path | `string` | The path to the new working directory. |
 
 **Example**  
-```js
+```ucode
 // Change the current working directory
 chdir('new-directory');
-```
-<a name="module_fs+chmod"></a>
+```ucode
 
 ### fs.chmod(path, mode) ⇒ `boolean`
 Changes the permission mode bits of a file or directory.
@@ -462,11 +382,10 @@ invalid arguments.
 | mode | `number` | The new mode (permissions). |
 
 **Example**  
-```js
+```ucode
 // Change the mode of a file
 chmod('path/to/file', 0o644);
 ```
-<a name="module_fs+chown"></a>
 
 ### fs.chown(path, [uid], [gid]) ⇒ `boolean`
 Changes the owner and group of a file or directory.
@@ -492,14 +411,13 @@ resolved to a uid/gid value.
 | [gid] | `number` \| `string` | `-1` | The new group's ID. When given as number, it is used as-is, when given as string, the group name is resolved to the corresponding gid first. |
 
 **Example**  
-```js
+```ucode
 // Change the owner of a file
 chown('path/to/file', 1000);
 
 // Change the group of a directory
 chown('/htdocs/', null, 'www-data');
-```
-<a name="module_fs+rename"></a>
+```ucode
 
 ### fs.rename(oldPath, newPath) ⇒ `boolean`
 Renames or moves a file or directory.
@@ -516,11 +434,10 @@ Returns `null` if an error occurred.
 | newPath | `string` | The new path of the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Rename a file
 rename('old-name.txt', 'new-name.txt');
 ```
-<a name="module_fs+dirname"></a>
 
 ### fs.dirname(path) ⇒ `string`
 Retrieves the directory name of a path.
@@ -536,11 +453,10 @@ Returns `null` if the path argument is not a string.
 | path | `string` | The path to extract the directory name from. |
 
 **Example**  
-```js
+```ucode
 // Get the directory name of a path
 const directoryName = dirname('/path/to/file.txt');
-```
-<a name="module_fs+basename"></a>
+```ucode
 
 ### fs.basename(path) ⇒ `string`
 Retrieves the base name of a path.
@@ -556,11 +472,10 @@ Returns `null` if the path argument is not a string.
 | path | `string` | The path to extract the base name from. |
 
 **Example**  
-```js
+```ucode
 // Get the base name of a path
 const baseName = basename('/path/to/file.txt');
 ```
-<a name="module_fs+lsdir"></a>
 
 ### fs.lsdir(path) ⇒ `Array.<string>`
 Lists the content of a directory.
@@ -578,11 +493,10 @@ be opened.
 | path | `string` | The path to the directory. |
 
 **Example**  
-```js
+```ucode
 // List the content of a directory
 const fileList = lsdir('/path/to/directory');
-```
-<a name="module_fs+mkstemp"></a>
+```ucode
 
 ### fs.mkstemp([template]) ⇒ [`file`](#module_fs.file)
 Creates a unique, ephemeral temporary file.
@@ -611,11 +525,10 @@ inaccessible directory.
 | [template] | `string` | `"\"/tmp/XXXXXX\""` | The path template to use when forming the temporary file name. |
 
 **Example**  
-```js
+```ucode
 // Create a unique temporary file in the current working directory
 const tempFile = mkstemp('./data-XXXXXX');
 ```
-<a name="module_fs+mkdtemp"></a>
 
 ### fs.mkdtemp([template]) ⇒ `string`
 Creates a unique temporary directory based on the given template.
@@ -647,11 +560,10 @@ inaccessible directory.
 | [template] | `string` | `"\"/tmp/XXXXXX\""` | The path template to use when forming the temporary directory name. |
 
 **Example**  
-```js
+```ucode
 // Create a unique temporary directory in the current working directory
 const tempDir = mkdtemp('./data-XXXXXX');
-```
-<a name="module_fs+access"></a>
+```ucode
 
 ### fs.access(path, [mode]) ⇒ `boolean`
 Checks the accessibility of a file or directory.
@@ -682,14 +594,13 @@ path components, invalid path arguments etc.
 | [mode] | `number` | `"f"` | Optional access mode. |
 
 **Example**  
-```js
+```ucode
 // Check file read and write accessibility
 const isAccessible = access('path/to/file', 'rw');
 
 // Check execute permissions
 const mayExecute = access('/usr/bin/example', 'x');
 ```
-<a name="module_fs+readfile"></a>
 
 ### fs.readfile(path, [limit]) ⇒ `string`
 Reads the content of a file, optionally limited to the given amount of bytes.
@@ -706,14 +617,13 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | [limit] | `number` | Number of bytes to limit the result to. When omitted, the entire content is returned. |
 
 **Example**  
-```js
+```ucode
 // Read first 100 bytes of content
 const content = readfile('path/to/file', 100);
 
 // Read entire file content
 const content = readfile('path/to/file');
-```
-<a name="module_fs+writefile"></a>
+```ucode
 
 ### fs.writefile(path, data, [limit]) ⇒ `number`
 Writes the given data to a file, optionally truncated to the given amount
@@ -749,7 +659,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | [limit] | `number` | Truncates the amount of data to be written to the specified amount of bytes. When omitted, the entire content is written. |
 
 **Example**  
-```js
+```ucode
 // Write string to a file
 const bytesWritten = writefile('path/to/file', 'Hello, World!');
 
@@ -757,7 +667,6 @@ const bytesWritten = writefile('path/to/file', 'Hello, World!');
 const obj = { foo: "Hello world", bar: true, baz: 123 };
 const bytesWritten = writefile('debug.txt', obj, 1024);
 ```
-<a name="module_fs+realpath"></a>
 
 ### fs.realpath(path) ⇒ `string`
 Resolves the absolute path of a file or directory.
@@ -773,11 +682,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Resolve the absolute path of a file
 const absolutePath = realpath('path/to/file', 'utf8');
-```
-<a name="module_fs+pipe"></a>
+```ucode
 
 ### fs.pipe() ⇒ [`Array.<file>`](#module_fs.file)
 Creates a pipe and returns file handle objects associated with the read- and
@@ -791,13 +699,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Create a pipe
 const pipeHandles = pipe();
 pipeHandles[1].write("Hello world\n");
 print(pipeHandles[0].read("line"));
 ```
-<a name="module_fs.proc"></a>
 
 ### fs.proc
 **Kind**: static class of [`fs`](#module_fs)  
@@ -810,8 +717,6 @@ print(pipeHandles[0].read("line"));
     * [.flush()](#module_fs.proc+flush) ⇒ `boolean`
     * [.fileno()](#module_fs.proc+fileno) ⇒ `number`
     * [.error()](#module_fs.proc+error) ⇒ `string`
-
-<a name="module_fs.proc+close"></a>
 
 #### proc.close() ⇒ `number`
 Closes the program handle and awaits program termination.
@@ -833,7 +738,6 @@ Returns a positive exit code if the program terminated normally.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+read"></a>
 
 #### proc.read(length) ⇒ `string`
 Reads a chunk of data from the program handle.
@@ -872,7 +776,7 @@ Returns `null` if a read error occurred.
 | length | `number` \| `string` | The length of data to read. Can be a number, the string "line", the string "all", or a single character string. |
 
 **Example**  
-```js
+```ucode
 const fp = popen("command", "r");
 
 // Example 1: Read 10 bytes from the handle
@@ -887,8 +791,7 @@ const content = fp.read("all");
 
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
-```
-<a name="module_fs.proc+write"></a>
+```ucode
 
 #### proc.write(data) ⇒ `number`
 Writes a chunk of data to the program handle.
@@ -916,12 +819,11 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to be written. |
 
 **Example**  
-```js
+```ucode
 const fp = popen("command", "w");
 
 fp.write("Hello world!\n");
 ```
-<a name="module_fs.proc+flush"></a>
 
 #### proc.flush() ⇒ `boolean`
 Forces a write of all buffered data to the underlying handle.
@@ -931,7 +833,6 @@ Returns `true` if the data was successfully flushed.
 Returns `null` on error.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+fileno"></a>
 
 #### proc.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
@@ -941,7 +842,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+error"></a>
 
 #### proc.error() ⇒ `string`
 Query error information.
@@ -951,14 +851,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.file"></a>
+```ucode
 
 ### fs.file
 **Kind**: static class of [`fs`](#module_fs)  
@@ -983,8 +882,6 @@ print(error(), "\n");
     * [.ioctl(direction, type, num, [value])](#module_fs.file+ioctl) ⇒ `number` \| `string`
     * [.error()](#module_fs.file+error) ⇒ `string`
 
-<a name="module_fs.file+close"></a>
-
 #### file.close() ⇒ `boolean`
 Closes the file handle.
 
@@ -996,7 +893,6 @@ Returns `true` if the handle was properly closed.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+read"></a>
 
 #### file.read(length) ⇒ `string`
 Reads a chunk of data from the file handle.
@@ -1035,7 +931,7 @@ Returns `null` if a read error occurred.
 | length | `number` \| `string` | The length of data to read. Can be a number, the string "line", the string "all", or a single character string. |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "r");
 
 // Example 1: Read 10 bytes from the handle
@@ -1051,7 +947,6 @@ const content = fp.read("all");
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
 ```
-<a name="module_fs.file+write"></a>
 
 #### file.write(data) ⇒ `number`
 Writes a chunk of data to the file handle.
@@ -1079,12 +974,11 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to be written. |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "w");
 
 fp.write("Hello world!\n");
-```
-<a name="module_fs.file+seek"></a>
+```ucode
 
 #### file.seek([offset], [position]) ⇒ `boolean`
 Set file read position.
@@ -1104,7 +998,7 @@ Returns `null` if an error occurred.
 | [position] | `number` | `0` | The position of the offset. | Position | Description                                                                                  | |----------|----------------------------------------------------------------------------------------------| | `0`      | The given offset is relative to the start of the file. This is the default value if omitted. | | `1`      | The given offset is relative to the current read position.                                   | | `2`      | The given offset is relative to the end of the file.                                         | |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "r");
 
 print(fp.read(100), "\n");  // read 100 bytes...
@@ -1117,7 +1011,6 @@ fp.tell();       // ... position is at 110 now
 fp.seek(-10, 2);            // set position to ten bytes before EOF ...
 print(fp.read(100), "\n");  // ... reads 10 bytes at most
 ```
-<a name="module_fs.file+truncate"></a>
 
 #### file.truncate([offset]) ⇒ `boolean`
 Truncate file to a given size
@@ -1131,8 +1024,6 @@ Returns `null` if an error occurred.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [offset] | `number` | `0` | The offset in bytes. |
-
-<a name="module_fs.file+lock"></a>
 
 #### file.lock([op]) ⇒ `boolean`
 Locks or unlocks a file.
@@ -1156,8 +1047,6 @@ Returns `null` if an error occurred.
 | --- | --- | --- |
 | [op] | `string` | The lock operation flags |
 
-<a name="module_fs.file+tell"></a>
-
 #### file.tell() ⇒ `number`
 Obtain current read position.
 
@@ -1168,7 +1057,6 @@ Returns an integer containing the current read offset in bytes.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+isatty"></a>
 
 #### file.isatty() ⇒ `boolean`
 Check for TTY.
@@ -1182,7 +1070,6 @@ Returns `false` if the handle refers to another kind of file.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+flush"></a>
 
 #### file.flush() ⇒ `boolean`
 Forces a write of all buffered data to the underlying handle.
@@ -1192,7 +1079,6 @@ Returns `true` if the data was successfully flushed.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+fileno"></a>
 
 #### file.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
@@ -1202,7 +1088,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+ioctl"></a>
 
 #### file.ioctl(direction, type, num, [value]) ⇒ `number` \| `string`
 Performs an ioctl operation on the file.
@@ -1233,8 +1118,6 @@ In case of an error, null is returned and error details are available via
 | num | `number` | The ioctl sequence number. |
 | [value] | `number` \| `string` | The value to pass to the ioctl system call. For `IOC_DIR_NONE`, this argument is ignored. With `IOC_DIR_READ`, the value should be a positive integer specifying the number of bytes to expect from the kernel. For the other directions, `IOC_DIR_WRITE` and `IOC_DIR_RW`, that value parameter must be a string, serving as buffer for the data to send. |
 
-<a name="module_fs.file+error"></a>
-
 #### file.error() ⇒ `string`
 Query error information.
 
@@ -1243,14 +1126,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`file`](#module_fs.file)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.dir"></a>
+```ucode
 
 ### fs.dir
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1264,8 +1146,6 @@ print(error(), "\n");
     * [.close()](#module_fs.dir+close) ⇒ `boolean`
     * [.error()](#module_fs.dir+error) ⇒ `string`
 
-<a name="module_fs.dir+fileno"></a>
-
 #### dir.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
 
@@ -1274,7 +1154,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+read"></a>
 
 #### dir.read() ⇒ `string`
 Read the next entry from the open directory.
@@ -1286,7 +1165,6 @@ Returns `null` if there are no more entries to read.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+tell"></a>
 
 #### dir.tell() ⇒ `number`
 Obtain current read position.
@@ -1301,7 +1179,6 @@ Returns an integer referring to the current position.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+seek"></a>
 
 #### dir.seek(offset) ⇒ `boolean`
 Set read position.
@@ -1321,7 +1198,7 @@ Returns `null` if an error occurred.
 | offset | `number` | Position value obtained by `tell()`. |
 
 **Example**  
-```js
+```ucode
 const handle = opendir("/tmp");
 const begin = handle.tell();
 
@@ -1331,7 +1208,6 @@ handle.seek(begin);
 
 print(handle.read(), "\n");  // prints the first entry again
 ```
-<a name="module_fs.dir+close"></a>
 
 #### dir.close() ⇒ `boolean`
 Closes the directory handle.
@@ -1343,7 +1219,6 @@ Returns `true` if the handle was properly closed.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+error"></a>
 
 #### dir.error() ⇒ `string`
 Query error information.
@@ -1353,14 +1228,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.FileStatResult"></a>
+```ucode
 
 ### fs.FileStatResult : `Object`
 **Kind**: static typedef of [`fs`](#module_fs)  

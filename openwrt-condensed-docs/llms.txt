@@ -2,7 +2,7 @@
 > For a flat file listing, see [llms-full.txt](./llms-full.txt)
 
 > **Version:** openwrt/openwrt@unknown, openwrt/luci@unknown, jow-/ucode@unknown
-> **Total Context Available:** ~436072 tokens
+> **Total Context Available:** ~425349 tokens
 
 ## Core Daemons
 - [procd](./procd/llms.txt): procd (~352 tokens)
@@ -10,7 +10,7 @@
 - [openwrt-hotplug](./openwrt-hotplug/llms.txt): openwrt-hotplug (~1412 tokens)
 
 ## Scripting & Logic
-- [ucode](./ucode/llms.txt): ucode (~90880 tokens)
+- [ucode](./ucode/llms.txt): ucode (~80157 tokens)
 - [luci](./luci/llms.txt): luci (~19723 tokens)
 
 ## Ecosystem

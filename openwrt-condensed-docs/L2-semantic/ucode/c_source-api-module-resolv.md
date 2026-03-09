@@ -2,10 +2,10 @@
 title: 'ucode module: resolv'
 module: ucode
 origin_type: c_source
-token_count: 2586
+token_count: 2540
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-resolv.md
-last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
+last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
 upstream_path: lib/resolv.c
 language: c
 ---
@@ -15,10 +15,7 @@ language: c
 
 ---
 
-<a name="module_resolv"></a>
-
-## resolv
-# DNS Resolution Module
+## DNS Resolution Module
 
 The `resolv` module provides DNS resolution functionality for ucode, allowing
 you to perform DNS queries for various record types and handle responses.
@@ -27,7 +24,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { query } from 'resolv';
 
   let result = query('example.com', { type: ['A'] });
@@ -36,7 +33,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as resolv from 'resolv';
 
   let result = resolv.query('example.com', { type: ['A'] });
@@ -86,17 +83,17 @@ DNS query results are returned as objects where:
 ### Record Format by Type
 
 **A and AAAA records:**
-```javascript
+```ucode
 {
   "example.com": {
     "A": ["192.0.2.1", "192.0.2.2"],
     "AAAA": ["2001:db8::1", "2001:db8::2"]
   }
 }
-```
+```ucode
 
 **MX records:**
-```javascript
+```ucode
 {
   "example.com": {
     "MX": [
@@ -108,7 +105,7 @@ DNS query results are returned as objects where:
 ```
 
 **SRV records:**
-```javascript
+```ucode
 {
   "_http._tcp.example.com": {
     "SRV": [
@@ -117,10 +114,10 @@ DNS query results are returned as objects where:
     ]
   }
 }
-```
+```ucode
 
 **SOA records:**
-```javascript
+```ucode
 {
   "example.com": {
     "SOA": [
@@ -139,7 +136,7 @@ DNS query results are returned as objects where:
 ```
 
 **TXT, NS, CNAME, PTR records:**
-```javascript
+```ucode
 {
   "example.com": {
     "TXT": ["v=spf1 include:_spf.example.com ~all"],
@@ -147,10 +144,10 @@ DNS query results are returned as objects where:
     "CNAME": ["alias.example.com"]
   }
 }
-```
+```ucode
 
 **Error responses:**
-```javascript
+```ucode
 {
   "nonexistent.example.com": {
     "rcode": "NXDOMAIN"
@@ -162,7 +159,7 @@ DNS query results are returned as objects where:
 
 Basic A record lookup:
 
-```javascript
+```ucode
 import { query } from 'resolv';
 
 const result = query(['example.com']);
@@ -173,11 +170,11 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```
+```ucode
 
 Specific record type query:
 
-```javascript
+```ucode
 const mxRecords = query(['example.com'], { type: ['MX'] });
 print(mxRecords, "\n");
 // {
@@ -189,7 +186,7 @@ print(mxRecords, "\n");
 
 Multiple domains and types:
 
-```javascript
+```ucode
 const results = query(
   ['example.com', 'google.com'],
   { 
@@ -198,11 +195,11 @@ const results = query(
     nameserver: ['8.8.8.8', '1.1.1.1']
   }
 );
-```
+```ucode
 
 Reverse DNS lookup:
 
-```javascript
+```ucode
 const ptrResult = query(['192.0.2.1'], { type: ['PTR'] });
 print(ptrResult, "\n");
 // {
@@ -211,12 +208,6 @@ print(ptrResult, "\n");
 //   }
 // }
 ```
-
-* [resolv](#module_resolv)
-    * [.query(names, [options])](#module_resolv+query) ⇒ `object`
-    * [.error()](#module_resolv+error) ⇒ `string` \| `null`
-
-<a name="module_resolv+query"></a>
 
 ### resolv.query(names, [options]) ⇒ `object`
 Perform DNS queries for specified domain names.
@@ -251,7 +242,7 @@ for failed queries.
 | [options.txt_as_array] | `boolean` | `false` | Return TXT record strings as array elements instead of space-joining all record strings into one single string per record. |
 
 **Example**  
-```js
+```ucode
 // Basic A and AAAA record lookup
 const result = query('example.com');
 print(result, "\n");
@@ -261,9 +252,9 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Specific record type queries
 const mxResult = query('example.com', { type: ['MX'] });
 print(mxResult, "\n");
@@ -274,7 +265,7 @@ print(mxResult, "\n");
 // }
 ```
 **Example**  
-```js
+```ucode
 // Multiple domains and types with custom nameserver
 const results = query(
   ['example.com', 'google.com'],
@@ -284,9 +275,9 @@ const results = query(
     timeout: 10000
   }
 );
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Reverse DNS lookup
 const ptrResult = query(['192.0.2.1'], { type: ['PTR'] });
 print(ptrResult, "\n");
@@ -297,7 +288,7 @@ print(ptrResult, "\n");
 // }
 ```
 **Example**  
-```js
+```ucode
 // TXT record with multiple elements
 const txtResult = query(['_spf.facebook.com'], { type: ['TXT'], txt_as_array: true });
 printf(txtResult, "\n");
@@ -311,9 +302,9 @@ printf(txtResult, "\n");
 //     ]
 //   }
 // }
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Handling errors
 const errorResult = query(['nonexistent.example.com']);
 print(errorResult, "\n");
@@ -323,7 +314,6 @@ print(errorResult, "\n");
 //   }
 // }
 ```
-<a name="module_resolv+error"></a>
 
 ### resolv.error() ⇒ `string` \| `null`
 Get the last error message from DNS operations.
@@ -341,11 +331,11 @@ Returns a string describing the last error, or `null` if no error occurred.
 **Returns**: `string` \| `null` - A descriptive error message for the last failed operation, or `null` if
 no error occurred.  
 **Example**  
-```js
+```ucode
 // Check for errors after a failed query
 const result = query("example.org", { nameserver: "invalid..domain" });
 const err = error();
 if (err) {
   print("DNS query failed: ", err, "\n");
 }
-```
+```ucode

@@ -2,10 +2,10 @@
 title: 'ucode module: rtnl'
 module: ucode
 origin_type: c_source
-token_count: 9218
+token_count: 7622
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-rtnl.md
-last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
+last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
 upstream_path: lib/rtnl.c
 language: c
 ---
@@ -15,10 +15,7 @@ language: c
 
 ---
 
-<a name="module_rtnl"></a>
-
-## rtnl
-# Routing Netlink
+## Routing Netlink
 
 The `rtnl` module provides functions for interacting with the routing netlink interface.
 
@@ -26,7 +23,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { error, request, listener, RTM_GETROUTE, RTM_NEWROUTE, RTM_DELROUTE, AF_INET } from 'rtnl';
 
   // Send a netlink request
@@ -36,12 +33,12 @@ syntax:
   let routeListener = listener((msg) => {
       print('Received route message:', msg, '\n');
   }, [RTM_NEWROUTE, RTM_DELROUTE]);
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as rtnl from 'rtnl';
 
   // Send a netlink request
@@ -56,60 +53,6 @@ using a wildcard import statement:
 Additionally, the rtnl module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lrtnl` switch.
 
-* [rtnl](#module_rtnl)
-    * _instance_
-        * [.error()](#module_rtnl+error) ⇒ `string`
-        * [.request(cmd, flags, payload)](#module_rtnl+request) ⇒ `\*`
-        * [.listener(callback, [commands], [groups])](#module_rtnl+listener) ⇒ [`listener`](#module_rtnl.listener)
-    * _static_
-        * [.listener](#module_rtnl.listener)
-            * [.set_commands(commands)](#module_rtnl.listener+set_commands) ⇒ `boolean`
-            * [.close()](#module_rtnl.listener+close) ⇒ `boolean`
-    * _inner_
-        * [~Netlink message flags](#module_rtnl..Netlink message flags)
-        * [~IPv6 address generation modes](#module_rtnl..IPv6 address generation modes)
-        * [~MACVLAN modes](#module_rtnl..MACVLAN modes)
-        * [~MACVLAN MAC address commands](#module_rtnl..MACVLAN MAC address commands)
-        * [~MACsec validation levels](#module_rtnl..MACsec validation levels)
-        * [~MACsec offload modes](#module_rtnl..MACsec offload modes)
-        * [~IPVLAN modes](#module_rtnl..IPVLAN modes)
-        * [~VXLAN data frame flags](#module_rtnl..VXLAN data frame flags)
-        * [~Geneve data frame flags](#module_rtnl..Geneve data frame flags)
-        * [~GTP roles](#module_rtnl..GTP roles)
-        * [~Port request types](#module_rtnl..Port request types)
-        * [~Port VDP responses](#module_rtnl..Port VDP responses)
-        * [~Port profile responses](#module_rtnl..Port profile responses)
-        * [~IPoIB modes](#module_rtnl..IPoIB modes)
-        * [~HSR protocols](#module_rtnl..HSR protocols)
-        * [~Link extended statistics types](#module_rtnl..Link extended statistics types)
-        * [~XDP attach types](#module_rtnl..XDP attach types)
-        * [~FDB notification bits](#module_rtnl..FDB notification bits)
-        * [~Route commands](#module_rtnl..Route commands)
-        * [~Route types](#module_rtnl..Route types)
-        * [~Route scopes](#module_rtnl..Route scopes)
-        * [~Route tables](#module_rtnl..Route tables)
-        * [~Route metrics](#module_rtnl..Route metrics)
-        * [~Prefix types](#module_rtnl..Prefix types)
-        * [~Neighbor discovery user option types](#module_rtnl..Neighbor discovery user option types)
-        * [~Multicast groups](#module_rtnl..Multicast groups)
-        * [~Route flags](#module_rtnl..Route flags)
-        * [~Address families](#module_rtnl..Address families)
-        * [~Generic Routing Encapsulation flags](#module_rtnl..Generic Routing Encapsulation flags)
-        * [~Tunnel encapsulation types](#module_rtnl..Tunnel encapsulation types)
-        * [~Tunnel encapsulation flags](#module_rtnl..Tunnel encapsulation flags)
-        * [~IPv6 tunnel flags](#module_rtnl..IPv6 tunnel flags)
-        * [~Interface flags](#module_rtnl..Interface flags)
-        * [~Neighbor states](#module_rtnl..Neighbor states)
-        * [~Address flags](#module_rtnl..Address flags)
-        * [~FIB rule flags](#module_rtnl..FIB rule flags)
-        * [~FIB rule actions](#module_rtnl..FIB rule actions)
-        * [~Network configuration indices](#module_rtnl..Network configuration indices)
-        * [~Bridge flags](#module_rtnl..Bridge flags)
-        * [~Bridge modes](#module_rtnl..Bridge modes)
-        * [~Bridge VLAN information flags](#module_rtnl..Bridge VLAN information flags)
-
-<a name="module_rtnl+error"></a>
-
 ### rtnl.error() ⇒ `string`
 Query error information.
 
@@ -118,14 +61,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`rtnl`](#module_rtnl)  
 **Example**  
-```js
+```ucode
 // Trigger rtnl error
 request('invalid_command', {}, {});
 
 // Print error (should yield error description)
 print(error(), "\n");
-```
-<a name="module_rtnl+request"></a>
+```ucode
 
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 Send a netlink request.
@@ -142,11 +84,10 @@ Sends a netlink request with the specified command, flags, and payload.
 | payload | `\*` | The payload data for the request |
 
 **Example**  
-```js
+```ucode
 // Send a route request
 let response = request('RTM_GETROUTE', 0, { family: AF_INET });
 ```
-<a name="module_rtnl+listener"></a>
 
 ### rtnl.listener(callback, [commands], [groups]) ⇒ [`listener`](#module_rtnl.listener)
 Create a netlink listener.
@@ -164,13 +105,12 @@ commands and multicast groups.
 | [groups] | `Array.<number>` | Array of multicast groups to join (optional) |
 
 **Example**  
-```js
+```ucode
 // Create a listener for route changes
 let routeListener = listener((msg) => {
     print('Received route message:', msg, '\n');
 }, [RTM_NEWROUTE, RTM_DELROUTE]);
-```
-<a name="module_rtnl.listener"></a>
+```ucode
 
 ### rtnl.listener
 **Kind**: static class of [`rtnl`](#module_rtnl)  
@@ -179,8 +119,6 @@ let routeListener = listener((msg) => {
 * [.listener](#module_rtnl.listener)
     * [.set_commands(commands)](#module_rtnl.listener+set_commands) ⇒ `boolean`
     * [.close()](#module_rtnl.listener+close) ⇒ `boolean`
-
-<a name="module_rtnl.listener+set_commands"></a>
 
 #### listener.set\_commands(commands) ⇒ `boolean`
 Set the commands for a netlink listener.
@@ -195,11 +133,10 @@ Updates the set of netlink commands that the listener will receive.
 | commands | `Array.<string>` | Array of netlink commands to listen for |
 
 **Example**  
-```js
+```ucode
 // Update listener to only receive route messages
 listener.set_commands([RTM_NEWROUTE, RTM_DELROUTE]);
 ```
-<a name="module_rtnl.listener+close"></a>
 
 #### listener.close() ⇒ `boolean`
 Close a netlink listener.
@@ -209,11 +146,10 @@ Closes the netlink listener and stops receiving messages.
 **Kind**: instance method of [`listener`](#module_rtnl.listener)  
 **Returns**: `boolean` - - true if successful, false on error  
 **Example**  
-```js
+```ucode
 // Close the listener
 listener.close();
-```
-<a name="module_rtnl..Netlink message flags"></a>
+```ucode
 
 ### rtnl~Netlink message flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -240,8 +176,6 @@ listener.close();
 | NLM_F_ROOT | `number` | Root operation |
 | NLM_F_STRICT_CHK | `number` | Strict checking |
 
-<a name="module_rtnl..IPv6 address generation modes"></a>
-
 ### rtnl~IPv6 address generation modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -252,8 +186,6 @@ listener.close();
 | IN6_ADDR_GEN_MODE_NONE | `number` | No mode |
 | IN6_ADDR_GEN_MODE_STABLE_PRIVACY | `number` | Stable privacy mode |
 | IN6_ADDR_GEN_MODE_RANDOM | `number` | Random mode |
-
-<a name="module_rtnl..MACVLAN modes"></a>
 
 ### rtnl~MACVLAN modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -267,8 +199,6 @@ listener.close();
 | MACVLAN_MODE_PASSTHRU | `number` | Pass-through mode |
 | MACVLAN_MODE_SOURCE | `number` | Source mode |
 
-<a name="module_rtnl..MACVLAN MAC address commands"></a>
-
 ### rtnl~MACVLAN MAC address commands
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -279,8 +209,6 @@ listener.close();
 | MACVLAN_MACADDR_DEL | `number` | Delete MAC address |
 | MACVLAN_MACADDR_FLUSH | `number` | Flush MAC addresses |
 | MACVLAN_MACADDR_SET | `number` | Set MAC address |
-
-<a name="module_rtnl..MACsec validation levels"></a>
 
 ### rtnl~MACsec validation levels
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -293,8 +221,6 @@ listener.close();
 | MACSEC_VALIDATE_STRICT | `number` | Strict validation |
 | MACSEC_VALIDATE_MAX | `number` | Maximum validation |
 
-<a name="module_rtnl..MACsec offload modes"></a>
-
 ### rtnl~MACsec offload modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -306,8 +232,6 @@ listener.close();
 | MACSEC_OFFLOAD_MAC | `number` | MAC offload |
 | MACSEC_OFFLOAD_MAX | `number` | Maximum offload |
 
-<a name="module_rtnl..IPVLAN modes"></a>
-
 ### rtnl~IPVLAN modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -317,8 +241,6 @@ listener.close();
 | IPVLAN_MODE_L2 | `number` | Layer 2 mode |
 | IPVLAN_MODE_L3 | `number` | Layer 3 mode |
 | IPVLAN_MODE_L3S | `number` | Layer 3 symmetric mode |
-
-<a name="module_rtnl..VXLAN data frame flags"></a>
 
 ### rtnl~VXLAN data frame flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -331,8 +253,6 @@ listener.close();
 | VXLAN_DF_INHERIT | `number` | Data frame inherit |
 | VXLAN_DF_MAX | `number` | Maximum data frame |
 
-<a name="module_rtnl..Geneve data frame flags"></a>
-
 ### rtnl~Geneve data frame flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -344,8 +264,6 @@ listener.close();
 | GENEVE_DF_INHERIT | `number` | Data frame inherit |
 | GENEVE_DF_MAX | `number` | Maximum data frame |
 
-<a name="module_rtnl..GTP roles"></a>
-
 ### rtnl~GTP roles
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -354,8 +272,6 @@ listener.close();
 | --- | --- | --- |
 | GTP_ROLE_GGSN | `number` | GGSN role |
 | GTP_ROLE_SGSN | `number` | SGSN role |
-
-<a name="module_rtnl..Port request types"></a>
 
 ### rtnl~Port request types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -367,8 +283,6 @@ listener.close();
 | PORT_REQUEST_PREASSOCIATE_RR | `number` | Pre-associate round-robin request |
 | PORT_REQUEST_ASSOCIATE | `number` | Associate request |
 | PORT_REQUEST_DISASSOCIATE | `number` | Disassociate request |
-
-<a name="module_rtnl..Port VDP responses"></a>
 
 ### rtnl~Port VDP responses
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -384,8 +298,6 @@ listener.close();
 | PORT_VDP_RESPONSE_VTID_VERSION_VIOALTION | `number` | VTID version violation response |
 | PORT_VDP_RESPONSE_OUT_OF_SYNC | `number` | Out of sync response |
 
-<a name="module_rtnl..Port profile responses"></a>
-
 ### rtnl~Port profile responses
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -399,8 +311,6 @@ listener.close();
 | PORT_PROFILE_RESPONSE_INSUFFICIENT_RESOURCES | `number` | Insufficient resources response |
 | PORT_PROFILE_RESPONSE_ERROR | `number` | Error response |
 
-<a name="module_rtnl..IPoIB modes"></a>
-
 ### rtnl~IPoIB modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -409,8 +319,6 @@ listener.close();
 | --- | --- | --- |
 | IPOIB_MODE_DATAGRAM | `number` | Datagram mode |
 | IPOIB_MODE_CONNECTED | `number` | Connected mode |
-
-<a name="module_rtnl..HSR protocols"></a>
 
 ### rtnl~HSR protocols
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -421,8 +329,6 @@ listener.close();
 | HSR_PROTOCOL_HSR | `number` | HSR protocol |
 | HSR_PROTOCOL_PRP | `number` | PRP protocol |
 
-<a name="module_rtnl..Link extended statistics types"></a>
-
 ### rtnl~Link extended statistics types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -432,8 +338,6 @@ listener.close();
 | LINK_XSTATS_TYPE_UNSPEC | `number` | Unspecified type |
 | LINK_XSTATS_TYPE_BRIDGE | `number` | Bridge type |
 | LINK_XSTATS_TYPE_BOND | `number` | Bond type |
-
-<a name="module_rtnl..XDP attach types"></a>
 
 ### rtnl~XDP attach types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -447,8 +351,6 @@ listener.close();
 | XDP_ATTACHED_HW | `number` | Hardware attached |
 | XDP_ATTACHED_MULTI | `number` | Multi attached |
 
-<a name="module_rtnl..FDB notification bits"></a>
-
 ### rtnl~FDB notification bits
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -457,8 +359,6 @@ listener.close();
 | --- | --- | --- |
 | FDB_NOTIFY_BIT | `number` | Notify bit |
 | FDB_NOTIFY_INACTIVE_BIT | `number` | Inactive notify bit |
-
-<a name="module_rtnl..Route commands"></a>
 
 ### rtnl~Route commands
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -529,8 +429,6 @@ listener.close();
 | RTM_DELVLAN | `number` | Delete VLAN |
 | RTM_GETVLAN | `number` | Get VLAN |
 
-<a name="module_rtnl..Route types"></a>
-
 ### rtnl~Route types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -550,8 +448,6 @@ listener.close();
 | RTN_NAT | `number` | NAT route |
 | RTN_XRESOLVE | `number` | External resolve route |
 
-<a name="module_rtnl..Route scopes"></a>
-
 ### rtnl~Route scopes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -563,8 +459,6 @@ listener.close();
 | RT_SCOPE_LINK | `number` | Link scope |
 | RT_SCOPE_HOST | `number` | Host scope |
 | RT_SCOPE_NOWHERE | `number` | Nowhere scope |
-
-<a name="module_rtnl..Route tables"></a>
 
 ### rtnl~Route tables
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -578,8 +472,6 @@ listener.close();
 | RT_TABLE_MAIN | `number` | Main table |
 | RT_TABLE_LOCAL | `number` | Local table |
 | RT_TABLE_MAX | `number` | Maximum table |
-
-<a name="module_rtnl..Route metrics"></a>
 
 ### rtnl~Route metrics
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -603,8 +495,6 @@ listener.close();
 | RTAX_SSTHRESH | `number` | Slow start threshold |
 | RTAX_FASTOPEN_NO_COOKIE | `number` | Fast open no cookie |
 
-<a name="module_rtnl..Prefix types"></a>
-
 ### rtnl~Prefix types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -615,8 +505,6 @@ listener.close();
 | PREFIX_ADDRESS | `number` | Address prefix |
 | PREFIX_CACHEINFO | `number` | Cache info prefix |
 
-<a name="module_rtnl..Neighbor discovery user option types"></a>
-
 ### rtnl~Neighbor discovery user option types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -625,8 +513,6 @@ listener.close();
 | --- | --- | --- |
 | NDUSEROPT_UNSPEC | `number` | Unspecified option |
 | NDUSEROPT_SRCADDR | `number` | Source address option |
-
-<a name="module_rtnl..Multicast groups"></a>
 
 ### rtnl~Multicast groups
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -669,8 +555,6 @@ listener.close();
 | RTNLGRP_NEXTHOP | `number` | Next hop group |
 | RTNLGRP_BRVLAN | `number` | Bridge VLAN group |
 
-<a name="module_rtnl..Route flags"></a>
-
 ### rtnl~Route flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -684,8 +568,6 @@ listener.close();
 | RTM_F_NOTIFY | `number` | Notify |
 | RTM_F_PREFIX | `number` | Prefix |
 
-<a name="module_rtnl..Address families"></a>
-
 ### rtnl~Address families
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -697,8 +579,6 @@ listener.close();
 | AF_INET6 | `number` | IPv6 address family |
 | AF_MPLS | `number` | MPLS address family |
 | AF_BRIDGE | `number` | Bridge address family |
-
-<a name="module_rtnl..Generic Routing Encapsulation flags"></a>
 
 ### rtnl~Generic Routing Encapsulation flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -714,8 +594,6 @@ listener.close();
 | GRE_REC | `number` | Record flag |
 | GRE_ACK | `number` | Acknowledgment flag |
 
-<a name="module_rtnl..Tunnel encapsulation types"></a>
-
 ### rtnl~Tunnel encapsulation types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -727,8 +605,6 @@ listener.close();
 | TUNNEL_ENCAP_GUE | `number` | Generic UDP Encapsulation |
 | TUNNEL_ENCAP_MPLS | `number` | MPLS encapsulation |
 
-<a name="module_rtnl..Tunnel encapsulation flags"></a>
-
 ### rtnl~Tunnel encapsulation flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -738,8 +614,6 @@ listener.close();
 | TUNNEL_ENCAP_FLAG_CSUM | `number` | Checksum flag |
 | TUNNEL_ENCAP_FLAG_CSUM6 | `number` | IPv6 checksum flag |
 | TUNNEL_ENCAP_FLAG_REMCSUM | `number` | Remote checksum flag |
-
-<a name="module_rtnl..IPv6 tunnel flags"></a>
 
 ### rtnl~IPv6 tunnel flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -754,8 +628,6 @@ listener.close();
 | IP6_TNL_F_USE_ORIG_FLOWLABEL | `number` | Use original flow label |
 | IP6_TNL_F_USE_ORIG_FWMARK | `number` | Use original firewall mark |
 | IP6_TNL_F_USE_ORIG_TCLASS | `number` | Use original traffic class |
-
-<a name="module_rtnl..Interface flags"></a>
 
 ### rtnl~Interface flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -772,8 +644,6 @@ listener.close();
 | NTF_STICKY | `number` | Sticky |
 | NTF_USE | `number` | Use |
 
-<a name="module_rtnl..Neighbor states"></a>
-
 ### rtnl~Neighbor states
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -789,8 +659,6 @@ listener.close();
 | NUD_PROBE | `number` | Probe state |
 | NUD_REACHABLE | `number` | Reachable state |
 | NUD_STALE | `number` | Stale state |
-
-<a name="module_rtnl..Address flags"></a>
 
 ### rtnl~Address flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -812,8 +680,6 @@ listener.close();
 | IFA_F_TEMPORARY | `number` | Temporary |
 | IFA_F_TENTATIVE | `number` | Tentative |
 
-<a name="module_rtnl..FIB rule flags"></a>
-
 ### rtnl~FIB rule flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -826,8 +692,6 @@ listener.close();
 | FIB_RULE_IIF_DETACHED | `number` | Interface detached |
 | FIB_RULE_DEV_DETACHED | `number` | Device detached |
 | FIB_RULE_OIF_DETACHED | `number` | Output interface detached |
-
-<a name="module_rtnl..FIB rule actions"></a>
 
 ### rtnl~FIB rule actions
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -842,8 +706,6 @@ listener.close();
 | FR_ACT_UNREACHABLE | `number` | Unreachable action |
 | FR_ACT_PROHIBIT | `number` | Prohibit action |
 
-<a name="module_rtnl..Network configuration indices"></a>
-
 ### rtnl~Network configuration indices
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -853,8 +715,6 @@ listener.close();
 | NETCONFA_IFINDEX_ALL | `number` | All interfaces |
 | NETCONFA_IFINDEX_DEFAULT | `number` | Default interface |
 
-<a name="module_rtnl..Bridge flags"></a>
-
 ### rtnl~Bridge flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -863,8 +723,6 @@ listener.close();
 | --- | --- | --- |
 | BRIDGE_FLAGS_MASTER | `number` | Master flag |
 | BRIDGE_FLAGS_SELF | `number` | Self flag |
-
-<a name="module_rtnl..Bridge modes"></a>
 
 ### rtnl~Bridge modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -877,8 +735,6 @@ listener.close();
 | BRIDGE_MODE_UNDEF | `number` | Undefined mode |
 | BRIDGE_MODE_UNSPEC | `number` | Unspecified mode |
 | BRIDGE_MODE_HAIRPIN | `number` | Hairpin mode |
-
-<a name="module_rtnl..Bridge VLAN information flags"></a>
 
 ### rtnl~Bridge VLAN information flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  

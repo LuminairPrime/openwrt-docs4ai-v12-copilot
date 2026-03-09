@@ -1,13 +1,12 @@
 # ucode (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for ucode.
-> **Generated:** 2026-03-09T17:28:56.527072+00:00
+> **Generated:** 2026-03-09T18:13:10.135565+00:00
 
 ---
 
 # ucode module: debug
-## debug
-# Debugger Module
+## Debugger Module
 ### debug.memdump(file) ⇒ `boolean`
 ### debug.traceback([level]) ⇒ [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)
 ### debug.sourcepos() ⇒ [`SourcePosition`](#module_debug.SourcePosition)
@@ -24,8 +23,7 @@
 ### debug.UpvalInfo : `Object`
 
 # ucode module: digest
-## digest
-# Digest Functions
+## Digest Functions
 ### digest.md5(str) ⇒ `string`
 ### digest.sha1(str) ⇒ `string`
 ### digest.sha256(str) ⇒ `string`
@@ -42,8 +40,7 @@
 ### digest.sha512\_file(path) ⇒ `string`
 
 # ucode module: fs
-## fs
-# Filesystem Access
+## Filesystem Access
 ### fs.error() ⇒ `string`
 ### fs.popen(command, [mode]) ⇒ [`proc`](#module_fs.proc)
 ### fs.open(path, [mode], [perm]) ⇒ [`file`](#module_fs.file)
@@ -102,8 +99,7 @@
 ### fs.FileStatResult : `Object`
 
 # ucode module: io
-## io
-# I/O Operations
+## I/O Operations
 ### io.error() ⇒ `string`
 ### io.new(fd) ⇒ [`handle`](#module_io.handle)
 ### io.open(path, [flags], [mode]) ⇒ [`handle`](#module_io.handle)
@@ -132,8 +128,7 @@
 #### handle.error() ⇒ `string`
 
 # ucode module: log
-## log
-# System logging functions
+## System logging functions
 ## Constants
 ### Syslog Options
 ### Syslog Facilities
@@ -156,8 +151,7 @@
 ### log.UlogChannel : `enum`
 
 # ucode module: math
-## math
-# Mathematical Functions
+## Mathematical Functions
 ### math.abs(number) ⇒ `number`
 ### math.atan2(y, x) ⇒ `number`
 ### math.cos(x) ⇒ `number`
@@ -171,8 +165,7 @@
 ### math.isnan(x) ⇒ `boolean`
 
 # ucode module: nl80211
-## nl80211
-# Wireless Netlink
+## Wireless Netlink
 ### nl80211.listener
 ### nl80211~Netlink message flags
 ### nl80211~nl80211 commands
@@ -183,8 +176,7 @@
 ### nl80211~Interface types
 
 # ucode module: resolv
-## resolv
-# DNS Resolution Module
+## DNS Resolution Module
 ## Record Types
 ## Response Codes
 ## Response Format
@@ -194,8 +186,7 @@
 ### resolv.error() ⇒ `string` \| `null`
 
 # ucode module: rtnl
-## rtnl
-# Routing Netlink
+## Routing Netlink
 ### rtnl.error() ⇒ `string`
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 ### rtnl.listener(callback, [commands], [groups]) ⇒ [`listener`](#module_rtnl.listener)
@@ -245,8 +236,7 @@
 ### rtnl~Bridge VLAN information flags
 
 # ucode module: socket
-## socket
-# Socket Module
+## Socket Module
 ### socket.error([numeric]) ⇒ `string` \| `number`
 ### socket.strerror(code) ⇒ `string`
 ### socket.sockaddr(address) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
@@ -290,8 +280,7 @@
 ### socket~Socket Option Constants
 
 # ucode module: struct
-## struct
-# Handle Packed Binary Data
+## Handle Packed Binary Data
 ## Format Strings
 ### Byte Order, Size, and Alignment
 ### Format Characters
@@ -316,8 +305,7 @@
 #### buffer.pull() ⇒ `string`
 
 # ucode module: uci
-## uci
-# OpenWrt UCI configuration
+## OpenWrt UCI configuration
 ### uci.error() ⇒ `string`
 ### uci.cursor([config_dir], [delta_dir], [config2_dir], Parser) ⇒ [`cursor`](#module_uci.cursor)
 ### uci.cursor
@@ -346,8 +334,7 @@
 #### cursor.SectionCallback : `function`
 
 # ucode module: uloop
-## uloop
-# OpenWrt uloop event loop
+## OpenWrt uloop event loop
 ### uloop.error() ⇒ `string`
 ### uloop.init() ⇒ `boolean`
 ### uloop.run([timeout]) ⇒ `number`
@@ -392,8 +379,7 @@
 ### uloop~Event Mode Constants
 
 # ucode module: zlib
-## zlib
-# Zlib bindings
+## Zlib bindings
 ### zlib.deflate(str_or_resource, [gzip], [level]) ⇒ `string`
 ### zlib.inflate(str_or_resource) ⇒ `string`
 ### zlib.deflater([gzip], [level]) ⇒ [`deflate`](#module_zlib.deflate)

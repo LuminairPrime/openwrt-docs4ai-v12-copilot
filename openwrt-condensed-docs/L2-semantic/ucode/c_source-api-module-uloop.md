@@ -2,10 +2,10 @@
 title: 'ucode module: uloop'
 module: ucode
 origin_type: c_source
-token_count: 8838
+token_count: 7500
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-uloop.md
-last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
+last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
 upstream_path: lib/uloop.c
 language: c
 ---
@@ -15,10 +15,7 @@ language: c
 
 ---
 
-<a name="module_uloop"></a>
-
-## uloop
-# OpenWrt uloop event loop
+## OpenWrt uloop event loop
 
 The `uloop` binding provides functions for integrating with the OpenWrt
 [uloop library](https://github.com/openwrt/libubox/blob/master/uloop.h).
@@ -27,7 +24,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { init, handle, timer, interval, process, signal, task, run } from 'uloop';
 
   init();
@@ -40,12 +37,12 @@ syntax:
   task(…);
 
   run();
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported using a wildcard import
 statement:
 
-  ```javascript
+  ```ucode
   import * as uloop from 'uloop';
 
   uloop.init();
@@ -63,55 +60,6 @@ statement:
 Additionally, the uloop binding namespace may also be imported by invoking
 the `ucode` interpreter with the `-luloop` switch.
 
-* [uloop](#module_uloop)
-    * _instance_
-        * [.error()](#module_uloop+error) ⇒ `string`
-        * [.init()](#module_uloop+init) ⇒ `boolean`
-        * [.run([timeout])](#module_uloop+run) ⇒ `number`
-        * [.cancelling()](#module_uloop+cancelling) ⇒ `boolean`
-        * [.running()](#module_uloop+running) ⇒ `boolean`
-        * [.end()](#module_uloop+end) ⇒ `void`
-        * [.done()](#module_uloop+done) ⇒ `void`
-        * [.timer([timeout], callback)](#module_uloop+timer) ⇒ [`timer`](#module_uloop.timer)
-        * [.handle(handle, callback, events)](#module_uloop+handle) ⇒ [`handle`](#module_uloop.handle)
-        * [.process(executable, [args], [env], callback)](#module_uloop+process) ⇒ [`process`](#module_uloop.process)
-        * [.task(taskFunction, [outputCallback], [inputCallback])](#module_uloop+task) ⇒ [`task`](#module_uloop.task)
-        * [.interval([timeout], callback)](#module_uloop+interval) ⇒ [`interval`](#module_uloop.interval)
-        * [.signal(signal, callback)](#module_uloop+signal) ⇒ [`signal`](#module_uloop.signal)
-    * _static_
-        * [.timer](#module_uloop.timer)
-            * [.set([timeout])](#module_uloop.timer+set) ⇒ `boolean`
-            * [.remaining()](#module_uloop.timer+remaining) ⇒ `number`
-            * [.cancel()](#module_uloop.timer+cancel) ⇒ `boolean`
-        * [.handle](#module_uloop.handle)
-            * [.fileno()](#module_uloop.handle+fileno) ⇒ `number`
-            * [.handle()](#module_uloop.handle+handle) ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
-            * [.delete()](#module_uloop.handle+delete) ⇒ `void`
-        * [.process](#module_uloop.process)
-            * [.pid()](#module_uloop.process+pid) ⇒ `number`
-            * [.delete()](#module_uloop.process+delete) ⇒ `boolean`
-        * [.pipe](#module_uloop.pipe)
-            * [.send(msg)](#module_uloop.pipe+send) ⇒ `boolean`
-            * [.receive()](#module_uloop.pipe+receive) ⇒ `\*`
-            * [.sending()](#module_uloop.pipe+sending) ⇒ `boolean`
-            * [.receiving()](#module_uloop.pipe+receiving) ⇒ `boolean`
-        * [.task](#module_uloop.task)
-            * [.pid()](#module_uloop.task+pid) ⇒ `number`
-            * [.kill()](#module_uloop.task+kill) ⇒ `boolean`
-            * [.finished()](#module_uloop.task+finished) ⇒ `boolean`
-        * [.interval](#module_uloop.interval)
-            * [.set([interval])](#module_uloop.interval+set) ⇒ `boolean`
-            * [.remaining()](#module_uloop.interval+remaining) ⇒ `number`
-            * [.expirations()](#module_uloop.interval+expirations) ⇒ `number`
-            * [.cancel()](#module_uloop.interval+cancel) ⇒ `boolean`
-        * [.signal](#module_uloop.signal)
-            * [.signo()](#module_uloop.signal+signo) ⇒ `number`
-            * [.delete()](#module_uloop.signal+delete) ⇒ `boolean`
-    * _inner_
-        * [~Event Mode Constants](#module_uloop..Event Mode Constants)
-
-<a name="module_uloop+error"></a>
-
 ### uloop.error() ⇒ `string`
 Retrieves the last error message.
 
@@ -121,7 +69,7 @@ If no error occurred, it returns `null`.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `string` - Returns the last error message as a string, or `null` if no error occurred.  
 **Example**  
-```js
+```ucode
 // Retrieve the last error message
 const errorMessage = uloop.error();
 
@@ -129,8 +77,7 @@ if (errorMessage)
     printf(`Error message: ${errorMessage}\n`);
 else
     printf("No error occurred\n");
-```
-<a name="module_uloop+init"></a>
+```ucode
 
 ### uloop.init() ⇒ `boolean`
 Initializes the uloop event loop.
@@ -144,7 +91,7 @@ Returns `null` if an error occurred during initialization.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` on success, `null` on error.  
 **Example**  
-```js
+```ucode
 // Initialize the uloop event loop
 const success = uloop.init();
 
@@ -153,7 +100,6 @@ if (success)
 else
     die(`Initialization failure: ${uloop.error()}\n`);
 ```
-<a name="module_uloop+run"></a>
 
 ### uloop.run([timeout]) ⇒ `number`
 Runs the uloop event loop.
@@ -172,7 +118,7 @@ runs indefinitely until explicitly stopped.
 | [timeout] | `number` | `-1` | Optional. The timeout value in milliseconds for running the event loop. Defaults to -1, indicating an indefinite run. |
 
 **Example**  
-```js
+```ucode
 // Run the uloop event loop indefinitely
 const success = uloop.run();
 if (rc == null)
@@ -186,8 +132,7 @@ if (rc == null)
     die(`Error occurred during uloop execution: ${uloop.error()}\n`);
 else if (rc != 0)
     printf("uloop event loop was interrupted by a signal: %d\n", rc);
-```
-<a name="module_uloop+cancelling"></a>
+```ucode
 
 ### uloop.cancelling() ⇒ `boolean`
 Checks if the uloop event loop is currently shutting down.
@@ -198,7 +143,7 @@ of shutting down.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` if uloop is currently shutting down, `false` otherwise.  
 **Example**  
-```js
+```ucode
 // Check if the uloop event loop is shutting down
 const shuttingDown = uloop.cancelling();
 if (shuttingDown)
@@ -206,7 +151,6 @@ if (shuttingDown)
 else
     printf("uloop event loop is not shutting down\n");
 ```
-<a name="module_uloop+running"></a>
 
 ### uloop.running() ⇒ `boolean`
 Checks if the uloop event loop is currently running.
@@ -217,15 +161,14 @@ and running.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` if the event loop is currently running, `false` otherwise.  
 **Example**  
-```js
+```ucode
 // Check if the uloop event loop is running
 const isRunning = uloop.running();
 if (isRunning)
     printf("uloop event loop is currently running\n");
 else
     printf("uloop event loop is not running\n");
-```
-<a name="module_uloop+end"></a>
+```ucode
 
 ### uloop.end() ⇒ `void`
 Halts the uloop event loop.
@@ -239,11 +182,10 @@ completion.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `void` - This function does not return any value.  
 **Example**  
-```js
+```ucode
 // Halt the uloop event loop
 uloop.end();
 ```
-<a name="module_uloop+done"></a>
 
 ### uloop.done() ⇒ `void`
 Stops the uloop event loop and cancels pending timeouts and events.
@@ -255,11 +197,10 @@ resources.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `void` - This function does not return any value.  
 **Example**  
-```js
+```ucode
 // Stop the uloop event loop and clean up resources
 uloop.done();
-```
-<a name="module_uloop+timer"></a>
+```ucode
 
 ### uloop.timer([timeout], callback) ⇒ [`timer`](#module_uloop.timer)
 Creates a timer instance for scheduling callbacks.
@@ -282,7 +223,7 @@ Returns `null` when the timeout or callback arguments are invalid.
 | callback | `function` |  | The callback function to be executed when the timer expires. |
 
 **Example**  
-```js
+```ucode
 // Create a timer with a callback to be executed after 1000 milliseconds
 const myTimer = uloop.timer(1000, () => {
     printf("Timer expired!\n");
@@ -291,7 +232,6 @@ const myTimer = uloop.timer(1000, () => {
 // Later enable the timer with a timeout of 500 milliseconds
 myTimer.set(500);
 ```
-<a name="module_uloop+handle"></a>
 
 ### uloop.handle(handle, callback, events) ⇒ [`handle`](#module_uloop.handle)
 Creates a handle instance for monitoring file descriptor events.
@@ -313,7 +253,7 @@ Returns `null` when the handle, callback or signal arguments are invalid.
 | events | `number` | Bitwise OR-ed flags of IO events (`ULOOP_READ`, `ULOOP_WRITE`) that the callback should be invoked for. |
 
 **Example**  
-```js
+```ucode
 // Create a handle for monitoring read events on file descriptor 3
 const myHandle = uloop.handle(3, (events) => {
     if (events & ULOOP_READ)
@@ -325,8 +265,7 @@ const sock = socket.connect("example.org", 80);
 uloop.handle(sock, (events) => {
     sock.send("GET / HTTP/1.0\r\n\r\n");
 }, uloop.ULOOP_WRITE)
-```
-<a name="module_uloop+process"></a>
+```ucode
 
 ### uloop.process(executable, [args], [env], callback) ⇒ [`process`](#module_uloop.process)
 Creates a process instance for executing external programs.
@@ -348,13 +287,12 @@ Returns `null` on error, e.g. due to `exec()` failure or invalid arguments.
 | callback | `function` | The callback function to be invoked when the invoked process ends. |
 
 **Example**  
-```js
+```ucode
 // Create a process instance for executing 'ls' command
 const myProcess = uloop.process("/bin/ls", ["-l", "/tmp"], null, (code) => {
     printf(`Process exited with code ${code}\n`);
 });
 ```
-<a name="module_uloop+task"></a>
 
 ### uloop.task(taskFunction, [outputCallback], [inputCallback]) ⇒ [`task`](#module_uloop.task)
 Creates a task instance for executing background tasks.
@@ -376,7 +314,7 @@ Returns `null` on error, e.g. due to fork failure or invalid arguments.
 | [inputCallback] | `function` | Optional. The input callback function to be invoked when input is required by the task. It is invoked with a function to send input to the task as the argument. |
 
 **Example**  
-```js
+```ucode
 // Create a task instance for executing a background task
 const myTask = uloop.task(
     (pipe) => {
@@ -394,8 +332,7 @@ const myTask = uloop.task(
         return "Input from main thread\n";
     }
 );
-```
-<a name="module_uloop+interval"></a>
+```ucode
 
 ### uloop.interval([timeout], callback) ⇒ [`interval`](#module_uloop.interval)
 Creates an interval instance for scheduling repeated callbacks.
@@ -416,7 +353,7 @@ Returns `null` when the timeout or callback arguments are invalid.
 | callback | `function` |  | The callback function to be executed when the interval expires. |
 
 **Example**  
-```js
+```ucode
 // Create an interval with a callback to be executed every 1000 milliseconds
 const myInterval = uloop.interval(1000, () => {
     printf("Interval callback executed!\n");
@@ -425,7 +362,6 @@ const myInterval = uloop.interval(1000, () => {
 // Later arm the interval to start executing the callback every 500 milliseconds
 myInterval.set(500);
 ```
-<a name="module_uloop+signal"></a>
 
 ### uloop.signal(signal, callback) ⇒ [`signal`](#module_uloop.signal)
 Creates a signal instance for handling Unix signals.
@@ -445,13 +381,12 @@ Returns `null` when the signal or callback arguments are invalid.
 | callback | `function` | The callback function to be invoked when the specified Unix signal is caught. |
 
 **Example**  
-```js
+```ucode
 // Create a signal instance for handling SIGINT
 const mySignal = uloop.signal("SIGINT", () => {
     printf("SIGINT caught!\n");
 });
-```
-<a name="module_uloop.timer"></a>
+```ucode
 
 ### uloop.timer
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -461,8 +396,6 @@ const mySignal = uloop.signal("SIGINT", () => {
     * [.set([timeout])](#module_uloop.timer+set) ⇒ `boolean`
     * [.remaining()](#module_uloop.timer+remaining) ⇒ `number`
     * [.cancel()](#module_uloop.timer+cancel) ⇒ `boolean`
-
-<a name="module_uloop.timer+set"></a>
 
 #### timer.set([timeout]) ⇒ `boolean`
 Rearms the uloop timer with the specified timeout.
@@ -480,7 +413,7 @@ disabled until rearmed with a positive timeout value.
 | [timeout] | `number` | `-1` | Optional. The timeout value in milliseconds until the timer expires. Defaults to -1, which disables the timer until rearmed with a positive timeout. |
 
 **Example**  
-```js
+```ucode
 const timeout = uloop.timer(…);
 
 // Rearm the uloop timer with a timeout of 1000 milliseconds
@@ -489,7 +422,6 @@ timeout.set(1000);
 // Disable the uloop timer
 timeout.set();
 ```
-<a name="module_uloop.timer+remaining"></a>
 
 #### timer.remaining() ⇒ `number`
 Returns the number of milliseconds until the uloop timer expires.
@@ -500,15 +432,14 @@ the timer is not armed (i.e., disabled), it returns -1.
 **Kind**: instance method of [`timer`](#module_uloop.timer)  
 **Returns**: `number` - The number of milliseconds until the timer expires, or -1 if the timer is not armed.  
 **Example**  
-```js
+```ucode
 // Get the remaining time until the uloop timer expires (~500ms)
 const remainingTime = timer.remaining();
 if (remainingTime !== -1)
     printf("Time remaining until timer expires: %d ms\n", remainingTime);
 else
     printf("Timer is not armed\n");
-```
-<a name="module_uloop.timer+cancel"></a>
+```ucode
 
 #### timer.cancel() ⇒ `boolean`
 Cancels the uloop timer, disarming it and removing it from the event loop.
@@ -518,11 +449,10 @@ This method destroys the uloop timer and releases its associated resources.
 **Kind**: instance method of [`timer`](#module_uloop.timer)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Cancel the uloop timer
 timer.cancel();
 ```
-<a name="module_uloop.handle"></a>
 
 ### uloop.handle
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -533,8 +463,6 @@ timer.cancel();
     * [.handle()](#module_uloop.handle+handle) ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
     * [.delete()](#module_uloop.handle+delete) ⇒ `void`
 
-<a name="module_uloop.handle+fileno"></a>
-
 #### handle.fileno() ⇒ `number`
 Returns the file descriptor number.
 
@@ -544,12 +472,11 @@ handle, which might refer to a socket or file instance.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `number` - The file descriptor number associated with the handle.  
 **Example**  
-```js
+```ucode
 // Get the file descriptor number associated with the uloop handle
 const fd = handle.fileno();
 printf("File descriptor number: %d\n", fd);
-```
-<a name="module_uloop.handle+handle"></a>
+```ucode
 
 #### handle.handle() ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
 Returns the underlying file or socket instance.
@@ -560,12 +487,11 @@ the uloop handle.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `module:fs.file` \| `module:fs.proc` \| `module:socket.socket` - The underlying file or socket instance associated with the handle.  
 **Example**  
-```js
+```ucode
 // Get the associated file or socket instance
 const fileOrSocket = handle.handle();
 printf("Handle: %s\n", fileOrSocket); // e.g. <socket 0x5> or <fs.proc …>
 ```
-<a name="module_uloop.handle+delete"></a>
 
 #### handle.delete() ⇒ `void`
 Unregisters the uloop handle.
@@ -577,12 +503,11 @@ should no longer be used.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `void` - This function does not return a value.  
 **Example**  
-```js
+```ucode
 // Unregister the uloop handle and free associated resources
 handle.delete();
 printf("Handle deleted successfully\n");
-```
-<a name="module_uloop.process"></a>
+```ucode
 
 ### uloop.process
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -591,8 +516,6 @@ printf("Handle deleted successfully\n");
 * [.process](#module_uloop.process)
     * [.pid()](#module_uloop.process+pid) ⇒ `number`
     * [.delete()](#module_uloop.process+delete) ⇒ `boolean`
-
-<a name="module_uloop.process+pid"></a>
 
 #### process.pid() ⇒ `number`
 Returns the process ID.
@@ -603,12 +526,11 @@ launched by {@link module:uloop#process|process().
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `number` - The process ID (PID) of the associated launched process.  
 **Example**  
-```js
+```ucode
 const proc = uloop.process(…);
 
 printf("Process ID: %d\n", proc.pid());
 ```
-<a name="module_uloop.process+delete"></a>
 
 #### process.delete() ⇒ `boolean`
 Unregisters the process from uloop.
@@ -620,12 +542,11 @@ itself is not terminated by this method.
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 const proc = uloop.process(…);
 
 proc.delete();
-```
-<a name="module_uloop.pipe"></a>
+```ucode
 
 ### uloop.pipe
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -636,8 +557,6 @@ proc.delete();
     * [.receive()](#module_uloop.pipe+receive) ⇒ `\*`
     * [.sending()](#module_uloop.pipe+sending) ⇒ `boolean`
     * [.receiving()](#module_uloop.pipe+receiving) ⇒ `boolean`
-
-<a name="module_uloop.pipe+send"></a>
 
 #### pipe.send(msg) ⇒ `boolean`
 Sends a serialized message to the task handle.
@@ -657,7 +576,7 @@ callback registered with the task handle.
 | msg | `\*` | The message to be serialized and sent over the pipe. It can be of arbitrary type. |
 
 **Example**  
-```js
+```ucode
 // Send a message over the uloop pipe
 const success = pipe.send(message);
 
@@ -666,7 +585,6 @@ if (success)
 else
     die(`Error sending message: ${uloop.error()}\n`);
 ```
-<a name="module_uloop.pipe+receive"></a>
 
 #### pipe.receive() ⇒ `\*`
 Reads input from the task handle.
@@ -681,7 +599,7 @@ method.
 Returns `null` on error, such as when there's no input callback registered
 on the task handle.  
 **Example**  
-```js
+```ucode
 // Read input from the task communication pipe
 const message = pipe.receive();
 
@@ -689,8 +607,7 @@ if (message !== null)
     printf("Received message: %s\n", message);
 else
     die(`Error receiving message: ${uloop.error()}\n`);
-```
-<a name="module_uloop.pipe+sending"></a>
+```ucode
 
 #### pipe.sending() ⇒ `boolean`
 Checks if the task handle provides input.
@@ -702,7 +619,7 @@ It returns a boolean value indicating whether an input callback is present.
 **Returns**: `boolean` - Returns `true` if the remote task handle has an input callback
 registered, otherwise returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the remote task handle has an input callback
 const hasInputCallback = pipe.sending();
 
@@ -711,7 +628,6 @@ if (hasInputCallback)
 else
     printf("No input callback on the task handle\n");
 ```
-<a name="module_uloop.pipe+receiving"></a>
 
 #### pipe.receiving() ⇒ `boolean`
 Checks if the task handle reads output.
@@ -723,7 +639,7 @@ It returns a boolean value indicating whether an output callback is present.
 **Returns**: `boolean` - Returns `true` if the task handle has an output callback registered,
 otherwise returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the task handle has an output callback
 const hasOutputCallback = pipe.receiving();
 
@@ -731,8 +647,7 @@ if (hasOutputCallback)
     printf("Output callback is registered on task handle\n");
 else
     printf("No output callback on the task handle\n");
-```
-<a name="module_uloop.task"></a>
+```ucode
 
 ### uloop.task
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -743,8 +658,6 @@ else
     * [.kill()](#module_uloop.task+kill) ⇒ `boolean`
     * [.finished()](#module_uloop.task+finished) ⇒ `boolean`
 
-<a name="module_uloop.task+pid"></a>
-
 #### task.pid() ⇒ `number`
 Returns the process ID.
 
@@ -754,12 +667,11 @@ launched by {@link module:uloop#task|task().
 **Kind**: instance method of [`task`](#module_uloop.task)  
 **Returns**: `number` - The process ID (PID) of the forked task process.  
 **Example**  
-```js
+```ucode
 const task = uloop.task(…);
 
 printf("Process ID: %d\n", task.pid());
 ```
-<a name="module_uloop.task+kill"></a>
 
 #### task.kill() ⇒ `boolean`
 Terminates the task process.
@@ -773,7 +685,7 @@ such as when the task process has already terminated.
 **Returns**: `boolean` - Returns `true` when the task process was successfully terminated.
 Returns `null` on error, such as when the process has already terminated.  
 **Example**  
-```js
+```ucode
 // Terminate the task process
 const success = task.kill();
 
@@ -781,8 +693,7 @@ if (success)
     printf("Task process terminated successfully\n");
 else
     die(`Error terminating task process: ${uloop.error()}\n`);
-```
-<a name="module_uloop.task+finished"></a>
+```ucode
 
 #### task.finished() ⇒ `boolean`
 Checks if the task ran to completion.
@@ -795,7 +706,7 @@ executing.
 **Returns**: `boolean` - Returns `true` if the task function has already run to completion, otherwise
 returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the task function has finished executing
 const isFinished = task.finished();
 
@@ -804,7 +715,6 @@ if (isFinished)
 else
     printf("Task function is still running\n");
 ```
-<a name="module_uloop.interval"></a>
 
 ### uloop.interval
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -815,8 +725,6 @@ else
     * [.remaining()](#module_uloop.interval+remaining) ⇒ `number`
     * [.expirations()](#module_uloop.interval+expirations) ⇒ `number`
     * [.cancel()](#module_uloop.interval+cancel) ⇒ `boolean`
-
-<a name="module_uloop.interval+set"></a>
 
 #### interval.set([interval]) ⇒ `boolean`
 Rearms the uloop interval timer with the specified interval.
@@ -834,7 +742,7 @@ remains disabled until rearmed with a positive interval value.
 | [interval] | `number` | `-1` | Optional. The interval value in milliseconds specifying when the interval triggers again. Defaults to -1, which disables the interval until rearmed with a positive interval value. |
 
 **Example**  
-```js
+```ucode
 // Rearm the uloop interval with a interval of 1000 milliseconds
 const success = interval.set(1000);
 
@@ -850,8 +758,7 @@ if (success)
     printf("Interval disabled successfully\n");
 else
     printf("Error occurred while disabling interval: ${uloop.error()}\n");
-```
-<a name="module_uloop.interval+remaining"></a>
+```ucode
 
 #### interval.remaining() ⇒ `number`
 Returns the milliseconds until the next expiration.
@@ -864,7 +771,7 @@ it returns -1.
 **Returns**: `number` - The milliseconds until the next expiration of the uloop interval, or -1 if
 the interval is not armed.  
 **Example**  
-```js
+```ucode
 // Get the milliseconds until the next expiration of the uloop interval
 const remainingTime = interval.remaining();
 
@@ -873,7 +780,6 @@ if (remainingTime !== -1)
 else
     printf("Interval is not armed\n");
 ```
-<a name="module_uloop.interval+expirations"></a>
 
 #### interval.expirations() ⇒ `number`
 Returns number of times the interval timer fired.
@@ -884,12 +790,11 @@ This method returns the number of times the uloop interval timer has expired
 **Kind**: instance method of [`interval`](#module_uloop.interval)  
 **Returns**: `number` - The number of times the uloop interval timer has expired (fired).  
 **Example**  
-```js
+```ucode
 // Get the number of times the uloop interval timer has expired
 const expirations = interval.expirations();
 printf("Number of expirations: %d\n", expirations);
-```
-<a name="module_uloop.interval+cancel"></a>
+```ucode
 
 #### interval.cancel() ⇒ `boolean`
 Cancels the uloop interval.
@@ -900,11 +805,10 @@ event loop. Associated resources are released.
 **Kind**: instance method of [`interval`](#module_uloop.interval)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Cancel the uloop interval
 interval.cancel();
 ```
-<a name="module_uloop.signal"></a>
 
 ### uloop.signal
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -913,8 +817,6 @@ interval.cancel();
 * [.signal](#module_uloop.signal)
     * [.signo()](#module_uloop.signal+signo) ⇒ `number`
     * [.delete()](#module_uloop.signal+delete) ⇒ `boolean`
-
-<a name="module_uloop.signal+signo"></a>
 
 #### signal.signo() ⇒ `number`
 Returns the associated signal number.
@@ -925,12 +827,11 @@ configured to respond to.
 **Kind**: instance method of [`signal`](#module_uloop.signal)  
 **Returns**: `number` - The signal number that this handler is responding to.  
 **Example**  
-```js
+```ucode
 // Get the signal number that the uloop signal handler is responding to
 const sighandler = uloop.signal("SIGINT", () => printf("Cought INT\n"));
 printf("Signal number: %d\n", sighandler.signo());
-```
-<a name="module_uloop.signal+delete"></a>
+```ucode
 
 #### signal.delete() ⇒ `boolean`
 Uninstalls the signal handler.
@@ -941,12 +842,11 @@ handler for the signal, and releasing any associated resources.
 **Kind**: instance method of [`signal`](#module_uloop.signal)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Uninstall the signal handler and restore the previous/default handler
 const sighandler = uloop.signal(…);
 sighandler.delete();
 ```
-<a name="module_uloop..Event Mode Constants"></a>
 
 ### uloop~Event Mode Constants
 The `ULOOP_*` constants are passed as bitwise OR-ed number to the

@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_io"></a>
-
-## io
-# I/O Operations
+## I/O Operations
 
 The `io` module provides object-oriented access to UNIX file descriptors.
 
@@ -15,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { open, O_RDWR } from 'io';
 
   let handle = open('/tmp/test.txt', O_RDWR);
@@ -26,7 +23,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as io from 'io';
 
   let handle = io.open('/tmp/test.txt', io.O_RDWR);
@@ -37,35 +34,6 @@ using a wildcard import statement:
 Additionally, the io module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lio` switch.
 
-* [io](#module_io)
-    * _instance_
-        * [.error()](#module_io+error) ⇒ `string`
-        * [.new(fd)](#module_io+new) ⇒ [`handle`](#module_io.handle)
-        * [.open(path, [flags], [mode])](#module_io+open) ⇒ [`handle`](#module_io.handle)
-        * [.pipe()](#module_io+pipe) ⇒ [`Array.<handle>`](#module_io.handle)
-        * [.from(value)](#module_io+from) ⇒ [`handle`](#module_io.handle)
-    * _static_
-        * [.handle](#module_io.handle)
-            * [.ptsname()](#module_io.handle+ptsname) ⇒ `string`
-            * [.tcgetattr()](#module_io.handle+tcgetattr) ⇒ `object`
-            * [.tcsetattr(attrs, [when])](#module_io.handle+tcsetattr) ⇒ `boolean`
-            * [.grantpt()](#module_io.handle+grantpt) ⇒ `boolean`
-            * [.unlockpt()](#module_io.handle+unlockpt) ⇒ `boolean`
-            * [.read(length)](#module_io.handle+read) ⇒ `string`
-            * [.write(data)](#module_io.handle+write) ⇒ `number`
-            * [.seek([offset], [whence])](#module_io.handle+seek) ⇒ `boolean`
-            * [.tell()](#module_io.handle+tell) ⇒ `number`
-            * [.dup()](#module_io.handle+dup) ⇒ [`handle`](#module_io.handle)
-            * [.dup2(newfd)](#module_io.handle+dup2) ⇒ `boolean`
-            * [.fileno()](#module_io.handle+fileno) ⇒ `number`
-            * [.fcntl(cmd, [arg])](#module_io.handle+fcntl) ⇒ `number` \| [`handle`](#module_io.handle)
-            * [.ioctl(direction, type, num, [value])](#module_io.handle+ioctl) ⇒ `number` \| `string`
-            * [.isatty()](#module_io.handle+isatty) ⇒ `boolean`
-            * [.close()](#module_io.handle+close) ⇒ `boolean`
-            * [.error()](#module_io.handle+error) ⇒ `string`
-
-<a name="module_io+error"></a>
-
 ### io.error() ⇒ `string`
 Query error information.
 
@@ -74,14 +42,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`io`](#module_io)  
 **Example**  
-```js
+```ucode
 // Trigger an error
 io.open('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(io.error(), "\n");
-```
-<a name="module_io+new"></a>
+```ucode
 
 ### io.new(fd) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from a file descriptor number.
@@ -99,12 +66,11 @@ Returns `null` if an error occurred.
 | fd | `number` | The file descriptor number. |
 
 **Example**  
-```js
+```ucode
 // Wrap stdin
 const stdin = io.new(0);
 const data = stdin.read(100);
 ```
-<a name="module_io+open"></a>
 
 ### io.open(path, [flags], [mode]) ⇒ [`handle`](#module_io.handle)
 Opens a file and returns an io.handle.
@@ -125,12 +91,11 @@ Returns `null` if an error occurred.
 | [mode] | `number` | `0o666` | The file creation mode (used with O_CREAT). |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDWR | O_CREAT, 0o644);
 handle.write('Hello World\n');
 handle.close();
-```
-<a name="module_io+pipe"></a>
+```ucode
 
 ### io.pipe() ⇒ [`Array.<handle>`](#module_io.handle)
 Creates a pipe.
@@ -147,13 +112,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`io`](#module_io)  
 **Example**  
-```js
+```ucode
 const [reader, writer] = io.pipe();
 writer.write('Hello from pipe!');
 const data = reader.read(100);
 print(data, "\n");  // Prints: Hello from pipe!
 ```
-<a name="module_io+from"></a>
 
 ### io.from(value) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from various value types.
@@ -175,13 +139,12 @@ Returns `null` if an error occurred or the value cannot be converted.
 | value | `\*` | The value to convert. |
 
 **Example**  
-```js
+```ucode
 import { open as fsopen } from 'fs';
 const fp = fsopen('/tmp/test.txt', 'r');
 const handle = io.from(fp);
 const data = handle.read(100);
-```
-<a name="module_io.handle"></a>
+```ucode
 
 ### io.handle
 **Kind**: static class of [`io`](#module_io)  
@@ -210,8 +173,6 @@ const data = handle.read(100);
     * [.close()](#module_io.handle+close) ⇒ `boolean`
     * [.error()](#module_io.handle+error) ⇒ `string`
 
-<a name="module_io.handle+ptsname"></a>
-
 #### handle.ptsname() ⇒ `string`
 Gets the name of the pseudo-terminal slave.
 
@@ -225,12 +186,11 @@ pseudo-terminal master.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 const slave_name = master.ptsname();
 print(slave_name, "\n");
 ```
-<a name="module_io.handle+tcgetattr"></a>
 
 #### handle.tcgetattr() ⇒ `object`
 Gets terminal attributes.
@@ -244,13 +204,12 @@ Returns `null` if an error occurred or if the descriptor is not a terminal.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 if (attrs)
     print("Input flags: ", attrs.iflag, "\n");
-```
-<a name="module_io.handle+tcsetattr"></a>
+```ucode
 
 #### handle.tcsetattr(attrs, [when]) ⇒ `boolean`
 Sets terminal attributes.
@@ -278,13 +237,12 @@ Returns `null` if an error occurred.
 | [when] | `number` | `0` | When to apply the changes (TCSANOW, TCSADRAIN, TCSAFLUSH). |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 attrs.lflag &= ~0x0000008; // Disable ECHO
 handle.tcsetattr(attrs, TCSANOW);
 ```
-<a name="module_io.handle+grantpt"></a>
 
 #### handle.grantpt() ⇒ `boolean`
 Grants access to a pseudo-terminal slave device.
@@ -301,13 +259,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 if (master.grantpt()) {
     print("Granted access to slave device\n");
 }
-```
-<a name="module_io.handle+unlockpt"></a>
+```ucode
 
 #### handle.unlockpt() ⇒ `boolean`
 Unlocks a pseudo-terminal slave device.
@@ -322,14 +279,13 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 master.grantpt();
 if (master.unlockpt()) {
     print("Unlocked slave device\n");
 }
 ```
-<a name="module_io.handle+read"></a>
 
 #### handle.read(length) ⇒ `string`
 Reads data from the file descriptor.
@@ -349,11 +305,10 @@ Returns `null` if a read error occurred.
 | length | `number` | The maximum number of bytes to read. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const data = handle.read(1024);
-```
-<a name="module_io.handle+write"></a>
+```ucode
 
 #### handle.write(data) ⇒ `number`
 Writes data to the file descriptor.
@@ -372,11 +327,10 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to write. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_WRONLY | O_CREAT);
 handle.write('Hello World\n');
 ```
-<a name="module_io.handle+seek"></a>
 
 #### handle.seek([offset], [whence]) ⇒ `boolean`
 Sets the file descriptor position.
@@ -395,11 +349,10 @@ Returns `null` if an error occurred.
 | [whence] | `number` | `0` | The position reference. | Whence | Description                                                        | |--------|--------------------------------------------------------------------| | `0`    | The offset is relative to the start of the file (SEEK_SET).       | | `1`    | The offset is relative to the current position (SEEK_CUR).        | | `2`    | The offset is relative to the end of the file (SEEK_END).         | |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.seek(100, 0);  // Seek to byte 100 from start
-```
-<a name="module_io.handle+tell"></a>
+```ucode
 
 #### handle.tell() ⇒ `number`
 Gets the current file descriptor position.
@@ -410,11 +363,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const pos = handle.tell();
 ```
-<a name="module_io.handle+dup"></a>
 
 #### handle.dup() ⇒ [`handle`](#module_io.handle)
 Duplicates the file descriptor.
@@ -427,11 +379,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const dup_handle = handle.dup();
-```
-<a name="module_io.handle+dup2"></a>
+```ucode
 
 #### handle.dup2(newfd) ⇒ `boolean`
 Duplicates the file descriptor to a specific descriptor number.
@@ -450,11 +401,10 @@ Returns `null` if an error occurred.
 | newfd | `number` | The target file descriptor number. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_WRONLY);
 handle.dup2(2);  // Redirect stderr to the file
 ```
-<a name="module_io.handle+fileno"></a>
 
 #### handle.fileno() ⇒ `number`
 Gets the file descriptor number.
@@ -465,11 +415,10 @@ Returns `null` if the handle is closed.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 print(handle.fileno(), "\n");
-```
-<a name="module_io.handle+fcntl"></a>
+```ucode
 
 #### handle.fcntl(cmd, [arg]) ⇒ `number` \| [`handle`](#module_io.handle)
 Performs fcntl() operations on the file descriptor.
@@ -491,13 +440,12 @@ Returns `null` if an error occurred.
 | [arg] | `number` | Optional argument for the command. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const flags = handle.fcntl(F_GETFL);
 handle.fcntl(F_SETFL, flags | O_NONBLOCK);
 const dup_handle = handle.fcntl(F_DUPFD, 10);  // Returns io.handle
 ```
-<a name="module_io.handle+ioctl"></a>
 
 #### handle.ioctl(direction, type, num, [value]) ⇒ `number` \| `string`
 Performs an ioctl operation on the file descriptor.
@@ -528,11 +476,10 @@ Returns `null` if an error occurred.
 | [value] | `number` \| `string` | The value to pass to the ioctl system call. For `IOC_DIR_NONE`, this argument is ignored. With `IOC_DIR_READ`, the value should be a positive integer specifying the number of bytes to expect from the kernel. For the other directions, `IOC_DIR_WRITE` and `IOC_DIR_RW`, that value parameter must be a string, serving as buffer for the data to send. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const size = handle.ioctl(IOC_DIR_READ, 0x54, 0x13, 8);  // TIOCGWINSZ
-```
-<a name="module_io.handle+isatty"></a>
+```ucode
 
 #### handle.isatty() ⇒ `boolean`
 Checks if the file descriptor refers to a terminal.
@@ -545,12 +492,11 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.new(0);  // stdin
 if (handle.isatty())
     print("Running in a terminal\n");
 ```
-<a name="module_io.handle+close"></a>
 
 #### handle.close() ⇒ `boolean`
 Closes the file descriptor.
@@ -564,11 +510,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.close();
-```
-<a name="module_io.handle+error"></a>
+```ucode
 
 #### handle.error() ⇒ `string`
 Query error information.
@@ -578,7 +523,7 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 // Trigger an error
 io.open('/path/does/not/exist');
 

@@ -7,6 +7,6 @@
   "language": "c",
   "upstream_path": "lib/uloop.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T17:25:23.511041+00:00",
-  "content_hash": "8276580d"
+  "extraction_timestamp": "2026-03-09T18:09:42.142294+00:00",
+  "content_hash": "88bfd235"
 }

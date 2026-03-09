@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 10954
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-flash-layout.md
-last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
+last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
 language: text
 ---
 # The OpenWrt Flash Layout
@@ -323,7 +323,7 @@ partition(s)</td>
 mounted: "<code>/rom</code>", <a href="/docs/techref/filesystems#SquashFS">SquashFS</a><br />
 size depends on selected packages</td>
 <td><strong><code>rootfs_data</code></strong><br />
-mounted: "<code>/overlay</code>", <a href="/docs/techref/filesystems#[UBIFS](../wiki/wiki_page-techref-filesystems.md)">[UBIFS](../wiki/wiki_page-techref-filesystems.md)</a><br />
+mounted: "<code>/overlay</code>", <a href="/docs/techref/filesystems#UBIFS">[UBIFS](../wiki/wiki_page-techref-filesystems.md)</a><br />
 all remaining free space</td>
 <td>:::</td>
 </tr>
@@ -383,7 +383,7 @@ Linux kernel<br />
 mounted: "<code>/rom</code>", <a href="/docs/techref/filesystems#SquashFS">SquashFS</a><br />
 size depends on selected packages</td>
 <td><strong><code>rootfs_data</code></strong><br />
-mounted: "<code>/overlay</code>", <a href="/docs/techref/filesystems#[UBIFS](../wiki/wiki_page-techref-filesystems.md)">[UBIFS](../wiki/wiki_page-techref-filesystems.md)</a><br />
+mounted: "<code>/overlay</code>", <a href="/docs/techref/filesystems#UBIFS">[UBIFS](../wiki/wiki_page-techref-filesystems.md)</a><br />
 all remaining free space</td>
 <td>:::</td>
 </tr>
@@ -535,7 +535,7 @@ The resulting list of split off partitions is stored in RAM only, so no partitio
 
 For more details please refer to the code for the mtdsplit: <https://github.com/openwrt/openwrt/tree/master/target/linux/generic/files/drivers/mtd/mtdsplit>
 
-For overlaying a special `mini_fo` filesystem is used, the `README` is available from the sources at <https://dev.openwrt.org/browser/trunk/target/linux/generic/patches-2.6.37/209-[mini_fo](../wiki/wiki_page-techref-filesystems.md).patch>
+For overlaying a special `mini_fo` filesystem is used, the `README` is available from the sources at <https://dev.openwrt.org/browser/trunk/target/linux/generic/patches-2.6.37/209-mini_fo.patch>
 
 ## UBI (Unsorted Block Images)
 

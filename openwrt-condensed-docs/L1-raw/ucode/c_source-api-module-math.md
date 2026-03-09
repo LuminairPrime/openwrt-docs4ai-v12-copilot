@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_math"></a>
-
-## math
-# Mathematical Functions
+## Mathematical Functions
 
 The `math` module bundles various mathematical and trigonometrical functions.
 
@@ -15,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { pow, rand } from 'math';
 
   let x = pow(2, 5);
@@ -25,7 +22,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as math from 'math';
 
   let x = math.pow(2, 5);
@@ -34,21 +31,6 @@ using a wildcard import statement:
 
 Additionally, the math module namespace may also be imported by invoking the
 `ucode` interpreter with the `-lmath` switch.
-
-* [math](#module_math)
-    * [.abs(number)](#module_math+abs) ⇒ `number`
-    * [.atan2(y, x)](#module_math+atan2) ⇒ `number`
-    * [.cos(x)](#module_math+cos) ⇒ `number`
-    * [.exp(x)](#module_math+exp) ⇒ `number`
-    * [.log(x)](#module_math+log) ⇒ `number`
-    * [.sin(x)](#module_math+sin) ⇒ `number`
-    * [.sqrt(x)](#module_math+sqrt) ⇒ `number`
-    * [.pow(x, y)](#module_math+pow) ⇒ `number`
-    * [.rand([a], [b])](#module_math+rand) ⇒ `number`
-    * [.srand(seed)](#module_math+srand)
-    * [.isnan(x)](#module_math+isnan) ⇒ `boolean`
-
-<a name="module_math+abs"></a>
 
 ### math.abs(number) ⇒ `number`
 Returns the absolute value of the given numeric value.
@@ -60,8 +42,6 @@ not be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | number | `\*` | The number to return the absolute value for. |
-
-<a name="module_math+atan2"></a>
 
 ### math.atan2(y, x) ⇒ `number`
 Calculates the principal value of the arc tangent of `y`/`x`,
@@ -99,8 +79,6 @@ returned.
 | y | `\*` | The `y` value. |
 | x | `\*` | The `x` value. |
 
-<a name="module_math+cos"></a>
-
 ### math.cos(x) ⇒ `number`
 Calculates the cosine of `x`, where `x` is given in radians.
 
@@ -113,8 +91,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Radians value to calculate cosine for. |
-
-<a name="module_math+exp"></a>
 
 ### math.exp(x) ⇒ `number`
 Calculates the value of `e` (the base of natural logarithms)
@@ -134,8 +110,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Power to raise `e` to. |
-
-<a name="module_math+log"></a>
 
 ### math.log(x) ⇒ `number`
 Calculates the natural logarithm of `x`.
@@ -157,8 +131,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | --- | --- | --- |
 | x | `number` | Value to calulate natural logarithm of. |
 
-<a name="module_math+sin"></a>
-
 ### math.sin(x) ⇒ `number`
 Calculates the sine of `x`, where `x` is given in radians.
 
@@ -174,8 +146,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Radians value to calculate sine for. |
-
-<a name="module_math+sqrt"></a>
 
 ### math.sqrt(x) ⇒ `number`
 Calculates the nonnegative square root of `x`.
@@ -193,8 +163,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Value to calculate square root for. |
-
-<a name="module_math+pow"></a>
 
 ### math.pow(x, y) ⇒ `number`
 Calculates the value of `x` raised to the power of `y`.
@@ -249,8 +217,6 @@ Returns `NaN` if either the `x` or `y` value can't be converted to a number.
 | x | `number` | The base value. |
 | y | `number` | The power value. |
 
-<a name="module_math+rand"></a>
-
 ### math.rand([a], [b]) ⇒ `number`
 Depending on the arguments, it produces a pseudo-random positive integer, 
 or a pseudo-random number in a supplied range.
@@ -279,8 +245,6 @@ time of day in milliseconds as seed value.
 | [a] | `number` | End of the desired range. |
 | [b] | `number` | The other end of the desired range. |
 
-<a name="module_math+srand"></a>
-
 ### math.srand(seed)
 Seeds the pseudo-random number generator.
 
@@ -296,8 +260,6 @@ produced by [`rand()`](module:math~rand).
 | Param | Type | Description |
 | --- | --- | --- |
 | seed | `number` | The seed value. |
-
-<a name="module_math+isnan"></a>
 
 ### math.isnan(x) ⇒ `boolean`
 Tests whether `x` is a `NaN` double.

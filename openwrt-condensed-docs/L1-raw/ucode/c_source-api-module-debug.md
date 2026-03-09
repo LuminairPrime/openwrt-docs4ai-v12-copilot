@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_debug"></a>
-
-## debug
-# Debugger Module
+## Debugger Module
 
 This module provides runtime debug functionality for ucode scripts.
 
@@ -15,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { memdump, traceback } from 'debug';
 
   let stacktrace = traceback(1);
@@ -26,7 +23,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as debug from 'debug';
 
   let stacktrace = debug.traceback(1);
@@ -44,26 +41,6 @@ behavior can be inhibited by setting the `UCODE_DEBUG_MEMDUMP_ENABLED`
 environment variable to `0` when starting the process. The memory dump signal
 and output directory can be overridden with the `UCODE_DEBUG_MEMDUMP_SIGNAL`
 and `UCODE_DEBUG_MEMDUMP_PATH` environment variables respectively.
-
-* [debug](#module_debug)
-    * _instance_
-        * [.memdump(file)](#module_debug+memdump) ⇒ `boolean`
-        * [.traceback([level])](#module_debug+traceback) ⇒ [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)
-        * [.sourcepos()](#module_debug+sourcepos) ⇒ [`SourcePosition`](#module_debug.SourcePosition)
-        * [.getinfo(value)](#module_debug+getinfo) ⇒ [`ValueInformation`](#module_debug.ValueInformation)
-        * [.getlocal([level], variable)](#module_debug+getlocal) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
-        * [.setlocal([level], variable, [value])](#module_debug+setlocal) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
-        * [.getupval(target, variable)](#module_debug+getupval) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
-        * [.setupval(target, variable, value)](#module_debug+setupval) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
-    * _static_
-        * [.StackTraceEntry](#module_debug.StackTraceEntry) : `Object`
-        * [.SourcePosition](#module_debug.SourcePosition) : `Object`
-        * [.UpvalRef](#module_debug.UpvalRef) : `Object`
-        * [.ValueInformation](#module_debug.ValueInformation) : `Object`
-        * [.LocalInfo](#module_debug.LocalInfo) : `Object`
-        * [.UpvalInfo](#module_debug.UpvalInfo) : `Object`
-
-<a name="module_debug+memdump"></a>
 
 ### debug.memdump(file) ⇒ `boolean`
 Write a memory dump report to the given file.
@@ -86,8 +63,6 @@ Returns `null` if the file could not be opened or if the handle was invalid.
 | --- | --- | --- |
 | file | `string` \| `module:fs.file` \| `module:fs.proc` | The file path or open file handle to write report to. |
 
-<a name="module_debug+traceback"></a>
-
 ### debug.traceback([level]) ⇒ [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)
 Capture call stack trace.
 
@@ -104,8 +79,6 @@ up to the point where `traceback()` is called.
 | --- | --- | --- | --- |
 | [level] | `number` | `1` | The number of callframes up the call trace should start, `0` is this function itself, `1` the function calling it and so on. |
 
-<a name="module_debug+sourcepos"></a>
-
 ### debug.sourcepos() ⇒ [`SourcePosition`](#module_debug.SourcePosition)
 Obtain information about the current source position.
 
@@ -118,7 +91,6 @@ offset of the call site.
 Returns `null` if this function was invoked from C code.
 
 **Kind**: instance method of [`debug`](#module_debug)  
-<a name="module_debug+getinfo"></a>
 
 ### debug.getinfo(value) ⇒ [`ValueInformation`](#module_debug.ValueInformation)
 Obtain information about the given value.
@@ -136,8 +108,6 @@ Returns `null` if a `null` value was provided.
 | Param | Type | Description |
 | --- | --- | --- |
 | value | `\*` | The value to query information for. |
-
-<a name="module_debug+getlocal"></a>
 
 ### debug.getlocal([level], variable) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
 Obtain local variable.
@@ -168,8 +138,6 @@ index is invalid.
 | [level] | `number` | `1` | The amount of call stack levels up local variables should be queried. |
 | variable | `string` \| `number` |  | The variable index or variable name to obtain information for. |
 
-<a name="module_debug+setlocal"></a>
-
 ### debug.setlocal([level], variable, [value]) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
 Set local variable.
 
@@ -199,8 +167,6 @@ index is invalid.
 | [level] | `number` | `1` | The amount of call stack levels up local variables should be updated. |
 | variable | `string` \| `number` |  | The variable index or variable name to update. |
 | [value] | `\*` | `` | The value to set the local variable to. |
-
-<a name="module_debug+getupval"></a>
 
 ### debug.getupval(target, variable) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
 Obtain captured variable (upvalue).
@@ -234,8 +200,6 @@ index is invalid.
 | --- | --- | --- |
 | target | `function` \| `number` | Either a function value referring to a closure to query upvalues for or a stack depth number selecting a closure that many levels up. |
 | variable | `string` \| `number` | The variable index or variable name to obtain information for. |
-
-<a name="module_debug+setupval"></a>
 
 ### debug.setupval(target, variable, value) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
 Set upvalue.
@@ -271,8 +235,6 @@ index is invalid.
 | variable | `string` \| `number` | The variable index or variable name to update. |
 | value | `\*` | The value to set the variable to. |
 
-<a name="module_debug.StackTraceEntry"></a>
-
 ### debug.StackTraceEntry : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -288,8 +250,6 @@ index is invalid.
 | [byte] | `number` | The source line offset of the function call (only applicable to non-C, pure ucode calls). |
 | [context] | `string` | The surrounding source code context formatted as human-readable string, useful for generating debug messages (only applicable to non-C, pure ucode calls). |
 
-<a name="module_debug.SourcePosition"></a>
-
 ### debug.SourcePosition : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -299,8 +259,6 @@ index is invalid.
 | filename | `string` | The name of the source file that called this function. |
 | line | `number` | The source line of the function call. |
 | byte | `number` | The source line offset of the function call. |
-
-<a name="module_debug.UpvalRef"></a>
 
 ### debug.UpvalRef : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
@@ -312,8 +270,6 @@ index is invalid.
 | closed | `boolean` | Indicates whether the captured variable (upvalue) is closed or not. A closed upvalue means that the function value outlived the declaration scope of the captured variable. |
 | value | `\*` | The current value of the captured variable. |
 | [slot] | `number` | The stack slot of the captured variable. Only applicable to open (non-closed) captured variables. |
-
-<a name="module_debug.ValueInformation"></a>
 
 ### debug.ValueInformation : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
@@ -351,8 +307,6 @@ index is invalid.
 | [byte] | `number` | The source line offset the function was declared at. Only applicable to `closure` values. |
 | [type] | `string` | The resource type name. Only applicable to `resource` values. |
 
-<a name="module_debug.LocalInfo"></a>
-
 ### debug.LocalInfo : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -366,8 +320,6 @@ index is invalid.
 | bytefrom | `number` | The source line offset of the local variable declaration. |
 | lineto | `number` | The source line number where the local variable goes out of scope. |
 | byteto | `number` | The source line offset where the local vatiable goes out of scope. |
-
-<a name="module_debug.UpvalInfo"></a>
 
 ### debug.UpvalInfo : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  

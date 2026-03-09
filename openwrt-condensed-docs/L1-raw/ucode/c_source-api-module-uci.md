@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_uci"></a>
-
-## uci
-# OpenWrt UCI configuration
+## OpenWrt UCI configuration
 
 The `uci` module provides access to the native OpenWrt
 [libuci](https://github.com/openwrt/uci) API for reading and
@@ -17,7 +14,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { cursor } from 'uci';
 
   let ctx = cursor();
@@ -27,7 +24,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as uci from 'uci';
 
   let ctx = uci.cursor();
@@ -37,40 +34,6 @@ using a wildcard import statement:
 Additionally, the uci module namespace may also be imported by invoking
 the `ucode` interpreter with the `-luci` switch.
 
-* [uci](#module_uci)
-    * _instance_
-        * [.error()](#module_uci+error) ⇒ `string`
-        * [.cursor([config_dir], [delta_dir], [config2_dir], Parser)](#module_uci+cursor) ⇒ [`cursor`](#module_uci.cursor)
-    * _static_
-        * [.cursor](#module_uci.cursor)
-            * _instance_
-                * [.load(config)](#module_uci.cursor+load) ⇒ `boolean`
-                * [.unload(config)](#module_uci.cursor+unload) ⇒ `boolean`
-                * [.get(config, section, [option])](#module_uci.cursor+get) ⇒ `string` \| `Array.<string>`
-                * [.get_all(config, [section])](#module_uci.cursor+get_all) ⇒ `Object.<string, module:uci.cursor.SectionObject>` \| [`SectionObject`](#module_uci.cursor.SectionObject)
-                * [.get_first(config, type, [option])](#module_uci.cursor+get_first) ⇒ `string` \| `Array.<string>`
-                * [.add(config, type)](#module_uci.cursor+add) ⇒ `string`
-                * [.set(config, section, option_or_type, [value])](#module_uci.cursor+set) ⇒ `boolean`
-                * [.delete(config, section, [option])](#module_uci.cursor+delete) ⇒ `boolean`
-                * [.list_append(config, section, option, value)](#module_uci.cursor+list_append) ⇒ `boolean`
-                * [.list_remove(config, section, option, value)](#module_uci.cursor+list_remove) ⇒ `boolean`
-                * [.rename(config, section, option_or_name, [name])](#module_uci.cursor+rename) ⇒ `boolean`
-                * [.reorder(config, section, index)](#module_uci.cursor+reorder) ⇒ `boolean`
-                * [.save([config])](#module_uci.cursor+save) ⇒ `boolean`
-                * [.commit([config])](#module_uci.cursor+commit) ⇒ `boolean`
-                * [.revert([config])](#module_uci.cursor+revert) ⇒ `boolean`
-                * [.changes([config])](#module_uci.cursor+changes) ⇒ `Object.<string, Array.<module:uci.cursor.ChangeRecord>>`
-                * [.foreach(config, type, callback)](#module_uci.cursor+foreach) ⇒ `boolean`
-                * [.configs()](#module_uci.cursor+configs) ⇒ `Array.<string>`
-                * [.error()](#module_uci.cursor+error) ⇒ `string`
-            * _static_
-                * [.ParserFlags](#module_uci.cursor.ParserFlags) : `Object`
-                * [.ChangeRecord](#module_uci.cursor.ChangeRecord) : `Array.<string>`
-                * [.SectionObject](#module_uci.cursor.SectionObject) : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
-                * [.SectionCallback](#module_uci.cursor.SectionCallback) : `function`
-
-<a name="module_uci+error"></a>
-
 ### uci.error() ⇒ `string`
 Query error information.
 
@@ -79,15 +42,14 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`uci`](#module_uci)  
 **Example**  
-```js
+```ucode
 // Trigger error
 const ctx = cursor();
 ctx.set("not_existing_config", "test", "1");
 
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
-```
-<a name="module_uci+cursor"></a>
+```ucode
 
 ### uci.cursor([config_dir], [delta_dir], [config2_dir], Parser) ⇒ [`cursor`](#module_uci.cursor)
 Instantiate uci cursor.
@@ -112,8 +74,6 @@ Returns `null` on error, e.g. if an invalid path argument was provided.
 | [delta_dir] | `string` | `"/tmp/.uci"` | The directory to save delta records in. It defaults to the well known `/tmp/.uci` path which is used as default by the uci command line tool. By changing this path to a different location, it is possible to isolate uncommitted application changes from the uci cli or other processes on the system. |
 | [config2_dir] | `string` | `"/var/run/uci"` | The directory to keep override config files in. Files are in the same format as in config_dir, but can individually override ones from that directory. It defaults to the uci configuration directory `/var/run/uci` but may be set to a different path for special purpose applications, or even disabled by setting this parameter to an empty string. |
 | Parser | [`ParserFlags`](#module_uci.cursor.ParserFlags) |  | flags to change. |
-
-<a name="module_uci.cursor"></a>
 
 ### uci.cursor
 **Kind**: static class of [`uci`](#module_uci)  
@@ -146,8 +106,6 @@ Returns `null` on error, e.g. if an invalid path argument was provided.
         * [.SectionObject](#module_uci.cursor.SectionObject) : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
         * [.SectionCallback](#module_uci.cursor.SectionCallback) : `function`
 
-<a name="module_uci.cursor+load"></a>
-
 #### cursor.load(config) ⇒ `boolean`
 Explicitly reload configuration file.
 
@@ -167,8 +125,6 @@ Returns `null` on error, e.g. if the requested configuration does not exist.
 | --- | --- | --- |
 | config | `string` | The name of the configuration file to load, e.g. `"system"` to load `/etc/config/system` into the cursor. |
 
-<a name="module_uci.cursor+unload"></a>
-
 #### cursor.unload(config) ⇒ `boolean`
 Explicitly unload configuration file.
 
@@ -187,8 +143,6 @@ Returns `null` on error, e.g. if the requested configuration does not exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | config | `string` | The name of the configuration file to unload. |
-
-<a name="module_uci.cursor+get"></a>
 
 #### cursor.get(config, section, [option]) ⇒ `string` \| `Array.<string>`
 Query a single option value or section type.
@@ -216,7 +170,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the type of the section is returned instead. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query an option, extended section notation is supported
@@ -225,7 +179,6 @@ ctx.get('system', '@system[0]', 'hostname');
 // Query a section type (should yield 'interface')
 ctx.get('network', 'lan');
 ```
-<a name="module_uci.cursor+get_all"></a>
 
 #### cursor.get\_all(config, [section]) ⇒ `Object.<string, module:uci.cursor.SectionObject>` \| [`SectionObject`](#module_uci.cursor.SectionObject)
 Query a complete section or configuration.
@@ -252,7 +205,7 @@ or if an invalid argument was passed.
 | [section] | `string` | The name of the section to query within the configuration. If omitted a nested dictionary containing all section values is returned. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query all lan interface details
@@ -260,8 +213,7 @@ ctx.get_all('network', 'lan');
 
 // Dump the entire dhcp configuration
 ctx.get_all('dhcp');
-```
-<a name="module_uci.cursor+get_first"></a>
+```ucode
 
 #### cursor.get\_first(config, type, [option]) ⇒ `string` \| `Array.<string>`
 Query option value or name of first section of given type.
@@ -290,7 +242,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the name of the section is returned instead. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query hostname in first anonymous "system" section of /etc/config/system
@@ -299,7 +251,6 @@ ctx.get_first('system', 'system', 'hostname');
 // Figure out name of first network interface section (usually "loopback")
 ctx.get_first('network', 'interface');
 ```
-<a name="module_uci.cursor+add"></a>
 
 #### cursor.add(config, type) ⇒ `string`
 Add anonymous section to given configuration.
@@ -327,7 +278,7 @@ if an invalid section type value was passed.
 | type | `string` | The type value to use for the added section. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Load firewall configuration
@@ -340,8 +291,7 @@ const sid = ctx.add('firewall', 'rule');
 ctx.set('firewall', sid, 'name', 'A test');
 ctx.set('firewall', sid, 'target', 'ACCEPT');
 …
-```
-<a name="module_uci.cursor+set"></a>
+```ucode
 
 #### cursor.set(config, section, option_or_type, [value]) ⇒ `boolean`
 Set option value or add named section in given configuration.
@@ -373,7 +323,7 @@ if an invalid value was passed.
 | [value] | `Array.<(string\|boolean\|number)>` \| `string` \| `boolean` \| `number` | The option value to set. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Add named `config interface guest` section
@@ -388,7 +338,6 @@ ctx.set('network', 'guest', 'dns', ['8.8.4.4', '8.8.8.8']);
 // Delete 'disabled' option in first wifi-iface section
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '');
 ```
-<a name="module_uci.cursor+delete"></a>
 
 #### cursor.delete(config, section, [option]) ⇒ `boolean`
 Delete an option or section from given configuration.
@@ -416,7 +365,7 @@ if an invalid value was passed.
 | [option] | `string` | The option name to remove within the section. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Delete 'disabled' option in first wifi-iface section
@@ -427,8 +376,7 @@ ctx.delete('network', 'lan');
 
 // Delete last firewall rule
 ctx.delete('firewall', '@rule[-1]');
-```
-<a name="module_uci.cursor+list_append"></a>
+```ucode
 
 #### cursor.list\_append(config, section, option, value) ⇒ `boolean`
 Add an item to a list option in given configuration.
@@ -455,7 +403,7 @@ if an invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to add to the list option. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Add '192.168.1.1' to the 'dns' list in the 'lan' interface
@@ -464,7 +412,6 @@ ctx.add_list('network', 'lan', 'dns', '192.168.1.1');
 // Add a port to the first redirect section
 ctx.add_list('firewall', '@redirect[0]', 'src_dport', '8080');
 ```
-<a name="module_uci.cursor+list_remove"></a>
 
 #### cursor.list\_remove(config, section, option, value) ⇒ `boolean`
 Remove an item from a list option in given configuration.
@@ -491,7 +438,7 @@ invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to remove from the list option. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Remove '8.8.8.8' from the 'dns' list in the 'lan' interface
@@ -499,8 +446,7 @@ ctx.delete_list('network', 'lan', 'dns', '8.8.8.8');
 
 // Remove a port from the first redirect section
 ctx.delete_list('firewall', '@redirect[0]', 'src_dport', '8080');
-```
-<a name="module_uci.cursor+rename"></a>
+```ucode
 
 #### cursor.rename(config, section, option_or_name, [name]) ⇒ `boolean`
 Rename an option or section in given configuration.
@@ -530,7 +476,7 @@ if an invalid value was passed.
 | [name] | `string` | The new name of the option to rename. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Assign explicit name to last anonymous firewall rule section
@@ -542,7 +488,6 @@ ctx.rename('system', 'ntp', 'server', 'orig_server_list');
 // Rename 'wan' interface to 'external'
 ctx.rename('network', 'wan', 'external');
 ```
-<a name="module_uci.cursor+reorder"></a>
 
 #### cursor.reorder(config, section, index) ⇒ `boolean`
 Reorder sections in given configuration.
@@ -567,7 +512,7 @@ if an invalid value was passed.
 | index | `number` | The target index to move the section to, starting from `0`. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query whole firewall config and reorder resulting dict by type and name
@@ -603,8 +548,7 @@ let position = 0;
 
 for (let sid in values)
   ctx.reorder('firewall', sid, position++);
-```
-<a name="module_uci.cursor+save"></a>
+```ucode
 
 #### cursor.save([config]) ⇒ `boolean`
 Save accumulated cursor changes to delta directory.
@@ -644,13 +588,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to save delta records for, e.g. `"system"` to store changes for `/etc/config/system`. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '1');
 ctx.save('wireless');
 ```
-<a name="module_uci.cursor+commit"></a>
 
 #### cursor.commit([config]) ⇒ `boolean`
 Update configuration files with accumulated cursor changes.
@@ -676,13 +619,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to commit, e.g. `"system"` to update the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.commit('system');
-```
-<a name="module_uci.cursor+revert"></a>
+```ucode
 
 #### cursor.revert([config]) ⇒ `boolean`
 Revert accumulated cursor changes and associated delta records.
@@ -708,13 +650,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to revert, e.g. `"system"` to discard any changes for the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.revert('system');
 ```
-<a name="module_uci.cursor+changes"></a>
 
 #### cursor.changes([config]) ⇒ `Object.<string, Array.<module:uci.cursor.ChangeRecord>>`
 Enumerate pending changes.
@@ -739,7 +680,7 @@ loaded.
 | [config] | `string` | The name of the configuration file to enumerate changes for, e.g. `"system"` to query pending changes for the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Enumerate changes for all currently loaded configurations
@@ -747,8 +688,7 @@ const deltas = ctx.changes();
 
 // Explicitly load and enumerate changes for the "system" configuration
 const deltas = ctx.changes('system');
-```
-<a name="module_uci.cursor+foreach"></a>
+```ucode
 
 #### cursor.foreach(config, type, callback) ⇒ `boolean`
 Iterate configuration sections.
@@ -779,14 +719,13 @@ requested configuration not found.
 | callback | [`SectionCallback`](#module_uci.cursor.SectionCallback) | The callback to invoke for each section, will receive a section dictionary as sole argument. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Iterate all network interfaces
 ctx.foreach('network', 'interface',
 	   section => print(`Have interface ${section[".name"]}\n`));
 ```
-<a name="module_uci.cursor+configs"></a>
 
 #### cursor.configs() ⇒ `Array.<string>`
 Enumerate existing configurations.
@@ -800,13 +739,12 @@ Returns `null` on error, e.g. due to filesystem errors.
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Enumerate all present configuration file names
 const configurations = ctx.configs();
-```
-<a name="module_uci.cursor+error"></a>
+```ucode
 
 #### cursor.error() ⇒ `string`
 Query error information.
@@ -816,7 +754,7 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```js
+```ucode
 // Trigger error
 const ctx = cursor();
 ctx.set("not_existing_config", "test", "1");
@@ -824,7 +762,6 @@ ctx.set("not_existing_config", "test", "1");
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
 ```
-<a name="module_uci.cursor.ParserFlags"></a>
 
 #### cursor.ParserFlags : `Object`
 **Kind**: static typedef of [`cursor`](#module_uci.cursor)  
@@ -834,8 +771,6 @@ print(ctx.error(), "\n");
 | --- | --- | --- |
 | strict | `boolean` | Strict parsing mode (enabled by default). Aborts parsing when encountering a parser error. |
 | print_errors | `boolean` | Print parser errors to stderr. |
-
-<a name="module_uci.cursor.ChangeRecord"></a>
 
 #### cursor.ChangeRecord : `Array.<string>`
 A uci change record is a plain array containing the change operation name as
@@ -851,8 +786,6 @@ third and fourth argument whose meanings depend on the operation.
 | 1 | `string` | The section ID targeted by the operation. |
 | 2 | `string` | The meaning of the third element depends on the operation. - For `add` it is type of the section that has been added - For `set` it either is the option name if a fourth element exists, or the   type of a named section which has been added when the change entry only   contains three elements. - For `remove` it contains the name of the option that has been removed. - For `order` it specifies the new sort index of the section. - For `list-add` it contains the name of the list option a new value has been   added to. - For `list-del` it contains the name of the list option a value has been   removed from. - For `rename` it contains the name of the option that has been renamed if a   fourth element exists, else it contains the new name a section has been   renamed to if the change entry only contains three elements. |
 | 4 | `string` | The meaning of the fourth element depends on the operation. - For `set` it is the value an option has been set to. - For `list-add` it is the new value that has been added to a list option. - For `rename` it is the new name of an option that has been renamed. |
-
-<a name="module_uci.cursor.SectionObject"></a>
 
 #### cursor.SectionObject : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
 A section object represents the options and their corresponding values
@@ -872,8 +805,6 @@ character for normal option names.
 | .name | `string` | The `.name` property holds the name of the section object. It may be either an anonymous ID in the form `cfgXXXXXX` with `X` being a hexadecimal digit or a string holding the name of the section. |
 | .type | `string` | The `.type` property contains the type of the corresponding uci section. |
 | * | `string` \| `Array.<string>` | A section object may contain an arbitrary number of further properties representing the uci option enclosed in the section. All option property names will be in the form `[A-Za-z0-9_]+` and either contain a string value or an array of strings, in case the underlying option is an UCI list. |
-
-<a name="module_uci.cursor.SectionCallback"></a>
 
 #### cursor.SectionCallback : `function`
 The sections callback is invoked for each section found within the given

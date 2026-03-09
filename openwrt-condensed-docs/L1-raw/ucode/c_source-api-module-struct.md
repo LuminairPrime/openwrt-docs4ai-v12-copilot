@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_struct"></a>
-
-## struct
-# Handle Packed Binary Data
+## Handle Packed Binary Data
 
 The `struct` module provides routines for interpreting byte strings as packed
 binary data.
@@ -16,7 +13,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { pack, unpack } from 'struct';
 
   let buffer = pack('bhl', -13, 1234, 444555666);
@@ -26,7 +23,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as struct from 'struct';
 
   let buffer = struct.pack('bhl', -13, 1234, 444555666);
@@ -253,7 +250,7 @@ Note:
 Pack and unpack integers of three different sizes, using big endian
 ordering:
 
-```
+```ucode
 import { pack, unpack } from 'struct';
 
 pack(">bhl", 1, 2, 3);  // "\x01\x00\x02\x00\x00\x00\x03"
@@ -269,7 +266,7 @@ In [-p argument], line 1, byte 24:
 
  `struct.pack(">h", 99999)`
   Near here -------------^
-```
+```ucode
 
 Demonstrate the difference between `'s'` and `'c'` format characters:
 
@@ -278,7 +275,7 @@ import { pack } from 'struct';
 
 pack("@ccc", "1", "2", "3");  // "123"
 pack("@3s", "123");           // "123"
-```
+```ucode
 
 The ordering of format characters may have an impact on size in native
 mode since padding is implicit. In standard mode, the user is
@@ -293,7 +290,7 @@ import { pack } from 'struct';
 
 pack("@ci", "#", 0x12131415);  // "#\x00\x00\x00\x15\x14\x13\x12"
 pack("@ic", 0x12131415, "#");  // "\x15\x14\x13\x12#"
-```
+```ucode
 
 The following format `'ih0i'` results in two pad bytes being added at the
 end, assuming the platform's ints are aligned on 4-byte boundaries:
@@ -302,7 +299,7 @@ end, assuming the platform's ints are aligned on 4-byte boundaries:
 import { pack } from 'struct';
 
 pack("ih0i", 0x01010101, 0x0202);  // "\x01\x01\x01\x01\x02\x02\x00\x00"
-```
+```ucode
 
 Use the wildcard format to extract the remainder of the input data:
 
@@ -311,7 +308,7 @@ import { unpack } from 'struct';
 
 unpack("ccc*", "foobarbaz");   // [ "f", "o", "o", "barbaz" ]
 unpack("ccc3*", "foobarbaz");  // [ "f", "o", "o", "bar" ]
-```
+```ucode
 
 Use the wildcard format to pack binary stings as-is into the result data:
 
@@ -320,31 +317,7 @@ import { pack } from 'struct';
 
 pack("h*h", 0x0101, "\x02\x00\x03", 0x0404);  // "\x01\x01\x02\x00\x03\x04\x04"
 pack("c3*c", "a", "foobar", "c");  // "afooc"
-```
-
-* [struct](#module_struct)
-    * _instance_
-        * [.pack(format, ...values)](#module_struct+pack) ⇒ `string`
-        * [.unpack(format, input, [offset])](#module_struct+unpack) ⇒ `array`
-        * [.new(format)](#module_struct+new) ⇒ [`instance`](#module_struct.instance)
-        * [.buffer([initialData])](#module_struct+buffer) ⇒ [`buffer`](#module_struct.buffer)
-    * _static_
-        * [.instance](#module_struct.instance)
-            * [.pack(...values)](#module_struct.instance+pack) ⇒ `string`
-            * [.unpack(input, [offset])](#module_struct.instance+unpack) ⇒ `array`
-        * [.buffer](#module_struct.buffer)
-            * [.pos([position])](#module_struct.buffer+pos) ⇒ `number` \| [`buffer`](#module_struct.buffer)
-            * [.length([length])](#module_struct.buffer+length) ⇒ `number` \| [`buffer`](#module_struct.buffer)
-            * [.start()](#module_struct.buffer+start) ⇒ [`buffer`](#module_struct.buffer)
-            * [.end()](#module_struct.buffer+end) ⇒ [`buffer`](#module_struct.buffer)
-            * [.put(format, ...values)](#module_struct.buffer+put) ⇒ [`buffer`](#module_struct.buffer)
-            * [.get(format)](#module_struct.buffer+get) ⇒ `\*`
-            * [.get(format)](#module_struct.buffer+get) ⇒ `array`
-            * [.slice([start], [end])](#module_struct.buffer+slice) ⇒ `string`
-            * [.set([value], [start], [end])](#module_struct.buffer+set) ⇒ [`buffer`](#module_struct.buffer)
-            * [.pull()](#module_struct.buffer+pull) ⇒ `string`
-
-<a name="module_struct+pack"></a>
+```ucode
 
 ### struct.pack(format, ...values) ⇒ `string`
 Pack given values according to specified format.
@@ -366,12 +339,11 @@ format string is provided.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```js
+```ucode
 // Pack the values 1, 2, 3 as three consecutive unsigned int values
 // in network byte order.
 const data = pack('!III', 1, 2, 3);
 ```
-<a name="module_struct+unpack"></a>
 
 ### struct.unpack(format, input, [offset]) ⇒ `array`
 Unpack given byte string according to specified format.
@@ -396,13 +368,12 @@ input string or offset value is given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```js
+```ucode
 // Unpack three consecutive unsigned int values in network byte order.
 const numbers =
   unpack('!III', '\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x03');
 print(numbers, "\n"); // [ 1, 2, 3 ]
-```
-<a name="module_struct+new"></a>
+```ucode
 
 ### struct.new(format) ⇒ [`instance`](#module_struct.instance)
 Precompile format string.
@@ -422,13 +393,12 @@ Raises a runtime exception if the format string is invalid.
 | format | `string` | The format string. |
 
 **Example**  
-```js
+```ucode
 // Create a format of three consecutive unsigned int values in network byte order.
 const fmt = struct.new('!III');
 const buf = fmt.pack(1, 2, 3);  // "\x00\x00\x00\x01…"
 print(fmt.unpack(buf), "\n");   // [ 1, 2, 3 ]
 ```
-<a name="module_struct+buffer"></a>
 
 ### struct.buffer([initialData]) ⇒ [`buffer`](#module_struct.buffer)
 Creates a new struct buffer instance.
@@ -453,7 +423,7 @@ Returns a new struct buffer instance.
 | [initialData] | `string` | Optional initial data to populate the buffer with. |
 
 **Example**  
-```js
+```ucode
 // Create an empty buffer
 const emptyBuf = struct.buffer();
 
@@ -468,8 +438,7 @@ dataBuf.end().put('I', 5678);
 
 // Alternative chained syntax for initializing and appending
 const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
-```
-<a name="module_struct.instance"></a>
+```ucode
 
 ### struct.instance
 **Kind**: static class of [`struct`](#module_struct)  
@@ -478,8 +447,6 @@ const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
 * [.instance](#module_struct.instance)
     * [.pack(...values)](#module_struct.instance+pack) ⇒ `string`
     * [.unpack(input, [offset])](#module_struct.instance+unpack) ⇒ `array`
-
-<a name="module_struct.instance+pack"></a>
 
 #### instance.pack(...values) ⇒ `string`
 Pack given values.
@@ -499,11 +466,10 @@ required type of the corresponding format string directive.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```js
+```ucode
 const fmt = struct.new(…);
 const data = fmt.pack(…);
 ```
-<a name="module_struct.instance+unpack"></a>
 
 #### instance.unpack(input, [offset]) ⇒ `array`
 Unpack given byte string.
@@ -527,11 +493,10 @@ given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```js
+```ucode
 const fmt = struct.new(…);
 const values = fmt.unpack(…);
-```
-<a name="module_struct.buffer"></a>
+```ucode
 
 ### struct.buffer
 **Kind**: static class of [`struct`](#module_struct)  
@@ -549,8 +514,6 @@ const values = fmt.unpack(…);
     * [.set([value], [start], [end])](#module_struct.buffer+set) ⇒ [`buffer`](#module_struct.buffer)
     * [.pull()](#module_struct.buffer+pull) ⇒ `string`
 
-<a name="module_struct.buffer+pos"></a>
-
 #### buffer.pos([position]) ⇒ `number` \| [`buffer`](#module_struct.buffer)
 Get or set the current position in the buffer.
 
@@ -566,11 +529,10 @@ If called with a position argument, returns the buffer instance for chaining.
 | [position] | `number` | The position to set. If omitted, the current position is returned. |
 
 **Example**  
-```js
+```ucode
 const currentPos = buf.pos();
 buf.pos(10);  // Set position to 10
 ```
-<a name="module_struct.buffer+length"></a>
 
 #### buffer.length([length]) ⇒ `number` \| [`buffer`](#module_struct.buffer)
 Get or set the current buffer length.
@@ -594,7 +556,7 @@ If called with a length argument, returns the buffer instance for chaining.
 | [length] | `number` | The length to set. If omitted, the current length is returned. |
 
 **Example**  
-```js
+```ucode
 const buf = struct.buffer("abc"); // Initialize buffer with three bytes
 const currentLen = buf.length();  // Returns 3
 
@@ -603,8 +565,7 @@ buf.slice();                      // Trailing null bytes: "abc\x00\x00\x00"
 
 buf.length(2);                    // Truncate to 2 bytes
 buf.slice();                      // Truncated data: "ab"
-```
-<a name="module_struct.buffer+start"></a>
+```ucode
 
 #### buffer.start() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the start (0).
@@ -612,10 +573,9 @@ Set the buffer position to the start (0).
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: [`buffer`](#module_struct.buffer) - The buffer instance.  
 **Example**  
-```js
+```ucode
 buf.start();
 ```
-<a name="module_struct.buffer+end"></a>
 
 #### buffer.end() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the end.
@@ -623,10 +583,9 @@ Set the buffer position to the end.
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: [`buffer`](#module_struct.buffer) - The buffer instance.  
 **Example**  
-```js
+```ucode
 buf.end();
-```
-<a name="module_struct.buffer+put"></a>
+```ucode
 
 #### buffer.put(format, ...values) ⇒ [`buffer`](#module_struct.buffer)
 Pack data into the buffer at the current position.
@@ -649,10 +608,9 @@ documentation.
 | ...values | `\*` | The values to pack into the buffer. |
 
 **Example**  
-```js
+```ucode
 buf.put('II', 1234, 5678);
 ```
-<a name="module_struct.buffer+get"></a>
 
 #### buffer.get(format) ⇒ `\*`
 Unpack a single value from the buffer at the current position.
@@ -678,12 +636,11 @@ while postive ones extracts that many bytes after.
 | format | `string` \| `number` | The format string specifying how to unpack the data. |
 
 **Example**  
-```js
+```ucode
 const val = buf.get('I');
 const str = buf.get(5);    // equivalent to buf.get('5s')
 const str = buf.get(-3);   // equivalent to buf.pos(buf.pos() - 3).get('3s')
-```
-<a name="module_struct.buffer+get"></a>
+```ucode
 
 #### buffer.get(format) ⇒ `array`
 Unpack multiple values from the buffer at the current position.
@@ -704,10 +661,9 @@ For a detailed explanation of the format string syntax, refer to the
 | format | `string` | The format string specifying how to unpack the data. |
 
 **Example**  
-```js
+```ucode
 const values = buf.get('II');
 ```
-<a name="module_struct.buffer+slice"></a>
 
 #### buffer.slice([start], [end]) ⇒ `string`
 Extract a slice of the buffer content.
@@ -728,10 +684,9 @@ three bytes of data.
 | [end] | `number` | `buffer.length()` | The ending position of the slice (exclusive). |
 
 **Example**  
-```js
+```ucode
 const slice = buf.slice(4, 8);
-```
-<a name="module_struct.buffer+set"></a>
+```ucode
 
 #### buffer.set([value], [start], [end]) ⇒ [`buffer`](#module_struct.buffer)
 Set a slice of the buffer content to given byte value.
@@ -757,12 +712,11 @@ buffer is grown accordingly.
 | [end] | `number` | `buffer.length()` | The position to end overwriting (exclusive). |
 
 **Example**  
-```js
+```ucode
 const buf = struct.buffer("abcde");
 buf.set("X", 2, 4).slice();  // Buffer content is now "abXXe"
 buf.set().slice();           // Buffer content is now "\x00\x00\x00\x00\x00"
 ```
-<a name="module_struct.buffer+pull"></a>
 
 #### buffer.pull() ⇒ `string`
 Extract and remove all content from the buffer.
@@ -773,6 +727,6 @@ and resets the buffer to an empty state.
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: `string` - A string containing all the buffer content.  
 **Example**  
-```js
+```ucode
 const allData = buf.pull();
-```
+```ucode

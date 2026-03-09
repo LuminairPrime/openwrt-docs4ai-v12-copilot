@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 262
 version: unknown
 source_file: L1-raw/luci/js_source-api-firewall.md
-last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
+last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/firewall.js
 language: javascript
 ---

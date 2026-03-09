@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_nl80211"></a>
-
-## nl80211
-# Wireless Netlink
+## Wireless Netlink
 
 The `nl80211` module provides functions for interacting with the nl80211 netlink interface
 for wireless networking configuration and management.
@@ -16,7 +13,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { error, request, listener, waitfor, const } from 'nl80211';
 
   // Send a nl80211 request
@@ -31,12 +28,12 @@ syntax:
   let event = waitfor([const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
   if (event)
       print('Received scan results:', event.msg, '\n');
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as nl80211 from 'nl80211';
 
   // Send a nl80211 request
@@ -51,24 +48,9 @@ using a wildcard import statement:
 Additionally, the nl80211 module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lnl80211` switch.
 
-* [nl80211](#module_nl80211)
-    * _static_
-        * [.listener](#module_nl80211.listener)
-    * _inner_
-        * [~Netlink message flags](#module_nl80211..Netlink message flags)
-        * [~nl80211 commands](#module_nl80211..nl80211 commands)
-        * [~Scan flags](#module_nl80211..Scan flags)
-        * [~BSS status constants](#module_nl80211..BSS status constants)
-        * [~BSS use-for and cannot-use-reasons constants](#module_nl80211..BSS use-for and cannot-use-reasons constants)
-        * [~HWSIM commands](#module_nl80211..HWSIM commands)
-        * [~Interface types](#module_nl80211..Interface types)
-
-<a name="module_nl80211.listener"></a>
-
 ### nl80211.listener
 **Kind**: static class of [`nl80211`](#module_nl80211)  
 **See**: [listener()](module:nl80211#listener)  
-<a name="module_nl80211..Netlink message flags"></a>
 
 ### nl80211~Netlink message flags
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -93,8 +75,6 @@ the `ucode` interpreter with the `-lnl80211` switch.
 | NLM_F_REPLACE | `number` | Replace existing |
 | NLM_F_REQUEST | `number` | Request message |
 | NLM_F_ROOT | `number` | Root operation |
-
-<a name="module_nl80211..nl80211 commands"></a>
 
 ### nl80211~nl80211 commands
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -219,8 +199,6 @@ the `ucode` interpreter with the `-lnl80211` switch.
 | NL80211_CMD_TDLS_CANCEL_CHANNEL_SWITCH | `number` | Cancel TDLS channel switch |
 | NL80211_CMD_ABORT_SCAN | `number` | Abort scan |
 
-<a name="module_nl80211..Scan flags"></a>
-
 ### nl80211~Scan flags
 Constants for NL80211_ATTR_SCAN_FLAGS bitmask.
 
@@ -245,8 +223,6 @@ Constants for NL80211_ATTR_SCAN_FLAGS bitmask.
 | NL80211_SCAN_FLAG_FREQ_KHZ | `number` | Report scan results with frequency in KHz |
 | NL80211_SCAN_FLAG_COLOCATED_6GHZ | `number` | Scan colocated 6GHz BSS |
 
-<a name="module_nl80211..BSS status constants"></a>
-
 ### nl80211~BSS status constants
 Constants for BSS status values.
 
@@ -258,8 +234,6 @@ Constants for BSS status values.
 | NL80211_BSS_STATUS_AUTHENTICATED | `number` | Authenticated with BSS |
 | NL80211_BSS_STATUS_ASSOCIATED | `number` | Associated with BSS |
 | NL80211_BSS_STATUS_IBSS_JOINED | `number` | Joined IBSS |
-
-<a name="module_nl80211..BSS use-for and cannot-use-reasons constants"></a>
 
 ### nl80211~BSS use-for and cannot-use-reasons constants
 Constants for BSS use-for and cannot-use-reasons bitmasks.
@@ -273,8 +247,6 @@ Constants for BSS use-for and cannot-use-reasons bitmasks.
 | NL80211_BSS_USE_FOR_MLD_LINK | `number` | Use BSS as MLD link |
 | NL80211_BSS_CANNOT_USE_NSTR_NONPRIMARY | `number` | NSTR nonprimary link not usable |
 | NL80211_BSS_CANNOT_USE_6GHZ_PWR_MISMATCH | `number` | 6GHz power mode mismatch |
-
-<a name="module_nl80211..HWSIM commands"></a>
 
 ### nl80211~HWSIM commands
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -293,8 +265,6 @@ Constants for BSS use-for and cannot-use-reasons bitmasks.
 | HWSIM_CMD_START_PMSR | `number` | Start peer measurement |
 | HWSIM_CMD_ABORT_PMSR | `number` | Abort peer measurement |
 | HWSIM_CMD_REPORT_PMSR | `number` | Report peer measurement |
-
-<a name="module_nl80211..Interface types"></a>
 
 ### nl80211~Interface types
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  

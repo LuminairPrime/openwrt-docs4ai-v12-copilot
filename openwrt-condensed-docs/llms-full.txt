@@ -1,5 +1,5 @@
 # openwrt-docs4ai - Complete Flat Catalog
-> **Total Context:** ~436072 tokens
+> **Total Context:** ~425349 tokens
 
 - [L2-semantic/luci-examples/example_app-luci-app-commands-htdocs-luci-static-resources-view-commands-js.md](./L2-semantic/luci-examples/example_app-luci-app-commands-htdocs-luci-static-resources-view-commands-js.md) (247 tokens) - No description
 - [L2-semantic/luci-examples/example_app-luci-app-commands-ucode-controller-commands-uc.md](./L2-semantic/luci-examples/example_app-luci-app-commands-ucode-controller-commands-uc.md) (1625 tokens) - No description
@@ -48,20 +48,20 @@
 - [L2-semantic/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md](./L2-semantic/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md) (1412 tokens) - No description
 - [L2-semantic/procd/header_api-procd-api.md](./L2-semantic/procd/header_api-procd-api.md) (352 tokens) - No description
 - [L2-semantic/uci/uci_schema-schema-network-qos.md](./L2-semantic/uci/uci_schema-schema-network-qos.md) (420 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-debug.md](./L2-semantic/ucode/c_source-api-module-debug.md) (4397 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-digest.md](./L2-semantic/ucode/c_source-api-module-digest.md) (2040 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-fs.md](./L2-semantic/ucode/c_source-api-module-fs.md) (11943 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-io.md](./L2-semantic/ucode/c_source-api-module-io.md) (4766 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-log.md](./L2-semantic/ucode/c_source-api-module-log.md) (5577 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-math.md](./L2-semantic/ucode/c_source-api-module-math.md) (3156 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-nl80211.md](./L2-semantic/ucode/c_source-api-module-nl80211.md) (4244 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-resolv.md](./L2-semantic/ucode/c_source-api-module-resolv.md) (2586 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-rtnl.md](./L2-semantic/ucode/c_source-api-module-rtnl.md) (9218 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-socket.md](./L2-semantic/ucode/c_source-api-module-socket.md) (15013 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-struct.md](./L2-semantic/ucode/c_source-api-module-struct.md) (7885 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-uci.md](./L2-semantic/ucode/c_source-api-module-uci.md) (8826 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-uloop.md](./L2-semantic/ucode/c_source-api-module-uloop.md) (8838 tokens) - No description
-- [L2-semantic/ucode/c_source-api-module-zlib.md](./L2-semantic/ucode/c_source-api-module-zlib.md) (2391 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-debug.md](./L2-semantic/ucode/c_source-api-module-debug.md) (3903 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-digest.md](./L2-semantic/ucode/c_source-api-module-digest.md) (1609 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-fs.md](./L2-semantic/ucode/c_source-api-module-fs.md) (10326 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-io.md](./L2-semantic/ucode/c_source-api-module-io.md) (4067 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-log.md](./L2-semantic/ucode/c_source-api-module-log.md) (5108 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-math.md](./L2-semantic/ucode/c_source-api-module-math.md) (2848 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-nl80211.md](./L2-semantic/ucode/c_source-api-module-nl80211.md) (3937 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-resolv.md](./L2-semantic/ucode/c_source-api-module-resolv.md) (2540 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-rtnl.md](./L2-semantic/ucode/c_source-api-module-rtnl.md) (7622 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-socket.md](./L2-semantic/ucode/c_source-api-module-socket.md) (13552 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-struct.md](./L2-semantic/ucode/c_source-api-module-struct.md) (7345 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-uci.md](./L2-semantic/ucode/c_source-api-module-uci.md) (7883 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-uloop.md](./L2-semantic/ucode/c_source-api-module-uloop.md) (7500 tokens) - No description
+- [L2-semantic/ucode/c_source-api-module-zlib.md](./L2-semantic/ucode/c_source-api-module-zlib.md) (1917 tokens) - No description
 - [L2-semantic/wiki/wiki_page-guide-developer-20-xx-major-changes.md](./L2-semantic/wiki/wiki_page-guide-developer-20-xx-major-changes.md) (2106 tokens) - No description
 - [L2-semantic/wiki/wiki_page-guide-developer-add-new-device.md](./L2-semantic/wiki/wiki_page-guide-developer-add-new-device.md) (2908 tokens) - No description
 - [L2-semantic/wiki/wiki_page-guide-developer-add-new-platform.md](./L2-semantic/wiki/wiki_page-guide-developer-add-new-platform.md) (5106 tokens) - No description
@@ -164,7 +164,7 @@
 - [procd/procd-skeleton.md](./procd/procd-skeleton.md) (35 tokens) - Structural skeleton/map for procd
 - [uci/uci-complete-reference.md](./uci/uci-complete-reference.md) (420 tokens) - Complete monolithic reference for uci
 - [uci/uci-skeleton.md](./uci/uci-skeleton.md) (42 tokens) - Structural skeleton/map for uci
-- [ucode/ucode-complete-reference.md](./ucode/ucode-complete-reference.md) (90880 tokens) - Complete monolithic reference for ucode
-- [ucode/ucode-skeleton.md](./ucode/ucode-skeleton.md) (9088 tokens) - Structural skeleton/map for ucode
+- [ucode/ucode-complete-reference.md](./ucode/ucode-complete-reference.md) (80157 tokens) - Complete monolithic reference for ucode
+- [ucode/ucode-skeleton.md](./ucode/ucode-skeleton.md) (8015 tokens) - Structural skeleton/map for ucode
 - [wiki/wiki-complete-reference.md](./wiki/wiki-complete-reference.md) (199873 tokens) - Complete monolithic reference for wiki
 - [wiki/wiki-skeleton.md](./wiki/wiki-skeleton.md) (19987 tokens) - Structural skeleton/map for wiki

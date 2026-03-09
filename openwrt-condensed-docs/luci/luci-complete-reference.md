@@ -3,7 +3,7 @@ module: "luci"
 total_token_count: 19723
 section_count: 10
 is_monolithic: true
-generated: "2026-03-09T17:28:56.527072+00:00"
+generated: "2026-03-09T18:13:10.135565+00:00"
 ---
 
 # luci Complete Reference
@@ -534,7 +534,7 @@ Handle a CGI-IO reply.
                 * [.bindClassInstance(node, inst)](#LuCI.dom+bindClassInstance) ⇒ `Class`
                 * [.findClassInstance(node)](#LuCI.dom+findClassInstance) ⇒ `Class` \| `null`
                 * [.callClassMethod(node, method, ...args)](#LuCI.dom+callClassMethod) ⇒ `\*` \| `null`
-                * [.[isEmpty](../L2-semantic/luci/js_source-api-uci.md)(node, [ignoreFn])](#LuCI.dom+[isEmpty](../L2-semantic/luci/js_source-api-uci.md)) ⇒ `boolean`
+                * [.isEmpty(node, [ignoreFn])](#LuCI.dom+isEmpty) ⇒ `boolean`
             * _inner_
                 * [~ignoreCallbackFn](#LuCI.dom..ignoreCallbackFn) ⇒ `boolean`
         * [.session](#LuCI.session)
@@ -1535,7 +1535,7 @@ external JavaScript, use `L.require("dom").then(...)`.
         * [.bindClassInstance(node, inst)](#LuCI.dom+bindClassInstance) ⇒ `Class`
         * [.findClassInstance(node)](#LuCI.dom+findClassInstance) ⇒ `Class` \| `null`
         * [.callClassMethod(node, method, ...args)](#LuCI.dom+callClassMethod) ⇒ `\*` \| `null`
-        * [.[isEmpty](../L2-semantic/luci/js_source-api-uci.md)(node, [ignoreFn])](#LuCI.dom+[isEmpty](../L2-semantic/luci/js_source-api-uci.md)) ⇒ `boolean`
+        * [.isEmpty(node, [ignoreFn])](#LuCI.dom+isEmpty) ⇒ `boolean`
     * _inner_
         * [~ignoreCallbackFn](#LuCI.dom..ignoreCallbackFn) ⇒ `boolean`
 

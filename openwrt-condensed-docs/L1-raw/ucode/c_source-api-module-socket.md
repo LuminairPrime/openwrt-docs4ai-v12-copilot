@@ -4,10 +4,7 @@
 
 ---
 
-<a name="module_socket"></a>
-
-## socket
-# Socket Module
+## Socket Module
 
 The `socket` module provides functions for interacting with sockets.
 
@@ -15,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { AF_INET, SOCK_STREAM, create as socket } from 'socket';
 
   let sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -23,12 +20,12 @@ syntax:
   sock.send(…);
   sock.recv(…);
   sock.close();
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as socket from 'socket';
 
   let sock = socket.create(socket.AF_INET, socket.SOCK_STREAM, 0);
@@ -40,63 +37,6 @@ using a wildcard import statement:
 
 Additionally, the socket module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lsocket` switch.
-
-* [socket](#module_socket)
-    * _instance_
-        * [.error([numeric])](#module_socket+error) ⇒ `string` \| `number`
-        * [.strerror(code)](#module_socket+strerror) ⇒ `string`
-        * [.sockaddr(address)](#module_socket+sockaddr) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-        * [.nameinfo(address, [flags])](#module_socket+nameinfo) ⇒ `Object`
-        * [.addrinfo(hostname, [service], [hints])](#module_socket+addrinfo) ⇒ [`Array.<AddressInfo>`](#module_socket.AddressInfo)
-        * [.poll(timeout, ...sockets)](#module_socket+poll) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
-        * [.connect(host, [service], [hints], [timeout])](#module_socket+connect) ⇒ [`socket`](#module_socket.socket)
-        * [.listen(host, [service], [hints], [backlog], [reuseaddr])](#module_socket+listen) ⇒ [`socket`](#module_socket.socket)
-        * [.create([domain], [type], [protocol])](#module_socket+create) ⇒ [`socket`](#module_socket.socket)
-        * [.open([fd])](#module_socket+open) ⇒ [`socket`](#module_socket.socket)
-        * [.pair([type])](#module_socket+pair) ⇒ `Array.<?module:socket.socket>`
-    * _static_
-        * [.socket](#module_socket.socket)
-            * _instance_
-                * [.setopt(level, option, value)](#module_socket.socket+setopt) ⇒ `boolean`
-                * [.getopt(level, option)](#module_socket.socket+getopt) ⇒ `\*`
-                * [.fileno()](#module_socket.socket+fileno) ⇒ `number`
-                * [.connect(address, port)](#module_socket.socket+connect) ⇒ `boolean`
-                * [.send(data, [flags], [address])](#module_socket.socket+send) ⇒ `number`
-                * [.recv([length], [flags], [address])](#module_socket.socket+recv) ⇒ `string`
-                * [.sendmsg([data], [ancillaryData], [address], [flags])](#module_socket.socket+sendmsg) ⇒ `number`
-                * [.recvmsg([sizes], [ancillarySize], [flags])](#module_socket.socket+recvmsg) ⇒ [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)
-                * [.bind(address)](#module_socket.socket+bind) ⇒ `boolean`
-                * [.listen([backlog])](#module_socket.socket+listen) ⇒ `boolean`
-                * [.accept([address], [flags])](#module_socket.socket+accept) ⇒ [`socket`](#module_socket.socket)
-                * [.shutdown(how)](#module_socket.socket+shutdown) ⇒ `boolean`
-                * [.peercred()](#module_socket.socket+peercred) ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
-                * [.peername()](#module_socket.socket+peername) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-                * [.sockname()](#module_socket.socket+sockname) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-                * [.close()](#module_socket.socket+close) ⇒ `boolean`
-                * [.error([numeric])](#module_socket.socket+error) ⇒ `string` \| `number`
-            * _static_
-                * [.SocketAddress](#module_socket.socket.SocketAddress) : `Object`
-                * [.ControlMessage](#module_socket.socket.ControlMessage) : `Object`
-                * [.ReceivedMessage](#module_socket.socket.ReceivedMessage) : `Object`
-                * [.PeerCredentials](#module_socket.socket.PeerCredentials) : `Object`
-        * [.AddressInfo](#module_socket.AddressInfo) : `Object`
-        * [.PollSpec](#module_socket.PollSpec) : `Array`
-    * _inner_
-        * [~Address Families](#module_socket..Address Families)
-        * [~Socket Types](#module_socket..Socket Types)
-        * [~Message Flags](#module_socket..Message Flags)
-        * [~IP Protocol Constants](#module_socket..IP Protocol Constants)
-        * [~IPv6](#module_socket..IPv6) : `Object`
-        * [~Socket Option Constants](#module_socket..Socket Option Constants)
-        * [~TCP Protocol Constants](#module_socket..TCP Protocol Constants)
-        * [~Packet Socket Constants](#module_socket..Packet Socket Constants)
-        * [~UDP Protocol Constants](#module_socket..UDP Protocol Constants)
-        * [~Shutdown Constants](#module_socket..Shutdown Constants)
-        * [~Address Info Flags](#module_socket..Address Info Flags)
-        * [~Name Info Constants](#module_socket..Name Info Constants)
-        * [~Poll Event Constants](#module_socket..Poll Event Constants)
-
-<a name="module_socket+error"></a>
 
 ### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.
@@ -116,7 +56,7 @@ Returns `null` if there is no error information.
 | [numeric] | `boolean` | Whether to return a numeric error code (`true`) or a human readable error message (false). |
 
 **Example**  
-```js
+```ucode
 // Trigger socket error by attempting to bind IPv6 address with IPv4 socket
 socket.create(socket.AF_INET, socket.SOCK_STREAM, 0).bind("::", 8080);
 
@@ -128,8 +68,7 @@ socket.addrinfo("doesnotexist.org");
 
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
-```
-<a name="module_socket+strerror"></a>
+```ucode
 
 ### socket.strerror(code) ⇒ `string`
 Returns a string containing a description of the positive (`errno`) or
@@ -144,14 +83,13 @@ Returns `null` if the error code number is unknown.
 | code | `number` | The error code. |
 
 **Example**  
-```js
+```ucode
 // Should output 'Name or service not known'.
 print(socket.strerror(-2), '\n');
 
 // Should output 'No route to host'.
 print(socket.strerror(113), '\n');
 ```
-<a name="module_socket+sockaddr"></a>
 
 ### socket.sockaddr(address) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Parses the provided address value into a socket address representation.
@@ -182,7 +120,7 @@ the address could not be parsed.
 | address | `string` \| `Array.<number>` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The address value to parse. |
 
 **Example**  
-```js
+```ucode
 // Parse an IP address string with port
 const address1 = sockaddr('192.168.0.1:8080');
 
@@ -197,8 +135,7 @@ const address4 = sockaddr({ address: '192.168.0.1', port: 8080 });
 
 // Convert a path value to a UNIX domain socket address
 const address5 = sockaddr('/var/run/daemon.sock');
-```
-<a name="module_socket+nameinfo"></a>
+```ucode
 
 ### socket.nameinfo(address, [flags]) ⇒ `Object`
 Resolves the given network address into hostname and service name.
@@ -223,12 +160,11 @@ Return `null` if an error occurred during resolution.
 | [flags] | `number` | Optional flags that provide additional control over the resolution process, specified as bitwise OR-ed number of `NI_*` constants. |
 
 **Example**  
-```js
+```ucode
 // Resolve a network address into hostname and service name
 const result = network.getnameinfo('192.168.1.1:80');
 print(result); // { "hostname": "example.com", "service": "http" }
 ```
-<a name="module_socket+addrinfo"></a>
 
 ### socket.addrinfo(hostname, [service], [hints]) ⇒ [`Array.<AddressInfo>`](#module_socket.AddressInfo)
 Resolves the given hostname and optional service name into a list of network
@@ -254,7 +190,7 @@ Returns `null` if an error occurred during resolution.
 | [hints] | `Object` | Optional hints object that provides additional control over the resolution process. It can contain the following properties: - `family`: The preferred address family (`AF_INET` or `AF_INET6`). - `socktype`: The socket type (`SOCK_STREAM`, `SOCK_DGRAM`, etc.). - `protocol`: The protocol of returned addresses. - `flags`: Bitwise OR-ed `AI_*` flags to control the resolution behavior. |
 
 **Example**  
-```js
+```ucode
 // Resolve all addresses
 const addresses = socket.addrinfo('example.org');
 
@@ -263,8 +199,7 @@ const ipv4addresses = socket.addrinfo('example.com', 'http', { family: socket.AF
 
 // Resolve IPv6 addresses without specifying a service
 const ipv6Addresses = socket.addrinfo('example.com', null, { family: socket.AF_INET6 });
-```
-<a name="module_socket+poll"></a>
+```ucode
 
 ### socket.poll(timeout, ...sockets) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
 Polls a number of sockets for state changes.
@@ -287,7 +222,7 @@ Returns `null` if an error occurred.
 | ...sockets | [`socket`](#module_socket.socket) \| [`PollSpec`](#module_socket.PollSpec) | An arbitrary amount of socket arguments. Each argument may be either a plain [socket instance](#module_socket.socket) (or any other kind of handle implementing a `fileno()` method) or a `[socket, flags]` tuple specifying the socket and requested poll flags. If a plain socket (or other kind of handle) instead of a tuple is provided, the requested poll flags default to `POLLIN|POLLERR|POLLHUP` for this socket. |
 
 **Example**  
-```js
+```ucode
 let x = socket.connect("example.org", 80);
 let y = socket.connect("example.com", 80);
 
@@ -304,7 +239,6 @@ let events = socket.poll(10,
 print(events); // [ [ "<socket 0x7>", 4, "This is example.org" ],
                //   [ "<socket 0x8>", 4, "This is example.com" ] ]
 ```
-<a name="module_socket+connect"></a>
 
 ### socket.connect(host, [service], [hints], [timeout]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket and connects it to the specified host and service.
@@ -325,7 +259,7 @@ establishment with the socket module.
 | [timeout] | `number` | `-1` | The timeout in milliseconds for socket connect operations. If set to a negative value, no specifc time limit is imposed and the function will block until either a connection was successfull or the underlying operating system timeout is reached. |
 
 **Example**  
-```js
+```ucode
 // Resolve host, try to connect to both resulting IPv4 and IPv6 addresses
 let conn = socket.connect("example.org", 80);
 
@@ -340,8 +274,7 @@ let conn = socket.connect({ address: "127.0.0.1", port: 9000 });
 
 // Use SocketAddress structure to connect a UNIX domain socket
 let conn = socket.connect({ path: "/var/run/daemon.sock" });
-```
-<a name="module_socket+listen"></a>
+```ucode
 
 ### socket.listen(host, [service], [hints], [backlog], [reuseaddr]) ⇒ [`socket`](#module_socket.socket)
 Binds a listening network socket to the specified host and service.
@@ -364,7 +297,7 @@ listening socket with the socket module.
 | [reuseaddr] | `boolean` |  | Whether to set the SO_REUSEADDR option before calling bind(). |
 
 **Example**  
-```js
+```ucode
 // Listen for incoming TCP connections on port 80
 let server = socket.listen("localhost", 80);
 
@@ -374,7 +307,6 @@ let server = socket.listen("machine.local", 8080, { family: socket.AF_INET6 });
 // Listen on a UNIX domain socket
 let server = socket.listen({ path: "/var/run/server.sock" });
 ```
-<a name="module_socket+create"></a>
 
 ### socket.create([domain], [type], [protocol]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance.
@@ -410,14 +342,13 @@ Returns `null` if an error occurred during socket creation.
 | [protocol] | `number` | `0` | The protocol to be used with the socket. |
 
 **Example**  
-```js
+```ucode
 // Create a TCP socket
 const tcp_socket = create(AF_INET, SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket
 const udp_socket = create(AF_INET6, SOCK_DGRAM | SOCK_NONBLOCK);
-```
-<a name="module_socket+open"></a>
+```ucode
 
 ### socket.open([fd]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance from an existing file descriptor.
@@ -432,8 +363,6 @@ Returns `null` if an error occurred during socket creation.
 | Param | Type | Description |
 | --- | --- | --- |
 | [fd] | `number` | The file descriptor number |
-
-<a name="module_socket+pair"></a>
 
 ### socket.pair([type]) ⇒ `Array.<?module:socket.socket>`
 Creates a connected socket instance with a pair file descriptor.
@@ -459,14 +388,13 @@ Returns `null` if an error occurred during socket creation.
 | [type] | `number` | `SOCK_STREAM` | The socket type, e.g., SOCK_STREAM or SOCK_DGRAM. It may also be bitwise OR-ed with SOCK_NONBLOCK or SOCK_CLOEXEC. |
 
 **Example**  
-```js
+```ucode
 // Create a TCP socket pair
 const tcp_sockets = pair(SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket pair
 const udp_sockets = pair(SOCK_DGRAM | SOCK_NONBLOCK);
 ```
-<a name="module_socket.socket"></a>
 
 ### socket.socket
 **Kind**: static class of [`socket`](#module_socket)  
@@ -497,8 +425,6 @@ const udp_sockets = pair(SOCK_DGRAM | SOCK_NONBLOCK);
         * [.ReceivedMessage](#module_socket.socket.ReceivedMessage) : `Object`
         * [.PeerCredentials](#module_socket.socket.PeerCredentials) : `Object`
 
-<a name="module_socket.socket+setopt"></a>
-
 #### socket.setopt(level, option, value) ⇒ `boolean`
 Sets options on the socket.
 
@@ -515,8 +441,6 @@ Returns `null` if an error occurred.
 | level | `number` | The protocol level at which the option resides. This can be a level such as `SOL_SOCKET` for the socket API level or a specific protocol level defined by the system. |
 | option | `number` | The socket option to set. This can be an integer representing the option, such as `SO_REUSEADDR`, or a constant defined by the system. |
 | value | `\*` | The value to set the option to. The type of this argument depends on the specific option being set. It can be an integer, a boolean, a string, or a dictionary representing the value to set. If a dictionary is provided, it is internally translated to the corresponding C struct type required by the option. |
-
-<a name="module_socket.socket+getopt"></a>
 
 #### socket.getopt(level, option) ⇒ `\*`
 Gets options from the socket.
@@ -537,8 +461,6 @@ string, or a dictionary representing a complex data structure.
 | level | `number` | The protocol level at which the option resides. This can be a level such as `SOL_SOCKET` for the socket API level or a specific protocol level defined by the system. |
 | option | `number` | The socket option to retrieve. This can be an integer representing the option, such as `SO_REUSEADDR`, or a constant defined by the system. |
 
-<a name="module_socket.socket+fileno"></a>
-
 #### socket.fileno() ⇒ `number`
 Returns the UNIX file descriptor number associated with the socket.
 
@@ -547,7 +469,6 @@ Returns the file descriptor number.
 Returns `-1` if an error occurred.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
-<a name="module_socket.socket+connect"></a>
 
 #### socket.connect(address, port) ⇒ `boolean`
 Connects the socket to a remote address.
@@ -563,8 +484,6 @@ Returns `null` if an error occurred during the connection attempt.
 | --- | --- | --- |
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The address of the remote endpoint to connect to. |
 | port | `number` | The port number of the remote endpoint to connect to. |
-
-<a name="module_socket.socket+send"></a>
 
 #### socket.send(data, [flags], [address]) ⇒ `number`
 Sends data through the socket.
@@ -585,7 +504,7 @@ Returns `null` if an error occurred during the send operation.
 | [address] | [`SocketAddress`](#module_socket.socket.SocketAddress) \| `Array.<number>` \| `string` | The address of the remote endpoint to send the data to. It can be either an IP address string, an array returned by [iptoarr()](module:core#iptoarr), or an object representing a network address. If not provided, the data is sent to the remote endpoint the socket is connected to. |
 
 **Example**  
-```js
+```ucode
 // Send to connected socket
 let tcp_sock = socket.create(socket.AF_INET, socket.SOCK_STREAM);
 tcp_sock.connect("192.168.1.1", 80);
@@ -599,8 +518,7 @@ udp_sock.send("Hello there!", 0, {
   address: "255.255.255.255",
   port: 9000
 });
-```
-<a name="module_socket.socket+recv"></a>
+```ucode
 
 #### socket.recv([length], [flags], [address]) ⇒ `string`
 Receives data from the socket.
@@ -621,8 +539,6 @@ Returns `null` if an error occurred during the receive operation.
 | [length] | `number` | `4096` | The maximum number of bytes to receive. |
 | [flags] | `number` |  | Optional flags that modify the behavior of the receive operation. |
 | [address] | `Object` |  | An object where the function will store the address from which the data was received. If provided, it will be filled with the details obtained from the sockaddr argument of the underlying `recvfrom()` syscall. See the type definition of [SocketAddress](#module_socket.socket.SocketAddress) for details on the format. |
-
-<a name="module_socket.socket+sendmsg"></a>
 
 #### socket.sendmsg([data], [ancillaryData], [address], [flags]) ⇒ `number`
 Sends a message through the socket.
@@ -646,7 +562,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the send operation. This should be a bitwise OR-ed combination of `MSG_*` flag values. |
 
 **Example**  
-```js
+```ucode
 // Send file descriptors over domain socket
 const f1 = fs.open("example.txt", "w");
 const f2 = fs.popen("date +%s", "r");
@@ -658,7 +574,6 @@ sk.sendmsg("Hi there, here's some descriptors!", [
 // Send multiple values in one datagram
 sk.sendmsg([ "This", "is", "one", "message" ]);
 ```
-<a name="module_socket.socket+recvmsg"></a>
 
 #### socket.recvmsg([sizes], [ancillarySize], [flags]) ⇒ [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)
 Receives a message from the socket.
@@ -684,7 +599,7 @@ and the sender's address.
 | [flags] | `number` | Optional flags to modify the behavior of the receive operation. This should be a bitwise OR-ed combination of flag values. |
 
 **Example**  
-```js
+```ucode
 // Receive file descriptors over domain socket
 const sk = socket.listen({ family: socket.AF_UNIX, path: "/tmp/socket" });
 sk.setopt(socket.SOL_SOCKET, socket.SO_PASSCRED, true);
@@ -701,8 +616,7 @@ print(`Message parts: ${msg.data[0]}, ${msg.data[1]}, ${msg.data[2]}\n`);
 // Peek buffer
 const msg = sk.recvmsg(0, 0, socket.MSG_PEEK|socket.MSG_TRUNC);
 print(`Received ${length(msg.data)} bytes, ${msg.length} bytes available\n`);
-```
-<a name="module_socket.socket+bind"></a>
+```ucode
 
 #### socket.bind(address) ⇒ `boolean`
 Binds a socket to a specific address.
@@ -720,7 +634,7 @@ Returns `null` on error, e.g. when the address is in use.
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The IP address to bind the socket to. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 const success = sock.bind("192.168.0.1:80");
 
@@ -729,7 +643,6 @@ if (success)
 else
     print(`Failed to bind socket: ${sock.error()}.\n`);
 ```
-<a name="module_socket.socket+listen"></a>
 
 #### socket.listen([backlog]) ⇒ `boolean`
 Listen for connections on a socket.
@@ -754,7 +667,7 @@ Returns `null` if an error occurred, e.g. when the requested port is in use.
 | [backlog] | `number` | `128` | The maximum length of the queue of pending connections. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.bind(…);
 
@@ -763,8 +676,7 @@ if (success)
     print(`Socket is listening for incoming connections!\n`);
 else
     print(`Failed to listen on socket: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+accept"></a>
+```ucode
 
 #### socket.accept([address], [flags]) ⇒ [`socket`](#module_socket.socket)
 Accept a connection on a socket.
@@ -795,7 +707,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the peer socket. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.bind(…);
 sock.listen();
@@ -807,7 +719,6 @@ if (newSocket)
 else
     print(`Failed to accept connection: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+shutdown"></a>
 
 #### socket.shutdown(how) ⇒ `boolean`
 Shutdown part of a full-duplex connection.
@@ -830,7 +741,7 @@ Returns `null` if an error occurred.
 | how | `number` | Specifies which half of the connection to shut down. It can be one of the following constant values: `SHUT_RD`, `SHUT_WR`, or `SHUT_RDWR`. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 // Perform data exchange…
@@ -840,8 +751,7 @@ if (success)
     print(`Send operations on socket shut down successfully.\n`);
 else
     print(`Failed to shut down send operations: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+peercred"></a>
+```ucode
 
 #### socket.peercred() ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
 Retrieves the peer credentials.
@@ -854,7 +764,7 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(socket.AF_UNIX, …);
 sock.connect(…);
 
@@ -864,7 +774,6 @@ if (peerCredentials)
 else
     print(`Failed to retrieve peer credentials: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+peername"></a>
 
 #### socket.peername() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the remote address.
@@ -877,7 +786,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [sockname()](#module_socket.socket+sockname)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -886,8 +795,7 @@ if (peerAddress)
     print(`Connected to ${peerAddress}\n`);
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+sockname"></a>
+```ucode
 
 #### socket.sockname() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the local address.
@@ -900,7 +808,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [peername()](#module_socket.socket+peername)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -910,7 +818,6 @@ if (myAddress)
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+close"></a>
 
 #### socket.close() ⇒ `boolean`
 Closes the socket.
@@ -923,13 +830,12 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 // Perform operations with the socket…
 sock.close();
-```
-<a name="module_socket.socket+error"></a>
+```ucode
 
 #### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.
@@ -949,7 +855,7 @@ Returns `null` if there is no error information.
 | [numeric] | `boolean` | Whether to return a numeric error code (`true`) or a human readable error message (false). |
 
 **Example**  
-```js
+```ucode
 // Trigger socket error by attempting to bind IPv6 address with IPv4 socket
 socket.create(socket.AF_INET, socket.SOCK_STREAM, 0).bind("::", 8080);
 
@@ -962,7 +868,6 @@ socket.addrinfo("doesnotexist.org");
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
 ```
-<a name="module_socket.socket.SocketAddress"></a>
 
 #### socket.SocketAddress : `Object`
 **Kind**: static typedef of [`socket`](#module_socket.socket)  
@@ -980,8 +885,6 @@ print(socket.error(true), "\n");  //
 | [hardware_type] | `number` | `0` | ARP hardware type (AF_PACKET only). |
 | [packet_type] | `number` | `PACKET_HOST` | Packet type (AF_PACKET only). |
 
-<a name="module_socket.socket.ControlMessage"></a>
-
 #### socket.ControlMessage : `Object`
 Represents a single control (ancillary data) message returned
 in the *ancillary* array by [`recvmsg()`](#module_socket.socket+recvmsg).
@@ -994,8 +897,6 @@ in the *ancillary* array by [`recvmsg()`](#module_socket.socket+recvmsg).
 | level | `number` | The message socket level (`cmsg_level`), e.g. `SOL_SOCKET`. |
 | type | `number` | The protocol specific message type (`cmsg_type`), e.g. `SCM_RIGHTS`. |
 | data | `\*` | The payload of the control message. If the control message type is known by the socket module, it is represented as a mixed value (array, object, number, etc.) with structure specific to the control message type. If the control message cannot be decoded, *data* is set to a string value containing the raw payload. |
-
-<a name="module_socket.socket.ReceivedMessage"></a>
 
 #### socket.ReceivedMessage : `Object`
 Represents a message object returned by
@@ -1012,8 +913,6 @@ Represents a message object returned by
 | data | `Array.<string>` \| `string` | An array of strings, each representing the received message data. Each string corresponds to one buffer size specified in the *sizes* argument. If a single receive size was passed instead of an array of sizes, *data* will hold a string containing the received data. |
 | [ancillary] | [`Array.<ControlMessage>`](#module_socket.socket.ControlMessage) | An array of received control messages. Only included if a non-zero positive *ancillarySize* was passed to `recvmsg()`. |
 
-<a name="module_socket.socket.PeerCredentials"></a>
-
 #### socket.PeerCredentials : `Object`
 Represents a credentials information object returned by
 [`peercred()`](#module_socket.socket+peercred).
@@ -1026,8 +925,6 @@ Represents a credentials information object returned by
 | uid | `number` | The effective user ID the remote socket endpoint. |
 | gid | `number` | The effective group ID the remote socket endpoint. |
 | pid | `number` | The ID of the process the remote socket endpoint belongs to. |
-
-<a name="module_socket.AddressInfo"></a>
 
 ### socket.AddressInfo : `Object`
 Represents a network address information object returned by
@@ -1045,8 +942,6 @@ Represents a network address information object returned by
 | protocol | `number` |  | The protocol number. |
 | socktype | `number` |  | The socket type (e.g., `1` for `SOCK_STREAM`, `2` for `SOCK_DGRAM`). |
 
-<a name="module_socket.PollSpec"></a>
-
 ### socket.PollSpec : `Array`
 Represents a poll state serving as input parameter and return value type for
 [`poll()`](#module_socket+poll).
@@ -1058,8 +953,6 @@ Represents a poll state serving as input parameter and return value type for
 | --- | --- | --- |
 | 0 | [`socket`](#module_socket.socket) | The polled socket instance. |
 | 1 | `number` | Requested or returned status flags of the polled socket instance. |
-
-<a name="module_socket..Address Families"></a>
 
 ### socket~Address Families
 Constants representing address families and socket domains.
@@ -1074,8 +967,6 @@ Constants representing address families and socket domains.
 | AF_INET | `number` | IPv4 Internet protocols. |
 | AF_INET6 | `number` | IPv6 Internet protocols. |
 | AF_PACKET | `number` | Low-level packet interface. |
-
-<a name="module_socket..Socket Types"></a>
 
 ### socket~Socket Types
 The `SOCK_*` type and flag constants are used by
@@ -1095,8 +986,6 @@ to accepted peer sockets.
 | SOCK_PACKET | `number` | Obsolete and should not be used. |
 | SOCK_NONBLOCK | `number` | Enables non-blocking operation. |
 | SOCK_CLOEXEC | `number` | Sets the close-on-exec flag on the new file descriptor. |
-
-<a name="module_socket..Message Flags"></a>
 
 ### socket~Message Flags
 The `MSG_*` flag constants are commonly used in conjunction with the
@@ -1121,8 +1010,6 @@ The `MSG_*` flag constants are commonly used in conjunction with the
 | MSG_PEEK | `number` | Peeks at incoming messages. |
 | MSG_TRUNC | `number` | Report if datagram truncation occurred. |
 | MSG_WAITALL | `number` | Wait for full message. |
-
-<a name="module_socket..IP Protocol Constants"></a>
 
 ### socket~IP Protocol Constants
 The `IPPROTO_IP` constant specifies the IP protocol number and may be
@@ -1171,8 +1058,6 @@ the `IPPROTO_IP` socket level.
 | IP_TRANSPARENT | `number` | Transparent proxy support. |
 | IP_TTL | `number` | IP time-to-live. |
 | IP_UNBLOCK_SOURCE | `number` | Unblock IP group/source. |
-
-<a name="module_socket..IPv6"></a>
 
 ### socket~IPv6 : `Object`
 The `IPPROTO_IPV6` constant specifies the IPv6 protocol number and may be
@@ -1234,8 +1119,6 @@ the `IPPROTO_IPV6` socket level.
 | IPV6_UNICAST_HOPS | `number` | Set the unicast hop limit for the socket. |
 | IPV6_UNICAST_IF | `number` | Set the interface for outgoing unicast packets. |
 | IPV6_V6ONLY | `number` | Restrict the socket to sending and receiving IPv6 packets only. |
-
-<a name="module_socket..Socket Option Constants"></a>
 
 ### socket~Socket Option Constants
 The `SOL_SOCKET` constant is passed as *level* argument to the

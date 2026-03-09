@@ -1,15 +1,15 @@
 ---
 module: "ucode"
-total_token_count: 90880
+total_token_count: 80157
 section_count: 14
 is_monolithic: true
-generated: "2026-03-09T17:28:56.527072+00:00"
+generated: "2026-03-09T18:13:10.135565+00:00"
 ---
 
 # ucode Complete Reference
 
 > **Contains:** 14 documents concatenated
-> **Tokens:** ~90880 (cl100k_base)
+> **Tokens:** ~80157 (cl100k_base)
 
 ---
 
@@ -19,10 +19,7 @@ generated: "2026-03-09T17:28:56.527072+00:00"
 
 ---
 
-<a name="module_debug"></a>
-
-## debug
-# Debugger Module
+## Debugger Module
 
 This module provides runtime debug functionality for ucode scripts.
 
@@ -30,7 +27,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { memdump, traceback } from 'debug';
 
   let stacktrace = traceback(1);
@@ -41,7 +38,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as debug from 'debug';
 
   let stacktrace = debug.traceback(1);
@@ -59,26 +56,6 @@ behavior can be inhibited by setting the `UCODE_DEBUG_MEMDUMP_ENABLED`
 environment variable to `0` when starting the process. The memory dump signal
 and output directory can be overridden with the `UCODE_DEBUG_MEMDUMP_SIGNAL`
 and `UCODE_DEBUG_MEMDUMP_PATH` environment variables respectively.
-
-* [debug](#module_debug)
-    * _instance_
-        * [.memdump(file)](#module_debug+memdump) ⇒ `boolean`
-        * [.traceback([level])](#module_debug+traceback) ⇒ [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)
-        * [.sourcepos()](#module_debug+sourcepos) ⇒ [`SourcePosition`](#module_debug.SourcePosition)
-        * [.getinfo(value)](#module_debug+getinfo) ⇒ [`ValueInformation`](#module_debug.ValueInformation)
-        * [.getlocal([level], variable)](#module_debug+getlocal) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
-        * [.setlocal([level], variable, [value])](#module_debug+setlocal) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
-        * [.getupval(target, variable)](#module_debug+getupval) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
-        * [.setupval(target, variable, value)](#module_debug+setupval) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
-    * _static_
-        * [.StackTraceEntry](#module_debug.StackTraceEntry) : `Object`
-        * [.SourcePosition](#module_debug.SourcePosition) : `Object`
-        * [.UpvalRef](#module_debug.UpvalRef) : `Object`
-        * [.ValueInformation](#module_debug.ValueInformation) : `Object`
-        * [.LocalInfo](#module_debug.LocalInfo) : `Object`
-        * [.UpvalInfo](#module_debug.UpvalInfo) : `Object`
-
-<a name="module_debug+memdump"></a>
 
 ### debug.memdump(file) ⇒ `boolean`
 Write a memory dump report to the given file.
@@ -101,8 +78,6 @@ Returns `null` if the file could not be opened or if the handle was invalid.
 | --- | --- | --- |
 | file | `string` \| `module:fs.file` \| `module:fs.proc` | The file path or open file handle to write report to. |
 
-<a name="module_debug+traceback"></a>
-
 ### debug.traceback([level]) ⇒ [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)
 Capture call stack trace.
 
@@ -119,8 +94,6 @@ up to the point where `traceback()` is called.
 | --- | --- | --- | --- |
 | [level] | `number` | `1` | The number of callframes up the call trace should start, `0` is this function itself, `1` the function calling it and so on. |
 
-<a name="module_debug+sourcepos"></a>
-
 ### debug.sourcepos() ⇒ [`SourcePosition`](#module_debug.SourcePosition)
 Obtain information about the current source position.
 
@@ -133,7 +106,6 @@ offset of the call site.
 Returns `null` if this function was invoked from C code.
 
 **Kind**: instance method of [`debug`](#module_debug)  
-<a name="module_debug+getinfo"></a>
 
 ### debug.getinfo(value) ⇒ [`ValueInformation`](#module_debug.ValueInformation)
 Obtain information about the given value.
@@ -151,8 +123,6 @@ Returns `null` if a `null` value was provided.
 | Param | Type | Description |
 | --- | --- | --- |
 | value | `\*` | The value to query information for. |
-
-<a name="module_debug+getlocal"></a>
 
 ### debug.getlocal([level], variable) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
 Obtain local variable.
@@ -183,8 +153,6 @@ index is invalid.
 | [level] | `number` | `1` | The amount of call stack levels up local variables should be queried. |
 | variable | `string` \| `number` |  | The variable index or variable name to obtain information for. |
 
-<a name="module_debug+setlocal"></a>
-
 ### debug.setlocal([level], variable, [value]) ⇒ [`LocalInfo`](#module_debug.LocalInfo)
 Set local variable.
 
@@ -214,8 +182,6 @@ index is invalid.
 | [level] | `number` | `1` | The amount of call stack levels up local variables should be updated. |
 | variable | `string` \| `number` |  | The variable index or variable name to update. |
 | [value] | `\*` | `` | The value to set the local variable to. |
-
-<a name="module_debug+getupval"></a>
 
 ### debug.getupval(target, variable) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
 Obtain captured variable (upvalue).
@@ -249,8 +215,6 @@ index is invalid.
 | --- | --- | --- |
 | target | `function` \| `number` | Either a function value referring to a closure to query upvalues for or a stack depth number selecting a closure that many levels up. |
 | variable | `string` \| `number` | The variable index or variable name to obtain information for. |
-
-<a name="module_debug+setupval"></a>
 
 ### debug.setupval(target, variable, value) ⇒ [`UpvalInfo`](#module_debug.UpvalInfo)
 Set upvalue.
@@ -286,8 +250,6 @@ index is invalid.
 | variable | `string` \| `number` | The variable index or variable name to update. |
 | value | `\*` | The value to set the variable to. |
 
-<a name="module_debug.StackTraceEntry"></a>
-
 ### debug.StackTraceEntry : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -303,8 +265,6 @@ index is invalid.
 | [byte] | `number` | The source line offset of the function call (only applicable to non-C, pure ucode calls). |
 | [context] | `string` | The surrounding source code context formatted as human-readable string, useful for generating debug messages (only applicable to non-C, pure ucode calls). |
 
-<a name="module_debug.SourcePosition"></a>
-
 ### debug.SourcePosition : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -314,8 +274,6 @@ index is invalid.
 | filename | `string` | The name of the source file that called this function. |
 | line | `number` | The source line of the function call. |
 | byte | `number` | The source line offset of the function call. |
-
-<a name="module_debug.UpvalRef"></a>
 
 ### debug.UpvalRef : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
@@ -327,8 +285,6 @@ index is invalid.
 | closed | `boolean` | Indicates whether the captured variable (upvalue) is closed or not. A closed upvalue means that the function value outlived the declaration scope of the captured variable. |
 | value | `\*` | The current value of the captured variable. |
 | [slot] | `number` | The stack slot of the captured variable. Only applicable to open (non-closed) captured variables. |
-
-<a name="module_debug.ValueInformation"></a>
 
 ### debug.ValueInformation : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
@@ -366,8 +322,6 @@ index is invalid.
 | [byte] | `number` | The source line offset the function was declared at. Only applicable to `closure` values. |
 | [type] | `string` | The resource type name. Only applicable to `resource` values. |
 
-<a name="module_debug.LocalInfo"></a>
-
 ### debug.LocalInfo : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
 **Properties**
@@ -381,8 +335,6 @@ index is invalid.
 | bytefrom | `number` | The source line offset of the local variable declaration. |
 | lineto | `number` | The source line number where the local variable goes out of scope. |
 | byteto | `number` | The source line offset where the local vatiable goes out of scope. |
-
-<a name="module_debug.UpvalInfo"></a>
 
 ### debug.UpvalInfo : `Object`
 **Kind**: static typedef of [`debug`](#module_debug)  
@@ -403,30 +355,9 @@ index is invalid.
 
 ---
 
-<a name="module_digest"></a>
-
-## digest
-# Digest Functions
+## Digest Functions
 
 The `digest` module bundles various digest functions.
-
-* [digest](#module_digest)
-    * [.md5(str)](#module_digest+md5) ⇒ `string`
-    * [.sha1(str)](#module_digest+sha1) ⇒ `string`
-    * [.sha256(str)](#module_digest+sha256) ⇒ `string`
-    * [.md2(str)](#module_digest+md2) ⇒ `string`
-    * [.md4(str)](#module_digest+md4) ⇒ `string`
-    * [.sha384(str)](#module_digest+sha384) ⇒ `string`
-    * [.sha512(str)](#module_digest+sha512) ⇒ `string`
-    * [.md5_file(path)](#module_digest+md5_file) ⇒ `string`
-    * [.sha1_file(path)](#module_digest+sha1_file) ⇒ `string`
-    * [.sha256_file(path)](#module_digest+sha256_file) ⇒ `string`
-    * [.md2_file(path)](#module_digest+md2_file) ⇒ `string`
-    * [.md4_file(path)](#module_digest+md4_file) ⇒ `string`
-    * [.sha384_file(path)](#module_digest+sha384_file) ⇒ `string`
-    * [.sha512_file(path)](#module_digest+sha512_file) ⇒ `string`
-
-<a name="module_digest+md5"></a>
 
 ### digest.md5(str) ⇒ `string`
 Calculates the MD5 hash of string and returns that hash.
@@ -440,11 +371,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 md5("This is a test");  // Returns "ce114e4501d2f4e2dcea3e17b546f339"
 md5(123);               // Returns null
-```
-<a name="module_digest+sha1"></a>
+```ucode
 
 ### digest.sha1(str) ⇒ `string`
 Calculates the SHA1 hash of string and returns that hash.
@@ -458,11 +388,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 sha1("This is a test");  // Returns "a54d88e06612d820bc3be72877c74f257b561b19"
 sha1(123);               // Returns null
 ```
-<a name="module_digest+sha256"></a>
 
 ### digest.sha256(str) ⇒ `string`
 Calculates the SHA256 hash of string and returns that hash.
@@ -476,11 +405,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 sha256("This is a test");  // Returns "c7be1ed902fb8dd4d48997c6452f5d7e509fbcdbe2808b16bcf4edce4c07d14e"
 sha256(123);               // Returns null
-```
-<a name="module_digest+md2"></a>
+```ucode
 
 ### digest.md2(str) ⇒ `string`
 Calculates the MD2 hash of string and returns that hash.
@@ -494,11 +422,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 md2("This is a test");  // Returns "dc378580fd0722e56b82666a6994c718"
 md2(123);               // Returns null
 ```
-<a name="module_digest+md4"></a>
 
 ### digest.md4(str) ⇒ `string`
 Calculates the MD4 hash of string and returns that hash.
@@ -512,11 +439,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 md4("This is a test");  // Returns "3b487cf6856af7e330bc4b1b7d977ef8"
 md4(123);               // Returns null
-```
-<a name="module_digest+sha384"></a>
+```ucode
 
 ### digest.sha384(str) ⇒ `string`
 Calculates the SHA384 hash of string and returns that hash.
@@ -530,11 +456,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 sha384("This is a test");  // Returns "a27c7667e58200d4c0688ea136968404a0da366b1a9fc19bb38a0c7a609a1eef2bcc82837f4f4d92031a66051494b38c"
 sha384(123);               // Returns null
 ```
-<a name="module_digest+sha512"></a>
 
 ### digest.sha512(str) ⇒ `string`
 Calculates the SHA512 hash of string and returns that hash.
@@ -548,11 +473,10 @@ Returns `null` if a non-string argument is given.
 | str | `string` | The string to hash. |
 
 **Example**  
-```js
+```ucode
 sha512("This is a test");  // Returns "a028d4f74b602ba45eb0a93c9a4677240dcf281a1a9322f183bd32f0bed82ec72de9c3957b2f4c9a1ccf7ed14f85d73498df38017e703d47ebb9f0b3bf116f69"
 sha512(123);               // Returns null
-```
-<a name="module_digest+md5_file"></a>
+```ucode
 
 ### digest.md5\_file(path) ⇒ `string`
 Calculates the MD5 hash of a given file and returns that hash.
@@ -565,8 +489,6 @@ Returns `null` if an error occurred.
 | --- | --- | --- |
 | path | `string` | The path to the file. |
 
-<a name="module_digest+sha1_file"></a>
-
 ### digest.sha1\_file(path) ⇒ `string`
 Calculates the SHA1 hash of a given file and returns that hash.
 
@@ -577,8 +499,6 @@ Returns `null` if an error occurred.
 | Param | Type | Description |
 | --- | --- | --- |
 | path | `string` | The path to the file. |
-
-<a name="module_digest+sha256_file"></a>
 
 ### digest.sha256\_file(path) ⇒ `string`
 Calculates the SHA256 hash of a given file and returns that hash.
@@ -591,8 +511,6 @@ Returns `null` if an error occurred.
 | --- | --- | --- |
 | path | `string` | The path to the file. |
 
-<a name="module_digest+md2_file"></a>
-
 ### digest.md2\_file(path) ⇒ `string`
 Calculates the MD2 hash of a given file and returns that hash.
 
@@ -603,8 +521,6 @@ Returns `null` if an error occurred.
 | Param | Type | Description |
 | --- | --- | --- |
 | path | `string` | The path to the file. |
-
-<a name="module_digest+md4_file"></a>
 
 ### digest.md4\_file(path) ⇒ `string`
 Calculates the MD4 hash of a given file and returns that hash.
@@ -617,8 +533,6 @@ Returns `null` if an error occurred.
 | --- | --- | --- |
 | path | `string` | The path to the file. |
 
-<a name="module_digest+sha384_file"></a>
-
 ### digest.sha384\_file(path) ⇒ `string`
 Calculates the SHA384 hash of a given file and returns that hash.
 
@@ -629,8 +543,6 @@ Returns `null` if an error occurred.
 | Param | Type | Description |
 | --- | --- | --- |
 | path | `string` | The path to the file. |
-
-<a name="module_digest+sha512_file"></a>
 
 ### digest.sha512\_file(path) ⇒ `string`
 Calculates the SHA512 hash of a given file and returns that hash.
@@ -651,10 +563,7 @@ Returns `null` if an error occurred.
 
 ---
 
-<a name="module_fs"></a>
-
-## fs
-# Filesystem Access
+## Filesystem Access
 
 The `fs` module provides functions for interacting with the file system.
 
@@ -662,7 +571,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { readlink, popen } from 'fs';
 
   let dest = readlink('/sys/class/net/eth0');
@@ -672,7 +581,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as fs from 'fs';
 
   let dest = fs.readlink('/sys/class/net/eth0');
@@ -682,68 +591,6 @@ using a wildcard import statement:
 Additionally, the filesystem module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lfs` switch.
 
-* [fs](#module_fs)
-    * _instance_
-        * [.error()](#module_fs+error) ⇒ `string`
-        * [.popen(command, [mode])](#module_fs+popen) ⇒ [`proc`](#module_fs.proc)
-        * [.open(path, [mode], [perm])](#module_fs+open) ⇒ [`file`](#module_fs.file)
-        * [.fdopen(fd, [mode])](#module_fs+fdopen) ⇒ `Object`
-        * [.dup2(oldfd, newfd)](#module_fs+dup2) ⇒ `boolean`
-        * [.opendir(path)](#module_fs+opendir) ⇒ [`dir`](#module_fs.dir)
-        * [.readlink(path)](#module_fs+readlink) ⇒ `string`
-        * [.stat(path)](#module_fs+stat) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
-        * [.lstat(path)](#module_fs+lstat) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
-        * [.mkdir(path)](#module_fs+mkdir) ⇒ `boolean`
-        * [.rmdir(path)](#module_fs+rmdir) ⇒ `boolean`
-        * [.symlink(target, path)](#module_fs+symlink) ⇒ `boolean`
-        * [.unlink(path)](#module_fs+unlink) ⇒ `boolean`
-        * [.getcwd()](#module_fs+getcwd) ⇒ `string`
-        * [.chdir(path)](#module_fs+chdir) ⇒ `boolean`
-        * [.chmod(path, mode)](#module_fs+chmod) ⇒ `boolean`
-        * [.chown(path, [uid], [gid])](#module_fs+chown) ⇒ `boolean`
-        * [.rename(oldPath, newPath)](#module_fs+rename) ⇒ `boolean`
-        * [.dirname(path)](#module_fs+dirname) ⇒ `string`
-        * [.basename(path)](#module_fs+basename) ⇒ `string`
-        * [.lsdir(path)](#module_fs+lsdir) ⇒ `Array.<string>`
-        * [.mkstemp([template])](#module_fs+mkstemp) ⇒ [`file`](#module_fs.file)
-        * [.mkdtemp([template])](#module_fs+mkdtemp) ⇒ `string`
-        * [.access(path, [mode])](#module_fs+access) ⇒ `boolean`
-        * [.readfile(path, [limit])](#module_fs+readfile) ⇒ `string`
-        * [.writefile(path, data, [limit])](#module_fs+writefile) ⇒ `number`
-        * [.realpath(path)](#module_fs+realpath) ⇒ `string`
-        * [.pipe()](#module_fs+pipe) ⇒ [`Array.<file>`](#module_fs.file)
-    * _static_
-        * [.proc](#module_fs.proc)
-            * [.close()](#module_fs.proc+close) ⇒ `number`
-            * [.read(length)](#module_fs.proc+read) ⇒ `string`
-            * [.write(data)](#module_fs.proc+write) ⇒ `number`
-            * [.flush()](#module_fs.proc+flush) ⇒ `boolean`
-            * [.fileno()](#module_fs.proc+fileno) ⇒ `number`
-            * [.error()](#module_fs.proc+error) ⇒ `string`
-        * [.file](#module_fs.file)
-            * [.close()](#module_fs.file+close) ⇒ `boolean`
-            * [.read(length)](#module_fs.file+read) ⇒ `string`
-            * [.write(data)](#module_fs.file+write) ⇒ `number`
-            * [.seek([offset], [position])](#module_fs.file+seek) ⇒ `boolean`
-            * [.truncate([offset])](#module_fs.file+truncate) ⇒ `boolean`
-            * [.lock([op])](#module_fs.file+lock) ⇒ `boolean`
-            * [.tell()](#module_fs.file+tell) ⇒ `number`
-            * [.isatty()](#module_fs.file+isatty) ⇒ `boolean`
-            * [.flush()](#module_fs.file+flush) ⇒ `boolean`
-            * [.fileno()](#module_fs.file+fileno) ⇒ `number`
-            * [.ioctl(direction, type, num, [value])](#module_fs.file+ioctl) ⇒ `number` \| `string`
-            * [.error()](#module_fs.file+error) ⇒ `string`
-        * [.dir](#module_fs.dir)
-            * [.fileno()](#module_fs.dir+fileno) ⇒ `number`
-            * [.read()](#module_fs.dir+read) ⇒ `string`
-            * [.tell()](#module_fs.dir+tell) ⇒ `number`
-            * [.seek(offset)](#module_fs.dir+seek) ⇒ `boolean`
-            * [.close()](#module_fs.dir+close) ⇒ `boolean`
-            * [.error()](#module_fs.dir+error) ⇒ `string`
-        * [.FileStatResult](#module_fs.FileStatResult) : `Object`
-
-<a name="module_fs+error"></a>
-
 ### fs.error() ⇒ `string`
 Query error information.
 
@@ -752,14 +599,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs+popen"></a>
+```ucode
 
 ### fs.popen(command, [mode]) ⇒ [`proc`](#module_fs.proc)
 Starts a process and returns a handle representing the executed process.
@@ -785,11 +631,10 @@ Returns `null` if an error occurred.
 | [mode] | `string` | `"\"r\""` | The open mode of the process handle. |
 
 **Example**  
-```js
+```ucode
 // Open a process
 const process = popen('command', 'r');
 ```
-<a name="module_fs+open"></a>
 
 ### fs.open(path, [mode], [perm]) ⇒ [`file`](#module_fs.file)
 Opens a file.
@@ -829,11 +674,10 @@ Returns a file handle object associated with the opened file.
 | [perm] | `number` | `0o666` | The file creation permissions (for modes `w…` and `a…`) |
 
 **Example**  
-```js
+```ucode
 // Open a file in read-only mode
 const fileHandle = open('file.txt', 'r');
-```
-<a name="module_fs+fdopen"></a>
+```ucode
 
 ### fs.fdopen(fd, [mode]) ⇒ `Object`
 Associates a file descriptor number with a file handle object.
@@ -862,12 +706,11 @@ Returns the file handle object associated with the file descriptor.
 | [mode] | `string` | `"\"r\""` | The open mode. |
 
 **Example**  
-```js
+```ucode
 // Associate file descriptors of stdin and stdout with handles
 const stdinHandle = fdopen(0, 'r');
 const stdoutHandle = fdopen(1, 'w');
 ```
-<a name="module_fs+dup2"></a>
 
 ### fs.dup2(oldfd, newfd) ⇒ `boolean`
 Duplicates a file descriptor.
@@ -886,13 +729,12 @@ Returns `null` on error.
 | newfd | `number` | The file descriptor number to duplicate to. |
 
 **Example**  
-```js
+```ucode
 // Redirect stderr to a log file
 const logfile = open('/tmp/error.log', 'w');
 dup2(logfile.fileno(), 2);
 logfile.close();
-```
-<a name="module_fs+opendir"></a>
+```ucode
 
 ### fs.opendir(path) ⇒ [`dir`](#module_fs.dir)
 Opens a directory and returns a directory handle associated with the open
@@ -909,11 +751,10 @@ Returns `null` if an error occurred.
 | path | `string` | The path to the directory. |
 
 **Example**  
-```js
+```ucode
 // Open a directory
 const directory = opendir('path/to/directory');
 ```
-<a name="module_fs+readlink"></a>
 
 ### fs.readlink(path) ⇒ `string`
 Reads the target path of a symbolic link.
@@ -929,11 +770,10 @@ Returns `null` if an error occurred.
 | path | `string` | The path to the symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Read the value of a symbolic link
 const targetPath = readlink('symbolicLink');
-```
-<a name="module_fs+stat"></a>
+```ucode
 
 ### fs.stat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory.
@@ -949,11 +789,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Get information about a file
 const fileInfo = stat('path/to/file');
 ```
-<a name="module_fs+lstat"></a>
 
 ### fs.lstat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory, without following symbolic
@@ -970,11 +809,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Get information about a directory
 const dirInfo = lstat('path/to/directory');
-```
-<a name="module_fs+mkdir"></a>
+```ucode
 
 ### fs.mkdir(path) ⇒ `boolean`
 Creates a new directory.
@@ -990,11 +828,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the new directory. |
 
 **Example**  
-```js
+```ucode
 // Create a directory
 mkdir('path/to/new-directory');
 ```
-<a name="module_fs+rmdir"></a>
 
 ### fs.rmdir(path) ⇒ `boolean`
 Removes the specified directory.
@@ -1010,11 +847,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the directory to be removed. |
 
 **Example**  
-```js
+```ucode
 // Remove a directory
 rmdir('path/to/directory');
-```
-<a name="module_fs+symlink"></a>
+```ucode
 
 ### fs.symlink(target, path) ⇒ `boolean`
 Creates a new symbolic link.
@@ -1031,11 +867,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path of the symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Create a symbolic link
 symlink('target', 'path/to/symlink');
 ```
-<a name="module_fs+unlink"></a>
 
 ### fs.unlink(path) ⇒ `boolean`
 Removes the specified file or symbolic link.
@@ -1051,11 +886,10 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 | path | `string` | The path to the file or symbolic link. |
 
 **Example**  
-```js
+```ucode
 // Remove a file
 unlink('path/to/file');
-```
-<a name="module_fs+getcwd"></a>
+```ucode
 
 ### fs.getcwd() ⇒ `string`
 Retrieves the current working directory.
@@ -1066,11 +900,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Get the current working directory
 const cwd = getcwd();
 ```
-<a name="module_fs+chdir"></a>
 
 ### fs.chdir(path) ⇒ `boolean`
 Changes the current working directory to the specified path.
@@ -1087,11 +920,10 @@ invalid arguments.
 | path | `string` | The path to the new working directory. |
 
 **Example**  
-```js
+```ucode
 // Change the current working directory
 chdir('new-directory');
-```
-<a name="module_fs+chmod"></a>
+```ucode
 
 ### fs.chmod(path, mode) ⇒ `boolean`
 Changes the permission mode bits of a file or directory.
@@ -1109,11 +941,10 @@ invalid arguments.
 | mode | `number` | The new mode (permissions). |
 
 **Example**  
-```js
+```ucode
 // Change the mode of a file
 chmod('path/to/file', 0o644);
 ```
-<a name="module_fs+chown"></a>
 
 ### fs.chown(path, [uid], [gid]) ⇒ `boolean`
 Changes the owner and group of a file or directory.
@@ -1139,14 +970,13 @@ resolved to a uid/gid value.
 | [gid] | `number` \| `string` | `-1` | The new group's ID. When given as number, it is used as-is, when given as string, the group name is resolved to the corresponding gid first. |
 
 **Example**  
-```js
+```ucode
 // Change the owner of a file
 chown('path/to/file', 1000);
 
 // Change the group of a directory
 chown('/htdocs/', null, 'www-data');
-```
-<a name="module_fs+rename"></a>
+```ucode
 
 ### fs.rename(oldPath, newPath) ⇒ `boolean`
 Renames or moves a file or directory.
@@ -1163,11 +993,10 @@ Returns `null` if an error occurred.
 | newPath | `string` | The new path of the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Rename a file
 rename('old-name.txt', 'new-name.txt');
 ```
-<a name="module_fs+dirname"></a>
 
 ### fs.dirname(path) ⇒ `string`
 Retrieves the directory name of a path.
@@ -1183,11 +1012,10 @@ Returns `null` if the path argument is not a string.
 | path | `string` | The path to extract the directory name from. |
 
 **Example**  
-```js
+```ucode
 // Get the directory name of a path
 const directoryName = dirname('/path/to/file.txt');
-```
-<a name="module_fs+basename"></a>
+```ucode
 
 ### fs.basename(path) ⇒ `string`
 Retrieves the base name of a path.
@@ -1203,11 +1031,10 @@ Returns `null` if the path argument is not a string.
 | path | `string` | The path to extract the base name from. |
 
 **Example**  
-```js
+```ucode
 // Get the base name of a path
 const baseName = basename('/path/to/file.txt');
 ```
-<a name="module_fs+lsdir"></a>
 
 ### fs.lsdir(path) ⇒ `Array.<string>`
 Lists the content of a directory.
@@ -1225,11 +1052,10 @@ be opened.
 | path | `string` | The path to the directory. |
 
 **Example**  
-```js
+```ucode
 // List the content of a directory
 const fileList = lsdir('/path/to/directory');
-```
-<a name="module_fs+mkstemp"></a>
+```ucode
 
 ### fs.mkstemp([template]) ⇒ [`file`](#module_fs.file)
 Creates a unique, ephemeral temporary file.
@@ -1258,11 +1084,10 @@ inaccessible directory.
 | [template] | `string` | `"\"/tmp/XXXXXX\""` | The path template to use when forming the temporary file name. |
 
 **Example**  
-```js
+```ucode
 // Create a unique temporary file in the current working directory
 const tempFile = mkstemp('./data-XXXXXX');
 ```
-<a name="module_fs+mkdtemp"></a>
 
 ### fs.mkdtemp([template]) ⇒ `string`
 Creates a unique temporary directory based on the given template.
@@ -1294,11 +1119,10 @@ inaccessible directory.
 | [template] | `string` | `"\"/tmp/XXXXXX\""` | The path template to use when forming the temporary directory name. |
 
 **Example**  
-```js
+```ucode
 // Create a unique temporary directory in the current working directory
 const tempDir = mkdtemp('./data-XXXXXX');
-```
-<a name="module_fs+access"></a>
+```ucode
 
 ### fs.access(path, [mode]) ⇒ `boolean`
 Checks the accessibility of a file or directory.
@@ -1329,14 +1153,13 @@ path components, invalid path arguments etc.
 | [mode] | `number` | `"f"` | Optional access mode. |
 
 **Example**  
-```js
+```ucode
 // Check file read and write accessibility
 const isAccessible = access('path/to/file', 'rw');
 
 // Check execute permissions
 const mayExecute = access('/usr/bin/example', 'x');
 ```
-<a name="module_fs+readfile"></a>
 
 ### fs.readfile(path, [limit]) ⇒ `string`
 Reads the content of a file, optionally limited to the given amount of bytes.
@@ -1353,14 +1176,13 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | [limit] | `number` | Number of bytes to limit the result to. When omitted, the entire content is returned. |
 
 **Example**  
-```js
+```ucode
 // Read first 100 bytes of content
 const content = readfile('path/to/file', 100);
 
 // Read entire file content
 const content = readfile('path/to/file');
-```
-<a name="module_fs+writefile"></a>
+```ucode
 
 ### fs.writefile(path, data, [limit]) ⇒ `number`
 Writes the given data to a file, optionally truncated to the given amount
@@ -1396,7 +1218,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | [limit] | `number` | Truncates the amount of data to be written to the specified amount of bytes. When omitted, the entire content is written. |
 
 **Example**  
-```js
+```ucode
 // Write string to a file
 const bytesWritten = writefile('path/to/file', 'Hello, World!');
 
@@ -1404,7 +1226,6 @@ const bytesWritten = writefile('path/to/file', 'Hello, World!');
 const obj = { foo: "Hello world", bar: true, baz: 123 };
 const bytesWritten = writefile('debug.txt', obj, 1024);
 ```
-<a name="module_fs+realpath"></a>
 
 ### fs.realpath(path) ⇒ `string`
 Resolves the absolute path of a file or directory.
@@ -1420,11 +1241,10 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 | path | `string` | The path to the file or directory. |
 
 **Example**  
-```js
+```ucode
 // Resolve the absolute path of a file
 const absolutePath = realpath('path/to/file', 'utf8');
-```
-<a name="module_fs+pipe"></a>
+```ucode
 
 ### fs.pipe() ⇒ [`Array.<file>`](#module_fs.file)
 Creates a pipe and returns file handle objects associated with the read- and
@@ -1438,13 +1258,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`fs`](#module_fs)  
 **Example**  
-```js
+```ucode
 // Create a pipe
 const pipeHandles = pipe();
 pipeHandles[1].write("Hello world\n");
 print(pipeHandles[0].read("line"));
 ```
-<a name="module_fs.proc"></a>
 
 ### fs.proc
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1457,8 +1276,6 @@ print(pipeHandles[0].read("line"));
     * [.flush()](#module_fs.proc+flush) ⇒ `boolean`
     * [.fileno()](#module_fs.proc+fileno) ⇒ `number`
     * [.error()](#module_fs.proc+error) ⇒ `string`
-
-<a name="module_fs.proc+close"></a>
 
 #### proc.close() ⇒ `number`
 Closes the program handle and awaits program termination.
@@ -1480,7 +1297,6 @@ Returns a positive exit code if the program terminated normally.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+read"></a>
 
 #### proc.read(length) ⇒ `string`
 Reads a chunk of data from the program handle.
@@ -1519,7 +1335,7 @@ Returns `null` if a read error occurred.
 | length | `number` \| `string` | The length of data to read. Can be a number, the string "line", the string "all", or a single character string. |
 
 **Example**  
-```js
+```ucode
 const fp = popen("command", "r");
 
 // Example 1: Read 10 bytes from the handle
@@ -1534,8 +1350,7 @@ const content = fp.read("all");
 
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
-```
-<a name="module_fs.proc+write"></a>
+```ucode
 
 #### proc.write(data) ⇒ `number`
 Writes a chunk of data to the program handle.
@@ -1563,12 +1378,11 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to be written. |
 
 **Example**  
-```js
+```ucode
 const fp = popen("command", "w");
 
 fp.write("Hello world!\n");
 ```
-<a name="module_fs.proc+flush"></a>
 
 #### proc.flush() ⇒ `boolean`
 Forces a write of all buffered data to the underlying handle.
@@ -1578,7 +1392,6 @@ Returns `true` if the data was successfully flushed.
 Returns `null` on error.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+fileno"></a>
 
 #### proc.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
@@ -1588,7 +1401,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
-<a name="module_fs.proc+error"></a>
 
 #### proc.error() ⇒ `string`
 Query error information.
@@ -1598,14 +1410,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`proc`](#module_fs.proc)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.file"></a>
+```ucode
 
 ### fs.file
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1630,8 +1441,6 @@ print(error(), "\n");
     * [.ioctl(direction, type, num, [value])](#module_fs.file+ioctl) ⇒ `number` \| `string`
     * [.error()](#module_fs.file+error) ⇒ `string`
 
-<a name="module_fs.file+close"></a>
-
 #### file.close() ⇒ `boolean`
 Closes the file handle.
 
@@ -1643,7 +1452,6 @@ Returns `true` if the handle was properly closed.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+read"></a>
 
 #### file.read(length) ⇒ `string`
 Reads a chunk of data from the file handle.
@@ -1682,7 +1490,7 @@ Returns `null` if a read error occurred.
 | length | `number` \| `string` | The length of data to read. Can be a number, the string "line", the string "all", or a single character string. |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "r");
 
 // Example 1: Read 10 bytes from the handle
@@ -1698,7 +1506,6 @@ const content = fp.read("all");
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
 ```
-<a name="module_fs.file+write"></a>
 
 #### file.write(data) ⇒ `number`
 Writes a chunk of data to the file handle.
@@ -1726,12 +1533,11 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to be written. |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "w");
 
 fp.write("Hello world!\n");
-```
-<a name="module_fs.file+seek"></a>
+```ucode
 
 #### file.seek([offset], [position]) ⇒ `boolean`
 Set file read position.
@@ -1751,7 +1557,7 @@ Returns `null` if an error occurred.
 | [position] | `number` | `0` | The position of the offset. | Position | Description                                                                                  | |----------|----------------------------------------------------------------------------------------------| | `0`      | The given offset is relative to the start of the file. This is the default value if omitted. | | `1`      | The given offset is relative to the current read position.                                   | | `2`      | The given offset is relative to the end of the file.                                         | |
 
 **Example**  
-```js
+```ucode
 const fp = open("file.txt", "r");
 
 print(fp.read(100), "\n");  // read 100 bytes...
@@ -1764,7 +1570,6 @@ fp.tell();       // ... position is at 110 now
 fp.seek(-10, 2);            // set position to ten bytes before EOF ...
 print(fp.read(100), "\n");  // ... reads 10 bytes at most
 ```
-<a name="module_fs.file+truncate"></a>
 
 #### file.truncate([offset]) ⇒ `boolean`
 Truncate file to a given size
@@ -1778,8 +1583,6 @@ Returns `null` if an error occurred.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [offset] | `number` | `0` | The offset in bytes. |
-
-<a name="module_fs.file+lock"></a>
 
 #### file.lock([op]) ⇒ `boolean`
 Locks or unlocks a file.
@@ -1803,8 +1606,6 @@ Returns `null` if an error occurred.
 | --- | --- | --- |
 | [op] | `string` | The lock operation flags |
 
-<a name="module_fs.file+tell"></a>
-
 #### file.tell() ⇒ `number`
 Obtain current read position.
 
@@ -1815,7 +1616,6 @@ Returns an integer containing the current read offset in bytes.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+isatty"></a>
 
 #### file.isatty() ⇒ `boolean`
 Check for TTY.
@@ -1829,7 +1629,6 @@ Returns `false` if the handle refers to another kind of file.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+flush"></a>
 
 #### file.flush() ⇒ `boolean`
 Forces a write of all buffered data to the underlying handle.
@@ -1839,7 +1638,6 @@ Returns `true` if the data was successfully flushed.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+fileno"></a>
 
 #### file.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
@@ -1849,7 +1647,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`file`](#module_fs.file)  
-<a name="module_fs.file+ioctl"></a>
 
 #### file.ioctl(direction, type, num, [value]) ⇒ `number` \| `string`
 Performs an ioctl operation on the file.
@@ -1880,8 +1677,6 @@ In case of an error, null is returned and error details are available via
 | num | `number` | The ioctl sequence number. |
 | [value] | `number` \| `string` | The value to pass to the ioctl system call. For `IOC_DIR_NONE`, this argument is ignored. With `IOC_DIR_READ`, the value should be a positive integer specifying the number of bytes to expect from the kernel. For the other directions, `IOC_DIR_WRITE` and `IOC_DIR_RW`, that value parameter must be a string, serving as buffer for the data to send. |
 
-<a name="module_fs.file+error"></a>
-
 #### file.error() ⇒ `string`
 Query error information.
 
@@ -1890,14 +1685,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`file`](#module_fs.file)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.dir"></a>
+```ucode
 
 ### fs.dir
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1911,8 +1705,6 @@ print(error(), "\n");
     * [.close()](#module_fs.dir+close) ⇒ `boolean`
     * [.error()](#module_fs.dir+error) ⇒ `string`
 
-<a name="module_fs.dir+fileno"></a>
-
 #### dir.fileno() ⇒ `number`
 Obtains the number of the handle's underlying file descriptor.
 
@@ -1921,7 +1713,6 @@ Returns the descriptor number.
 Returns `null` on error.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+read"></a>
 
 #### dir.read() ⇒ `string`
 Read the next entry from the open directory.
@@ -1933,7 +1724,6 @@ Returns `null` if there are no more entries to read.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+tell"></a>
 
 #### dir.tell() ⇒ `number`
 Obtain current read position.
@@ -1948,7 +1738,6 @@ Returns an integer referring to the current position.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+seek"></a>
 
 #### dir.seek(offset) ⇒ `boolean`
 Set read position.
@@ -1968,7 +1757,7 @@ Returns `null` if an error occurred.
 | offset | `number` | Position value obtained by `tell()`. |
 
 **Example**  
-```js
+```ucode
 const handle = opendir("/tmp");
 const begin = handle.tell();
 
@@ -1978,7 +1767,6 @@ handle.seek(begin);
 
 print(handle.read(), "\n");  // prints the first entry again
 ```
-<a name="module_fs.dir+close"></a>
 
 #### dir.close() ⇒ `boolean`
 Closes the directory handle.
@@ -1990,7 +1778,6 @@ Returns `true` if the handle was properly closed.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
-<a name="module_fs.dir+error"></a>
 
 #### dir.error() ⇒ `string`
 Query error information.
@@ -2000,14 +1787,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`dir`](#module_fs.dir)  
 **Example**  
-```js
+```ucode
 // Trigger file system error
 unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```
-<a name="module_fs.FileStatResult"></a>
+```ucode
 
 ### fs.FileStatResult : `Object`
 **Kind**: static typedef of [`fs`](#module_fs)  
@@ -2052,10 +1838,7 @@ print(error(), "\n");
 
 ---
 
-<a name="module_io"></a>
-
-## io
-# I/O Operations
+## I/O Operations
 
 The `io` module provides object-oriented access to UNIX file descriptors.
 
@@ -2063,7 +1846,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { open, O_RDWR } from 'io';
 
   let handle = open('/tmp/test.txt', O_RDWR);
@@ -2074,7 +1857,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as io from 'io';
 
   let handle = io.open('/tmp/test.txt', io.O_RDWR);
@@ -2085,35 +1868,6 @@ using a wildcard import statement:
 Additionally, the io module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lio` switch.
 
-* [io](#module_io)
-    * _instance_
-        * [.error()](#module_io+error) ⇒ `string`
-        * [.new(fd)](#module_io+new) ⇒ [`handle`](#module_io.handle)
-        * [.open(path, [flags], [mode])](#module_io+open) ⇒ [`handle`](#module_io.handle)
-        * [.pipe()](#module_io+pipe) ⇒ [`Array.<handle>`](#module_io.handle)
-        * [.from(value)](#module_io+from) ⇒ [`handle`](#module_io.handle)
-    * _static_
-        * [.handle](#module_io.handle)
-            * [.ptsname()](#module_io.handle+ptsname) ⇒ `string`
-            * [.tcgetattr()](#module_io.handle+tcgetattr) ⇒ `object`
-            * [.tcsetattr(attrs, [when])](#module_io.handle+tcsetattr) ⇒ `boolean`
-            * [.grantpt()](#module_io.handle+grantpt) ⇒ `boolean`
-            * [.unlockpt()](#module_io.handle+unlockpt) ⇒ `boolean`
-            * [.read(length)](#module_io.handle+read) ⇒ `string`
-            * [.write(data)](#module_io.handle+write) ⇒ `number`
-            * [.seek([offset], [whence])](#module_io.handle+seek) ⇒ `boolean`
-            * [.tell()](#module_io.handle+tell) ⇒ `number`
-            * [.dup()](#module_io.handle+dup) ⇒ [`handle`](#module_io.handle)
-            * [.dup2(newfd)](#module_io.handle+dup2) ⇒ `boolean`
-            * [.fileno()](#module_io.handle+fileno) ⇒ `number`
-            * [.fcntl(cmd, [arg])](#module_io.handle+fcntl) ⇒ `number` \| [`handle`](#module_io.handle)
-            * [.ioctl(direction, type, num, [value])](#module_io.handle+ioctl) ⇒ `number` \| `string`
-            * [.isatty()](#module_io.handle+isatty) ⇒ `boolean`
-            * [.close()](#module_io.handle+close) ⇒ `boolean`
-            * [.error()](#module_io.handle+error) ⇒ `string`
-
-<a name="module_io+error"></a>
-
 ### io.error() ⇒ `string`
 Query error information.
 
@@ -2122,14 +1876,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`io`](#module_io)  
 **Example**  
-```js
+```ucode
 // Trigger an error
 io.open('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(io.error(), "\n");
-```
-<a name="module_io+new"></a>
+```ucode
 
 ### io.new(fd) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from a file descriptor number.
@@ -2147,12 +1900,11 @@ Returns `null` if an error occurred.
 | fd | `number` | The file descriptor number. |
 
 **Example**  
-```js
+```ucode
 // Wrap stdin
 const stdin = io.new(0);
 const data = stdin.read(100);
 ```
-<a name="module_io+open"></a>
 
 ### io.open(path, [flags], [mode]) ⇒ [`handle`](#module_io.handle)
 Opens a file and returns an io.handle.
@@ -2173,12 +1925,11 @@ Returns `null` if an error occurred.
 | [mode] | `number` | `0o666` | The file creation mode (used with O_CREAT). |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDWR | O_CREAT, 0o644);
 handle.write('Hello World\n');
 handle.close();
-```
-<a name="module_io+pipe"></a>
+```ucode
 
 ### io.pipe() ⇒ [`Array.<handle>`](#module_io.handle)
 Creates a pipe.
@@ -2195,13 +1946,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`io`](#module_io)  
 **Example**  
-```js
+```ucode
 const [reader, writer] = io.pipe();
 writer.write('Hello from pipe!');
 const data = reader.read(100);
 print(data, "\n");  // Prints: Hello from pipe!
 ```
-<a name="module_io+from"></a>
 
 ### io.from(value) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from various value types.
@@ -2223,13 +1973,12 @@ Returns `null` if an error occurred or the value cannot be converted.
 | value | `\*` | The value to convert. |
 
 **Example**  
-```js
+```ucode
 import { open as fsopen } from 'fs';
 const fp = fsopen('/tmp/test.txt', 'r');
 const handle = io.from(fp);
 const data = handle.read(100);
-```
-<a name="module_io.handle"></a>
+```ucode
 
 ### io.handle
 **Kind**: static class of [`io`](#module_io)  
@@ -2258,8 +2007,6 @@ const data = handle.read(100);
     * [.close()](#module_io.handle+close) ⇒ `boolean`
     * [.error()](#module_io.handle+error) ⇒ `string`
 
-<a name="module_io.handle+ptsname"></a>
-
 #### handle.ptsname() ⇒ `string`
 Gets the name of the pseudo-terminal slave.
 
@@ -2273,12 +2020,11 @@ pseudo-terminal master.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 const slave_name = master.ptsname();
 print(slave_name, "\n");
 ```
-<a name="module_io.handle+tcgetattr"></a>
 
 #### handle.tcgetattr() ⇒ `object`
 Gets terminal attributes.
@@ -2292,13 +2038,12 @@ Returns `null` if an error occurred or if the descriptor is not a terminal.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 if (attrs)
     print("Input flags: ", attrs.iflag, "\n");
-```
-<a name="module_io.handle+tcsetattr"></a>
+```ucode
 
 #### handle.tcsetattr(attrs, [when]) ⇒ `boolean`
 Sets terminal attributes.
@@ -2326,13 +2071,12 @@ Returns `null` if an error occurred.
 | [when] | `number` | `0` | When to apply the changes (TCSANOW, TCSADRAIN, TCSAFLUSH). |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 attrs.lflag &= ~0x0000008; // Disable ECHO
 handle.tcsetattr(attrs, TCSANOW);
 ```
-<a name="module_io.handle+grantpt"></a>
 
 #### handle.grantpt() ⇒ `boolean`
 Grants access to a pseudo-terminal slave device.
@@ -2349,13 +2093,12 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 if (master.grantpt()) {
     print("Granted access to slave device\n");
 }
-```
-<a name="module_io.handle+unlockpt"></a>
+```ucode
 
 #### handle.unlockpt() ⇒ `boolean`
 Unlocks a pseudo-terminal slave device.
@@ -2370,14 +2113,13 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const master = io.open('/dev/ptmx', O_RDWR);
 master.grantpt();
 if (master.unlockpt()) {
     print("Unlocked slave device\n");
 }
 ```
-<a name="module_io.handle+read"></a>
 
 #### handle.read(length) ⇒ `string`
 Reads data from the file descriptor.
@@ -2397,11 +2139,10 @@ Returns `null` if a read error occurred.
 | length | `number` | The maximum number of bytes to read. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const data = handle.read(1024);
-```
-<a name="module_io.handle+write"></a>
+```ucode
 
 #### handle.write(data) ⇒ `number`
 Writes data to the file descriptor.
@@ -2420,11 +2161,10 @@ Returns `null` if a write error occurred.
 | data | `\*` | The data to write. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_WRONLY | O_CREAT);
 handle.write('Hello World\n');
 ```
-<a name="module_io.handle+seek"></a>
 
 #### handle.seek([offset], [whence]) ⇒ `boolean`
 Sets the file descriptor position.
@@ -2443,11 +2183,10 @@ Returns `null` if an error occurred.
 | [whence] | `number` | `0` | The position reference. | Whence | Description                                                        | |--------|--------------------------------------------------------------------| | `0`    | The offset is relative to the start of the file (SEEK_SET).       | | `1`    | The offset is relative to the current position (SEEK_CUR).        | | `2`    | The offset is relative to the end of the file (SEEK_END).         | |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.seek(100, 0);  // Seek to byte 100 from start
-```
-<a name="module_io.handle+tell"></a>
+```ucode
 
 #### handle.tell() ⇒ `number`
 Gets the current file descriptor position.
@@ -2458,11 +2197,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const pos = handle.tell();
 ```
-<a name="module_io.handle+dup"></a>
 
 #### handle.dup() ⇒ [`handle`](#module_io.handle)
 Duplicates the file descriptor.
@@ -2475,11 +2213,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const dup_handle = handle.dup();
-```
-<a name="module_io.handle+dup2"></a>
+```ucode
 
 #### handle.dup2(newfd) ⇒ `boolean`
 Duplicates the file descriptor to a specific descriptor number.
@@ -2498,11 +2235,10 @@ Returns `null` if an error occurred.
 | newfd | `number` | The target file descriptor number. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_WRONLY);
 handle.dup2(2);  // Redirect stderr to the file
 ```
-<a name="module_io.handle+fileno"></a>
 
 #### handle.fileno() ⇒ `number`
 Gets the file descriptor number.
@@ -2513,11 +2249,10 @@ Returns `null` if the handle is closed.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 print(handle.fileno(), "\n");
-```
-<a name="module_io.handle+fcntl"></a>
+```ucode
 
 #### handle.fcntl(cmd, [arg]) ⇒ `number` \| [`handle`](#module_io.handle)
 Performs fcntl() operations on the file descriptor.
@@ -2539,13 +2274,12 @@ Returns `null` if an error occurred.
 | [arg] | `number` | Optional argument for the command. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const flags = handle.fcntl(F_GETFL);
 handle.fcntl(F_SETFL, flags | O_NONBLOCK);
 const dup_handle = handle.fcntl(F_DUPFD, 10);  // Returns io.handle
 ```
-<a name="module_io.handle+ioctl"></a>
 
 #### handle.ioctl(direction, type, num, [value]) ⇒ `number` \| `string`
 Performs an ioctl operation on the file descriptor.
@@ -2576,11 +2310,10 @@ Returns `null` if an error occurred.
 | [value] | `number` \| `string` | The value to pass to the ioctl system call. For `IOC_DIR_NONE`, this argument is ignored. With `IOC_DIR_READ`, the value should be a positive integer specifying the number of bytes to expect from the kernel. For the other directions, `IOC_DIR_WRITE` and `IOC_DIR_RW`, that value parameter must be a string, serving as buffer for the data to send. |
 
 **Example**  
-```js
+```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const size = handle.ioctl(IOC_DIR_READ, 0x54, 0x13, 8);  // TIOCGWINSZ
-```
-<a name="module_io.handle+isatty"></a>
+```ucode
 
 #### handle.isatty() ⇒ `boolean`
 Checks if the file descriptor refers to a terminal.
@@ -2593,12 +2326,11 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.new(0);  // stdin
 if (handle.isatty())
     print("Running in a terminal\n");
 ```
-<a name="module_io.handle+close"></a>
 
 #### handle.close() ⇒ `boolean`
 Closes the file descriptor.
@@ -2612,11 +2344,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.close();
-```
-<a name="module_io.handle+error"></a>
+```ucode
 
 #### handle.error() ⇒ `string`
 Query error information.
@@ -2626,7 +2357,7 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`handle`](#module_io.handle)  
 **Example**  
-```js
+```ucode
 // Trigger an error
 io.open('/path/does/not/exist');
 
@@ -2642,10 +2373,7 @@ print(io.error(), "\n");
 
 ---
 
-<a name="module_log"></a>
-
-## log
-# System logging functions
+## System logging functions
 
 The `log` module provides bindings to the POSIX syslog functions `openlog()`,
 `syslog()` and `closelog()` as well as - when available - the OpenWrt
@@ -2655,7 +2383,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { openlog, syslog, LOG_PID, LOG_USER, LOG_ERR } from 'log';
 
   openlog("my-log-ident", LOG_PID, LOG_USER);
@@ -2671,7 +2399,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as log from 'log';
 
   log.openlog("my-log-ident", log.LOG_PID, log.LOG_USER);
@@ -2746,27 +2474,6 @@ facility, priority and option values, as well as ulog specific channels.
 | `ULOG_STDIO`  | Log messages to stdout.              |
 | `ULOG_SYSLOG` | Log messages to syslog.              |
 
-* [log](#module_log)
-    * _instance_
-        * [.openlog([ident], [options], [facility])](#module_log+openlog) ⇒ `boolean`
-        * [.syslog(priority, format, [...args])](#module_log+syslog) ⇒ `boolean`
-        * [.closelog()](#module_log+closelog)
-        * [.ulog_open([channel], [facility], [ident])](#module_log+ulog_open) ⇒ `boolean`
-        * [.ulog(priority, format, [...args])](#module_log+ulog) ⇒ `boolean`
-        * [.ulog_close()](#module_log+ulog_close)
-        * [.ulog_threshold([priority])](#module_log+ulog_threshold) ⇒ `boolean`
-        * [.INFO(format, [...args])](#module_log+INFO) ⇒ `boolean`
-        * [.[NOTE](../L2-semantic/wiki/wiki_page-techref-luci2.md)(format, [...args])](#module_log+[NOTE](../L2-semantic/wiki/wiki_page-techref-luci2.md)) ⇒ `boolean`
-        * [.WARN(format, [...args])](#module_log+WARN) ⇒ `boolean`
-        * [.ERR(format, [...args])](#module_log+ERR) ⇒ `boolean`
-    * _static_
-        * [.LogOption](#module_log.LogOption) : `enum`
-        * [.LogFacility](#module_log.LogFacility) : `enum`
-        * [.LogPriority](#module_log.LogPriority) : `enum`
-        * [.UlogChannel](#module_log.UlogChannel) : `enum`
-
-<a name="module_log+openlog"></a>
-
 ### log.openlog([ident], [options], [facility]) ⇒ `boolean`
 Open connection to system logger.
 
@@ -2798,14 +2505,13 @@ facility name, was provided.
 | [facility] | `number` \| [`LogFacility`](#module_log.LogFacility) | `"user"` | The facility to use for log messages generated by subsequent syslog calls. See [LogFacility](#module_log.LogFacility) for recognized facility names. |
 
 **Example**  
-```js
+```ucode
 // Example usage of openlog function
 openlog("myapp", LOG_PID | LOG_NDELAY, LOG_LOCAL0);
 
 // Using option names instead of bitmask and LOG_USER facility
 openlog("myapp", [ "pid", "ndelay" ], "user");
-```
-<a name="module_log+syslog"></a>
+```ucode
 
 ### log.syslog(priority, format, [...args]) ⇒ `boolean`
 Log a message to the system logger.
@@ -2835,7 +2541,7 @@ Returns `false` if an invalid priority value or an empty message was given.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 // Example usage of syslog function with format string and arguments
 const username = "user123";
 const errorCode = 404;
@@ -2854,7 +2560,6 @@ syslog("emerg", "System shutdown imminent!");
 // Implicit stringification
 syslog("debug", { foo: 1, bar: true, baz: [1, 2, 3] });
 ```
-<a name="module_log+closelog"></a>
 
 ### log.closelog()
 Close connection to system logger.
@@ -2863,7 +2568,6 @@ The usage of this function is optional, and usually an explicit log
 connection tear down is not required.
 
 **Kind**: instance method of [`log`](#module_log)  
-<a name="module_log+ulog_open"></a>
 
 ### log.ulog\_open([channel], [facility], [ident]) ⇒ `boolean`
 Configure ulog logger.
@@ -2908,14 +2612,13 @@ facility name, was provided.
 | [ident] | `string` | A string identifying the program name. If omitted, the name of the calling process is used by default. |
 
 **Example**  
-```js
+```ucode
 // Log to dmesg and stderr
 ulog_open(["stdio", "kmsg"], "daemon", "my-program");
 
 // Use numeric constants and use implicit default ident
 ulog_open(ULOG_SYSLOG, LOG_LOCAL0);
-```
-<a name="module_log+ulog"></a>
+```ucode
 
 ### log.ulog(priority, format, [...args]) ⇒ `boolean`
 Log a message via the ulog mechanism.
@@ -2957,7 +2660,7 @@ Returns `false` if an invalid priority value or an empty message was given.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 // Example usage of ulog function with format string and arguments
 const username = "user123";
 const errorCode = 404;
@@ -2969,7 +2672,6 @@ ulog("err", "General error encountered");
 // Implicit stringification
 ulog("debug", { foo: 1, bar: true, baz: [1, 2, 3] });
 ```
-<a name="module_log+ulog_close"></a>
 
 ### log.ulog\_close()
 Close ulog logger.
@@ -2989,7 +2691,6 @@ portability to non-OpenWrt environments.
 
 **Kind**: instance method of [`log`](#module_log)  
 **See**: module:log#closelog  
-<a name="module_log+ulog_threshold"></a>
 
 ### log.ulog\_threshold([priority]) ⇒ `boolean`
 Set ulog priority threshold.
@@ -3021,7 +2722,7 @@ Returns `false` if an invalid priority value was given.
 | [priority] | `number` \| [`LogPriority`](#module_log.LogPriority) | The priority threshold to configure. See [LogPriority](#module_log.LogPriority) for recognized priority names. |
 
 **Example**  
-```js
+```ucode
 // Set threshold to "warning" or more severe
 ulog_threshold(LOG_WARNING);
 
@@ -3030,8 +2731,7 @@ ulog(LOG_DEBUG, "Testing thresholds");
 
 // Using priority name
 ulog_threshold("debug");
-```
-<a name="module_log+INFO"></a>
+```ucode
 
 ### log.INFO(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_INFO.
@@ -3048,10 +2748,9 @@ See [ulog()](#module_log+ulog) for details.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 INFO("This is an info log message");
 ```
-<a name="module_log+[NOTE](../L2-semantic/wiki/wiki_page-techref-luci2.md)"></a>
 
 ### log.NOTE(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_NOTICE.
@@ -3068,10 +2767,9 @@ See [ulog()](#module_log+ulog) for details.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 NOTE("This is a notification log message");
-```
-<a name="module_log+WARN"></a>
+```ucode
 
 ### log.WARN(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_WARNING.
@@ -3088,10 +2786,9 @@ See [ulog()](#module_log+ulog) for details.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 WARN("This is a warning");
 ```
-<a name="module_log+ERR"></a>
 
 ### log.ERR(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_ERR.
@@ -3108,10 +2805,9 @@ See [ulog()](#module_log+ulog) for details.
 | [...args] | `\*` | In case a format string value was provided in the previous argument, then all subsequent arguments are used to replace the placeholders in the format string. |
 
 **Example**  
-```js
+```ucode
 ERR("This is an error!");
-```
-<a name="module_log.LogOption"></a>
+```ucode
 
 ### log.LogOption : `enum`
 The following log option strings are recognized:
@@ -3125,7 +2821,6 @@ The following log option strings are recognized:
 | `"nowait"` | Do not wait for child processes created during logging.    |
 
 **Kind**: static enum of [`log`](#module_log)  
-<a name="module_log.LogFacility"></a>
 
 ### log.LogFacility : `enum`
 The following log facility strings are recognized:
@@ -3154,7 +2849,6 @@ The following log facility strings are recognized:
 | `"local7"`   | Local use 7 (custom facility).                   |
 
 **Kind**: static enum of [`log`](#module_log)  
-<a name="module_log.LogPriority"></a>
 
 ### log.LogPriority : `enum`
 The following log priority strings are recognized:
@@ -3171,7 +2865,6 @@ The following log priority strings are recognized:
 | `"debug"`   | Debug-level message.                |
 
 **Kind**: static enum of [`log`](#module_log)  
-<a name="module_log.UlogChannel"></a>
 
 ### log.UlogChannel : `enum`
 The following ulog channel strings are recognized:
@@ -3192,10 +2885,7 @@ The following ulog channel strings are recognized:
 
 ---
 
-<a name="module_math"></a>
-
-## math
-# Mathematical Functions
+## Mathematical Functions
 
 The `math` module bundles various mathematical and trigonometrical functions.
 
@@ -3203,7 +2893,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { pow, rand } from 'math';
 
   let x = pow(2, 5);
@@ -3213,7 +2903,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as math from 'math';
 
   let x = math.pow(2, 5);
@@ -3222,21 +2912,6 @@ using a wildcard import statement:
 
 Additionally, the math module namespace may also be imported by invoking the
 `ucode` interpreter with the `-lmath` switch.
-
-* [math](#module_math)
-    * [.abs(number)](#module_math+abs) ⇒ `number`
-    * [.atan2(y, x)](#module_math+atan2) ⇒ `number`
-    * [.cos(x)](#module_math+cos) ⇒ `number`
-    * [.exp(x)](#module_math+exp) ⇒ `number`
-    * [.log(x)](#module_math+log) ⇒ `number`
-    * [.sin(x)](#module_math+sin) ⇒ `number`
-    * [.sqrt(x)](#module_math+sqrt) ⇒ `number`
-    * [.pow(x, y)](#module_math+pow) ⇒ `number`
-    * [.rand([a], [b])](#module_math+rand) ⇒ `number`
-    * [.srand(seed)](#module_math+srand)
-    * [.isnan(x)](#module_math+isnan) ⇒ `boolean`
-
-<a name="module_math+abs"></a>
 
 ### math.abs(number) ⇒ `number`
 Returns the absolute value of the given numeric value.
@@ -3248,8 +2923,6 @@ not be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | number | `\*` | The number to return the absolute value for. |
-
-<a name="module_math+atan2"></a>
 
 ### math.atan2(y, x) ⇒ `number`
 Calculates the principal value of the arc tangent of `y`/`x`,
@@ -3287,8 +2960,6 @@ returned.
 | y | `\*` | The `y` value. |
 | x | `\*` | The `x` value. |
 
-<a name="module_math+cos"></a>
-
 ### math.cos(x) ⇒ `number`
 Calculates the cosine of `x`, where `x` is given in radians.
 
@@ -3301,8 +2972,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Radians value to calculate cosine for. |
-
-<a name="module_math+exp"></a>
 
 ### math.exp(x) ⇒ `number`
 Calculates the value of `e` (the base of natural logarithms)
@@ -3322,8 +2991,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Power to raise `e` to. |
-
-<a name="module_math+log"></a>
 
 ### math.log(x) ⇒ `number`
 Calculates the natural logarithm of `x`.
@@ -3345,8 +3012,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | --- | --- | --- |
 | x | `number` | Value to calulate natural logarithm of. |
 
-<a name="module_math+sin"></a>
-
 ### math.sin(x) ⇒ `number`
 Calculates the sine of `x`, where `x` is given in radians.
 
@@ -3362,8 +3027,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Radians value to calculate sine for. |
-
-<a name="module_math+sqrt"></a>
 
 ### math.sqrt(x) ⇒ `number`
 Calculates the nonnegative square root of `x`.
@@ -3381,8 +3044,6 @@ Returns `NaN` if the `x` value can't be converted to a number.
 | Param | Type | Description |
 | --- | --- | --- |
 | x | `number` | Value to calculate square root for. |
-
-<a name="module_math+pow"></a>
 
 ### math.pow(x, y) ⇒ `number`
 Calculates the value of `x` raised to the power of `y`.
@@ -3437,8 +3098,6 @@ Returns `NaN` if either the `x` or `y` value can't be converted to a number.
 | x | `number` | The base value. |
 | y | `number` | The power value. |
 
-<a name="module_math+rand"></a>
-
 ### math.rand([a], [b]) ⇒ `number`
 Depending on the arguments, it produces a pseudo-random positive integer, 
 or a pseudo-random number in a supplied range.
@@ -3467,8 +3126,6 @@ time of day in milliseconds as seed value.
 | [a] | `number` | End of the desired range. |
 | [b] | `number` | The other end of the desired range. |
 
-<a name="module_math+srand"></a>
-
 ### math.srand(seed)
 Seeds the pseudo-random number generator.
 
@@ -3484,8 +3141,6 @@ produced by [`rand()`](module:math~rand).
 | Param | Type | Description |
 | --- | --- | --- |
 | seed | `number` | The seed value. |
-
-<a name="module_math+isnan"></a>
 
 ### math.isnan(x) ⇒ `boolean`
 Tests whether `x` is a `NaN` double.
@@ -3512,10 +3167,7 @@ Note that a value can also be checked for `NaN` with the expression
 
 ---
 
-<a name="module_nl80211"></a>
-
-## nl80211
-# Wireless Netlink
+## Wireless Netlink
 
 The `nl80211` module provides functions for interacting with the nl80211 netlink interface
 for wireless networking configuration and management.
@@ -3524,7 +3176,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { error, request, listener, waitfor, const } from 'nl80211';
 
   // Send a nl80211 request
@@ -3539,12 +3191,12 @@ syntax:
   let event = waitfor([const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
   if (event)
       print('Received scan results:', event.msg, '\n');
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as nl80211 from 'nl80211';
 
   // Send a nl80211 request
@@ -3559,24 +3211,9 @@ using a wildcard import statement:
 Additionally, the nl80211 module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lnl80211` switch.
 
-* [nl80211](#module_nl80211)
-    * _static_
-        * [.listener](#module_nl80211.listener)
-    * _inner_
-        * [~Netlink message flags](#module_nl80211..Netlink message flags)
-        * [~nl80211 commands](#module_nl80211..nl80211 commands)
-        * [~Scan flags](#module_nl80211..Scan flags)
-        * [~BSS status constants](#module_nl80211..BSS status constants)
-        * [~BSS use-for and cannot-use-reasons constants](#module_nl80211..BSS use-for and cannot-use-reasons constants)
-        * [~HWSIM commands](#module_nl80211..HWSIM commands)
-        * [~Interface types](#module_nl80211..Interface types)
-
-<a name="module_nl80211.listener"></a>
-
 ### nl80211.listener
 **Kind**: static class of [`nl80211`](#module_nl80211)  
 **See**: [listener()](module:nl80211#listener)  
-<a name="module_nl80211..Netlink message flags"></a>
 
 ### nl80211~Netlink message flags
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -3601,8 +3238,6 @@ the `ucode` interpreter with the `-lnl80211` switch.
 | NLM_F_REPLACE | `number` | Replace existing |
 | NLM_F_REQUEST | `number` | Request message |
 | NLM_F_ROOT | `number` | Root operation |
-
-<a name="module_nl80211..nl80211 commands"></a>
 
 ### nl80211~nl80211 commands
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -3727,8 +3362,6 @@ the `ucode` interpreter with the `-lnl80211` switch.
 | NL80211_CMD_TDLS_CANCEL_CHANNEL_SWITCH | `number` | Cancel TDLS channel switch |
 | NL80211_CMD_ABORT_SCAN | `number` | Abort scan |
 
-<a name="module_nl80211..Scan flags"></a>
-
 ### nl80211~Scan flags
 Constants for NL80211_ATTR_SCAN_FLAGS bitmask.
 
@@ -3753,8 +3386,6 @@ Constants for NL80211_ATTR_SCAN_FLAGS bitmask.
 | NL80211_SCAN_FLAG_FREQ_KHZ | `number` | Report scan results with frequency in KHz |
 | NL80211_SCAN_FLAG_COLOCATED_6GHZ | `number` | Scan colocated 6GHz BSS |
 
-<a name="module_nl80211..BSS status constants"></a>
-
 ### nl80211~BSS status constants
 Constants for BSS status values.
 
@@ -3766,8 +3397,6 @@ Constants for BSS status values.
 | NL80211_BSS_STATUS_AUTHENTICATED | `number` | Authenticated with BSS |
 | NL80211_BSS_STATUS_ASSOCIATED | `number` | Associated with BSS |
 | NL80211_BSS_STATUS_IBSS_JOINED | `number` | Joined [IBSS](../L2-semantic/wiki/wiki_page-techref-wireless-modes.md) |
-
-<a name="module_nl80211..BSS use-for and cannot-use-reasons constants"></a>
 
 ### nl80211~BSS use-for and cannot-use-reasons constants
 Constants for BSS use-for and cannot-use-reasons bitmasks.
@@ -3781,8 +3410,6 @@ Constants for BSS use-for and cannot-use-reasons bitmasks.
 | NL80211_BSS_USE_FOR_MLD_LINK | `number` | Use BSS as MLD link |
 | NL80211_BSS_CANNOT_USE_NSTR_NONPRIMARY | `number` | NSTR nonprimary link not usable |
 | NL80211_BSS_CANNOT_USE_6GHZ_PWR_MISMATCH | `number` | 6GHz power mode mismatch |
-
-<a name="module_nl80211..HWSIM commands"></a>
 
 ### nl80211~HWSIM commands
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -3801,8 +3428,6 @@ Constants for BSS use-for and cannot-use-reasons bitmasks.
 | HWSIM_CMD_START_PMSR | `number` | Start peer measurement |
 | HWSIM_CMD_ABORT_PMSR | `number` | Abort peer measurement |
 | HWSIM_CMD_REPORT_PMSR | `number` | Report peer measurement |
-
-<a name="module_nl80211..Interface types"></a>
 
 ### nl80211~Interface types
 **Kind**: inner typedef of [`nl80211`](#module_nl80211)  
@@ -3830,10 +3455,7 @@ Constants for BSS use-for and cannot-use-reasons bitmasks.
 
 ---
 
-<a name="module_resolv"></a>
-
-## resolv
-# DNS Resolution Module
+## DNS Resolution Module
 
 The `resolv` module provides DNS resolution functionality for ucode, allowing
 you to perform DNS queries for various record types and handle responses.
@@ -3842,7 +3464,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { query } from 'resolv';
 
   let result = query('example.com', { type: ['A'] });
@@ -3851,7 +3473,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as resolv from 'resolv';
 
   let result = resolv.query('example.com', { type: ['A'] });
@@ -3901,17 +3523,17 @@ DNS query results are returned as objects where:
 ### Record Format by Type
 
 **A and AAAA records:**
-```javascript
+```ucode
 {
   "example.com": {
     "A": ["192.0.2.1", "192.0.2.2"],
     "AAAA": ["2001:db8::1", "2001:db8::2"]
   }
 }
-```
+```ucode
 
 **MX records:**
-```javascript
+```ucode
 {
   "example.com": {
     "MX": [
@@ -3923,7 +3545,7 @@ DNS query results are returned as objects where:
 ```
 
 **SRV records:**
-```javascript
+```ucode
 {
   "_http._tcp.example.com": {
     "SRV": [
@@ -3932,10 +3554,10 @@ DNS query results are returned as objects where:
     ]
   }
 }
-```
+```ucode
 
 **SOA records:**
-```javascript
+```ucode
 {
   "example.com": {
     "SOA": [
@@ -3954,7 +3576,7 @@ DNS query results are returned as objects where:
 ```
 
 **TXT, NS, CNAME, PTR records:**
-```javascript
+```ucode
 {
   "example.com": {
     "TXT": ["v=spf1 include:_spf.example.com ~all"],
@@ -3962,10 +3584,10 @@ DNS query results are returned as objects where:
     "CNAME": ["alias.example.com"]
   }
 }
-```
+```ucode
 
 **Error responses:**
-```javascript
+```ucode
 {
   "nonexistent.example.com": {
     "rcode": "NXDOMAIN"
@@ -3977,7 +3599,7 @@ DNS query results are returned as objects where:
 
 Basic A record lookup:
 
-```javascript
+```ucode
 import { query } from 'resolv';
 
 const result = query(['example.com']);
@@ -3988,11 +3610,11 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```
+```ucode
 
 Specific record type query:
 
-```javascript
+```ucode
 const mxRecords = query(['example.com'], { type: ['MX'] });
 print(mxRecords, "\n");
 // {
@@ -4004,7 +3626,7 @@ print(mxRecords, "\n");
 
 Multiple domains and types:
 
-```javascript
+```ucode
 const results = query(
   ['example.com', 'google.com'],
   { 
@@ -4013,11 +3635,11 @@ const results = query(
     nameserver: ['8.8.8.8', '1.1.1.1']
   }
 );
-```
+```ucode
 
 Reverse DNS lookup:
 
-```javascript
+```ucode
 const ptrResult = query(['192.0.2.1'], { type: ['PTR'] });
 print(ptrResult, "\n");
 // {
@@ -4026,12 +3648,6 @@ print(ptrResult, "\n");
 //   }
 // }
 ```
-
-* [resolv](#module_resolv)
-    * [.query(names, [options])](#module_resolv+query) ⇒ `object`
-    * [.error()](#module_resolv+error) ⇒ `string` \| `null`
-
-<a name="module_resolv+query"></a>
 
 ### resolv.query(names, [options]) ⇒ `object`
 Perform DNS queries for specified domain names.
@@ -4066,7 +3682,7 @@ for failed queries.
 | [options.txt_as_array] | `boolean` | `false` | Return TXT record strings as array elements instead of space-joining all record strings into one single string per record. |
 
 **Example**  
-```js
+```ucode
 // Basic A and AAAA record lookup
 const result = query('example.com');
 print(result, "\n");
@@ -4076,9 +3692,9 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Specific record type queries
 const mxResult = query('example.com', { type: ['MX'] });
 print(mxResult, "\n");
@@ -4089,7 +3705,7 @@ print(mxResult, "\n");
 // }
 ```
 **Example**  
-```js
+```ucode
 // Multiple domains and types with custom nameserver
 const results = query(
   ['example.com', 'google.com'],
@@ -4099,9 +3715,9 @@ const results = query(
     timeout: 10000
   }
 );
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Reverse DNS lookup
 const ptrResult = query(['192.0.2.1'], { type: ['PTR'] });
 print(ptrResult, "\n");
@@ -4112,7 +3728,7 @@ print(ptrResult, "\n");
 // }
 ```
 **Example**  
-```js
+```ucode
 // TXT record with multiple elements
 const txtResult = query(['_spf.facebook.com'], { type: ['TXT'], txt_as_array: true });
 printf(txtResult, "\n");
@@ -4126,9 +3742,9 @@ printf(txtResult, "\n");
 //     ]
 //   }
 // }
-```
+```ucode
 **Example**  
-```js
+```ucode
 // Handling errors
 const errorResult = query(['nonexistent.example.com']);
 print(errorResult, "\n");
@@ -4138,7 +3754,6 @@ print(errorResult, "\n");
 //   }
 // }
 ```
-<a name="module_resolv+error"></a>
 
 ### resolv.error() ⇒ `string` \| `null`
 Get the last error message from DNS operations.
@@ -4156,14 +3771,14 @@ Returns a string describing the last error, or `null` if no error occurred.
 **Returns**: `string` \| `null` - A descriptive error message for the last failed operation, or `null` if
 no error occurred.  
 **Example**  
-```js
+```ucode
 // Check for errors after a failed query
 const result = query("example.org", { nameserver: "invalid..domain" });
 const err = error();
 if (err) {
   print("DNS query failed: ", err, "\n");
 }
-```
+```ucode
 
 ---
 
@@ -4173,10 +3788,7 @@ if (err) {
 
 ---
 
-<a name="module_rtnl"></a>
-
-## rtnl
-# Routing Netlink
+## Routing Netlink
 
 The `rtnl` module provides functions for interacting with the routing netlink interface.
 
@@ -4184,7 +3796,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { error, request, listener, RTM_GETROUTE, RTM_NEWROUTE, RTM_DELROUTE, AF_INET } from 'rtnl';
 
   // Send a netlink request
@@ -4194,12 +3806,12 @@ syntax:
   let routeListener = listener((msg) => {
       print('Received route message:', msg, '\n');
   }, [RTM_NEWROUTE, RTM_DELROUTE]);
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as rtnl from 'rtnl';
 
   // Send a netlink request
@@ -4214,60 +3826,6 @@ using a wildcard import statement:
 Additionally, the rtnl module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lrtnl` switch.
 
-* [rtnl](#module_rtnl)
-    * _instance_
-        * [.error()](#module_rtnl+error) ⇒ `string`
-        * [.request(cmd, flags, payload)](#module_rtnl+request) ⇒ `\*`
-        * [.listener(callback, [commands], [groups])](#module_rtnl+listener) ⇒ [`listener`](#module_rtnl.listener)
-    * _static_
-        * [.listener](#module_rtnl.listener)
-            * [.set_commands(commands)](#module_rtnl.listener+set_commands) ⇒ `boolean`
-            * [.close()](#module_rtnl.listener+close) ⇒ `boolean`
-    * _inner_
-        * [~Netlink message flags](#module_rtnl..Netlink message flags)
-        * [~IPv6 address generation modes](#module_rtnl..IPv6 address generation modes)
-        * [~MACVLAN modes](#module_rtnl..MACVLAN modes)
-        * [~MACVLAN MAC address commands](#module_rtnl..MACVLAN MAC address commands)
-        * [~MACsec validation levels](#module_rtnl..MACsec validation levels)
-        * [~MACsec offload modes](#module_rtnl..MACsec offload modes)
-        * [~IPVLAN modes](#module_rtnl..IPVLAN modes)
-        * [~VXLAN data frame flags](#module_rtnl..VXLAN data frame flags)
-        * [~Geneve data frame flags](#module_rtnl..Geneve data frame flags)
-        * [~GTP roles](#module_rtnl..GTP roles)
-        * [~Port request types](#module_rtnl..Port request types)
-        * [~Port VDP responses](#module_rtnl..Port VDP responses)
-        * [~Port profile responses](#module_rtnl..Port profile responses)
-        * [~IPoIB modes](#module_rtnl..IPoIB modes)
-        * [~HSR protocols](#module_rtnl..HSR protocols)
-        * [~Link extended statistics types](#module_rtnl..Link extended statistics types)
-        * [~XDP attach types](#module_rtnl..XDP attach types)
-        * [~FDB notification bits](#module_rtnl..FDB notification bits)
-        * [~Route commands](#module_rtnl..Route commands)
-        * [~Route types](#module_rtnl..Route types)
-        * [~Route scopes](#module_rtnl..Route scopes)
-        * [~Route tables](#module_rtnl..Route tables)
-        * [~Route metrics](#module_rtnl..Route metrics)
-        * [~Prefix types](#module_rtnl..Prefix types)
-        * [~Neighbor discovery user option types](#module_rtnl..Neighbor discovery user option types)
-        * [~Multicast groups](#module_rtnl..Multicast groups)
-        * [~Route flags](#module_rtnl..Route flags)
-        * [~Address families](#module_rtnl..Address families)
-        * [~Generic Routing Encapsulation flags](#module_rtnl..Generic Routing Encapsulation flags)
-        * [~Tunnel encapsulation types](#module_rtnl..Tunnel encapsulation types)
-        * [~Tunnel encapsulation flags](#module_rtnl..Tunnel encapsulation flags)
-        * [~IPv6 tunnel flags](#module_rtnl..IPv6 tunnel flags)
-        * [~Interface flags](#module_rtnl..Interface flags)
-        * [~Neighbor states](#module_rtnl..Neighbor states)
-        * [~Address flags](#module_rtnl..Address flags)
-        * [~FIB rule flags](#module_rtnl..FIB rule flags)
-        * [~FIB rule actions](#module_rtnl..FIB rule actions)
-        * [~Network configuration indices](#module_rtnl..Network configuration indices)
-        * [~Bridge flags](#module_rtnl..Bridge flags)
-        * [~Bridge modes](#module_rtnl..Bridge modes)
-        * [~Bridge VLAN information flags](#module_rtnl..Bridge VLAN information flags)
-
-<a name="module_rtnl+error"></a>
-
 ### rtnl.error() ⇒ `string`
 Query error information.
 
@@ -4276,14 +3834,13 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`rtnl`](#module_rtnl)  
 **Example**  
-```js
+```ucode
 // Trigger rtnl error
 request('invalid_command', {}, {});
 
 // Print error (should yield error description)
 print(error(), "\n");
-```
-<a name="module_rtnl+request"></a>
+```ucode
 
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 Send a netlink request.
@@ -4300,11 +3857,10 @@ Sends a netlink request with the specified command, flags, and payload.
 | payload | `\*` | The payload data for the request |
 
 **Example**  
-```js
+```ucode
 // Send a route request
 let response = request('RTM_GETROUTE', 0, { family: AF_INET });
 ```
-<a name="module_rtnl+listener"></a>
 
 ### rtnl.listener(callback, [commands], [groups]) ⇒ [`listener`](#module_rtnl.listener)
 Create a netlink listener.
@@ -4322,13 +3878,12 @@ commands and multicast groups.
 | [groups] | `Array.<number>` | Array of multicast groups to join (optional) |
 
 **Example**  
-```js
+```ucode
 // Create a listener for route changes
 let routeListener = listener((msg) => {
     print('Received route message:', msg, '\n');
 }, [RTM_NEWROUTE, RTM_DELROUTE]);
-```
-<a name="module_rtnl.listener"></a>
+```ucode
 
 ### rtnl.listener
 **Kind**: static class of [`rtnl`](#module_rtnl)  
@@ -4337,8 +3892,6 @@ let routeListener = listener((msg) => {
 * [.listener](#module_rtnl.listener)
     * [.set_commands(commands)](#module_rtnl.listener+set_commands) ⇒ `boolean`
     * [.close()](#module_rtnl.listener+close) ⇒ `boolean`
-
-<a name="module_rtnl.listener+set_commands"></a>
 
 #### listener.set\_commands(commands) ⇒ `boolean`
 Set the commands for a netlink listener.
@@ -4353,11 +3906,10 @@ Updates the set of netlink commands that the listener will receive.
 | commands | `Array.<string>` | Array of netlink commands to listen for |
 
 **Example**  
-```js
+```ucode
 // Update listener to only receive route messages
 listener.set_commands([RTM_NEWROUTE, RTM_DELROUTE]);
 ```
-<a name="module_rtnl.listener+close"></a>
 
 #### listener.close() ⇒ `boolean`
 Close a netlink listener.
@@ -4367,11 +3919,10 @@ Closes the netlink listener and stops receiving messages.
 **Kind**: instance method of [`listener`](#module_rtnl.listener)  
 **Returns**: `boolean` - - true if successful, false on error  
 **Example**  
-```js
+```ucode
 // Close the listener
 listener.close();
-```
-<a name="module_rtnl..Netlink message flags"></a>
+```ucode
 
 ### rtnl~Netlink message flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4398,8 +3949,6 @@ listener.close();
 | NLM_F_ROOT | `number` | Root operation |
 | NLM_F_STRICT_CHK | `number` | Strict checking |
 
-<a name="module_rtnl..IPv6 address generation modes"></a>
-
 ### rtnl~IPv6 address generation modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4410,8 +3959,6 @@ listener.close();
 | IN6_ADDR_GEN_MODE_NONE | `number` | No mode |
 | IN6_ADDR_GEN_MODE_STABLE_PRIVACY | `number` | Stable privacy mode |
 | IN6_ADDR_GEN_MODE_RANDOM | `number` | Random mode |
-
-<a name="module_rtnl..MACVLAN modes"></a>
 
 ### rtnl~MACVLAN modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4425,8 +3972,6 @@ listener.close();
 | MACVLAN_MODE_PASSTHRU | `number` | Pass-through mode |
 | MACVLAN_MODE_SOURCE | `number` | Source mode |
 
-<a name="module_rtnl..MACVLAN MAC address commands"></a>
-
 ### rtnl~MACVLAN MAC address commands
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4437,8 +3982,6 @@ listener.close();
 | MACVLAN_MACADDR_DEL | `number` | Delete MAC address |
 | MACVLAN_MACADDR_FLUSH | `number` | Flush MAC addresses |
 | MACVLAN_MACADDR_SET | `number` | Set MAC address |
-
-<a name="module_rtnl..MACsec validation levels"></a>
 
 ### rtnl~MACsec validation levels
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4451,8 +3994,6 @@ listener.close();
 | MACSEC_VALIDATE_STRICT | `number` | Strict validation |
 | MACSEC_VALIDATE_MAX | `number` | Maximum validation |
 
-<a name="module_rtnl..MACsec offload modes"></a>
-
 ### rtnl~MACsec offload modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4464,8 +4005,6 @@ listener.close();
 | MACSEC_OFFLOAD_MAC | `number` | MAC offload |
 | MACSEC_OFFLOAD_MAX | `number` | Maximum offload |
 
-<a name="module_rtnl..IPVLAN modes"></a>
-
 ### rtnl~IPVLAN modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4475,8 +4014,6 @@ listener.close();
 | IPVLAN_MODE_L2 | `number` | Layer 2 mode |
 | IPVLAN_MODE_L3 | `number` | Layer 3 mode |
 | IPVLAN_MODE_L3S | `number` | Layer 3 symmetric mode |
-
-<a name="module_rtnl..VXLAN data frame flags"></a>
 
 ### rtnl~VXLAN data frame flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4489,8 +4026,6 @@ listener.close();
 | VXLAN_DF_INHERIT | `number` | Data frame inherit |
 | VXLAN_DF_MAX | `number` | Maximum data frame |
 
-<a name="module_rtnl..Geneve data frame flags"></a>
-
 ### rtnl~Geneve data frame flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4502,8 +4037,6 @@ listener.close();
 | GENEVE_DF_INHERIT | `number` | Data frame inherit |
 | GENEVE_DF_MAX | `number` | Maximum data frame |
 
-<a name="module_rtnl..GTP roles"></a>
-
 ### rtnl~GTP roles
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4512,8 +4045,6 @@ listener.close();
 | --- | --- | --- |
 | GTP_ROLE_GGSN | `number` | GGSN role |
 | GTP_ROLE_SGSN | `number` | SGSN role |
-
-<a name="module_rtnl..Port request types"></a>
 
 ### rtnl~Port request types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4525,8 +4056,6 @@ listener.close();
 | PORT_REQUEST_PREASSOCIATE_RR | `number` | Pre-associate round-robin request |
 | PORT_REQUEST_ASSOCIATE | `number` | Associate request |
 | PORT_REQUEST_DISASSOCIATE | `number` | Disassociate request |
-
-<a name="module_rtnl..Port VDP responses"></a>
 
 ### rtnl~Port VDP responses
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4542,8 +4071,6 @@ listener.close();
 | PORT_VDP_RESPONSE_VTID_VERSION_VIOALTION | `number` | VTID version violation response |
 | PORT_VDP_RESPONSE_OUT_OF_SYNC | `number` | Out of sync response |
 
-<a name="module_rtnl..Port profile responses"></a>
-
 ### rtnl~Port profile responses
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4557,8 +4084,6 @@ listener.close();
 | PORT_PROFILE_RESPONSE_INSUFFICIENT_RESOURCES | `number` | Insufficient resources response |
 | PORT_PROFILE_RESPONSE_ERROR | `number` | Error response |
 
-<a name="module_rtnl..IPoIB modes"></a>
-
 ### rtnl~IPoIB modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4567,8 +4092,6 @@ listener.close();
 | --- | --- | --- |
 | IPOIB_MODE_DATAGRAM | `number` | Datagram mode |
 | IPOIB_MODE_CONNECTED | `number` | Connected mode |
-
-<a name="module_rtnl..HSR protocols"></a>
 
 ### rtnl~HSR protocols
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4579,8 +4102,6 @@ listener.close();
 | HSR_PROTOCOL_HSR | `number` | HSR protocol |
 | HSR_PROTOCOL_PRP | `number` | PRP protocol |
 
-<a name="module_rtnl..Link extended statistics types"></a>
-
 ### rtnl~Link extended statistics types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4590,8 +4111,6 @@ listener.close();
 | LINK_XSTATS_TYPE_UNSPEC | `number` | Unspecified type |
 | LINK_XSTATS_TYPE_BRIDGE | `number` | Bridge type |
 | LINK_XSTATS_TYPE_BOND | `number` | Bond type |
-
-<a name="module_rtnl..XDP attach types"></a>
 
 ### rtnl~XDP attach types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4605,8 +4124,6 @@ listener.close();
 | XDP_ATTACHED_HW | `number` | Hardware attached |
 | XDP_ATTACHED_MULTI | `number` | Multi attached |
 
-<a name="module_rtnl..FDB notification bits"></a>
-
 ### rtnl~FDB notification bits
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4615,8 +4132,6 @@ listener.close();
 | --- | --- | --- |
 | FDB_NOTIFY_BIT | `number` | Notify bit |
 | FDB_NOTIFY_INACTIVE_BIT | `number` | Inactive notify bit |
-
-<a name="module_rtnl..Route commands"></a>
 
 ### rtnl~Route commands
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4687,8 +4202,6 @@ listener.close();
 | RTM_DELVLAN | `number` | Delete VLAN |
 | RTM_GETVLAN | `number` | Get VLAN |
 
-<a name="module_rtnl..Route types"></a>
-
 ### rtnl~Route types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4708,8 +4221,6 @@ listener.close();
 | RTN_NAT | `number` | NAT route |
 | RTN_XRESOLVE | `number` | External resolve route |
 
-<a name="module_rtnl..Route scopes"></a>
-
 ### rtnl~Route scopes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4721,8 +4232,6 @@ listener.close();
 | RT_SCOPE_LINK | `number` | Link scope |
 | RT_SCOPE_HOST | `number` | Host scope |
 | RT_SCOPE_NOWHERE | `number` | Nowhere scope |
-
-<a name="module_rtnl..Route tables"></a>
 
 ### rtnl~Route tables
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4736,8 +4245,6 @@ listener.close();
 | RT_TABLE_MAIN | `number` | Main table |
 | RT_TABLE_LOCAL | `number` | Local table |
 | RT_TABLE_MAX | `number` | Maximum table |
-
-<a name="module_rtnl..Route metrics"></a>
 
 ### rtnl~Route metrics
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4761,8 +4268,6 @@ listener.close();
 | RTAX_SSTHRESH | `number` | Slow start threshold |
 | RTAX_FASTOPEN_NO_COOKIE | `number` | Fast open no cookie |
 
-<a name="module_rtnl..Prefix types"></a>
-
 ### rtnl~Prefix types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4773,8 +4278,6 @@ listener.close();
 | PREFIX_ADDRESS | `number` | Address prefix |
 | PREFIX_CACHEINFO | `number` | Cache info prefix |
 
-<a name="module_rtnl..Neighbor discovery user option types"></a>
-
 ### rtnl~Neighbor discovery user option types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4783,8 +4286,6 @@ listener.close();
 | --- | --- | --- |
 | NDUSEROPT_UNSPEC | `number` | Unspecified option |
 | NDUSEROPT_SRCADDR | `number` | Source address option |
-
-<a name="module_rtnl..Multicast groups"></a>
 
 ### rtnl~Multicast groups
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4827,8 +4328,6 @@ listener.close();
 | RTNLGRP_NEXTHOP | `number` | Next hop group |
 | RTNLGRP_BRVLAN | `number` | Bridge VLAN group |
 
-<a name="module_rtnl..Route flags"></a>
-
 ### rtnl~Route flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4842,8 +4341,6 @@ listener.close();
 | RTM_F_NOTIFY | `number` | Notify |
 | RTM_F_PREFIX | `number` | Prefix |
 
-<a name="module_rtnl..Address families"></a>
-
 ### rtnl~Address families
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4855,8 +4352,6 @@ listener.close();
 | AF_INET6 | `number` | IPv6 address family |
 | AF_MPLS | `number` | MPLS address family |
 | AF_BRIDGE | `number` | Bridge address family |
-
-<a name="module_rtnl..Generic Routing Encapsulation flags"></a>
 
 ### rtnl~Generic Routing Encapsulation flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4872,8 +4367,6 @@ listener.close();
 | GRE_REC | `number` | Record flag |
 | GRE_ACK | `number` | Acknowledgment flag |
 
-<a name="module_rtnl..Tunnel encapsulation types"></a>
-
 ### rtnl~Tunnel encapsulation types
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4885,8 +4378,6 @@ listener.close();
 | TUNNEL_ENCAP_GUE | `number` | Generic UDP Encapsulation |
 | TUNNEL_ENCAP_MPLS | `number` | MPLS encapsulation |
 
-<a name="module_rtnl..Tunnel encapsulation flags"></a>
-
 ### rtnl~Tunnel encapsulation flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4896,8 +4387,6 @@ listener.close();
 | TUNNEL_ENCAP_FLAG_CSUM | `number` | Checksum flag |
 | TUNNEL_ENCAP_FLAG_CSUM6 | `number` | IPv6 checksum flag |
 | TUNNEL_ENCAP_FLAG_REMCSUM | `number` | Remote checksum flag |
-
-<a name="module_rtnl..IPv6 tunnel flags"></a>
 
 ### rtnl~IPv6 tunnel flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4912,8 +4401,6 @@ listener.close();
 | IP6_TNL_F_USE_ORIG_FLOWLABEL | `number` | Use original flow label |
 | IP6_TNL_F_USE_ORIG_FWMARK | `number` | Use original firewall mark |
 | IP6_TNL_F_USE_ORIG_TCLASS | `number` | Use original traffic class |
-
-<a name="module_rtnl..Interface flags"></a>
 
 ### rtnl~Interface flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4930,8 +4417,6 @@ listener.close();
 | NTF_STICKY | `number` | Sticky |
 | NTF_USE | `number` | Use |
 
-<a name="module_rtnl..Neighbor states"></a>
-
 ### rtnl~Neighbor states
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4947,8 +4432,6 @@ listener.close();
 | NUD_PROBE | `number` | Probe state |
 | NUD_REACHABLE | `number` | Reachable state |
 | NUD_STALE | `number` | Stale state |
-
-<a name="module_rtnl..Address flags"></a>
 
 ### rtnl~Address flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4970,8 +4453,6 @@ listener.close();
 | IFA_F_TEMPORARY | `number` | Temporary |
 | IFA_F_TENTATIVE | `number` | Tentative |
 
-<a name="module_rtnl..FIB rule flags"></a>
-
 ### rtnl~FIB rule flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -4984,8 +4465,6 @@ listener.close();
 | FIB_RULE_IIF_DETACHED | `number` | Interface detached |
 | FIB_RULE_DEV_DETACHED | `number` | Device detached |
 | FIB_RULE_OIF_DETACHED | `number` | Output interface detached |
-
-<a name="module_rtnl..FIB rule actions"></a>
 
 ### rtnl~FIB rule actions
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -5000,8 +4479,6 @@ listener.close();
 | FR_ACT_UNREACHABLE | `number` | Unreachable action |
 | FR_ACT_PROHIBIT | `number` | Prohibit action |
 
-<a name="module_rtnl..Network configuration indices"></a>
-
 ### rtnl~Network configuration indices
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -5011,8 +4488,6 @@ listener.close();
 | NETCONFA_IFINDEX_ALL | `number` | All interfaces |
 | NETCONFA_IFINDEX_DEFAULT | `number` | Default interface |
 
-<a name="module_rtnl..Bridge flags"></a>
-
 ### rtnl~Bridge flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
 **Properties**
@@ -5021,8 +4496,6 @@ listener.close();
 | --- | --- | --- |
 | BRIDGE_FLAGS_MASTER | `number` | Master flag |
 | BRIDGE_FLAGS_SELF | `number` | Self flag |
-
-<a name="module_rtnl..Bridge modes"></a>
 
 ### rtnl~Bridge modes
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -5035,8 +4508,6 @@ listener.close();
 | BRIDGE_MODE_UNDEF | `number` | Undefined mode |
 | BRIDGE_MODE_UNSPEC | `number` | Unspecified mode |
 | BRIDGE_MODE_HAIRPIN | `number` | Hairpin mode |
-
-<a name="module_rtnl..Bridge VLAN information flags"></a>
 
 ### rtnl~Bridge VLAN information flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -5059,10 +4530,7 @@ listener.close();
 
 ---
 
-<a name="module_socket"></a>
-
-## socket
-# Socket Module
+## Socket Module
 
 The `socket` module provides functions for interacting with sockets.
 
@@ -5070,7 +4538,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { AF_INET, SOCK_STREAM, create as socket } from 'socket';
 
   let sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -5078,12 +4546,12 @@ syntax:
   sock.send(…);
   sock.recv(…);
   sock.close();
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```javascript
+  ```ucode
   import * as socket from 'socket';
 
   let sock = socket.create(socket.AF_INET, socket.SOCK_STREAM, 0);
@@ -5095,63 +4563,6 @@ using a wildcard import statement:
 
 Additionally, the socket module namespace may also be imported by invoking
 the `ucode` interpreter with the `-lsocket` switch.
-
-* [socket](#module_socket)
-    * _instance_
-        * [.error([numeric])](#module_socket+error) ⇒ `string` \| `number`
-        * [.strerror(code)](#module_socket+strerror) ⇒ `string`
-        * [.sockaddr(address)](#module_socket+sockaddr) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-        * [.nameinfo(address, [flags])](#module_socket+nameinfo) ⇒ `Object`
-        * [.addrinfo(hostname, [service], [hints])](#module_socket+addrinfo) ⇒ [`Array.<AddressInfo>`](#module_socket.AddressInfo)
-        * [.poll(timeout, ...sockets)](#module_socket+poll) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
-        * [.connect(host, [service], [hints], [timeout])](#module_socket+connect) ⇒ [`socket`](#module_socket.socket)
-        * [.listen(host, [service], [hints], [backlog], [reuseaddr])](#module_socket+listen) ⇒ [`socket`](#module_socket.socket)
-        * [.create([domain], [type], [protocol])](#module_socket+create) ⇒ [`socket`](#module_socket.socket)
-        * [.open([fd])](#module_socket+open) ⇒ [`socket`](#module_socket.socket)
-        * [.pair([type])](#module_socket+pair) ⇒ `Array.<?module:socket.socket>`
-    * _static_
-        * [.socket](#module_socket.socket)
-            * _instance_
-                * [.setopt(level, option, value)](#module_socket.socket+setopt) ⇒ `boolean`
-                * [.getopt(level, option)](#module_socket.socket+getopt) ⇒ `\*`
-                * [.fileno()](#module_socket.socket+fileno) ⇒ `number`
-                * [.connect(address, port)](#module_socket.socket+connect) ⇒ `boolean`
-                * [.send(data, [flags], [address])](#module_socket.socket+send) ⇒ `number`
-                * [.recv([length], [flags], [address])](#module_socket.socket+recv) ⇒ `string`
-                * [.sendmsg([data], [ancillaryData], [address], [flags])](#module_socket.socket+sendmsg) ⇒ `number`
-                * [.recvmsg([sizes], [ancillarySize], [flags])](#module_socket.socket+recvmsg) ⇒ [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)
-                * [.bind(address)](#module_socket.socket+bind) ⇒ `boolean`
-                * [.listen([backlog])](#module_socket.socket+listen) ⇒ `boolean`
-                * [.accept([address], [flags])](#module_socket.socket+accept) ⇒ [`socket`](#module_socket.socket)
-                * [.shutdown(how)](#module_socket.socket+shutdown) ⇒ `boolean`
-                * [.peercred()](#module_socket.socket+peercred) ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
-                * [.peername()](#module_socket.socket+peername) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-                * [.sockname()](#module_socket.socket+sockname) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
-                * [.close()](#module_socket.socket+close) ⇒ `boolean`
-                * [.error([numeric])](#module_socket.socket+error) ⇒ `string` \| `number`
-            * _static_
-                * [.SocketAddress](#module_socket.socket.SocketAddress) : `Object`
-                * [.ControlMessage](#module_socket.socket.ControlMessage) : `Object`
-                * [.ReceivedMessage](#module_socket.socket.ReceivedMessage) : `Object`
-                * [.PeerCredentials](#module_socket.socket.PeerCredentials) : `Object`
-        * [.AddressInfo](#module_socket.AddressInfo) : `Object`
-        * [.PollSpec](#module_socket.PollSpec) : `Array`
-    * _inner_
-        * [~Address Families](#module_socket..Address Families)
-        * [~Socket Types](#module_socket..Socket Types)
-        * [~Message Flags](#module_socket..Message Flags)
-        * [~IP Protocol Constants](#module_socket..IP Protocol Constants)
-        * [~IPv6](#module_socket..IPv6) : `Object`
-        * [~Socket Option Constants](#module_socket..Socket Option Constants)
-        * [~TCP Protocol Constants](#module_socket..TCP Protocol Constants)
-        * [~Packet Socket Constants](#module_socket..Packet Socket Constants)
-        * [~UDP Protocol Constants](#module_socket..UDP Protocol Constants)
-        * [~Shutdown Constants](#module_socket..Shutdown Constants)
-        * [~Address Info Flags](#module_socket..Address Info Flags)
-        * [~Name Info Constants](#module_socket..Name Info Constants)
-        * [~Poll Event Constants](#module_socket..Poll Event Constants)
-
-<a name="module_socket+error"></a>
 
 ### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.
@@ -5171,7 +4582,7 @@ Returns `null` if there is no error information.
 | [numeric] | `boolean` | Whether to return a numeric error code (`true`) or a human readable error message (false). |
 
 **Example**  
-```js
+```ucode
 // Trigger socket error by attempting to bind IPv6 address with IPv4 socket
 socket.create(socket.AF_INET, socket.SOCK_STREAM, 0).bind("::", 8080);
 
@@ -5183,8 +4594,7 @@ socket.addrinfo("doesnotexist.org");
 
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
-```
-<a name="module_socket+strerror"></a>
+```ucode
 
 ### socket.strerror(code) ⇒ `string`
 Returns a string containing a description of the positive (`errno`) or
@@ -5199,14 +4609,13 @@ Returns `null` if the error code number is unknown.
 | code | `number` | The error code. |
 
 **Example**  
-```js
+```ucode
 // Should output 'Name or service not known'.
 print(socket.strerror(-2), '\n');
 
 // Should output 'No route to host'.
 print(socket.strerror(113), '\n');
 ```
-<a name="module_socket+sockaddr"></a>
 
 ### socket.sockaddr(address) ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Parses the provided address value into a socket address representation.
@@ -5237,7 +4646,7 @@ the address could not be parsed.
 | address | `string` \| `Array.<number>` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The address value to parse. |
 
 **Example**  
-```js
+```ucode
 // Parse an IP address string with port
 const address1 = sockaddr('192.168.0.1:8080');
 
@@ -5252,8 +4661,7 @@ const address4 = sockaddr({ address: '192.168.0.1', port: 8080 });
 
 // Convert a path value to a UNIX domain socket address
 const address5 = sockaddr('/var/run/daemon.sock');
-```
-<a name="module_socket+nameinfo"></a>
+```ucode
 
 ### socket.nameinfo(address, [flags]) ⇒ `Object`
 Resolves the given network address into hostname and service name.
@@ -5278,12 +4686,11 @@ Return `null` if an error occurred during resolution.
 | [flags] | `number` | Optional flags that provide additional control over the resolution process, specified as bitwise OR-ed number of `NI_*` constants. |
 
 **Example**  
-```js
+```ucode
 // Resolve a network address into hostname and service name
 const result = network.getnameinfo('192.168.1.1:80');
 print(result); // { "hostname": "example.com", "service": "http" }
 ```
-<a name="module_socket+addrinfo"></a>
 
 ### socket.addrinfo(hostname, [service], [hints]) ⇒ [`Array.<AddressInfo>`](#module_socket.AddressInfo)
 Resolves the given hostname and optional service name into a list of network
@@ -5309,7 +4716,7 @@ Returns `null` if an error occurred during resolution.
 | [hints] | `Object` | Optional hints object that provides additional control over the resolution process. It can contain the following properties: - `family`: The preferred address family (`AF_INET` or `AF_INET6`). - `socktype`: The socket type (`SOCK_STREAM`, `SOCK_DGRAM`, etc.). - `protocol`: The protocol of returned addresses. - `flags`: Bitwise OR-ed `AI_*` flags to control the resolution behavior. |
 
 **Example**  
-```js
+```ucode
 // Resolve all addresses
 const addresses = socket.addrinfo('example.org');
 
@@ -5318,8 +4725,7 @@ const ipv4addresses = socket.addrinfo('example.com', 'http', { family: socket.AF
 
 // Resolve IPv6 addresses without specifying a service
 const ipv6Addresses = socket.addrinfo('example.com', null, { family: socket.AF_INET6 });
-```
-<a name="module_socket+poll"></a>
+```ucode
 
 ### socket.poll(timeout, ...sockets) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
 Polls a number of sockets for state changes.
@@ -5342,7 +4748,7 @@ Returns `null` if an error occurred.
 | ...sockets | [`socket`](#module_socket.socket) \| [`PollSpec`](#module_socket.PollSpec) | An arbitrary amount of socket arguments. Each argument may be either a plain [socket instance](#module_socket.socket) (or any other kind of handle implementing a `fileno()` method) or a `[socket, flags]` tuple specifying the socket and requested poll flags. If a plain socket (or other kind of handle) instead of a tuple is provided, the requested poll flags default to `POLLIN|POLLERR|POLLHUP` for this socket. |
 
 **Example**  
-```js
+```ucode
 let x = socket.connect("example.org", 80);
 let y = socket.connect("example.com", 80);
 
@@ -5359,7 +4765,6 @@ let events = socket.poll(10,
 print(events); // [ [ "<socket 0x7>", 4, "This is example.org" ],
                //   [ "<socket 0x8>", 4, "This is example.com" ] ]
 ```
-<a name="module_socket+connect"></a>
 
 ### socket.connect(host, [service], [hints], [timeout]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket and connects it to the specified host and service.
@@ -5380,7 +4785,7 @@ establishment with the socket module.
 | [timeout] | `number` | `-1` | The timeout in milliseconds for socket connect operations. If set to a negative value, no specifc time limit is imposed and the function will block until either a connection was successfull or the underlying operating system timeout is reached. |
 
 **Example**  
-```js
+```ucode
 // Resolve host, try to connect to both resulting IPv4 and IPv6 addresses
 let conn = socket.connect("example.org", 80);
 
@@ -5395,8 +4800,7 @@ let conn = socket.connect({ address: "127.0.0.1", port: 9000 });
 
 // Use SocketAddress structure to connect a UNIX domain socket
 let conn = socket.connect({ path: "/var/run/daemon.sock" });
-```
-<a name="module_socket+listen"></a>
+```ucode
 
 ### socket.listen(host, [service], [hints], [backlog], [reuseaddr]) ⇒ [`socket`](#module_socket.socket)
 Binds a listening network socket to the specified host and service.
@@ -5419,7 +4823,7 @@ listening socket with the socket module.
 | [reuseaddr] | `boolean` |  | Whether to set the SO_REUSEADDR option before calling bind(). |
 
 **Example**  
-```js
+```ucode
 // Listen for incoming TCP connections on port 80
 let server = socket.listen("localhost", 80);
 
@@ -5429,7 +4833,6 @@ let server = socket.listen("machine.local", 8080, { family: socket.AF_INET6 });
 // Listen on a UNIX domain socket
 let server = socket.listen({ path: "/var/run/server.sock" });
 ```
-<a name="module_socket+create"></a>
 
 ### socket.create([domain], [type], [protocol]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance.
@@ -5465,14 +4868,13 @@ Returns `null` if an error occurred during socket creation.
 | [protocol] | `number` | `0` | The protocol to be used with the socket. |
 
 **Example**  
-```js
+```ucode
 // Create a TCP socket
 const tcp_socket = create(AF_INET, SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket
 const udp_socket = create(AF_INET6, SOCK_DGRAM | SOCK_NONBLOCK);
-```
-<a name="module_socket+open"></a>
+```ucode
 
 ### socket.open([fd]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance from an existing file descriptor.
@@ -5487,8 +4889,6 @@ Returns `null` if an error occurred during socket creation.
 | Param | Type | Description |
 | --- | --- | --- |
 | [fd] | `number` | The file descriptor number |
-
-<a name="module_socket+pair"></a>
 
 ### socket.pair([type]) ⇒ `Array.<?module:socket.socket>`
 Creates a connected socket instance with a pair file descriptor.
@@ -5514,14 +4914,13 @@ Returns `null` if an error occurred during socket creation.
 | [type] | `number` | `SOCK_STREAM` | The socket type, e.g., SOCK_STREAM or SOCK_DGRAM. It may also be bitwise OR-ed with SOCK_NONBLOCK or SOCK_CLOEXEC. |
 
 **Example**  
-```js
+```ucode
 // Create a TCP socket pair
 const tcp_sockets = pair(SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket pair
 const udp_sockets = pair(SOCK_DGRAM | SOCK_NONBLOCK);
 ```
-<a name="module_socket.socket"></a>
 
 ### socket.socket
 **Kind**: static class of [`socket`](#module_socket)  
@@ -5552,8 +4951,6 @@ const udp_sockets = pair(SOCK_DGRAM | SOCK_NONBLOCK);
         * [.ReceivedMessage](#module_socket.socket.ReceivedMessage) : `Object`
         * [.PeerCredentials](#module_socket.socket.PeerCredentials) : `Object`
 
-<a name="module_socket.socket+setopt"></a>
-
 #### socket.setopt(level, option, value) ⇒ `boolean`
 Sets options on the socket.
 
@@ -5570,8 +4967,6 @@ Returns `null` if an error occurred.
 | level | `number` | The protocol level at which the option resides. This can be a level such as `SOL_SOCKET` for the socket API level or a specific protocol level defined by the system. |
 | option | `number` | The socket option to set. This can be an integer representing the option, such as `SO_REUSEADDR`, or a constant defined by the system. |
 | value | `\*` | The value to set the option to. The type of this argument depends on the specific option being set. It can be an integer, a boolean, a string, or a dictionary representing the value to set. If a dictionary is provided, it is internally translated to the corresponding C struct type required by the option. |
-
-<a name="module_socket.socket+getopt"></a>
 
 #### socket.getopt(level, option) ⇒ `\*`
 Gets options from the socket.
@@ -5592,8 +4987,6 @@ string, or a dictionary representing a complex data structure.
 | level | `number` | The protocol level at which the option resides. This can be a level such as `SOL_SOCKET` for the socket API level or a specific protocol level defined by the system. |
 | option | `number` | The socket option to retrieve. This can be an integer representing the option, such as `SO_REUSEADDR`, or a constant defined by the system. |
 
-<a name="module_socket.socket+fileno"></a>
-
 #### socket.fileno() ⇒ `number`
 Returns the UNIX file descriptor number associated with the socket.
 
@@ -5602,7 +4995,6 @@ Returns the file descriptor number.
 Returns `-1` if an error occurred.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
-<a name="module_socket.socket+connect"></a>
 
 #### socket.connect(address, port) ⇒ `boolean`
 Connects the socket to a remote address.
@@ -5618,8 +5010,6 @@ Returns `null` if an error occurred during the connection attempt.
 | --- | --- | --- |
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The address of the remote endpoint to connect to. |
 | port | `number` | The port number of the remote endpoint to connect to. |
-
-<a name="module_socket.socket+send"></a>
 
 #### socket.send(data, [flags], [address]) ⇒ `number`
 Sends data through the socket.
@@ -5640,7 +5030,7 @@ Returns `null` if an error occurred during the send operation.
 | [address] | [`SocketAddress`](#module_socket.socket.SocketAddress) \| `Array.<number>` \| `string` | The address of the remote endpoint to send the data to. It can be either an IP address string, an array returned by [iptoarr()](module:core#iptoarr), or an object representing a network address. If not provided, the data is sent to the remote endpoint the socket is connected to. |
 
 **Example**  
-```js
+```ucode
 // Send to connected socket
 let tcp_sock = socket.create(socket.AF_INET, socket.SOCK_STREAM);
 tcp_sock.connect("192.168.1.1", 80);
@@ -5654,8 +5044,7 @@ udp_sock.send("Hello there!", 0, {
   address: "255.255.255.255",
   port: 9000
 });
-```
-<a name="module_socket.socket+recv"></a>
+```ucode
 
 #### socket.recv([length], [flags], [address]) ⇒ `string`
 Receives data from the socket.
@@ -5676,8 +5065,6 @@ Returns `null` if an error occurred during the receive operation.
 | [length] | `number` | `4096` | The maximum number of bytes to receive. |
 | [flags] | `number` |  | Optional flags that modify the behavior of the receive operation. |
 | [address] | `Object` |  | An object where the function will store the address from which the data was received. If provided, it will be filled with the details obtained from the sockaddr argument of the underlying `recvfrom()` syscall. See the type definition of [SocketAddress](#module_socket.socket.SocketAddress) for details on the format. |
-
-<a name="module_socket.socket+sendmsg"></a>
 
 #### socket.sendmsg([data], [ancillaryData], [address], [flags]) ⇒ `number`
 Sends a message through the socket.
@@ -5701,7 +5088,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the send operation. This should be a bitwise OR-ed combination of `MSG_*` flag values. |
 
 **Example**  
-```js
+```ucode
 // Send file descriptors over domain socket
 const f1 = fs.open("example.txt", "w");
 const f2 = fs.popen("date +%s", "r");
@@ -5713,7 +5100,6 @@ sk.sendmsg("Hi there, here's some descriptors!", [
 // Send multiple values in one datagram
 sk.sendmsg([ "This", "is", "one", "message" ]);
 ```
-<a name="module_socket.socket+recvmsg"></a>
 
 #### socket.recvmsg([sizes], [ancillarySize], [flags]) ⇒ [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)
 Receives a message from the socket.
@@ -5739,7 +5125,7 @@ and the sender's address.
 | [flags] | `number` | Optional flags to modify the behavior of the receive operation. This should be a bitwise OR-ed combination of flag values. |
 
 **Example**  
-```js
+```ucode
 // Receive file descriptors over domain socket
 const sk = socket.listen({ family: socket.AF_UNIX, path: "/tmp/socket" });
 sk.setopt(socket.SOL_SOCKET, socket.SO_PASSCRED, true);
@@ -5756,8 +5142,7 @@ print(`Message parts: ${msg.data[0]}, ${msg.data[1]}, ${msg.data[2]}\n`);
 // Peek buffer
 const msg = sk.recvmsg(0, 0, socket.MSG_PEEK|socket.MSG_TRUNC);
 print(`Received ${length(msg.data)} bytes, ${msg.length} bytes available\n`);
-```
-<a name="module_socket.socket+bind"></a>
+```ucode
 
 #### socket.bind(address) ⇒ `boolean`
 Binds a socket to a specific address.
@@ -5775,7 +5160,7 @@ Returns `null` on error, e.g. when the address is in use.
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The IP address to bind the socket to. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 const success = sock.bind("192.168.0.1:80");
 
@@ -5784,7 +5169,6 @@ if (success)
 else
     print(`Failed to bind socket: ${sock.error()}.\n`);
 ```
-<a name="module_socket.socket+listen"></a>
 
 #### socket.listen([backlog]) ⇒ `boolean`
 Listen for connections on a socket.
@@ -5809,7 +5193,7 @@ Returns `null` if an error occurred, e.g. when the requested port is in use.
 | [backlog] | `number` | `128` | The maximum length of the queue of pending connections. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.bind(…);
 
@@ -5818,8 +5202,7 @@ if (success)
     print(`Socket is listening for incoming connections!\n`);
 else
     print(`Failed to listen on socket: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+accept"></a>
+```ucode
 
 #### socket.accept([address], [flags]) ⇒ [`socket`](#module_socket.socket)
 Accept a connection on a socket.
@@ -5850,7 +5233,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the peer socket. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.bind(…);
 sock.listen();
@@ -5862,7 +5245,6 @@ if (newSocket)
 else
     print(`Failed to accept connection: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+shutdown"></a>
 
 #### socket.shutdown(how) ⇒ `boolean`
 Shutdown part of a full-duplex connection.
@@ -5885,7 +5267,7 @@ Returns `null` if an error occurred.
 | how | `number` | Specifies which half of the connection to shut down. It can be one of the following constant values: `SHUT_RD`, `SHUT_WR`, or `SHUT_RDWR`. |
 
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 // Perform data exchange…
@@ -5895,8 +5277,7 @@ if (success)
     print(`Send operations on socket shut down successfully.\n`);
 else
     print(`Failed to shut down send operations: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+peercred"></a>
+```ucode
 
 #### socket.peercred() ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
 Retrieves the peer credentials.
@@ -5909,7 +5290,7 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(socket.AF_UNIX, …);
 sock.connect(…);
 
@@ -5919,7 +5300,6 @@ if (peerCredentials)
 else
     print(`Failed to retrieve peer credentials: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+peername"></a>
 
 #### socket.peername() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the remote address.
@@ -5932,7 +5312,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [sockname()](#module_socket.socket+sockname)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -5941,8 +5321,7 @@ if (peerAddress)
     print(`Connected to ${peerAddress}\n`);
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
-```
-<a name="module_socket.socket+sockname"></a>
+```ucode
 
 #### socket.sockname() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the local address.
@@ -5955,7 +5334,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [peername()](#module_socket.socket+peername)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -5965,7 +5344,6 @@ if (myAddress)
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
 ```
-<a name="module_socket.socket+close"></a>
 
 #### socket.close() ⇒ `boolean`
 Closes the socket.
@@ -5978,13 +5356,12 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```js
+```ucode
 const sock = socket.create(…);
 sock.connect(…);
 // Perform operations with the socket…
 sock.close();
-```
-<a name="module_socket.socket+error"></a>
+```ucode
 
 #### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.
@@ -6004,7 +5381,7 @@ Returns `null` if there is no error information.
 | [numeric] | `boolean` | Whether to return a numeric error code (`true`) or a human readable error message (false). |
 
 **Example**  
-```js
+```ucode
 // Trigger socket error by attempting to bind IPv6 address with IPv4 socket
 socket.create(socket.AF_INET, socket.SOCK_STREAM, 0).bind("::", 8080);
 
@@ -6017,7 +5394,6 @@ socket.addrinfo("doesnotexist.org");
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
 ```
-<a name="module_socket.socket.SocketAddress"></a>
 
 #### socket.SocketAddress : `Object`
 **Kind**: static typedef of [`socket`](#module_socket.socket)  
@@ -6035,8 +5411,6 @@ print(socket.error(true), "\n");  //
 | [hardware_type] | `number` | `0` | ARP hardware type (AF_PACKET only). |
 | [packet_type] | `number` | `PACKET_HOST` | Packet type (AF_PACKET only). |
 
-<a name="module_socket.socket.ControlMessage"></a>
-
 #### socket.ControlMessage : `Object`
 Represents a single control (ancillary data) message returned
 in the *ancillary* array by [`recvmsg()`](#module_socket.socket+recvmsg).
@@ -6049,8 +5423,6 @@ in the *ancillary* array by [`recvmsg()`](#module_socket.socket+recvmsg).
 | level | `number` | The message socket level (`cmsg_level`), e.g. `SOL_SOCKET`. |
 | type | `number` | The protocol specific message type (`cmsg_type`), e.g. `SCM_RIGHTS`. |
 | data | `\*` | The payload of the control message. If the control message type is known by the socket module, it is represented as a mixed value (array, object, number, etc.) with structure specific to the control message type. If the control message cannot be decoded, *data* is set to a string value containing the raw payload. |
-
-<a name="module_socket.socket.ReceivedMessage"></a>
 
 #### socket.ReceivedMessage : `Object`
 Represents a message object returned by
@@ -6067,8 +5439,6 @@ Represents a message object returned by
 | data | `Array.<string>` \| `string` | An array of strings, each representing the received message data. Each string corresponds to one buffer size specified in the *sizes* argument. If a single receive size was passed instead of an array of sizes, *data* will hold a string containing the received data. |
 | [ancillary] | [`Array.<ControlMessage>`](#module_socket.socket.ControlMessage) | An array of received control messages. Only included if a non-zero positive *ancillarySize* was passed to `recvmsg()`. |
 
-<a name="module_socket.socket.PeerCredentials"></a>
-
 #### socket.PeerCredentials : `Object`
 Represents a credentials information object returned by
 [`peercred()`](#module_socket.socket+peercred).
@@ -6081,8 +5451,6 @@ Represents a credentials information object returned by
 | uid | `number` | The effective user ID the remote socket endpoint. |
 | gid | `number` | The effective group ID the remote socket endpoint. |
 | pid | `number` | The ID of the process the remote socket endpoint belongs to. |
-
-<a name="module_socket.AddressInfo"></a>
 
 ### socket.AddressInfo : `Object`
 Represents a network address information object returned by
@@ -6100,8 +5468,6 @@ Represents a network address information object returned by
 | protocol | `number` |  | The protocol number. |
 | socktype | `number` |  | The socket type (e.g., `1` for `SOCK_STREAM`, `2` for `SOCK_DGRAM`). |
 
-<a name="module_socket.PollSpec"></a>
-
 ### socket.PollSpec : `Array`
 Represents a poll state serving as input parameter and return value type for
 [`poll()`](#module_socket+poll).
@@ -6113,8 +5479,6 @@ Represents a poll state serving as input parameter and return value type for
 | --- | --- | --- |
 | 0 | [`socket`](#module_socket.socket) | The polled socket instance. |
 | 1 | `number` | Requested or returned status flags of the polled socket instance. |
-
-<a name="module_socket..Address Families"></a>
 
 ### socket~Address Families
 Constants representing address families and socket domains.
@@ -6129,8 +5493,6 @@ Constants representing address families and socket domains.
 | AF_INET | `number` | IPv4 Internet protocols. |
 | AF_INET6 | `number` | IPv6 Internet protocols. |
 | AF_PACKET | `number` | Low-level packet interface. |
-
-<a name="module_socket..Socket Types"></a>
 
 ### socket~Socket Types
 The `SOCK_*` type and flag constants are used by
@@ -6150,8 +5512,6 @@ to accepted peer sockets.
 | SOCK_PACKET | `number` | Obsolete and should not be used. |
 | SOCK_NONBLOCK | `number` | Enables non-blocking operation. |
 | SOCK_CLOEXEC | `number` | Sets the close-on-exec flag on the new file descriptor. |
-
-<a name="module_socket..Message Flags"></a>
 
 ### socket~Message Flags
 The `MSG_*` flag constants are commonly used in conjunction with the
@@ -6176,8 +5536,6 @@ The `MSG_*` flag constants are commonly used in conjunction with the
 | MSG_PEEK | `number` | Peeks at incoming messages. |
 | MSG_TRUNC | `number` | Report if datagram truncation occurred. |
 | MSG_WAITALL | `number` | Wait for full message. |
-
-<a name="module_socket..IP Protocol Constants"></a>
 
 ### socket~IP Protocol Constants
 The `IPPROTO_IP` constant specifies the IP protocol number and may be
@@ -6226,8 +5584,6 @@ the `IPPROTO_IP` socket level.
 | IP_TRANSPARENT | `number` | Transparent proxy support. |
 | IP_TTL | `number` | IP time-to-live. |
 | IP_UNBLOCK_SOURCE | `number` | Unblock IP group/source. |
-
-<a name="module_socket..IPv6"></a>
 
 ### socket~IPv6 : `Object`
 The `IPPROTO_IPV6` constant specifies the IPv6 protocol number and may be
@@ -6290,8 +5646,6 @@ the `IPPROTO_IPV6` socket level.
 | IPV6_UNICAST_IF | `number` | Set the interface for outgoing unicast packets. |
 | IPV6_V6ONLY | `number` | Restrict the socket to sending and receiving IPv6 packets only. |
 
-<a name="module_socket..Socket Option Constants"></a>
-
 ### socket~Socket Option Constants
 The `SOL_SOCKET` constant is passed as *level* argument to the
 [getopt()](#module_socket.socket+getopt) and
@@ -6350,10 +5704,7 @@ the socket.
 
 ---
 
-<a name="module_struct"></a>
-
-## struct
-# Handle Packed Binary Data
+## Handle Packed Binary Data
 
 The `struct` module provides routines for interpreting byte strings as packed
 binary data.
@@ -6362,7 +5713,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { pack, unpack } from 'struct';
 
   let buffer = pack('bhl', -13, 1234, 444555666);
@@ -6372,7 +5723,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as struct from 'struct';
 
   let buffer = struct.pack('bhl', -13, 1234, 444555666);
@@ -6599,7 +5950,7 @@ Note:
 Pack and unpack integers of three different sizes, using big endian
 ordering:
 
-```
+```ucode
 import { pack, unpack } from 'struct';
 
 pack(">bhl", 1, 2, 3);  // "\x01\x00\x02\x00\x00\x00\x03"
@@ -6615,7 +5966,7 @@ In [-p argument], line 1, byte 24:
 
  `struct.pack(">h", 99999)`
   Near here -------------^
-```
+```ucode
 
 Demonstrate the difference between `'s'` and `'c'` format characters:
 
@@ -6624,7 +5975,7 @@ import { pack } from 'struct';
 
 pack("@ccc", "1", "2", "3");  // "123"
 pack("@3s", "123");           // "123"
-```
+```ucode
 
 The ordering of format characters may have an impact on size in native
 mode since padding is implicit. In standard mode, the user is
@@ -6639,7 +5990,7 @@ import { pack } from 'struct';
 
 pack("@ci", "#", 0x12131415);  // "#\x00\x00\x00\x15\x14\x13\x12"
 pack("@ic", 0x12131415, "#");  // "\x15\x14\x13\x12#"
-```
+```ucode
 
 The following format `'ih0i'` results in two pad bytes being added at the
 end, assuming the platform's ints are aligned on 4-byte boundaries:
@@ -6648,7 +5999,7 @@ end, assuming the platform's ints are aligned on 4-byte boundaries:
 import { pack } from 'struct';
 
 pack("ih0i", 0x01010101, 0x0202);  // "\x01\x01\x01\x01\x02\x02\x00\x00"
-```
+```ucode
 
 Use the wildcard format to extract the remainder of the input data:
 
@@ -6657,7 +6008,7 @@ import { unpack } from 'struct';
 
 unpack("ccc*", "foobarbaz");   // [ "f", "o", "o", "barbaz" ]
 unpack("ccc3*", "foobarbaz");  // [ "f", "o", "o", "bar" ]
-```
+```ucode
 
 Use the wildcard format to pack binary stings as-is into the result data:
 
@@ -6666,31 +6017,7 @@ import { pack } from 'struct';
 
 pack("h*h", 0x0101, "\x02\x00\x03", 0x0404);  // "\x01\x01\x02\x00\x03\x04\x04"
 pack("c3*c", "a", "foobar", "c");  // "afooc"
-```
-
-* [struct](#module_struct)
-    * _instance_
-        * [.pack(format, ...values)](#module_struct+pack) ⇒ `string`
-        * [.unpack(format, input, [offset])](#module_struct+unpack) ⇒ `array`
-        * [.new(format)](#module_struct+new) ⇒ [`instance`](#module_struct.instance)
-        * [.buffer([initialData])](#module_struct+buffer) ⇒ [`buffer`](#module_struct.buffer)
-    * _static_
-        * [.instance](#module_struct.instance)
-            * [.pack(...values)](#module_struct.instance+pack) ⇒ `string`
-            * [.unpack(input, [offset])](#module_struct.instance+unpack) ⇒ `array`
-        * [.buffer](#module_struct.buffer)
-            * [.pos([position])](#module_struct.buffer+pos) ⇒ `number` \| [`buffer`](#module_struct.buffer)
-            * [.length([length])](#module_struct.buffer+length) ⇒ `number` \| [`buffer`](#module_struct.buffer)
-            * [.start()](#module_struct.buffer+start) ⇒ [`buffer`](#module_struct.buffer)
-            * [.end()](#module_struct.buffer+end) ⇒ [`buffer`](#module_struct.buffer)
-            * [.put(format, ...values)](#module_struct.buffer+put) ⇒ [`buffer`](#module_struct.buffer)
-            * [.get(format)](#module_struct.buffer+get) ⇒ `\*`
-            * [.get(format)](#module_struct.buffer+get) ⇒ `array`
-            * [.slice([start], [end])](#module_struct.buffer+slice) ⇒ `string`
-            * [.set([value], [start], [end])](#module_struct.buffer+set) ⇒ [`buffer`](#module_struct.buffer)
-            * [.pull()](#module_struct.buffer+pull) ⇒ `string`
-
-<a name="module_struct+pack"></a>
+```ucode
 
 ### struct.pack(format, ...values) ⇒ `string`
 Pack given values according to specified format.
@@ -6712,12 +6039,11 @@ format string is provided.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```js
+```ucode
 // Pack the values 1, 2, 3 as three consecutive unsigned int values
 // in network byte order.
 const data = pack('!III', 1, 2, 3);
 ```
-<a name="module_struct+unpack"></a>
 
 ### struct.unpack(format, input, [offset]) ⇒ `array`
 Unpack given byte string according to specified format.
@@ -6742,13 +6068,12 @@ input string or offset value is given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```js
+```ucode
 // Unpack three consecutive unsigned int values in network byte order.
 const numbers =
   unpack('!III', '\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x03');
 print(numbers, "\n"); // [ 1, 2, 3 ]
-```
-<a name="module_struct+new"></a>
+```ucode
 
 ### struct.new(format) ⇒ [`instance`](#module_struct.instance)
 Precompile format string.
@@ -6768,13 +6093,12 @@ Raises a runtime exception if the format string is invalid.
 | format | `string` | The format string. |
 
 **Example**  
-```js
+```ucode
 // Create a format of three consecutive unsigned int values in network byte order.
 const fmt = struct.new('!III');
 const buf = fmt.pack(1, 2, 3);  // "\x00\x00\x00\x01…"
 print(fmt.unpack(buf), "\n");   // [ 1, 2, 3 ]
 ```
-<a name="module_struct+buffer"></a>
 
 ### struct.buffer([initialData]) ⇒ [`buffer`](#module_struct.buffer)
 Creates a new struct buffer instance.
@@ -6799,7 +6123,7 @@ Returns a new struct buffer instance.
 | [initialData] | `string` | Optional initial data to populate the buffer with. |
 
 **Example**  
-```js
+```ucode
 // Create an empty buffer
 const emptyBuf = struct.buffer();
 
@@ -6814,8 +6138,7 @@ dataBuf.end().put('I', 5678);
 
 // Alternative chained syntax for initializing and appending
 const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
-```
-<a name="module_struct.instance"></a>
+```ucode
 
 ### struct.instance
 **Kind**: static class of [`struct`](#module_struct)  
@@ -6824,8 +6147,6 @@ const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
 * [.instance](#module_struct.instance)
     * [.pack(...values)](#module_struct.instance+pack) ⇒ `string`
     * [.unpack(input, [offset])](#module_struct.instance+unpack) ⇒ `array`
-
-<a name="module_struct.instance+pack"></a>
 
 #### instance.pack(...values) ⇒ `string`
 Pack given values.
@@ -6845,11 +6166,10 @@ required type of the corresponding format string directive.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```js
+```ucode
 const fmt = struct.new(…);
 const data = fmt.pack(…);
 ```
-<a name="module_struct.instance+unpack"></a>
 
 #### instance.unpack(input, [offset]) ⇒ `array`
 Unpack given byte string.
@@ -6873,11 +6193,10 @@ given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```js
+```ucode
 const fmt = struct.new(…);
 const values = fmt.unpack(…);
-```
-<a name="module_struct.buffer"></a>
+```ucode
 
 ### struct.buffer
 **Kind**: static class of [`struct`](#module_struct)  
@@ -6895,8 +6214,6 @@ const values = fmt.unpack(…);
     * [.set([value], [start], [end])](#module_struct.buffer+set) ⇒ [`buffer`](#module_struct.buffer)
     * [.pull()](#module_struct.buffer+pull) ⇒ `string`
 
-<a name="module_struct.buffer+pos"></a>
-
 #### buffer.pos([position]) ⇒ `number` \| [`buffer`](#module_struct.buffer)
 Get or set the current position in the buffer.
 
@@ -6912,11 +6229,10 @@ If called with a position argument, returns the buffer instance for chaining.
 | [position] | `number` | The position to set. If omitted, the current position is returned. |
 
 **Example**  
-```js
+```ucode
 const currentPos = buf.pos();
 buf.pos(10);  // Set position to 10
 ```
-<a name="module_struct.buffer+length"></a>
 
 #### buffer.length([length]) ⇒ `number` \| [`buffer`](#module_struct.buffer)
 Get or set the current buffer length.
@@ -6940,7 +6256,7 @@ If called with a length argument, returns the buffer instance for chaining.
 | [length] | `number` | The length to set. If omitted, the current length is returned. |
 
 **Example**  
-```js
+```ucode
 const buf = struct.buffer("abc"); // Initialize buffer with three bytes
 const currentLen = buf.length();  // Returns 3
 
@@ -6949,8 +6265,7 @@ buf.slice();                      // Trailing null bytes: "abc\x00\x00\x00"
 
 buf.length(2);                    // Truncate to 2 bytes
 buf.slice();                      // Truncated data: "ab"
-```
-<a name="module_struct.buffer+start"></a>
+```ucode
 
 #### buffer.start() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the start (0).
@@ -6958,10 +6273,9 @@ Set the buffer position to the start (0).
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: [`buffer`](#module_struct.buffer) - The buffer instance.  
 **Example**  
-```js
+```ucode
 buf.start();
 ```
-<a name="module_struct.buffer+end"></a>
 
 #### buffer.end() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the end.
@@ -6969,10 +6283,9 @@ Set the buffer position to the end.
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: [`buffer`](#module_struct.buffer) - The buffer instance.  
 **Example**  
-```js
+```ucode
 buf.end();
-```
-<a name="module_struct.buffer+put"></a>
+```ucode
 
 #### buffer.put(format, ...values) ⇒ [`buffer`](#module_struct.buffer)
 Pack data into the buffer at the current position.
@@ -6995,10 +6308,9 @@ documentation.
 | ...values | `\*` | The values to pack into the buffer. |
 
 **Example**  
-```js
+```ucode
 buf.put('II', 1234, 5678);
 ```
-<a name="module_struct.buffer+get"></a>
 
 #### buffer.get(format) ⇒ `\*`
 Unpack a single value from the buffer at the current position.
@@ -7024,12 +6336,11 @@ while postive ones extracts that many bytes after.
 | format | `string` \| `number` | The format string specifying how to unpack the data. |
 
 **Example**  
-```js
+```ucode
 const val = buf.get('I');
 const str = buf.get(5);    // equivalent to buf.get('5s')
 const str = buf.get(-3);   // equivalent to buf.pos(buf.pos() - 3).get('3s')
-```
-<a name="module_struct.buffer+get"></a>
+```ucode
 
 #### buffer.get(format) ⇒ `array`
 Unpack multiple values from the buffer at the current position.
@@ -7050,10 +6361,9 @@ For a detailed explanation of the format string syntax, refer to the
 | format | `string` | The format string specifying how to unpack the data. |
 
 **Example**  
-```js
+```ucode
 const values = buf.get('II');
 ```
-<a name="module_struct.buffer+slice"></a>
 
 #### buffer.slice([start], [end]) ⇒ `string`
 Extract a slice of the buffer content.
@@ -7074,10 +6384,9 @@ three bytes of data.
 | [end] | `number` | `buffer.length()` | The ending position of the slice (exclusive). |
 
 **Example**  
-```js
+```ucode
 const slice = buf.slice(4, 8);
-```
-<a name="module_struct.buffer+set"></a>
+```ucode
 
 #### buffer.set([value], [start], [end]) ⇒ [`buffer`](#module_struct.buffer)
 Set a slice of the buffer content to given byte value.
@@ -7103,12 +6412,11 @@ buffer is grown accordingly.
 | [end] | `number` | `buffer.length()` | The position to end overwriting (exclusive). |
 
 **Example**  
-```js
+```ucode
 const buf = struct.buffer("abcde");
 buf.set("X", 2, 4).slice();  // Buffer content is now "abXXe"
 buf.set().slice();           // Buffer content is now "\x00\x00\x00\x00\x00"
 ```
-<a name="module_struct.buffer+pull"></a>
 
 #### buffer.pull() ⇒ `string`
 Extract and remove all content from the buffer.
@@ -7119,9 +6427,9 @@ and resets the buffer to an empty state.
 **Kind**: instance method of [`buffer`](#module_struct.buffer)  
 **Returns**: `string` - A string containing all the buffer content.  
 **Example**  
-```js
+```ucode
 const allData = buf.pull();
-```
+```ucode
 
 ---
 
@@ -7131,10 +6439,7 @@ const allData = buf.pull();
 
 ---
 
-<a name="module_uci"></a>
-
-## uci
-# OpenWrt UCI configuration
+## OpenWrt UCI configuration
 
 The `uci` module provides access to the native OpenWrt
 [libuci](https://github.com/openwrt/uci) API for reading and
@@ -7144,7 +6449,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```
+  ```ucode
   import { cursor } from 'uci';
 
   let ctx = cursor();
@@ -7154,7 +6459,7 @@ syntax:
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```
+  ```ucode
   import * as uci from 'uci';
 
   let ctx = uci.cursor();
@@ -7164,40 +6469,6 @@ using a wildcard import statement:
 Additionally, the uci module namespace may also be imported by invoking
 the `ucode` interpreter with the `-luci` switch.
 
-* [uci](#module_uci)
-    * _instance_
-        * [.error()](#module_uci+error) ⇒ `string`
-        * [.cursor([config_dir], [delta_dir], [config2_dir], Parser)](#module_uci+cursor) ⇒ [`cursor`](#module_uci.cursor)
-    * _static_
-        * [.cursor](#module_uci.cursor)
-            * _instance_
-                * [.load(config)](#module_uci.cursor+load) ⇒ `boolean`
-                * [.unload(config)](#module_uci.cursor+unload) ⇒ `boolean`
-                * [.get(config, section, [option])](#module_uci.cursor+get) ⇒ `string` \| `Array.<string>`
-                * [.get_all(config, [section])](#module_uci.cursor+get_all) ⇒ `Object.<string, module:uci.cursor.SectionObject>` \| [`SectionObject`](#module_uci.cursor.SectionObject)
-                * [.get_first(config, type, [option])](#module_uci.cursor+get_first) ⇒ `string` \| `Array.<string>`
-                * [.add(config, type)](#module_uci.cursor+add) ⇒ `string`
-                * [.set(config, section, option_or_type, [value])](#module_uci.cursor+set) ⇒ `boolean`
-                * [.delete(config, section, [option])](#module_uci.cursor+delete) ⇒ `boolean`
-                * [.list_append(config, section, option, value)](#module_uci.cursor+list_append) ⇒ `boolean`
-                * [.list_remove(config, section, option, value)](#module_uci.cursor+list_remove) ⇒ `boolean`
-                * [.rename(config, section, option_or_name, [name])](#module_uci.cursor+rename) ⇒ `boolean`
-                * [.reorder(config, section, index)](#module_uci.cursor+reorder) ⇒ `boolean`
-                * [.save([config])](#module_uci.cursor+save) ⇒ `boolean`
-                * [.commit([config])](#module_uci.cursor+commit) ⇒ `boolean`
-                * [.revert([config])](#module_uci.cursor+revert) ⇒ `boolean`
-                * [.changes([config])](#module_uci.cursor+changes) ⇒ `Object.<string, Array.<module:uci.cursor.ChangeRecord>>`
-                * [.foreach(config, type, callback)](#module_uci.cursor+foreach) ⇒ `boolean`
-                * [.configs()](#module_uci.cursor+configs) ⇒ `Array.<string>`
-                * [.error()](#module_uci.cursor+error) ⇒ `string`
-            * _static_
-                * [.ParserFlags](#module_uci.cursor.ParserFlags) : `Object`
-                * [.ChangeRecord](#module_uci.cursor.ChangeRecord) : `Array.<string>`
-                * [.SectionObject](#module_uci.cursor.SectionObject) : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
-                * [.SectionCallback](#module_uci.cursor.SectionCallback) : `function`
-
-<a name="module_uci+error"></a>
-
 ### uci.error() ⇒ `string`
 Query error information.
 
@@ -7206,15 +6477,14 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`uci`](#module_uci)  
 **Example**  
-```js
+```ucode
 // Trigger error
 const ctx = cursor();
 ctx.set("not_existing_config", "test", "1");
 
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
-```
-<a name="module_uci+cursor"></a>
+```ucode
 
 ### uci.cursor([config_dir], [delta_dir], [config2_dir], Parser) ⇒ [`cursor`](#module_uci.cursor)
 Instantiate uci cursor.
@@ -7239,8 +6509,6 @@ Returns `null` on error, e.g. if an invalid path argument was provided.
 | [delta_dir] | `string` | `"/tmp/.uci"` | The directory to save delta records in. It defaults to the well known `/tmp/.uci` path which is used as default by the uci command line tool. By changing this path to a different location, it is possible to isolate uncommitted application changes from the uci cli or other processes on the system. |
 | [config2_dir] | `string` | `"/var/run/uci"` | The directory to keep override config files in. Files are in the same format as in config_dir, but can individually override ones from that directory. It defaults to the uci configuration directory `/var/run/uci` but may be set to a different path for special purpose applications, or even disabled by setting this parameter to an empty string. |
 | Parser | [`ParserFlags`](#module_uci.cursor.ParserFlags) |  | flags to change. |
-
-<a name="module_uci.cursor"></a>
 
 ### uci.cursor
 **Kind**: static class of [`uci`](#module_uci)  
@@ -7273,8 +6541,6 @@ Returns `null` on error, e.g. if an invalid path argument was provided.
         * [.SectionObject](#module_uci.cursor.SectionObject) : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
         * [.SectionCallback](#module_uci.cursor.SectionCallback) : `function`
 
-<a name="module_uci.cursor+load"></a>
-
 #### cursor.load(config) ⇒ `boolean`
 Explicitly reload configuration file.
 
@@ -7294,8 +6560,6 @@ Returns `null` on error, e.g. if the requested configuration does not exist.
 | --- | --- | --- |
 | config | `string` | The name of the configuration file to load, e.g. `"system"` to load `/etc/config/system` into the cursor. |
 
-<a name="module_uci.cursor+unload"></a>
-
 #### cursor.unload(config) ⇒ `boolean`
 Explicitly unload configuration file.
 
@@ -7314,8 +6578,6 @@ Returns `null` on error, e.g. if the requested configuration does not exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | config | `string` | The name of the configuration file to unload. |
-
-<a name="module_uci.cursor+get"></a>
 
 #### cursor.get(config, section, [option]) ⇒ `string` \| `Array.<string>`
 Query a single option value or section type.
@@ -7343,7 +6605,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the type of the section is returned instead. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query an option, extended section notation is supported
@@ -7352,7 +6614,6 @@ ctx.get('system', '@system[0]', 'hostname');
 // Query a section type (should yield 'interface')
 ctx.get('network', 'lan');
 ```
-<a name="module_uci.cursor+get_all"></a>
 
 #### cursor.get\_all(config, [section]) ⇒ `Object.<string, module:uci.cursor.SectionObject>` \| [`SectionObject`](#module_uci.cursor.SectionObject)
 Query a complete section or configuration.
@@ -7379,7 +6640,7 @@ or if an invalid argument was passed.
 | [section] | `string` | The name of the section to query within the configuration. If omitted a nested dictionary containing all section values is returned. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query all lan interface details
@@ -7387,8 +6648,7 @@ ctx.get_all('network', 'lan');
 
 // Dump the entire dhcp configuration
 ctx.get_all('dhcp');
-```
-<a name="module_uci.cursor+get_first"></a>
+```ucode
 
 #### cursor.get\_first(config, type, [option]) ⇒ `string` \| `Array.<string>`
 Query option value or name of first section of given type.
@@ -7417,7 +6677,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the name of the section is returned instead. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query hostname in first anonymous "system" section of /etc/config/system
@@ -7426,7 +6686,6 @@ ctx.get_first('system', 'system', 'hostname');
 // Figure out name of first network interface section (usually "loopback")
 ctx.get_first('network', 'interface');
 ```
-<a name="module_uci.cursor+add"></a>
 
 #### cursor.add(config, type) ⇒ `string`
 Add anonymous section to given configuration.
@@ -7454,7 +6713,7 @@ if an invalid section type value was passed.
 | type | `string` | The type value to use for the added section. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Load firewall configuration
@@ -7467,8 +6726,7 @@ const sid = ctx.add('firewall', 'rule');
 ctx.set('firewall', sid, 'name', 'A test');
 ctx.set('firewall', sid, 'target', 'ACCEPT');
 …
-```
-<a name="module_uci.cursor+set"></a>
+```ucode
 
 #### cursor.set(config, section, option_or_type, [value]) ⇒ `boolean`
 Set option value or add named section in given configuration.
@@ -7500,7 +6758,7 @@ if an invalid value was passed.
 | [value] | `Array.<(string\|boolean\|number)>` \| `string` \| `boolean` \| `number` | The option value to set. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Add named `config interface guest` section
@@ -7515,7 +6773,6 @@ ctx.set('network', 'guest', 'dns', ['8.8.4.4', '8.8.8.8']);
 // Delete 'disabled' option in first wifi-iface section
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '');
 ```
-<a name="module_uci.cursor+delete"></a>
 
 #### cursor.delete(config, section, [option]) ⇒ `boolean`
 Delete an option or section from given configuration.
@@ -7543,7 +6800,7 @@ if an invalid value was passed.
 | [option] | `string` | The option name to remove within the section. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Delete 'disabled' option in first wifi-iface section
@@ -7554,8 +6811,7 @@ ctx.delete('network', 'lan');
 
 // Delete last firewall rule
 ctx.delete('firewall', '@rule[-1]');
-```
-<a name="module_uci.cursor+list_append"></a>
+```ucode
 
 #### cursor.list\_append(config, section, option, value) ⇒ `boolean`
 Add an item to a list option in given configuration.
@@ -7582,7 +6838,7 @@ if an invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to add to the list option. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Add '192.168.1.1' to the 'dns' list in the 'lan' interface
@@ -7591,7 +6847,6 @@ ctx.add_list('network', 'lan', 'dns', '192.168.1.1');
 // Add a port to the first redirect section
 ctx.add_list('firewall', '@redirect[0]', 'src_dport', '8080');
 ```
-<a name="module_uci.cursor+list_remove"></a>
 
 #### cursor.list\_remove(config, section, option, value) ⇒ `boolean`
 Remove an item from a list option in given configuration.
@@ -7618,7 +6873,7 @@ invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to remove from the list option. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Remove '8.8.8.8' from the 'dns' list in the 'lan' interface
@@ -7626,8 +6881,7 @@ ctx.delete_list('network', 'lan', 'dns', '8.8.8.8');
 
 // Remove a port from the first redirect section
 ctx.delete_list('firewall', '@redirect[0]', 'src_dport', '8080');
-```
-<a name="module_uci.cursor+rename"></a>
+```ucode
 
 #### cursor.rename(config, section, option_or_name, [name]) ⇒ `boolean`
 Rename an option or section in given configuration.
@@ -7657,7 +6911,7 @@ if an invalid value was passed.
 | [name] | `string` | The new name of the option to rename. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Assign explicit name to last anonymous firewall rule section
@@ -7669,7 +6923,6 @@ ctx.rename('system', 'ntp', 'server', 'orig_server_list');
 // Rename 'wan' interface to 'external'
 ctx.rename('network', 'wan', 'external');
 ```
-<a name="module_uci.cursor+reorder"></a>
 
 #### cursor.reorder(config, section, index) ⇒ `boolean`
 Reorder sections in given configuration.
@@ -7694,7 +6947,7 @@ if an invalid value was passed.
 | index | `number` | The target index to move the section to, starting from `0`. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Query whole firewall config and reorder resulting dict by type and name
@@ -7730,8 +6983,7 @@ let position = 0;
 
 for (let sid in values)
   ctx.reorder('firewall', sid, position++);
-```
-<a name="module_uci.cursor+save"></a>
+```ucode
 
 #### cursor.save([config]) ⇒ `boolean`
 Save accumulated cursor changes to delta directory.
@@ -7771,13 +7023,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to save delta records for, e.g. `"system"` to store changes for `/etc/config/system`. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '1');
 ctx.save('wireless');
 ```
-<a name="module_uci.cursor+commit"></a>
 
 #### cursor.commit([config]) ⇒ `boolean`
 Update configuration files with accumulated cursor changes.
@@ -7803,13 +7054,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to commit, e.g. `"system"` to update the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.commit('system');
-```
-<a name="module_uci.cursor+revert"></a>
+```ucode
 
 #### cursor.revert([config]) ⇒ `boolean`
 Revert accumulated cursor changes and associated delta records.
@@ -7835,13 +7085,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to revert, e.g. `"system"` to discard any changes for the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.revert('system');
 ```
-<a name="module_uci.cursor+changes"></a>
 
 #### cursor.changes([config]) ⇒ `Object.<string, Array.<module:uci.cursor.ChangeRecord>>`
 Enumerate pending changes.
@@ -7866,7 +7115,7 @@ loaded.
 | [config] | `string` | The name of the configuration file to enumerate changes for, e.g. `"system"` to query pending changes for the `/etc/config/system` file. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Enumerate changes for all currently loaded configurations
@@ -7874,8 +7123,7 @@ const deltas = ctx.changes();
 
 // Explicitly load and enumerate changes for the "system" configuration
 const deltas = ctx.changes('system');
-```
-<a name="module_uci.cursor+foreach"></a>
+```ucode
 
 #### cursor.foreach(config, type, callback) ⇒ `boolean`
 Iterate configuration sections.
@@ -7906,14 +7154,13 @@ requested configuration not found.
 | callback | [`SectionCallback`](#module_uci.cursor.SectionCallback) | The callback to invoke for each section, will receive a section dictionary as sole argument. |
 
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Iterate all network interfaces
 ctx.foreach('network', 'interface',
 	   section => print(`Have interface ${section[".name"]}\n`));
 ```
-<a name="module_uci.cursor+configs"></a>
 
 #### cursor.configs() ⇒ `Array.<string>`
 Enumerate existing configurations.
@@ -7927,13 +7174,12 @@ Returns `null` on error, e.g. due to filesystem errors.
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```js
+```ucode
 const ctx = cursor(…);
 
 // Enumerate all present configuration file names
 const configurations = ctx.configs();
-```
-<a name="module_uci.cursor+error"></a>
+```ucode
 
 #### cursor.error() ⇒ `string`
 Query error information.
@@ -7943,7 +7189,7 @@ Returns a string containing a description of the last occurred error or
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```js
+```ucode
 // Trigger error
 const ctx = cursor();
 ctx.set("not_existing_config", "test", "1");
@@ -7951,7 +7197,6 @@ ctx.set("not_existing_config", "test", "1");
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
 ```
-<a name="module_uci.cursor.ParserFlags"></a>
 
 #### cursor.ParserFlags : `Object`
 **Kind**: static typedef of [`cursor`](#module_uci.cursor)  
@@ -7961,8 +7206,6 @@ print(ctx.error(), "\n");
 | --- | --- | --- |
 | strict | `boolean` | Strict parsing mode (enabled by default). Aborts parsing when encountering a parser error. |
 | print_errors | `boolean` | Print parser errors to stderr. |
-
-<a name="module_uci.cursor.ChangeRecord"></a>
 
 #### cursor.ChangeRecord : `Array.<string>`
 A uci change record is a plain array containing the change operation name as
@@ -7978,8 +7221,6 @@ third and fourth argument whose meanings depend on the operation.
 | 1 | `string` | The section ID targeted by the operation. |
 | 2 | `string` | The meaning of the third element depends on the operation. - For `add` it is type of the section that has been added - For `set` it either is the option name if a fourth element exists, or the   type of a named section which has been added when the change entry only   contains three elements. - For `remove` it contains the name of the option that has been removed. - For `order` it specifies the new sort index of the section. - For `list-add` it contains the name of the list option a new value has been   added to. - For `list-del` it contains the name of the list option a value has been   removed from. - For `rename` it contains the name of the option that has been renamed if a   fourth element exists, else it contains the new name a section has been   renamed to if the change entry only contains three elements. |
 | 4 | `string` | The meaning of the fourth element depends on the operation. - For `set` it is the value an option has been set to. - For `list-add` it is the new value that has been added to a list option. - For `rename` it is the new name of an option that has been renamed. |
-
-<a name="module_uci.cursor.SectionObject"></a>
 
 #### cursor.SectionObject : `Object.<string, (boolean\|number\|string\|Array.<string>)>`
 A section object represents the options and their corresponding values
@@ -8000,8 +7241,6 @@ character for normal option names.
 | .type | `string` | The `.type` property contains the type of the corresponding uci section. |
 | * | `string` \| `Array.<string>` | A section object may contain an arbitrary number of further properties representing the uci option enclosed in the section. All option property names will be in the form `[A-Za-z0-9_]+` and either contain a string value or an array of strings, in case the underlying option is an UCI list. |
 
-<a name="module_uci.cursor.SectionCallback"></a>
-
 #### cursor.SectionCallback : `function`
 The sections callback is invoked for each section found within the given
 configuration and receives the section object and its associated name as
@@ -8021,10 +7260,7 @@ arguments.
 
 ---
 
-<a name="module_uloop"></a>
-
-## uloop
-# OpenWrt uloop event loop
+## OpenWrt uloop event loop
 
 The `uloop` binding provides functions for integrating with the OpenWrt
 [uloop library](https://github.com/openwrt/libubox/blob/master/uloop.h).
@@ -8033,7 +7269,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```javascript
+  ```ucode
   import { init, handle, timer, interval, process, signal, task, run } from 'uloop';
 
   init();
@@ -8046,12 +7282,12 @@ syntax:
   task(…);
 
   run();
-  ```
+  ```ucode
 
 Alternatively, the module namespace can be imported using a wildcard import
 statement:
 
-  ```javascript
+  ```ucode
   import * as uloop from 'uloop';
 
   uloop.init();
@@ -8069,55 +7305,6 @@ statement:
 Additionally, the uloop binding namespace may also be imported by invoking
 the `ucode` interpreter with the `-luloop` switch.
 
-* [uloop](#module_uloop)
-    * _instance_
-        * [.error()](#module_uloop+error) ⇒ `string`
-        * [.init()](#module_uloop+init) ⇒ `boolean`
-        * [.run([timeout])](#module_uloop+run) ⇒ `number`
-        * [.cancelling()](#module_uloop+cancelling) ⇒ `boolean`
-        * [.running()](#module_uloop+running) ⇒ `boolean`
-        * [.end()](#module_uloop+end) ⇒ `void`
-        * [.done()](#module_uloop+done) ⇒ `void`
-        * [.timer([timeout], callback)](#module_uloop+timer) ⇒ [`timer`](#module_uloop.timer)
-        * [.handle(handle, callback, events)](#module_uloop+handle) ⇒ [`handle`](#module_uloop.handle)
-        * [.process(executable, [args], [env], callback)](#module_uloop+process) ⇒ [`process`](#module_uloop.process)
-        * [.task(taskFunction, [outputCallback], [inputCallback])](#module_uloop+task) ⇒ [`task`](#module_uloop.task)
-        * [.interval([timeout], callback)](#module_uloop+interval) ⇒ [`interval`](#module_uloop.interval)
-        * [.signal(signal, callback)](#module_uloop+signal) ⇒ [`signal`](#module_uloop.signal)
-    * _static_
-        * [.timer](#module_uloop.timer)
-            * [.set([timeout])](#module_uloop.timer+set) ⇒ `boolean`
-            * [.remaining()](#module_uloop.timer+remaining) ⇒ `number`
-            * [.cancel()](#module_uloop.timer+cancel) ⇒ `boolean`
-        * [.handle](#module_uloop.handle)
-            * [.fileno()](#module_uloop.handle+fileno) ⇒ `number`
-            * [.handle()](#module_uloop.handle+handle) ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
-            * [.delete()](#module_uloop.handle+delete) ⇒ `void`
-        * [.process](#module_uloop.process)
-            * [.pid()](#module_uloop.process+pid) ⇒ `number`
-            * [.delete()](#module_uloop.process+delete) ⇒ `boolean`
-        * [.pipe](#module_uloop.pipe)
-            * [.send(msg)](#module_uloop.pipe+send) ⇒ `boolean`
-            * [.receive()](#module_uloop.pipe+receive) ⇒ `\*`
-            * [.sending()](#module_uloop.pipe+sending) ⇒ `boolean`
-            * [.receiving()](#module_uloop.pipe+receiving) ⇒ `boolean`
-        * [.task](#module_uloop.task)
-            * [.pid()](#module_uloop.task+pid) ⇒ `number`
-            * [.kill()](#module_uloop.task+kill) ⇒ `boolean`
-            * [.finished()](#module_uloop.task+finished) ⇒ `boolean`
-        * [.interval](#module_uloop.interval)
-            * [.set([interval])](#module_uloop.interval+set) ⇒ `boolean`
-            * [.remaining()](#module_uloop.interval+remaining) ⇒ `number`
-            * [.expirations()](#module_uloop.interval+expirations) ⇒ `number`
-            * [.cancel()](#module_uloop.interval+cancel) ⇒ `boolean`
-        * [.signal](#module_uloop.signal)
-            * [.signo()](#module_uloop.signal+signo) ⇒ `number`
-            * [.delete()](#module_uloop.signal+delete) ⇒ `boolean`
-    * _inner_
-        * [~Event Mode Constants](#module_uloop..Event Mode Constants)
-
-<a name="module_uloop+error"></a>
-
 ### uloop.error() ⇒ `string`
 Retrieves the last error message.
 
@@ -8127,7 +7314,7 @@ If no error occurred, it returns `null`.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `string` - Returns the last error message as a string, or `null` if no error occurred.  
 **Example**  
-```js
+```ucode
 // Retrieve the last error message
 const errorMessage = uloop.error();
 
@@ -8135,8 +7322,7 @@ if (errorMessage)
     printf(`Error message: ${errorMessage}\n`);
 else
     printf("No error occurred\n");
-```
-<a name="module_uloop+init"></a>
+```ucode
 
 ### uloop.init() ⇒ `boolean`
 Initializes the uloop event loop.
@@ -8150,7 +7336,7 @@ Returns `null` if an error occurred during initialization.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` on success, `null` on error.  
 **Example**  
-```js
+```ucode
 // Initialize the uloop event loop
 const success = uloop.init();
 
@@ -8159,7 +7345,6 @@ if (success)
 else
     die(`Initialization failure: ${uloop.error()}\n`);
 ```
-<a name="module_uloop+run"></a>
 
 ### uloop.run([timeout]) ⇒ `number`
 Runs the uloop event loop.
@@ -8178,7 +7363,7 @@ runs indefinitely until explicitly stopped.
 | [timeout] | `number` | `-1` | Optional. The timeout value in milliseconds for running the event loop. Defaults to -1, indicating an indefinite run. |
 
 **Example**  
-```js
+```ucode
 // Run the uloop event loop indefinitely
 const success = uloop.run();
 if (rc == null)
@@ -8192,8 +7377,7 @@ if (rc == null)
     die(`Error occurred during uloop execution: ${uloop.error()}\n`);
 else if (rc != 0)
     printf("uloop event loop was interrupted by a signal: %d\n", rc);
-```
-<a name="module_uloop+cancelling"></a>
+```ucode
 
 ### uloop.cancelling() ⇒ `boolean`
 Checks if the uloop event loop is currently shutting down.
@@ -8204,7 +7388,7 @@ of shutting down.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` if uloop is currently shutting down, `false` otherwise.  
 **Example**  
-```js
+```ucode
 // Check if the uloop event loop is shutting down
 const shuttingDown = uloop.cancelling();
 if (shuttingDown)
@@ -8212,7 +7396,6 @@ if (shuttingDown)
 else
     printf("uloop event loop is not shutting down\n");
 ```
-<a name="module_uloop+running"></a>
 
 ### uloop.running() ⇒ `boolean`
 Checks if the uloop event loop is currently running.
@@ -8223,15 +7406,14 @@ and running.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `boolean` - Returns `true` if the event loop is currently running, `false` otherwise.  
 **Example**  
-```js
+```ucode
 // Check if the uloop event loop is running
 const isRunning = uloop.running();
 if (isRunning)
     printf("uloop event loop is currently running\n");
 else
     printf("uloop event loop is not running\n");
-```
-<a name="module_uloop+end"></a>
+```ucode
 
 ### uloop.end() ⇒ `void`
 Halts the uloop event loop.
@@ -8245,11 +7427,10 @@ completion.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `void` - This function does not return any value.  
 **Example**  
-```js
+```ucode
 // Halt the uloop event loop
 uloop.end();
 ```
-<a name="module_uloop+done"></a>
 
 ### uloop.done() ⇒ `void`
 Stops the uloop event loop and cancels pending timeouts and events.
@@ -8261,11 +7442,10 @@ resources.
 **Kind**: instance method of [`uloop`](#module_uloop)  
 **Returns**: `void` - This function does not return any value.  
 **Example**  
-```js
+```ucode
 // Stop the uloop event loop and clean up resources
 uloop.done();
-```
-<a name="module_uloop+timer"></a>
+```ucode
 
 ### uloop.timer([timeout], callback) ⇒ [`timer`](#module_uloop.timer)
 Creates a timer instance for scheduling callbacks.
@@ -8288,7 +7468,7 @@ Returns `null` when the timeout or callback arguments are invalid.
 | callback | `function` |  | The callback function to be executed when the timer expires. |
 
 **Example**  
-```js
+```ucode
 // Create a timer with a callback to be executed after 1000 milliseconds
 const myTimer = uloop.timer(1000, () => {
     printf("Timer expired!\n");
@@ -8297,7 +7477,6 @@ const myTimer = uloop.timer(1000, () => {
 // Later enable the timer with a timeout of 500 milliseconds
 myTimer.set(500);
 ```
-<a name="module_uloop+handle"></a>
 
 ### uloop.handle(handle, callback, events) ⇒ [`handle`](#module_uloop.handle)
 Creates a handle instance for monitoring file descriptor events.
@@ -8319,7 +7498,7 @@ Returns `null` when the handle, callback or signal arguments are invalid.
 | events | `number` | Bitwise OR-ed flags of IO events (`ULOOP_READ`, `ULOOP_WRITE`) that the callback should be invoked for. |
 
 **Example**  
-```js
+```ucode
 // Create a handle for monitoring read events on file descriptor 3
 const myHandle = uloop.handle(3, (events) => {
     if (events & ULOOP_READ)
@@ -8331,8 +7510,7 @@ const sock = socket.connect("example.org", 80);
 uloop.handle(sock, (events) => {
     sock.send("GET / HTTP/1.0\r\n\r\n");
 }, uloop.ULOOP_WRITE)
-```
-<a name="module_uloop+process"></a>
+```ucode
 
 ### uloop.process(executable, [args], [env], callback) ⇒ [`process`](#module_uloop.process)
 Creates a process instance for executing external programs.
@@ -8354,13 +7532,12 @@ Returns `null` on error, e.g. due to `exec()` failure or invalid arguments.
 | callback | `function` | The callback function to be invoked when the invoked process ends. |
 
 **Example**  
-```js
+```ucode
 // Create a process instance for executing 'ls' command
 const myProcess = uloop.process("/bin/ls", ["-l", "/tmp"], null, (code) => {
     printf(`Process exited with code ${code}\n`);
 });
 ```
-<a name="module_uloop+task"></a>
 
 ### uloop.task(taskFunction, [outputCallback], [inputCallback]) ⇒ [`task`](#module_uloop.task)
 Creates a task instance for executing background tasks.
@@ -8382,7 +7559,7 @@ Returns `null` on error, e.g. due to fork failure or invalid arguments.
 | [inputCallback] | `function` | Optional. The input callback function to be invoked when input is required by the task. It is invoked with a function to send input to the task as the argument. |
 
 **Example**  
-```js
+```ucode
 // Create a task instance for executing a background task
 const myTask = uloop.task(
     (pipe) => {
@@ -8400,8 +7577,7 @@ const myTask = uloop.task(
         return "Input from main thread\n";
     }
 );
-```
-<a name="module_uloop+interval"></a>
+```ucode
 
 ### uloop.interval([timeout], callback) ⇒ [`interval`](#module_uloop.interval)
 Creates an interval instance for scheduling repeated callbacks.
@@ -8422,7 +7598,7 @@ Returns `null` when the timeout or callback arguments are invalid.
 | callback | `function` |  | The callback function to be executed when the interval expires. |
 
 **Example**  
-```js
+```ucode
 // Create an interval with a callback to be executed every 1000 milliseconds
 const myInterval = uloop.interval(1000, () => {
     printf("Interval callback executed!\n");
@@ -8431,7 +7607,6 @@ const myInterval = uloop.interval(1000, () => {
 // Later arm the interval to start executing the callback every 500 milliseconds
 myInterval.set(500);
 ```
-<a name="module_uloop+signal"></a>
 
 ### uloop.signal(signal, callback) ⇒ [`signal`](#module_uloop.signal)
 Creates a signal instance for handling Unix signals.
@@ -8451,13 +7626,12 @@ Returns `null` when the signal or callback arguments are invalid.
 | callback | `function` | The callback function to be invoked when the specified Unix signal is caught. |
 
 **Example**  
-```js
+```ucode
 // Create a signal instance for handling SIGINT
 const mySignal = uloop.signal("SIGINT", () => {
     printf("SIGINT caught!\n");
 });
-```
-<a name="module_uloop.timer"></a>
+```ucode
 
 ### uloop.timer
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8467,8 +7641,6 @@ const mySignal = uloop.signal("SIGINT", () => {
     * [.set([timeout])](#module_uloop.timer+set) ⇒ `boolean`
     * [.remaining()](#module_uloop.timer+remaining) ⇒ `number`
     * [.cancel()](#module_uloop.timer+cancel) ⇒ `boolean`
-
-<a name="module_uloop.timer+set"></a>
 
 #### timer.set([timeout]) ⇒ `boolean`
 Rearms the uloop timer with the specified timeout.
@@ -8486,7 +7658,7 @@ disabled until rearmed with a positive timeout value.
 | [timeout] | `number` | `-1` | Optional. The timeout value in milliseconds until the timer expires. Defaults to -1, which disables the timer until rearmed with a positive timeout. |
 
 **Example**  
-```js
+```ucode
 const timeout = uloop.timer(…);
 
 // Rearm the uloop timer with a timeout of 1000 milliseconds
@@ -8495,7 +7667,6 @@ timeout.set(1000);
 // Disable the uloop timer
 timeout.set();
 ```
-<a name="module_uloop.timer+remaining"></a>
 
 #### timer.remaining() ⇒ `number`
 Returns the number of milliseconds until the uloop timer expires.
@@ -8506,15 +7677,14 @@ the timer is not armed (i.e., disabled), it returns -1.
 **Kind**: instance method of [`timer`](#module_uloop.timer)  
 **Returns**: `number` - The number of milliseconds until the timer expires, or -1 if the timer is not armed.  
 **Example**  
-```js
+```ucode
 // Get the remaining time until the uloop timer expires (~500ms)
 const remainingTime = timer.remaining();
 if (remainingTime !== -1)
     printf("Time remaining until timer expires: %d ms\n", remainingTime);
 else
     printf("Timer is not armed\n");
-```
-<a name="module_uloop.timer+cancel"></a>
+```ucode
 
 #### timer.cancel() ⇒ `boolean`
 Cancels the uloop timer, disarming it and removing it from the event loop.
@@ -8524,11 +7694,10 @@ This method destroys the uloop timer and releases its associated resources.
 **Kind**: instance method of [`timer`](#module_uloop.timer)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Cancel the uloop timer
 timer.cancel();
 ```
-<a name="module_uloop.handle"></a>
 
 ### uloop.handle
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8539,8 +7708,6 @@ timer.cancel();
     * [.handle()](#module_uloop.handle+handle) ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
     * [.delete()](#module_uloop.handle+delete) ⇒ `void`
 
-<a name="module_uloop.handle+fileno"></a>
-
 #### handle.fileno() ⇒ `number`
 Returns the file descriptor number.
 
@@ -8550,12 +7717,11 @@ handle, which might refer to a socket or file instance.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `number` - The file descriptor number associated with the handle.  
 **Example**  
-```js
+```ucode
 // Get the file descriptor number associated with the uloop handle
 const fd = handle.fileno();
 printf("File descriptor number: %d\n", fd);
-```
-<a name="module_uloop.handle+handle"></a>
+```ucode
 
 #### handle.handle() ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
 Returns the underlying file or socket instance.
@@ -8566,12 +7732,11 @@ the uloop handle.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `module:fs.file` \| `module:fs.proc` \| `module:socket.socket` - The underlying file or socket instance associated with the handle.  
 **Example**  
-```js
+```ucode
 // Get the associated file or socket instance
 const fileOrSocket = handle.handle();
 printf("Handle: %s\n", fileOrSocket); // e.g. <socket 0x5> or <fs.proc …>
 ```
-<a name="module_uloop.handle+delete"></a>
 
 #### handle.delete() ⇒ `void`
 Unregisters the uloop handle.
@@ -8583,12 +7748,11 @@ should no longer be used.
 **Kind**: instance method of [`handle`](#module_uloop.handle)  
 **Returns**: `void` - This function does not return a value.  
 **Example**  
-```js
+```ucode
 // Unregister the uloop handle and free associated resources
 handle.delete();
 printf("Handle deleted successfully\n");
-```
-<a name="module_uloop.process"></a>
+```ucode
 
 ### uloop.process
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8597,8 +7761,6 @@ printf("Handle deleted successfully\n");
 * [.process](#module_uloop.process)
     * [.pid()](#module_uloop.process+pid) ⇒ `number`
     * [.delete()](#module_uloop.process+delete) ⇒ `boolean`
-
-<a name="module_uloop.process+pid"></a>
 
 #### process.pid() ⇒ `number`
 Returns the process ID.
@@ -8609,12 +7771,11 @@ launched by {@link module:uloop#process|process().
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `number` - The process ID (PID) of the associated launched process.  
 **Example**  
-```js
+```ucode
 const proc = uloop.process(…);
 
 printf("Process ID: %d\n", proc.pid());
 ```
-<a name="module_uloop.process+delete"></a>
 
 #### process.delete() ⇒ `boolean`
 Unregisters the process from uloop.
@@ -8626,12 +7787,11 @@ itself is not terminated by this method.
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 const proc = uloop.process(…);
 
 proc.delete();
-```
-<a name="module_uloop.pipe"></a>
+```ucode
 
 ### uloop.pipe
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8642,8 +7802,6 @@ proc.delete();
     * [.receive()](#module_uloop.pipe+receive) ⇒ `\*`
     * [.sending()](#module_uloop.pipe+sending) ⇒ `boolean`
     * [.receiving()](#module_uloop.pipe+receiving) ⇒ `boolean`
-
-<a name="module_uloop.pipe+send"></a>
 
 #### pipe.send(msg) ⇒ `boolean`
 Sends a serialized message to the task handle.
@@ -8663,7 +7821,7 @@ callback registered with the task handle.
 | msg | `\*` | The message to be serialized and sent over the pipe. It can be of arbitrary type. |
 
 **Example**  
-```js
+```ucode
 // Send a message over the uloop pipe
 const success = pipe.send(message);
 
@@ -8672,7 +7830,6 @@ if (success)
 else
     die(`Error sending message: ${uloop.error()}\n`);
 ```
-<a name="module_uloop.pipe+receive"></a>
 
 #### pipe.receive() ⇒ `\*`
 Reads input from the task handle.
@@ -8687,7 +7844,7 @@ method.
 Returns `null` on error, such as when there's no input callback registered
 on the task handle.  
 **Example**  
-```js
+```ucode
 // Read input from the task communication pipe
 const message = pipe.receive();
 
@@ -8695,8 +7852,7 @@ if (message !== null)
     printf("Received message: %s\n", message);
 else
     die(`Error receiving message: ${uloop.error()}\n`);
-```
-<a name="module_uloop.pipe+sending"></a>
+```ucode
 
 #### pipe.sending() ⇒ `boolean`
 Checks if the task handle provides input.
@@ -8708,7 +7864,7 @@ It returns a boolean value indicating whether an input callback is present.
 **Returns**: `boolean` - Returns `true` if the remote task handle has an input callback
 registered, otherwise returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the remote task handle has an input callback
 const hasInputCallback = pipe.sending();
 
@@ -8717,7 +7873,6 @@ if (hasInputCallback)
 else
     printf("No input callback on the task handle\n");
 ```
-<a name="module_uloop.pipe+receiving"></a>
 
 #### pipe.receiving() ⇒ `boolean`
 Checks if the task handle reads output.
@@ -8729,7 +7884,7 @@ It returns a boolean value indicating whether an output callback is present.
 **Returns**: `boolean` - Returns `true` if the task handle has an output callback registered,
 otherwise returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the task handle has an output callback
 const hasOutputCallback = pipe.receiving();
 
@@ -8737,8 +7892,7 @@ if (hasOutputCallback)
     printf("Output callback is registered on task handle\n");
 else
     printf("No output callback on the task handle\n");
-```
-<a name="module_uloop.task"></a>
+```ucode
 
 ### uloop.task
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8749,8 +7903,6 @@ else
     * [.kill()](#module_uloop.task+kill) ⇒ `boolean`
     * [.finished()](#module_uloop.task+finished) ⇒ `boolean`
 
-<a name="module_uloop.task+pid"></a>
-
 #### task.pid() ⇒ `number`
 Returns the process ID.
 
@@ -8760,12 +7912,11 @@ launched by {@link module:uloop#task|task().
 **Kind**: instance method of [`task`](#module_uloop.task)  
 **Returns**: `number` - The process ID (PID) of the forked task process.  
 **Example**  
-```js
+```ucode
 const task = uloop.task(…);
 
 printf("Process ID: %d\n", task.pid());
 ```
-<a name="module_uloop.task+kill"></a>
 
 #### task.kill() ⇒ `boolean`
 Terminates the task process.
@@ -8779,7 +7930,7 @@ such as when the task process has already terminated.
 **Returns**: `boolean` - Returns `true` when the task process was successfully terminated.
 Returns `null` on error, such as when the process has already terminated.  
 **Example**  
-```js
+```ucode
 // Terminate the task process
 const success = task.kill();
 
@@ -8787,8 +7938,7 @@ if (success)
     printf("Task process terminated successfully\n");
 else
     die(`Error terminating task process: ${uloop.error()}\n`);
-```
-<a name="module_uloop.task+finished"></a>
+```ucode
 
 #### task.finished() ⇒ `boolean`
 Checks if the task ran to completion.
@@ -8801,7 +7951,7 @@ executing.
 **Returns**: `boolean` - Returns `true` if the task function has already run to completion, otherwise
 returns `false`.  
 **Example**  
-```js
+```ucode
 // Check if the task function has finished executing
 const isFinished = task.finished();
 
@@ -8810,7 +7960,6 @@ if (isFinished)
 else
     printf("Task function is still running\n");
 ```
-<a name="module_uloop.interval"></a>
 
 ### uloop.interval
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8821,8 +7970,6 @@ else
     * [.remaining()](#module_uloop.interval+remaining) ⇒ `number`
     * [.expirations()](#module_uloop.interval+expirations) ⇒ `number`
     * [.cancel()](#module_uloop.interval+cancel) ⇒ `boolean`
-
-<a name="module_uloop.interval+set"></a>
 
 #### interval.set([interval]) ⇒ `boolean`
 Rearms the uloop interval timer with the specified interval.
@@ -8840,7 +7987,7 @@ remains disabled until rearmed with a positive interval value.
 | [interval] | `number` | `-1` | Optional. The interval value in milliseconds specifying when the interval triggers again. Defaults to -1, which disables the interval until rearmed with a positive interval value. |
 
 **Example**  
-```js
+```ucode
 // Rearm the uloop interval with a interval of 1000 milliseconds
 const success = interval.set(1000);
 
@@ -8856,8 +8003,7 @@ if (success)
     printf("Interval disabled successfully\n");
 else
     printf("Error occurred while disabling interval: ${uloop.error()}\n");
-```
-<a name="module_uloop.interval+remaining"></a>
+```ucode
 
 #### interval.remaining() ⇒ `number`
 Returns the milliseconds until the next expiration.
@@ -8870,7 +8016,7 @@ it returns -1.
 **Returns**: `number` - The milliseconds until the next expiration of the uloop interval, or -1 if
 the interval is not armed.  
 **Example**  
-```js
+```ucode
 // Get the milliseconds until the next expiration of the uloop interval
 const remainingTime = interval.remaining();
 
@@ -8879,7 +8025,6 @@ if (remainingTime !== -1)
 else
     printf("Interval is not armed\n");
 ```
-<a name="module_uloop.interval+expirations"></a>
 
 #### interval.expirations() ⇒ `number`
 Returns number of times the interval timer fired.
@@ -8890,12 +8035,11 @@ This method returns the number of times the uloop interval timer has expired
 **Kind**: instance method of [`interval`](#module_uloop.interval)  
 **Returns**: `number` - The number of times the uloop interval timer has expired (fired).  
 **Example**  
-```js
+```ucode
 // Get the number of times the uloop interval timer has expired
 const expirations = interval.expirations();
 printf("Number of expirations: %d\n", expirations);
-```
-<a name="module_uloop.interval+cancel"></a>
+```ucode
 
 #### interval.cancel() ⇒ `boolean`
 Cancels the uloop interval.
@@ -8906,11 +8050,10 @@ event loop. Associated resources are released.
 **Kind**: instance method of [`interval`](#module_uloop.interval)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Cancel the uloop interval
 interval.cancel();
 ```
-<a name="module_uloop.signal"></a>
 
 ### uloop.signal
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -8919,8 +8062,6 @@ interval.cancel();
 * [.signal](#module_uloop.signal)
     * [.signo()](#module_uloop.signal+signo) ⇒ `number`
     * [.delete()](#module_uloop.signal+delete) ⇒ `boolean`
-
-<a name="module_uloop.signal+signo"></a>
 
 #### signal.signo() ⇒ `number`
 Returns the associated signal number.
@@ -8931,12 +8072,11 @@ configured to respond to.
 **Kind**: instance method of [`signal`](#module_uloop.signal)  
 **Returns**: `number` - The signal number that this handler is responding to.  
 **Example**  
-```js
+```ucode
 // Get the signal number that the uloop signal handler is responding to
 const sighandler = uloop.signal("SIGINT", () => printf("Cought INT\n"));
 printf("Signal number: %d\n", sighandler.signo());
-```
-<a name="module_uloop.signal+delete"></a>
+```ucode
 
 #### signal.delete() ⇒ `boolean`
 Uninstalls the signal handler.
@@ -8947,12 +8087,11 @@ handler for the signal, and releasing any associated resources.
 **Kind**: instance method of [`signal`](#module_uloop.signal)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```js
+```ucode
 // Uninstall the signal handler and restore the previous/default handler
 const sighandler = uloop.signal(…);
 sighandler.delete();
 ```
-<a name="module_uloop..Event Mode Constants"></a>
 
 ### uloop~Event Mode Constants
 The `ULOOP_*` constants are passed as bitwise OR-ed number to the
@@ -8977,33 +8116,9 @@ events that should be monitored on the given handle.
 
 ---
 
-<a name="module_zlib"></a>
-
-## zlib
-# Zlib bindings
+## Zlib bindings
 
 The `zlib` module provides single-call and stream-oriented functions for interacting with zlib data.
-
-* [zlib](#module_zlib)
-    * _instance_
-        * [.deflate(str_or_resource, [gzip], [level])](#module_zlib+deflate) ⇒ `string`
-        * [.inflate(str_or_resource)](#module_zlib+inflate) ⇒ `string`
-        * [.deflater([gzip], [level])](#module_zlib+deflater) ⇒ [`deflate`](#module_zlib.deflate)
-        * [.inflater()](#module_zlib+inflater) ⇒ [`inflate`](#module_zlib.inflate)
-    * _static_
-        * [.deflate](#module_zlib.deflate)
-            * [.write(src, [flush])](#module_zlib.deflate+write) ⇒ `boolean`
-            * [.read()](#module_zlib.deflate+read) ⇒ `string`
-            * [.error()](#module_zlib.deflate+error) ⇒ `string`
-        * [.inflate](#module_zlib.inflate)
-            * [.write(src, [flush])](#module_zlib.inflate+write) ⇒ `boolean`
-            * [.read()](#module_zlib.inflate+read) ⇒ `string`
-            * [.error()](#module_zlib.inflate+error) ⇒ `string`
-    * _inner_
-        * [~Compression levels](#module_zlib..Compression levels)
-        * [~flush options](#module_zlib..flush options)
-
-<a name="module_zlib+deflate"></a>
 
 ### zlib.deflate(str_or_resource, [gzip], [level]) ⇒ `string`
 Compresses data in Zlib or gzip format.
@@ -9028,14 +8143,13 @@ Returns the compressed data.
 | [level] | `number` | `Z_DEFAULT_COMPRESSION` | The compression level (0-9). |
 
 **Example**  
-```js
+```ucode
 // deflate content using default compression
 const deflated = deflate(content);
 
 // deflate content using fastest compression
 const deflated = deflate(content, Z_BEST_SPEED);
-```
-<a name="module_zlib+inflate"></a>
+```ucode
 
 ### zlib.inflate(str_or_resource) ⇒ `string`
 Decompresses data in Zlib or gzip format.
@@ -9057,8 +8171,6 @@ Returns the decompressed data.
 | --- | --- | --- |
 | str_or_resource | `string` | The string or resource object to be parsed as JSON. |
 
-<a name="module_zlib+deflater"></a>
-
 ### zlib.deflater([gzip], [level]) ⇒ [`deflate`](#module_zlib.deflate)
 Initializes a deflate stream.
 
@@ -9074,14 +8186,13 @@ Returns `null` if an error occurred.
 | [level] | `number` | `Z_DEFAULT_COMPRESSION` | The compression level (0-9). |
 
 **Example**  
-```js
+```ucode
 // initialize a Zlib deflate stream using default compression
 const zstrmd = deflater();
 
 // initialize a gzip deflate stream using fastest compression
 const zstrmd = deflater(true, Z_BEST_SPEED);
 ```
-<a name="module_zlib+inflater"></a>
 
 ### zlib.inflater() ⇒ [`inflate`](#module_zlib.inflate)
 Initializes an inflate stream. Can process either Zlib or gzip data.
@@ -9092,11 +8203,10 @@ Returns `null` if an error occurred.
 
 **Kind**: instance method of [`zlib`](#module_zlib)  
 **Example**  
-```js
+```ucode
 // initialize an inflate stream
 const zstrmi = inflater();
-```
-<a name="module_zlib.deflate"></a>
+```ucode
 
 ### zlib.deflate
 **Kind**: static class of [`zlib`](#module_zlib)  
@@ -9106,8 +8216,6 @@ const zstrmi = inflater();
     * [.write(src, [flush])](#module_zlib.deflate+write) ⇒ `boolean`
     * [.read()](#module_zlib.deflate+read) ⇒ `string`
     * [.error()](#module_zlib.deflate+error) ⇒ `string`
-
-<a name="module_zlib.deflate+write"></a>
 
 #### deflate.write(src, [flush]) ⇒ `boolean`
 Writes a chunk of data to the deflate stream.
@@ -9132,8 +8240,6 @@ Returns `null` if an error occurred.
 | src | `string` |  | The string of data to deflate. |
 | [flush] | `number` | `Z_NO_FLUSH` | The zlib flush mode. |
 
-<a name="module_zlib.deflate+read"></a>
-
 #### deflate.read() ⇒ `string`
 Reads a chunk of compressed data from the deflate stream.
 
@@ -9145,7 +8251,6 @@ Returns compressed chunk on success.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`deflate`](#module_zlib.deflate)  
-<a name="module_zlib.deflate+error"></a>
 
 #### deflate.error() ⇒ `string`
 Queries error information.
@@ -9154,7 +8259,6 @@ Returns a string containing a description of the last occurred error or
 `null` if there is no error information.
 
 **Kind**: instance method of [`deflate`](#module_zlib.deflate)  
-<a name="module_zlib.inflate"></a>
 
 ### zlib.inflate
 **Kind**: static class of [`zlib`](#module_zlib)  
@@ -9164,8 +8268,6 @@ Returns a string containing a description of the last occurred error or
     * [.write(src, [flush])](#module_zlib.inflate+write) ⇒ `boolean`
     * [.read()](#module_zlib.inflate+read) ⇒ `string`
     * [.error()](#module_zlib.inflate+error) ⇒ `string`
-
-<a name="module_zlib.inflate+write"></a>
 
 #### inflate.write(src, [flush]) ⇒ `boolean`
 Writes a chunk of data to the inflate stream.
@@ -9189,8 +8291,6 @@ Returns `null` if an error occurred.
 | src | `string` |  | The string of data to inflate. |
 | [flush] | `number` | `Z_NO_FLUSH` | The zlib flush mode. |
 
-<a name="module_zlib.inflate+read"></a>
-
 #### inflate.read() ⇒ `string`
 Reads a chunk of decompressed data from the inflate stream.
 
@@ -9202,7 +8302,6 @@ Returns decompressed chunk on success.
 Returns `null` if an error occurred.
 
 **Kind**: instance method of [`inflate`](#module_zlib.inflate)  
-<a name="module_zlib.inflate+error"></a>
 
 #### inflate.error() ⇒ `string`
 Queries error information.
@@ -9211,7 +8310,6 @@ Returns a string containing a description of the last occurred error or
 `null` if there is no error information.
 
 **Kind**: instance method of [`inflate`](#module_zlib.inflate)  
-<a name="module_zlib..Compression levels"></a>
 
 ### zlib~Compression levels
 Constants representing predefined compression levels.
@@ -9225,8 +8323,6 @@ Constants representing predefined compression levels.
 | Z_BEST_SPEED. | `number` |  |
 | Z_BEST_COMPRESSION. | `number` |  |
 | Z_DEFAULT_COMPRESSION | `number` | default compromise between speed and compression (currently equivalent to level 6). |
-
-<a name="module_zlib..flush options"></a>
 
 ### zlib~flush options
 Constants representing flush options.
