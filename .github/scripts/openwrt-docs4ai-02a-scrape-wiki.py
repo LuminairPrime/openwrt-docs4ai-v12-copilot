@@ -60,14 +60,22 @@ CACHE_DIR = os.path.join(config.WORKDIR, ".cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 CACHE_FILE = os.path.join(CACHE_DIR, "wiki-lastmod.json")
 
-            except (json.JSONDecodeError, ValueError):
-                return {}
-            except Exception:
-                return {}
+def load_cache():
+    if not os.path.isfile(CACHE_FILE):
+        return {}
+    try:
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except (json.JSONDecodeError, ValueError):
+        return {}
+    except Exception:
+        return {}
+
     return {}
 
 def save_cache(cache):
-    with open(CACHE_FILE, 'w') as f:
+    with open(CACHE_FILE, 'w', encoding='utf-8') as f:
         json.dump(cache, f)
 
 def path_to_filename(url_path):
