@@ -5,7 +5,7 @@ origin_type: makefile_meta
 token_count: 1435
 version: unknown
 source_file: L1-raw/openwrt-core/makefile_meta-category-firmware.md
-last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
+last_pipeline_run: '2026-03-09T18:39:45.812572+00:00'
 upstream_path: package/firmware
 language: makefile
 ---

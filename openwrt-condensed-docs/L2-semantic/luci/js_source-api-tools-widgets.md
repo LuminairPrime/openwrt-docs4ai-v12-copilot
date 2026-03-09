@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 126
 version: unknown
 source_file: L1-raw/luci/js_source-api-tools-widgets.md
-last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
+last_pipeline_run: '2026-03-09T18:39:45.812572+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js
 language: javascript
 ---
