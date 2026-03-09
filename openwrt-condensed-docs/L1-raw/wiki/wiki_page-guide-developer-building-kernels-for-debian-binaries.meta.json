@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/building_kernels_for_debian_binaries",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:23.385384+00:00",
-  "content_hash": "4f5df0fd"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "91ec4a7f1761319f517a9d3e4db09d6b67e335b893d25af87ed10310c38f3a43",
+  "source_path": "/docs/guide-developer/building_kernels_for_debian_binaries",
+  "extraction_timestamp": "2026-03-09T21:32:45.473783+00:00",
+  "content_hash": "6f096d2e"
 }

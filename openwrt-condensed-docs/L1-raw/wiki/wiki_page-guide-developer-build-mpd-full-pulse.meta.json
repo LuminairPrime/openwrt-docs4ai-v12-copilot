@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/build.mpd-full.pulse",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:20.047919+00:00",
-  "content_hash": "5dd54614"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "72cae3ecc4095a0486783ceab8372a70867cce9f07d779b8c75f7d24bd22d062",
+  "source_path": "/docs/guide-developer/build.mpd-full.pulse",
+  "extraction_timestamp": "2026-03-09T21:32:42.170511+00:00",
+  "content_hash": "edd24623"
 }

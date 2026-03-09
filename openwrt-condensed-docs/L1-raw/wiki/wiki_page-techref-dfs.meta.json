@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/dfs",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:48.436007+00:00",
-  "content_hash": "1d9fdbd8"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "2c843d3073e362ccc928d6c1d5dd9475a8d6725d4b3f198d4a2cf8bb5eca8edc",
+  "source_path": "/docs/techref/dfs",
+  "extraction_timestamp": "2026-03-09T21:34:09.136698+00:00",
+  "content_hash": "4bf61fde"
 }

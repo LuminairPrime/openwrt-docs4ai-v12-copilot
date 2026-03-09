@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/sysupgrade",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:40.320400+00:00",
-  "content_hash": "6d6b767b"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "ac0273a4244fe486f52a6ace25b86a09e2888370446107713581797a7824f890",
+  "source_path": "/docs/techref/sysupgrade",
+  "extraction_timestamp": "2026-03-09T21:35:00.094073+00:00",
+  "content_hash": "d96bbde8"
 }

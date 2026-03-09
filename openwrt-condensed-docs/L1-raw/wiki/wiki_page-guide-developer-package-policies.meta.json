@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/package-policies",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:10.949113+00:00",
-  "content_hash": "274b3ed4"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "5b44ebfb1fb4e3a66f578754139f886e35a6fd573d25eb8443c212c2c0169c19",
+  "source_path": "/docs/guide-developer/package-policies",
+  "extraction_timestamp": "2026-03-09T21:33:31.986904+00:00",
+  "content_hash": "1c7ab91a"
 }

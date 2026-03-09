@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/mac.address",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:58.418469+00:00",
-  "content_hash": "a86e20b7"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "f0a5a0d9bce226183bc980941798b151e83acc6b173ee7d2596ee208ed640478",
+  "source_path": "/docs/guide-developer/mac.address",
+  "extraction_timestamp": "2026-03-09T21:33:20.186653+00:00",
+  "content_hash": "696856df"
 }

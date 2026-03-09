@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/creating_a_meson_based_package",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:30.051774+00:00",
-  "content_hash": "e6481473"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "1b032dcade9fd786de540c40b67bc7617880440f5639712eb795b08cb3bfe819",
+  "source_path": "/docs/guide-developer/creating_a_meson_based_package",
+  "extraction_timestamp": "2026-03-09T21:32:52.104776+00:00",
+  "content_hash": "41115c09"
 }

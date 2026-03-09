@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/netifd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:24.522474+00:00",
-  "content_hash": "951ccbe8"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "86a0e87be8d32ad8e229fc2cb37eb821993f285ff81bc01e8627ea5b4ba0c030",
+  "source_path": "/docs/techref/netifd",
+  "extraction_timestamp": "2026-03-09T21:34:44.655610+00:00",
+  "content_hash": "49df4b25"
 }

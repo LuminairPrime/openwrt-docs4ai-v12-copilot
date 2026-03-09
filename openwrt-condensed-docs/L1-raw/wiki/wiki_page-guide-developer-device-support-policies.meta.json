@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/device-support-policies",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:36.845752+00:00",
-  "content_hash": "abfd8d93"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "0c495e6ce58442407ca762acf76cf42a2e8dac3078771a34f2bf871583282638",
+  "source_path": "/docs/guide-developer/device-support-policies",
+  "extraction_timestamp": "2026-03-09T21:32:58.744144+00:00",
+  "content_hash": "5fdaafa0"
 }

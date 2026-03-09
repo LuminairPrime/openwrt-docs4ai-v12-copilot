@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/block_mount",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:39.957945+00:00",
-  "content_hash": "d695442f"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "10e1c8b300ef4a5e17799780e47baa7fa54f1ae0700df56766c6bfb810bef932",
+  "source_path": "/docs/techref/block_mount",
+  "extraction_timestamp": "2026-03-09T21:34:00.725855+00:00",
+  "content_hash": "ab70baf9"
 }

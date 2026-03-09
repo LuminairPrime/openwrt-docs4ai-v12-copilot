@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/image.makefile",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:05.818504+00:00",
-  "content_hash": "53d6f6d1"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "48ee41faa81c87032a88ceb949b5fe72e45cb556e249bc121981c5f62b160ca7",
+  "source_path": "/docs/techref/image.makefile",
+  "extraction_timestamp": "2026-03-09T21:34:26.125818+00:00",
+  "content_hash": "13796cda"
 }

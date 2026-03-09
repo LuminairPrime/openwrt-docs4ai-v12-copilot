@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/preinit_mount",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:30.043120+00:00",
-  "content_hash": "ae081b09"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "e0dddbd5a1d92ee9bfb03317bcffb0ae2bbc8f069b85563690547d33f4d7ada0",
+  "source_path": "/docs/techref/preinit_mount",
+  "extraction_timestamp": "2026-03-09T21:34:50.088146+00:00",
+  "content_hash": "b8ef6b9c"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/external_toolchain",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:41.793512+00:00",
-  "content_hash": "a8099c19"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "836e1fed3bad407c5699b5d808073e7ddd65bdabe6e814190410e148374cefe6",
+  "source_path": "/docs/guide-developer/external_toolchain",
+  "extraction_timestamp": "2026-03-09T21:33:03.669888+00:00",
+  "content_hash": "cb61aae9"
 }

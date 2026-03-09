@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/procd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:31.716701+00:00",
-  "content_hash": "cc516e68"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "66bde686d92ad06bcaefcf087baaac5b19a8a94ef39a4b55a33c228ed65f0af7",
+  "source_path": "/docs/techref/procd",
+  "extraction_timestamp": "2026-03-09T21:34:51.750796+00:00",
+  "content_hash": "d5d840c7"
 }

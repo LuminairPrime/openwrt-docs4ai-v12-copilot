@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/imagebuilder_frontends",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:50.121459+00:00",
-  "content_hash": "082fb988"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "86ed3ff04e5510dbe4846c544f1f9056cb600fd4b289bb9f7232413d35294fd1",
+  "source_path": "/docs/guide-developer/imagebuilder_frontends",
+  "extraction_timestamp": "2026-03-09T21:33:11.953342+00:00",
+  "content_hash": "30f5f7b5"
 }

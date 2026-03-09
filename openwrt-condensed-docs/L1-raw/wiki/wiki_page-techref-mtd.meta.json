@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/mtd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:22.857210+00:00",
-  "content_hash": "41a299a3"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "ab28750798da35ef59f0f5e96f19b48668dce505f904ef4fa705d64b6d402a50",
+  "source_path": "/docs/techref/mtd",
+  "extraction_timestamp": "2026-03-09T21:34:43.004135+00:00",
+  "content_hash": "be1aed14"
 }

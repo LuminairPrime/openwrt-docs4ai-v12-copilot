@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/links.software.libraries",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:55.079981+00:00",
-  "content_hash": "9c8c11a9"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "cc718d888e5fe77c1fb6b6a9919452eab011e9d3352aceb22298f3b4b94ec248",
+  "source_path": "/docs/guide-developer/links.software.libraries",
+  "extraction_timestamp": "2026-03-09T21:33:16.872185+00:00",
+  "content_hash": "0ef1fcfe"
 }

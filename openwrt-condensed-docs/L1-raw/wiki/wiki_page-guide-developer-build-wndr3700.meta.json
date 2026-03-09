@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/build.wndr3700",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:21.721491+00:00",
-  "content_hash": "34d3baf5"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "a8bf2fc966f7a13611532303e724a2acdf7357c22a3fc690a6615d608a328a3a",
+  "source_path": "/docs/guide-developer/build.wndr3700",
+  "extraction_timestamp": "2026-03-09T21:32:43.822075+00:00",
+  "content_hash": "95504d42"
 }

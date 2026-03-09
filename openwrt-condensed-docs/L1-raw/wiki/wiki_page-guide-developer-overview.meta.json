@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/overview",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:09.104953+00:00",
-  "content_hash": "c21d5651"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "4af9de477b7769414498b8cc3a3869352b94f4fb11dc77662a14ceba4f66b794",
+  "source_path": "/docs/guide-developer/overview",
+  "extraction_timestamp": "2026-03-09T21:33:30.177032+00:00",
+  "content_hash": "24c34913"
 }

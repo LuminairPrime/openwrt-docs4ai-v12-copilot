@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/uefi-bootable-image",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:31.656790+00:00",
-  "content_hash": "86fa2ac9"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "656547ea24fb6ddb75b759b2436106cae69884c625b0869d4907c9b42c95cac1",
+  "source_path": "/docs/guide-developer/uefi-bootable-image",
+  "extraction_timestamp": "2026-03-09T21:33:52.409253+00:00",
+  "content_hash": "07e74e3e"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/obtain.firmware.sdk",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:07.430731+00:00",
-  "content_hash": "3425d1ca"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "2364924c8f2dd0636a643ee406a718337920140cec03738007682272acb3a79f",
+  "source_path": "/docs/guide-developer/obtain.firmware.sdk",
+  "extraction_timestamp": "2026-03-09T21:33:28.514228+00:00",
+  "content_hash": "10670225"
 }

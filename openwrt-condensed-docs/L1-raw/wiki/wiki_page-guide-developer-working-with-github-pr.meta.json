@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/working-with-github-pr",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:34.955337+00:00",
-  "content_hash": "b257cfad"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "023b2eccf7bf1d68282d026093990c13ba0aca97ebcd34da9a3c9b4c0baf5266",
+  "source_path": "/docs/guide-developer/working-with-github-pr",
+  "extraction_timestamp": "2026-03-09T21:33:55.692679+00:00",
+  "content_hash": "f6d781ed"
 }

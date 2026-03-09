@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/uci-defaults",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:29.992580+00:00",
-  "content_hash": "b40f8ae7"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "22ae6f6c9fa4ee9c844b21c72fde72f3fc75607858d4edb14bbe4f8e90840f4c",
+  "source_path": "/docs/guide-developer/uci-defaults",
+  "extraction_timestamp": "2026-03-09T21:33:50.757527+00:00",
+  "content_hash": "9729c2e7"
 }

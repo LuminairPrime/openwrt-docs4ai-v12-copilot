@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/unetd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:49.010968+00:00",
-  "content_hash": "944a93ef"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "55db50c49dc22d77973586b863bd4553b149628c2be81a7d4d4ecceed8abd776",
+  "source_path": "/docs/techref/unetd",
+  "extraction_timestamp": "2026-03-09T21:35:08.681472+00:00",
+  "content_hash": "f8f7be33"
 }

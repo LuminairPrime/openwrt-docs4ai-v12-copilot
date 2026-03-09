@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/security",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:23.064062+00:00",
-  "content_hash": "ad6afd66"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "569ef509adb077ea57f9ca85810c2db4dc63da888561ef650c8d4a8e98cab9d1",
+  "source_path": "/docs/guide-developer/security",
+  "extraction_timestamp": "2026-03-09T21:33:44.015271+00:00",
+  "content_hash": "57d68dbe"
 }

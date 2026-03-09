@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/filesystems",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:53.615766+00:00",
-  "content_hash": "ad7ffc34"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "b45002bbc98cd1f7f3b05e40a4339da9ceb7c985c69d2338cfca28da17d780a5",
+  "source_path": "/docs/techref/filesystems",
+  "extraction_timestamp": "2026-03-09T21:34:14.221527+00:00",
+  "content_hash": "4ef22ed2"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/debugging",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:31.726708+00:00",
-  "content_hash": "45e1a377"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "94d7f29a9eb6f6de65e515f1e54bc87874b12fb1c9701e1e3b40bf4800c61552",
+  "source_path": "/docs/guide-developer/debugging",
+  "extraction_timestamp": "2026-03-09T21:32:53.766803+00:00",
+  "content_hash": "33c7e6ec"
 }

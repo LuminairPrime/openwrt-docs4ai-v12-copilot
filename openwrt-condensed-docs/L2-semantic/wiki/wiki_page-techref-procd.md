@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 1965
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-procd.md
-last_pipeline_run: '2026-03-09T20:30:30.207254+00:00'
+last_pipeline_run: '2026-03-09T21:35:51.010624+00:00'
 language: text
 ---
 # Procd system init and daemon management

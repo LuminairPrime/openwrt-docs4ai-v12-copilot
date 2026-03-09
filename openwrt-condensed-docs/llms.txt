@@ -2,7 +2,7 @@
 > For a flat file listing, see [llms-full.txt](./llms-full.txt)
 
 > **Version:** openwrt/openwrt@unknown, openwrt/luci@unknown, jow-/ucode@unknown
-> **Total Context Available:** ~425129 tokens
+> **Total Context Available:** ~434368 tokens
 
 ## Core Daemons
 - [procd](./procd/llms.txt): procd (~352 tokens)
@@ -18,7 +18,7 @@
 - [luci-examples](./luci-examples/llms.txt): luci-examples (~100272 tokens)
 
 ## Manuals
-- [wiki](./wiki/llms.txt): wiki (~199873 tokens)
+- [wiki](./wiki/llms.txt): wiki (~209112 tokens)
 
 ## Complete Aggregation
 If your context window permits, you may fetch the flat URL index:

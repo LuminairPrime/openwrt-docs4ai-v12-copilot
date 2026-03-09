@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/write-shell-script",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:36.631054+00:00",
-  "content_hash": "2d8f9f9f"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "ab75dbec1c0ed7fe392785593414c01186fcbad430add1a1d43c52e5fb4d8466",
+  "source_path": "/docs/guide-developer/write-shell-script",
+  "extraction_timestamp": "2026-03-09T21:33:57.409961+00:00",
+  "content_hash": "41f9b160"
 }

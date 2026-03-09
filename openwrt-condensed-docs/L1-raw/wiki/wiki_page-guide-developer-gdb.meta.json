@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/gdb",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:46.782321+00:00",
-  "content_hash": "aaa4e663"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "c9e62b220af1218165f71e49fd2db8a84c6e1b2ba1373355081064673fecb934",
+  "source_path": "/docs/guide-developer/gdb",
+  "extraction_timestamp": "2026-03-09T21:33:08.624118+00:00",
+  "content_hash": "f60ab049"
 }

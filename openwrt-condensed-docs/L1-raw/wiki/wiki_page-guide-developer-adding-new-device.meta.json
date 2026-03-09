@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/adding_new_device",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:14.990714+00:00",
-  "content_hash": "8873daa1"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "19e6ea1465805ac3fce74634c65cc975fc4e116bc992a95e468b1f67c8ace637",
+  "source_path": "/docs/guide-developer/adding_new_device",
+  "extraction_timestamp": "2026-03-09T21:32:37.262336+00:00",
+  "content_hash": "d20edb51"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/rpcd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:36.961036+00:00",
-  "content_hash": "39f1ae20"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "c598300328500c4a1b08013683d10edae87c50e5067a24f45598f4914b5ad273",
+  "source_path": "/docs/techref/rpcd",
+  "extraction_timestamp": "2026-03-09T21:34:56.748935+00:00",
+  "content_hash": "1ab3851c"
 }

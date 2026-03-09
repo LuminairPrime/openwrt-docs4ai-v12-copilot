@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/busybox",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:46.772254+00:00",
-  "content_hash": "31610363"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "26241456aa30863f39883af9abf1c58b348893e7cd97eef2c3bdae5776065855",
+  "source_path": "/docs/techref/busybox",
+  "extraction_timestamp": "2026-03-09T21:34:07.484633+00:00",
+  "content_hash": "0b9c4aa7"
 }

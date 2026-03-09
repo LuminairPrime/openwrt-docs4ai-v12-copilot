@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/internal.layout",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:11.241135+00:00",
-  "content_hash": "36595343"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "107ae43e82bd0c99b031b2b670f8bdad2e8ddad99dfebc90cd588c3573077cd6",
+  "source_path": "/docs/techref/internal.layout",
+  "extraction_timestamp": "2026-03-09T21:34:31.452124+00:00",
+  "content_hash": "0778d582"
 }

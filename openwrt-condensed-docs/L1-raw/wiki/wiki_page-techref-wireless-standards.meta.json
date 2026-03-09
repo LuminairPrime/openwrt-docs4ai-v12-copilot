@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/wireless.standards",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:52.391358+00:00",
-  "content_hash": "83d6acb8"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "425e798c4905699a6924c760e6df0a3f92af036e01c0a4ca3e251cff445eb951",
+  "source_path": "/docs/techref/wireless.standards",
+  "extraction_timestamp": "2026-03-09T21:35:11.997494+00:00",
+  "content_hash": "472d4ca9"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/mountd",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:21.182526+00:00",
-  "content_hash": "b2359386"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "f2ed333f663e4e9ca1447638066d7c2f69c7f0eddb8abf59295b4c9abba78996",
+  "source_path": "/docs/techref/mountd",
+  "extraction_timestamp": "2026-03-09T21:34:41.340459+00:00",
+  "content_hash": "3f002132"
 }

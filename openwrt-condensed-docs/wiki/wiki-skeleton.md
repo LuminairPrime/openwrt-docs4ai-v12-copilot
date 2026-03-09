@@ -1,7 +1,7 @@
 # wiki (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for wiki.
-> **Generated:** 2026-03-09T20:30:42.538677+00:00
+> **Generated:** 2026-03-09T21:36:06.455469+00:00
 
 ---
 
@@ -740,6 +740,20 @@
 ### Embedded Devices
 ## Bootloader Pages
 
+# BCM63xx Firmware Image Information
+## BCM63xx Firmware Image Analyzer
+## Information about the Broadcom 63xx imagetag format
+### Broadcom Generic CFE
+### Broadcom Code Version 2.2x
+### Broadcom Code Version 3.00 - 3.08
+### Broadcom Code Version 3.06, Pirelli Modifed Version
+### Broadcom Code Version 3.10+
+### TP-Link custom CFE
+## OpenWRT Broadcom 63xx Firmware Image README
+### Old imagetag routers
+### Redboot routers
+## Table of Broadcom Version for Various Routers
+
 # OpenWrt Buildroot – Technical Reference
 ## Kernel related options
 ### CONFIG_EXTERNAL_KERNEL_TREE
@@ -950,6 +964,14 @@
 # Init (User space boot) reference for Chaos Calmer: procd
 ## Procd replaces init
 ## Life and death of a Chaos Calmer system
+
+# Init Scripts
+## Example Init Script
+# Example script
+# Copyright (C) 2007 OpenWrt.org
+### Other functions
+### Custom commands
+## Enable and disable
 
 # Internal Layout D-Link DIR-825
 

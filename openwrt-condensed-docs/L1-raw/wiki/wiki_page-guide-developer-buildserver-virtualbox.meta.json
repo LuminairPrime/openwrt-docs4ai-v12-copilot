@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/buildserver_virtualbox",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:27:25.050090+00:00",
-  "content_hash": "e2cf2f83"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "5fa6ac7d22727741314269712e313ecdaa4e04ff8530d13ad9e9f74362764961",
+  "source_path": "/docs/guide-developer/buildserver_virtualbox",
+  "extraction_timestamp": "2026-03-09T21:32:47.126516+00:00",
+  "content_hash": "36565375"
 }

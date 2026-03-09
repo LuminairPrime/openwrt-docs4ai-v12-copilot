@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/init.detail.cc",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:07.862146+00:00",
-  "content_hash": "9a9c898f"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "64958ad57f440b1b81e21cbfdfb6f1e749c0eec3875f6f6a4abcb51839f812b8",
+  "source_path": "/docs/techref/init.detail.cc",
+  "extraction_timestamp": "2026-03-09T21:34:28.137080+00:00",
+  "content_hash": "93c04718"
 }

@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/techref/luci2",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:29:19.552121+00:00",
-  "content_hash": "906e55eb"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "d07deb493c8ecef4b241b28fe0517c752a170debeb76bf2f397353d82126f7e0",
+  "source_path": "/docs/techref/luci2",
+  "extraction_timestamp": "2026-03-09T21:34:39.712668+00:00",
+  "content_hash": "2bda7b9d"
 }

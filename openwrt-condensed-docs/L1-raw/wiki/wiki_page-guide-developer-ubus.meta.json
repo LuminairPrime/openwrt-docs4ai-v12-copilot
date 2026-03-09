@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/ubus",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:28.328911+00:00",
-  "content_hash": "84a76ff5"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "cfbacb5b8ba7314f9a75ffb7dc43ec50eb7c1142f54efd7d44007f54228b6a96",
+  "source_path": "/docs/guide-developer/ubus",
+  "extraction_timestamp": "2026-03-09T21:33:49.106199+00:00",
+  "content_hash": "1c38328b"
 }

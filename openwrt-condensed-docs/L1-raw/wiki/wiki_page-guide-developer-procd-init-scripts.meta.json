@@ -6,6 +6,11 @@
   "original_url": "https://openwrt.org/docs/guide-developer/procd-init-scripts",
   "language": "text",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T20:28:19.748103+00:00",
-  "content_hash": "db5de87a"
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "7d63b19fd49b2784a4047c30c2e7db225e04eae1e4695c2c33557f6c52f81aa2",
+  "source_path": "/docs/guide-developer/procd-init-scripts",
+  "extraction_timestamp": "2026-03-09T21:33:40.713555+00:00",
+  "content_hash": "56a2068f"
 }
