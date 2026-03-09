@@ -9,10 +9,10 @@ The current authoritative position is:
 - code exists for the numbered pipeline stages
 - documentation and test surfaces were realigned with the current script layout on 2026-03-09
 - local smoke, sequential local verification, and cache-backed AI verification paths are passing
-- GitHub Actions behavior is verified through run `22869216338`, including `initialize`, all `extract` jobs, `process`, and `deploy`
-- the latest fully verified remote run completed with `0` hard failures and `2` soft warnings
+- GitHub Actions behavior is verified through run `22870498903`, including `initialize`, all `extract` jobs, `process`, and `deploy`
+- the latest fully verified remote run completed with `0` hard failures and `1` soft warning
 - L1 and L2 are intentionally retained under `openwrt-condensed-docs`; only L0 remains transient
-- remaining risk is concentrated in the final ucode warning cleanup and wiki-conversion cleanliness, not in broad pipeline instability
+- remaining risk is concentrated in one residual dockerman ucode soft warning and wiki-conversion cleanliness, not in broad pipeline instability
 
 ## Verification Matrix
 
@@ -25,12 +25,12 @@ The current authoritative position is:
 | Deterministic local smoke test | verified | `python tests/00-smoke-test.py` passes locally |
 | Sequential local smoke runner | verified | `python tests/openwrt-docs4ai-00-smoke-test.py` passes locally |
 | Local AI-summary integration | verified | Cache-backed local AI path passes via `--run-ai` without requiring a live token |
-| GitHub Actions remote verification | verified | Latest fully checked run `22869216338` passed end to end on 2026-03-09 |
+| GitHub Actions remote verification | verified | Latest fully checked run `22870498903` passed end to end on 2026-03-09 |
 | Remote output measurement | verified | Successful staging artifact contained 151 L1 markdown docs, 151 L2 markdown docs, and 397 indexed symbols |
 | Generated output promotion | verified | Deploy produced commit `3d3e6d3` (`docs: v12 auto-update 2026-03-09`) |
 | L1/L2 retention policy | decided | L1 and L2 remain committed under `openwrt-condensed-docs`; L0 remains transient only |
-| Remote warning reduction | verified | Remote soft warnings were reduced from 48 to 2 across the 2026-03-09 hardening passes |
-| Latest local follow-up patch | pending remote verification | Local fixes now target the final `nl80211` example rewrite and module-mode retry for top-level `return` validation |
+| Remote warning reduction | verified | Remote soft warnings were reduced from 48 to 1 across the 2026-03-09 hardening passes |
+| Latest local follow-up patch | verified | Remote run `22870498903` cleared the `nl80211` warning and left only one residual dockerman soft warning |
 
 ## Historical Note
 
@@ -67,7 +67,15 @@ Older status claims from early March 2026 described the pipeline as fully comple
 - Fixed false positives caused by missing ucode module context, naive unlabeled fence relabeling, and regex-only parsing of indented fenced blocks.
 - Reclassified non-runnable pseudocode and bare response-shape examples so prose and structural examples are no longer misvalidated as executable ucode.
 - Added targeted cleanup for clearly invalid upstream examples that leaked into generated docs.
-- Verified warning reduction across remote runs from `67` to `10`, then `4`, then `2` while keeping hard failures at `0`.
+- Verified warning reduction across remote runs from `67` to `10`, then `4`, then `2`, then `1` while keeping hard failures at `0`.
+
+### Milestone 5: final warning verification
+
+- Pushed the follow-up hardening commit `ba60a8e` (`fix: harden final ucode warning handling`).
+- Verified remote run `22870498903`, which completed successfully with `0` hard failures and `1` soft warning.
+- Confirmed that the `nl80211` example rewrite resolved the last `ucode` module-documentation parser warning.
+- Investigated the remaining `docker_rpc.uc` warning and found that the file is consumed by LuCI as multiple rpc objects such as `docker`, `docker.container`, `docker.image`, and `docker.network`, which supports the intentional direct `return methods;` shape.
+- Current evidence indicates that the remaining warning is a standalone `ucode` validation mismatch for a dual-mode rpcd script, not a broad documentation quality failure.
 
 ## Remote Output Snapshot
 
@@ -89,5 +97,5 @@ A random slice audit of 10 generated files on 2026-03-09 found that the outputs 
 
 ### Next Priority
 
-Re-run remote verification for the latest local follow-up patch that addresses the final two ucode-related warnings, then decide how aggressively to normalize wiki-conversion artifacts without losing useful source detail.
+Decide whether the remaining dockerman soft warning is worth any further validator modeling, or leave it as one truthful non-blocking warning and shift attention to wiki-conversion cleanup.
 

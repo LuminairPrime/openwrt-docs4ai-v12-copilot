@@ -44,8 +44,8 @@ The repository now has both local and remote v12 verification from the 2026-03-0
 
 - local deterministic smoke coverage is passing
 - the sequential local runner is passing
-- remote GitHub Actions runs are verified through the latest checked run, with `0` hard failures and the warning count reduced to `2`
-- the remaining work is concentrated in final ucode warning cleanup and wiki-conversion cleanliness, not in broad pipeline breakage
+- remote GitHub Actions runs are verified through the latest checked run, with `0` hard failures and the warning count reduced to `1`
+- the remaining work is concentrated in one residual dockerman ucode soft warning and wiki-conversion cleanliness, not in broad pipeline breakage
 
 ## License
 

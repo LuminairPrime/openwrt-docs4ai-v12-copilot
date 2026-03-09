@@ -136,6 +136,7 @@ Upstream path: `applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker
 Current assessment
 - Do not file this as a LuCI bug based on current evidence.
 - The file is script-shaped as well as module-shaped: it has a shebang, inspects `/proc/self/comm`, exposes a CLI test mode when `caller != 'rpcd'`, and only returns `methods` after that direct-execution branch.
+- LuCI JavaScript consumers declare rpc objects such as `docker`, `docker.container`, `docker.image`, `docker.network`, and `docker.volume`, which supports the direct multi-object `return methods;` shape.
 - The earlier warning is more likely a downstream validator context problem caused by compiling a module-shaped snippet in script mode.
 
 Why it is not reportable right now
