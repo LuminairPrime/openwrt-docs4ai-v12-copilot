@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 217
 version: unknown
 source_file: L1-raw/luci/js_source-api-protocol-static.md
-last_pipeline_run: '2026-03-09T16:59:50.378856+00:00'
+last_pipeline_run: '2026-03-09T17:21:52.132037+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/protocol/static.js
 language: javascript
 ---

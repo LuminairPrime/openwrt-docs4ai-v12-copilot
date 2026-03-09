@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 1313
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-creating-a-meson-based-package.md
-last_pipeline_run: '2026-03-09T16:59:50.378856+00:00'
+last_pipeline_run: '2026-03-09T17:21:52.132037+00:00'
 language: text
 ---
 # Create Meson-based packages in OpenWrt

@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 2391
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-zlib.md
-last_pipeline_run: '2026-03-09T16:59:50.378856+00:00'
+last_pipeline_run: '2026-03-09T17:21:52.132037+00:00'
 upstream_path: lib/zlib.c
 language: c
 ---
