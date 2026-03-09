@@ -166,7 +166,7 @@ UCODE_BINARY = shutil.which("ucode")
 
 def check_ast(code, lang, rel_path):
     if lang == "javascript" and JS_BINARY:
-        with tempfile.NamedTemporaryFile(suffix=".js", delete=False, mode="w") as tmp:
+        with tempfile.NamedTemporaryFile(suffix=".js", delete=False, mode="w", encoding="utf-8") as tmp:
             tmp.write(code)
             tmp_path = tmp.name
         res = subprocess.run([JS_BINARY, "--check", tmp_path], capture_output=True, text=True)
@@ -174,7 +174,7 @@ def check_ast(code, lang, rel_path):
         if res.returncode != 0:
             soft_warn(f"JS Syntax Error in {rel_path}: {res.stderr.strip()}")
     elif lang == "ucode" and UCODE_BINARY:
-        with tempfile.NamedTemporaryFile(suffix=".uc", delete=False, mode="w") as tmp:
+        with tempfile.NamedTemporaryFile(suffix=".uc", delete=False, mode="w", encoding="utf-8") as tmp:
             tmp.write(code)
             tmp_path = tmp.name
         res = subprocess.run([UCODE_BINARY, "-c", tmp_path], capture_output=True, text=True)
@@ -182,9 +182,13 @@ def check_ast(code, lang, rel_path):
         if res.returncode != 0:
             soft_warn(f"uCode Syntax Error in {rel_path}: {res.stderr.strip()}")
 
-# FIX BUG-023: Check all generated files for syntax errors (Soft)
+# Check only canonical L2 files for syntax errors (Soft).
+# L1 raw captures and assembled L3/L4 outputs duplicate the same code blocks,
+# which inflates warning volume without adding meaningful signal.
 if JS_BINARY or UCODE_BINARY:
     for fpath in all_md:
+        if "L2-semantic" not in fpath:
+            continue
         rel = os.path.relpath(fpath, OUTDIR)
         with open(fpath, "r", encoding="utf-8") as f:
             content = f.read()

@@ -10,11 +10,13 @@ Stabilize v12 as an engineering system that is locally correct, documented, test
 - Remote run `22864304564` completed `initialize`, the full `extract` matrix, `process`, and `deploy`.
 - Deploy promoted generated outputs into `openwrt-condensed-docs/` via commit `3d3e6d3`.
 - The successful `final-staging` artifact contained 151 L1 markdown docs, 151 L2 markdown docs, and 397 indexed symbols.
-- The next operational focus is warning reduction and generated-artifact retention policy, not first-pass remote bring-up.
+- L1 and L2 are now explicitly retained as durable generated outputs; only L0 remains transient.
+- The next operational focus is warning reduction and content cleanliness, not first-pass remote bring-up.
 
 ## Primary Decisions
 
 - Keep `openwrt-condensed-docs/` as the stable generated output root.
+- Keep `L1-raw` and `L2-semantic` inside `openwrt-condensed-docs/` as durable outputs because they are small and operationally useful.
 - Standardize on `L1-raw` and `L2-semantic` without leading dots.
 - Keep the numbered `00` through `08` script family and document that numbering means execution order while letter suffixes mean deployment-time parallelizability.
 - Treat old March 9 Opus bug reports as archive material, not as the live bug ledger.
@@ -54,7 +56,7 @@ Stabilize v12 as an engineering system that is locally correct, documented, test
 ### Phase E: Post-verification hardening
 
 1. Triage the remaining soft AST warnings from generated JS and ucode docs.
-2. Decide whether L1 and L2 should remain committed to `openwrt-condensed-docs/`, move to releases, or remain CI artifacts only.
+2. Keep L1 and L2 committed to `openwrt-condensed-docs/` and keep L0 as CI or local transient state only.
 3. Document the operating policy for auto-promoted output commits to `main`.
 
 ## Expected Deliverables for the First Stage
@@ -71,4 +73,5 @@ Stabilize v12 as an engineering system that is locally correct, documented, test
 
 - Active specs, local smoke tests, and remote GitHub Actions verification are all in place.
 - Output measurement is now based on a successful remote artifact, not on estimates.
+- Random output spot checks show the generated files are structurally aligned with the active layer contracts.
 - Remaining work is operational tightening rather than first-pass stabilization.

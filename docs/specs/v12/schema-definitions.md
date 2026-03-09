@@ -10,7 +10,7 @@ This document defines the active filesystem and data contracts for the v12 pipel
 - `OUTDIR` defaults to `openwrt-condensed-docs`
 - `docs/` is for maintainer documentation only
 
-The current stage requires generation of L1 and L2 for local measurement and verification, but the long-term publication policy for those layers remains intentionally open until their size and usefulness are measured.
+The active publication policy keeps L1 and L2 under `openwrt-condensed-docs` for inspection, debugging, and AI-context use. L0 remains unpublished because raw clones and raw fetched inputs are materially larger and are not needed as durable outputs.
 
 ## Layer Contracts
 
@@ -18,12 +18,12 @@ The current stage requires generation of L1 and L2 for local measurement and ver
 
 - Location: `tmp/repo-*`
 - Contents: untouched upstream clones or raw fetched inputs
-- Publication: none
+- Publication: none; treat as transient local or CI-only build state
 
 ### L1
 
 - Location during build: `tmp/L1-raw/{module}/`
-- Optional inspection location: `openwrt-condensed-docs/L1-raw/{module}/`
+- Retained output location: `openwrt-condensed-docs/L1-raw/{module}/`
 - File naming: `{origin_type}-{slug}.md`
 - Sidecar naming: `{origin_type}-{slug}.meta.json`
 - Rules:
@@ -53,7 +53,7 @@ Recommended fields when known:
 ### L2
 
 - Location during build: `tmp/L2-semantic/{module}/`
-- Optional inspection location: `openwrt-condensed-docs/L2-semantic/{module}/`
+- Retained output location: `openwrt-condensed-docs/L2-semantic/{module}/`
 - Format: markdown with YAML frontmatter
 - Rules:
   - YAML must be parsed and written safely

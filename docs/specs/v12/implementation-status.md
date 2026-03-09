@@ -10,7 +10,8 @@ The current authoritative position is:
 - documentation and test surfaces were realigned with the current script layout on 2026-03-09
 - local smoke and cache-backed AI verification paths are passing
 - GitHub Actions behavior is verified through run `22864304564`, including `initialize`, all `extract` jobs, `process`, and `deploy`
-- remaining risk is concentrated in non-blocking AST warning volume and long-term generated-artifact policy
+- L1 and L2 are intentionally retained under `openwrt-condensed-docs`; only L0 remains transient
+- remaining risk is concentrated in non-blocking AST warning volume and wiki-conversion cleanliness
 
 ## Verification Matrix
 
@@ -26,6 +27,7 @@ The current authoritative position is:
 | GitHub Actions remote verification | verified | Run `22864304564` passed end to end on 2026-03-09 |
 | Remote output measurement | verified | Successful staging artifact contained 151 L1 markdown docs, 151 L2 markdown docs, and 397 indexed symbols |
 | Generated output promotion | verified | Deploy produced commit `3d3e6d3` (`docs: v12 auto-update 2026-03-09`) |
+| L1/L2 retention policy | decided | L1 and L2 remain committed under `openwrt-condensed-docs`; L0 remains transient only |
 
 ## Historical Note
 
@@ -66,7 +68,15 @@ Measured from the `final-staging` artifact produced by run `22864304564`.
 | L2 | 151 | 0 | 1,796,690 | Mirrors L1 document count after normalization |
 | Registry | 397 symbols | n/a | n/a | Count taken from `cross-link-registry.json` |
 
+## Sample Output Audit
+
+A random slice audit of 10 generated files on 2026-03-09 found that the outputs broadly match the active layer contracts:
+
+- L1 samples were raw converted source documents without YAML frontmatter and with source-style structure intact.
+- L2 samples carried the required YAML frontmatter and preserved relative links into the generated corpus.
+- The primary remaining content issue is cleanliness in some wiki-derived pages, where legacy DokuWiki or pandoc artifacts still appear (for example `<WRAP>` markers, duplicated top headings, and raw HTML table fragments).
+
 ### Next Priority
 
-Triage the remaining non-blocking AST warnings and use the measured remote output sizes to decide the long-term storage and retention policy for L1 and L2.
+Reduce non-blocking AST warning noise to the canonical layer, then decide how aggressively to normalize wiki-conversion artifacts without losing useful source detail.
 
