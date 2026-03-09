@@ -1,17 +1,17 @@
 # ucode module
-> **Total Context:** ~80157 tokens
+> **Total Context:** ~79910 tokens
 
 - [c_source-api-module-debug.md](../L2-semantic/ucode/c_source-api-module-debug.md) (3903 tokens) - No description
-- [c_source-api-module-digest.md](../L2-semantic/ucode/c_source-api-module-digest.md) (1609 tokens) - No description
-- [c_source-api-module-fs.md](../L2-semantic/ucode/c_source-api-module-fs.md) (10326 tokens) - No description
-- [c_source-api-module-io.md](../L2-semantic/ucode/c_source-api-module-io.md) (4067 tokens) - No description
-- [c_source-api-module-log.md](../L2-semantic/ucode/c_source-api-module-log.md) (5108 tokens) - No description
+- [c_source-api-module-digest.md](../L2-semantic/ucode/c_source-api-module-digest.md) (1601 tokens) - No description
+- [c_source-api-module-fs.md](../L2-semantic/ucode/c_source-api-module-fs.md) (10288 tokens) - No description
+- [c_source-api-module-io.md](../L2-semantic/ucode/c_source-api-module-io.md) (4045 tokens) - No description
+- [c_source-api-module-log.md](../L2-semantic/ucode/c_source-api-module-log.md) (5098 tokens) - No description
 - [c_source-api-module-math.md](../L2-semantic/ucode/c_source-api-module-math.md) (2848 tokens) - No description
-- [c_source-api-module-nl80211.md](../L2-semantic/ucode/c_source-api-module-nl80211.md) (3937 tokens) - No description
-- [c_source-api-module-resolv.md](../L2-semantic/ucode/c_source-api-module-resolv.md) (2540 tokens) - No description
-- [c_source-api-module-rtnl.md](../L2-semantic/ucode/c_source-api-module-rtnl.md) (7622 tokens) - No description
-- [c_source-api-module-socket.md](../L2-semantic/ucode/c_source-api-module-socket.md) (13552 tokens) - No description
-- [c_source-api-module-struct.md](../L2-semantic/ucode/c_source-api-module-struct.md) (7345 tokens) - No description
-- [c_source-api-module-uci.md](../L2-semantic/ucode/c_source-api-module-uci.md) (7883 tokens) - No description
-- [c_source-api-module-uloop.md](../L2-semantic/ucode/c_source-api-module-uloop.md) (7500 tokens) - No description
-- [c_source-api-module-zlib.md](../L2-semantic/ucode/c_source-api-module-zlib.md) (1917 tokens) - No description
+- [c_source-api-module-nl80211.md](../L2-semantic/ucode/c_source-api-module-nl80211.md) (3935 tokens) - No description
+- [c_source-api-module-resolv.md](../L2-semantic/ucode/c_source-api-module-resolv.md) (2516 tokens) - No description
+- [c_source-api-module-rtnl.md](../L2-semantic/ucode/c_source-api-module-rtnl.md) (7614 tokens) - No description
+- [c_source-api-module-socket.md](../L2-semantic/ucode/c_source-api-module-socket.md) (13518 tokens) - No description
+- [c_source-api-module-struct.md](../L2-semantic/ucode/c_source-api-module-struct.md) (7325 tokens) - No description
+- [c_source-api-module-uci.md](../L2-semantic/ucode/c_source-api-module-uci.md) (7849 tokens) - No description
+- [c_source-api-module-uloop.md](../L2-semantic/ucode/c_source-api-module-uloop.md) (7457 tokens) - No description
+- [c_source-api-module-zlib.md](../L2-semantic/ucode/c_source-api-module-zlib.md) (1913 tokens) - No description

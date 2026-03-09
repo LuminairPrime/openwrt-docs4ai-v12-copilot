@@ -2,10 +2,10 @@
 title: 'ucode module: io'
 module: ucode
 origin_type: c_source
-token_count: 4067
+token_count: 4045
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-io.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/io.c
 language: c
 ---
@@ -59,7 +59,7 @@ io.open('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(io.error(), "\n");
-```ucode
+```
 
 ### io.new(fd) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from a file descriptor number.
@@ -106,7 +106,7 @@ Returns `null` if an error occurred.
 const handle = io.open('/tmp/test.txt', O_RDWR | O_CREAT, 0o644);
 handle.write('Hello World\n');
 handle.close();
-```ucode
+```
 
 ### io.pipe() ⇒ [`Array.<handle>`](#module_io.handle)
 Creates a pipe.
@@ -155,7 +155,7 @@ import { open as fsopen } from 'fs';
 const fp = fsopen('/tmp/test.txt', 'r');
 const handle = io.from(fp);
 const data = handle.read(100);
-```ucode
+```
 
 ### io.handle
 **Kind**: static class of [`io`](#module_io)  
@@ -220,7 +220,7 @@ const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 if (attrs)
     print("Input flags: ", attrs.iflag, "\n");
-```ucode
+```
 
 #### handle.tcsetattr(attrs, [when]) ⇒ `boolean`
 Sets terminal attributes.
@@ -275,7 +275,7 @@ const master = io.open('/dev/ptmx', O_RDWR);
 if (master.grantpt()) {
     print("Granted access to slave device\n");
 }
-```ucode
+```
 
 #### handle.unlockpt() ⇒ `boolean`
 Unlocks a pseudo-terminal slave device.
@@ -319,7 +319,7 @@ Returns `null` if a read error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const data = handle.read(1024);
-```ucode
+```
 
 #### handle.write(data) ⇒ `number`
 Writes data to the file descriptor.
@@ -363,7 +363,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.seek(100, 0);  // Seek to byte 100 from start
-```ucode
+```
 
 #### handle.tell() ⇒ `number`
 Gets the current file descriptor position.
@@ -393,7 +393,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const dup_handle = handle.dup();
-```ucode
+```
 
 #### handle.dup2(newfd) ⇒ `boolean`
 Duplicates the file descriptor to a specific descriptor number.
@@ -429,7 +429,7 @@ Returns `null` if the handle is closed.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 print(handle.fileno(), "\n");
-```ucode
+```
 
 #### handle.fcntl(cmd, [arg]) ⇒ `number` \| [`handle`](#module_io.handle)
 Performs fcntl() operations on the file descriptor.
@@ -490,7 +490,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const size = handle.ioctl(IOC_DIR_READ, 0x54, 0x13, 8);  // TIOCGWINSZ
-```ucode
+```
 
 #### handle.isatty() ⇒ `boolean`
 Checks if the file descriptor refers to a terminal.
@@ -524,7 +524,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.close();
-```ucode
+```
 
 #### handle.error() ⇒ `string`
 Query error information.

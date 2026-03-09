@@ -2,10 +2,10 @@
 title: 'ucode module: digest'
 module: ucode
 origin_type: c_source
-token_count: 1609
+token_count: 1601
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-digest.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/digest.c
 language: c
 ---
@@ -34,7 +34,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 md5("This is a test");  // Returns "ce114e4501d2f4e2dcea3e17b546f339"
 md5(123);               // Returns null
-```ucode
+```
 
 ### digest.sha1(str) ⇒ `string`
 Calculates the SHA1 hash of string and returns that hash.
@@ -68,7 +68,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 sha256("This is a test");  // Returns "c7be1ed902fb8dd4d48997c6452f5d7e509fbcdbe2808b16bcf4edce4c07d14e"
 sha256(123);               // Returns null
-```ucode
+```
 
 ### digest.md2(str) ⇒ `string`
 Calculates the MD2 hash of string and returns that hash.
@@ -102,7 +102,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 md4("This is a test");  // Returns "3b487cf6856af7e330bc4b1b7d977ef8"
 md4(123);               // Returns null
-```ucode
+```
 
 ### digest.sha384(str) ⇒ `string`
 Calculates the SHA384 hash of string and returns that hash.
@@ -136,7 +136,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 sha512("This is a test");  // Returns "a028d4f74b602ba45eb0a93c9a4677240dcf281a1a9322f183bd32f0bed82ec72de9c3957b2f4c9a1ccf7ed14f85d73498df38017e703d47ebb9f0b3bf116f69"
 sha512(123);               // Returns null
-```ucode
+```
 
 ### digest.md5\_file(path) ⇒ `string`
 Calculates the MD5 hash of a given file and returns that hash.

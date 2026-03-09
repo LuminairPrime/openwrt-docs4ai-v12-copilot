@@ -46,7 +46,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.popen(command, [mode]) ⇒ [`proc`](#module_fs.proc)
 Starts a process and returns a handle representing the executed process.
@@ -118,7 +118,7 @@ Returns a file handle object associated with the opened file.
 ```ucode
 // Open a file in read-only mode
 const fileHandle = open('file.txt', 'r');
-```ucode
+```
 
 ### fs.fdopen(fd, [mode]) ⇒ `Object`
 Associates a file descriptor number with a file handle object.
@@ -175,7 +175,7 @@ Returns `null` on error.
 const logfile = open('/tmp/error.log', 'w');
 dup2(logfile.fileno(), 2);
 logfile.close();
-```ucode
+```
 
 ### fs.opendir(path) ⇒ [`dir`](#module_fs.dir)
 Opens a directory and returns a directory handle associated with the open
@@ -214,7 +214,7 @@ Returns `null` if an error occurred.
 ```ucode
 // Read the value of a symbolic link
 const targetPath = readlink('symbolicLink');
-```ucode
+```
 
 ### fs.stat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory.
@@ -253,7 +253,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 ```ucode
 // Get information about a directory
 const dirInfo = lstat('path/to/directory');
-```ucode
+```
 
 ### fs.mkdir(path) ⇒ `boolean`
 Creates a new directory.
@@ -291,7 +291,7 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 ```ucode
 // Remove a directory
 rmdir('path/to/directory');
-```ucode
+```
 
 ### fs.symlink(target, path) ⇒ `boolean`
 Creates a new symbolic link.
@@ -330,7 +330,7 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 ```ucode
 // Remove a file
 unlink('path/to/file');
-```ucode
+```
 
 ### fs.getcwd() ⇒ `string`
 Retrieves the current working directory.
@@ -364,7 +364,7 @@ invalid arguments.
 ```ucode
 // Change the current working directory
 chdir('new-directory');
-```ucode
+```
 
 ### fs.chmod(path, mode) ⇒ `boolean`
 Changes the permission mode bits of a file or directory.
@@ -417,7 +417,7 @@ chown('path/to/file', 1000);
 
 // Change the group of a directory
 chown('/htdocs/', null, 'www-data');
-```ucode
+```
 
 ### fs.rename(oldPath, newPath) ⇒ `boolean`
 Renames or moves a file or directory.
@@ -456,7 +456,7 @@ Returns `null` if the path argument is not a string.
 ```ucode
 // Get the directory name of a path
 const directoryName = dirname('/path/to/file.txt');
-```ucode
+```
 
 ### fs.basename(path) ⇒ `string`
 Retrieves the base name of a path.
@@ -496,7 +496,7 @@ be opened.
 ```ucode
 // List the content of a directory
 const fileList = lsdir('/path/to/directory');
-```ucode
+```
 
 ### fs.mkstemp([template]) ⇒ [`file`](#module_fs.file)
 Creates a unique, ephemeral temporary file.
@@ -563,7 +563,7 @@ inaccessible directory.
 ```ucode
 // Create a unique temporary directory in the current working directory
 const tempDir = mkdtemp('./data-XXXXXX');
-```ucode
+```
 
 ### fs.access(path, [mode]) ⇒ `boolean`
 Checks the accessibility of a file or directory.
@@ -623,7 +623,7 @@ const content = readfile('path/to/file', 100);
 
 // Read entire file content
 const content = readfile('path/to/file');
-```ucode
+```
 
 ### fs.writefile(path, data, [limit]) ⇒ `number`
 Writes the given data to a file, optionally truncated to the given amount
@@ -685,7 +685,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 ```ucode
 // Resolve the absolute path of a file
 const absolutePath = realpath('path/to/file', 'utf8');
-```ucode
+```
 
 ### fs.pipe() ⇒ [`Array.<file>`](#module_fs.file)
 Creates a pipe and returns file handle objects associated with the read- and
@@ -791,7 +791,7 @@ const content = fp.read("all");
 
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
-```ucode
+```
 
 #### proc.write(data) ⇒ `number`
 Writes a chunk of data to the program handle.
@@ -857,7 +857,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.file
 **Kind**: static class of [`fs`](#module_fs)  
@@ -978,7 +978,7 @@ Returns `null` if a write error occurred.
 const fp = open("file.txt", "w");
 
 fp.write("Hello world!\n");
-```ucode
+```
 
 #### file.seek([offset], [position]) ⇒ `boolean`
 Set file read position.
@@ -1132,7 +1132,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.dir
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1234,7 +1234,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.FileStatResult : `Object`
 **Kind**: static typedef of [`fs`](#module_fs)  

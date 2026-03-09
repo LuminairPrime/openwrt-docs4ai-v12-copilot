@@ -2,10 +2,10 @@
 title: 'ucode module: log'
 module: ucode
 origin_type: c_source
-token_count: 5108
+token_count: 5098
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-log.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/log.c
 language: c
 ---
@@ -153,7 +153,7 @@ openlog("myapp", LOG_PID | LOG_NDELAY, LOG_LOCAL0);
 
 // Using option names instead of bitmask and LOG_USER facility
 openlog("myapp", [ "pid", "ndelay" ], "user");
-```ucode
+```
 
 ### log.syslog(priority, format, [...args]) ⇒ `boolean`
 Log a message to the system logger.
@@ -260,7 +260,7 @@ ulog_open(["stdio", "kmsg"], "daemon", "my-program");
 
 // Use numeric constants and use implicit default ident
 ulog_open(ULOG_SYSLOG, LOG_LOCAL0);
-```ucode
+```
 
 ### log.ulog(priority, format, [...args]) ⇒ `boolean`
 Log a message via the ulog mechanism.
@@ -373,7 +373,7 @@ ulog(LOG_DEBUG, "Testing thresholds");
 
 // Using priority name
 ulog_threshold("debug");
-```ucode
+```
 
 ### log.INFO(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_INFO.
@@ -411,7 +411,7 @@ See [ulog()](#module_log+ulog) for details.
 **Example**  
 ```ucode
 NOTE("This is a notification log message");
-```ucode
+```
 
 ### log.WARN(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_WARNING.
@@ -449,7 +449,7 @@ See [ulog()](#module_log+ulog) for details.
 **Example**  
 ```ucode
 ERR("This is an error!");
-```ucode
+```
 
 ### log.LogOption : `enum`
 The following log option strings are recognized:

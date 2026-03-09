@@ -22,7 +22,7 @@ syntax:
   let routeListener = listener((msg) => {
       print('Received route message:', msg, '\n');
   }, [RTM_NEWROUTE, RTM_DELROUTE]);
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
@@ -56,7 +56,7 @@ request('invalid_command', {}, {});
 
 // Print error (should yield error description)
 print(error(), "\n");
-```ucode
+```
 
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 Send a netlink request.
@@ -99,7 +99,7 @@ commands and multicast groups.
 let routeListener = listener((msg) => {
     print('Received route message:', msg, '\n');
 }, [RTM_NEWROUTE, RTM_DELROUTE]);
-```ucode
+```
 
 ### rtnl.listener
 **Kind**: static class of [`rtnl`](#module_rtnl)  
@@ -138,7 +138,7 @@ Closes the netlink listener and stops receiving messages.
 ```ucode
 // Close the listener
 listener.close();
-```ucode
+```
 
 ### rtnl~Netlink message flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  

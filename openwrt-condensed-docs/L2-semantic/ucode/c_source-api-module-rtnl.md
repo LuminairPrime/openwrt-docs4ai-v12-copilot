@@ -2,10 +2,10 @@
 title: 'ucode module: rtnl'
 module: ucode
 origin_type: c_source
-token_count: 7622
+token_count: 7614
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-rtnl.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/rtnl.c
 language: c
 ---
@@ -33,7 +33,7 @@ syntax:
   let routeListener = listener((msg) => {
       print('Received route message:', msg, '\n');
   }, [RTM_NEWROUTE, RTM_DELROUTE]);
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
@@ -67,7 +67,7 @@ request('invalid_command', {}, {});
 
 // Print error (should yield error description)
 print(error(), "\n");
-```ucode
+```
 
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 Send a netlink request.
@@ -110,7 +110,7 @@ commands and multicast groups.
 let routeListener = listener((msg) => {
     print('Received route message:', msg, '\n');
 }, [RTM_NEWROUTE, RTM_DELROUTE]);
-```ucode
+```
 
 ### rtnl.listener
 **Kind**: static class of [`rtnl`](#module_rtnl)  
@@ -149,7 +149,7 @@ Closes the netlink listener and stops receiving messages.
 ```ucode
 // Close the listener
 listener.close();
-```ucode
+```
 
 ### rtnl~Netlink message flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  

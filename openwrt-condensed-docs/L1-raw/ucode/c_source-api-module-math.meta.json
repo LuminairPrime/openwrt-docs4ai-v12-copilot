@@ -7,6 +7,6 @@
   "language": "c",
   "upstream_path": "lib/math.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T17:25:19.615553+00:00",
-  "content_hash": "5c01fa43"
+  "extraction_timestamp": "2026-03-09T18:27:18.279683+00:00",
+  "content_hash": "63954ce1"
 }

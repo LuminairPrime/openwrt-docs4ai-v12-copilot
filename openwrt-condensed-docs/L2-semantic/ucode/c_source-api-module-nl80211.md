@@ -2,10 +2,10 @@
 title: 'ucode module: nl80211'
 module: ucode
 origin_type: c_source
-token_count: 3937
+token_count: 3935
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-nl80211.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/nl80211.c
 language: c
 ---
@@ -39,7 +39,7 @@ syntax:
   let event = waitfor([const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
   if (event)
       print('Received scan results:', event.msg, '\n');
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:

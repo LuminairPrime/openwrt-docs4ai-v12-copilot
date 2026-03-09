@@ -2,10 +2,10 @@
 title: 'ucode module: zlib'
 module: ucode
 origin_type: c_source
-token_count: 1917
+token_count: 1913
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-zlib.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/zlib.c
 language: c
 ---
@@ -48,7 +48,7 @@ const deflated = deflate(content);
 
 // deflate content using fastest compression
 const deflated = deflate(content, Z_BEST_SPEED);
-```ucode
+```
 
 ### zlib.inflate(str_or_resource) ⇒ `string`
 Decompresses data in Zlib or gzip format.
@@ -105,7 +105,7 @@ Returns `null` if an error occurred.
 ```ucode
 // initialize an inflate stream
 const zstrmi = inflater();
-```ucode
+```
 
 ### zlib.deflate
 **Kind**: static class of [`zlib`](#module_zlib)  

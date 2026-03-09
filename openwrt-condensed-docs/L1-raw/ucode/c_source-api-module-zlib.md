@@ -37,7 +37,7 @@ const deflated = deflate(content);
 
 // deflate content using fastest compression
 const deflated = deflate(content, Z_BEST_SPEED);
-```ucode
+```
 
 ### zlib.inflate(str_or_resource) ⇒ `string`
 Decompresses data in Zlib or gzip format.
@@ -94,7 +94,7 @@ Returns `null` if an error occurred.
 ```ucode
 // initialize an inflate stream
 const zstrmi = inflater();
-```ucode
+```
 
 ### zlib.deflate
 **Kind**: static class of [`zlib`](#module_zlib)  

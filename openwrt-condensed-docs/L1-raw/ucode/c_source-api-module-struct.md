@@ -266,16 +266,16 @@ In [-p argument], line 1, byte 24:
 
  `struct.pack(">h", 99999)`
   Near here -------------^
-```ucode
+```
 
 Demonstrate the difference between `'s'` and `'c'` format characters:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("@ccc", "1", "2", "3");  // "123"
 pack("@3s", "123");           // "123"
-```ucode
+```
 
 The ordering of format characters may have an impact on size in native
 mode since padding is implicit. In standard mode, the user is
@@ -285,39 +285,39 @@ Note in the first `pack()` call below that three NUL bytes were added after
 the packed `'#'` to align the following integer on a four-byte boundary.
 In this example, the output was produced on a little endian machine:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("@ci", "#", 0x12131415);  // "#\x00\x00\x00\x15\x14\x13\x12"
 pack("@ic", 0x12131415, "#");  // "\x15\x14\x13\x12#"
-```ucode
+```
 
 The following format `'ih0i'` results in two pad bytes being added at the
 end, assuming the platform's ints are aligned on 4-byte boundaries:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("ih0i", 0x01010101, 0x0202);  // "\x01\x01\x01\x01\x02\x02\x00\x00"
-```ucode
+```
 
 Use the wildcard format to extract the remainder of the input data:
 
-```
+```ucode
 import { unpack } from 'struct';
 
 unpack("ccc*", "foobarbaz");   // [ "f", "o", "o", "barbaz" ]
 unpack("ccc3*", "foobarbaz");  // [ "f", "o", "o", "bar" ]
-```ucode
+```
 
 Use the wildcard format to pack binary stings as-is into the result data:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("h*h", 0x0101, "\x02\x00\x03", 0x0404);  // "\x01\x01\x02\x00\x03\x04\x04"
 pack("c3*c", "a", "foobar", "c");  // "afooc"
-```ucode
+```
 
 ### struct.pack(format, ...values) ⇒ `string`
 Pack given values according to specified format.
@@ -373,7 +373,7 @@ input string or offset value is given.
 const numbers =
   unpack('!III', '\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x03');
 print(numbers, "\n"); // [ 1, 2, 3 ]
-```ucode
+```
 
 ### struct.new(format) ⇒ [`instance`](#module_struct.instance)
 Precompile format string.
@@ -438,7 +438,7 @@ dataBuf.end().put('I', 5678);
 
 // Alternative chained syntax for initializing and appending
 const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
-```ucode
+```
 
 ### struct.instance
 **Kind**: static class of [`struct`](#module_struct)  
@@ -466,7 +466,7 @@ required type of the corresponding format string directive.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```ucode
+```text
 const fmt = struct.new(…);
 const data = fmt.pack(…);
 ```
@@ -493,10 +493,10 @@ given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```ucode
+```text
 const fmt = struct.new(…);
 const values = fmt.unpack(…);
-```ucode
+```
 
 ### struct.buffer
 **Kind**: static class of [`struct`](#module_struct)  
@@ -565,7 +565,7 @@ buf.slice();                      // Trailing null bytes: "abc\x00\x00\x00"
 
 buf.length(2);                    // Truncate to 2 bytes
 buf.slice();                      // Truncated data: "ab"
-```ucode
+```
 
 #### buffer.start() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the start (0).
@@ -585,7 +585,7 @@ Set the buffer position to the end.
 **Example**  
 ```ucode
 buf.end();
-```ucode
+```
 
 #### buffer.put(format, ...values) ⇒ [`buffer`](#module_struct.buffer)
 Pack data into the buffer at the current position.
@@ -640,7 +640,7 @@ while postive ones extracts that many bytes after.
 const val = buf.get('I');
 const str = buf.get(5);    // equivalent to buf.get('5s')
 const str = buf.get(-3);   // equivalent to buf.pos(buf.pos() - 3).get('3s')
-```ucode
+```
 
 #### buffer.get(format) ⇒ `array`
 Unpack multiple values from the buffer at the current position.
@@ -686,7 +686,7 @@ three bytes of data.
 **Example**  
 ```ucode
 const slice = buf.slice(4, 8);
-```ucode
+```
 
 #### buffer.set([value], [start], [end]) ⇒ [`buffer`](#module_struct.buffer)
 Set a slice of the buffer content to given byte value.
@@ -729,4 +729,4 @@ and resets the buffer to an empty state.
 **Example**  
 ```ucode
 const allData = buf.pull();
-```ucode
+```

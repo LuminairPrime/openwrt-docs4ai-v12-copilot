@@ -2,10 +2,10 @@
 title: 'ucode module: resolv'
 module: ucode
 origin_type: c_source
-token_count: 2540
+token_count: 2516
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-resolv.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/resolv.c
 language: c
 ---
@@ -83,17 +83,17 @@ DNS query results are returned as objects where:
 ### Record Format by Type
 
 **A and AAAA records:**
-```ucode
+```json
 {
   "example.com": {
     "A": ["192.0.2.1", "192.0.2.2"],
     "AAAA": ["2001:db8::1", "2001:db8::2"]
   }
 }
-```ucode
+```
 
 **MX records:**
-```ucode
+```json
 {
   "example.com": {
     "MX": [
@@ -105,7 +105,7 @@ DNS query results are returned as objects where:
 ```
 
 **SRV records:**
-```ucode
+```json
 {
   "_http._tcp.example.com": {
     "SRV": [
@@ -114,10 +114,10 @@ DNS query results are returned as objects where:
     ]
   }
 }
-```ucode
+```
 
 **SOA records:**
-```ucode
+```json
 {
   "example.com": {
     "SOA": [
@@ -136,7 +136,7 @@ DNS query results are returned as objects where:
 ```
 
 **TXT, NS, CNAME, PTR records:**
-```ucode
+```json
 {
   "example.com": {
     "TXT": ["v=spf1 include:_spf.example.com ~all"],
@@ -144,10 +144,10 @@ DNS query results are returned as objects where:
     "CNAME": ["alias.example.com"]
   }
 }
-```ucode
+```
 
 **Error responses:**
-```ucode
+```json
 {
   "nonexistent.example.com": {
     "rcode": "NXDOMAIN"
@@ -170,7 +170,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 
 Specific record type query:
 
@@ -195,7 +195,7 @@ const results = query(
     nameserver: ['8.8.8.8', '1.1.1.1']
   }
 );
-```ucode
+```
 
 Reverse DNS lookup:
 
@@ -252,7 +252,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Specific record type queries
@@ -275,7 +275,7 @@ const results = query(
     timeout: 10000
   }
 );
-```ucode
+```
 **Example**  
 ```ucode
 // Reverse DNS lookup
@@ -302,7 +302,7 @@ printf(txtResult, "\n");
 //     ]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Handling errors
@@ -338,4 +338,4 @@ const err = error();
 if (err) {
   print("DNS query failed: ", err, "\n");
 }
-```ucode
+```

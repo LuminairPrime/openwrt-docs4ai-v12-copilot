@@ -7,6 +7,6 @@
   "language": "c",
   "upstream_path": "lib/uci.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T18:09:41.659784+00:00",
-  "content_hash": "3fe369c7"
+  "extraction_timestamp": "2026-03-09T18:27:21.699475+00:00",
+  "content_hash": "bbd44146"
 }

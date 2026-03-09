@@ -12,7 +12,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```ucode
+  ```text
   import { AF_INET, SOCK_STREAM, create as socket } from 'socket';
 
   let sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -20,12 +20,12 @@ syntax:
   sock.send(…);
   sock.recv(…);
   sock.close();
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```ucode
+  ```text
   import * as socket from 'socket';
 
   let sock = socket.create(socket.AF_INET, socket.SOCK_STREAM, 0);
@@ -68,7 +68,7 @@ socket.addrinfo("doesnotexist.org");
 
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
-```ucode
+```
 
 ### socket.strerror(code) ⇒ `string`
 Returns a string containing a description of the positive (`errno`) or
@@ -135,7 +135,7 @@ const address4 = sockaddr({ address: '192.168.0.1', port: 8080 });
 
 // Convert a path value to a UNIX domain socket address
 const address5 = sockaddr('/var/run/daemon.sock');
-```ucode
+```
 
 ### socket.nameinfo(address, [flags]) ⇒ `Object`
 Resolves the given network address into hostname and service name.
@@ -199,7 +199,7 @@ const ipv4addresses = socket.addrinfo('example.com', 'http', { family: socket.AF
 
 // Resolve IPv6 addresses without specifying a service
 const ipv6Addresses = socket.addrinfo('example.com', null, { family: socket.AF_INET6 });
-```ucode
+```
 
 ### socket.poll(timeout, ...sockets) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
 Polls a number of sockets for state changes.
@@ -274,7 +274,7 @@ let conn = socket.connect({ address: "127.0.0.1", port: 9000 });
 
 // Use SocketAddress structure to connect a UNIX domain socket
 let conn = socket.connect({ path: "/var/run/daemon.sock" });
-```ucode
+```
 
 ### socket.listen(host, [service], [hints], [backlog], [reuseaddr]) ⇒ [`socket`](#module_socket.socket)
 Binds a listening network socket to the specified host and service.
@@ -348,7 +348,7 @@ const tcp_socket = create(AF_INET, SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket
 const udp_socket = create(AF_INET6, SOCK_DGRAM | SOCK_NONBLOCK);
-```ucode
+```
 
 ### socket.open([fd]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance from an existing file descriptor.
@@ -518,7 +518,7 @@ udp_sock.send("Hello there!", 0, {
   address: "255.255.255.255",
   port: 9000
 });
-```ucode
+```
 
 #### socket.recv([length], [flags], [address]) ⇒ `string`
 Receives data from the socket.
@@ -616,7 +616,7 @@ print(`Message parts: ${msg.data[0]}, ${msg.data[1]}, ${msg.data[2]}\n`);
 // Peek buffer
 const msg = sk.recvmsg(0, 0, socket.MSG_PEEK|socket.MSG_TRUNC);
 print(`Received ${length(msg.data)} bytes, ${msg.length} bytes available\n`);
-```ucode
+```
 
 #### socket.bind(address) ⇒ `boolean`
 Binds a socket to a specific address.
@@ -634,7 +634,7 @@ Returns `null` on error, e.g. when the address is in use.
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The IP address to bind the socket to. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 const success = sock.bind("192.168.0.1:80");
 
@@ -667,7 +667,7 @@ Returns `null` if an error occurred, e.g. when the requested port is in use.
 | [backlog] | `number` | `128` | The maximum length of the queue of pending connections. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.bind(…);
 
@@ -676,7 +676,7 @@ if (success)
     print(`Socket is listening for incoming connections!\n`);
 else
     print(`Failed to listen on socket: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.accept([address], [flags]) ⇒ [`socket`](#module_socket.socket)
 Accept a connection on a socket.
@@ -707,7 +707,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the peer socket. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.bind(…);
 sock.listen();
@@ -741,7 +741,7 @@ Returns `null` if an error occurred.
 | how | `number` | Specifies which half of the connection to shut down. It can be one of the following constant values: `SHUT_RD`, `SHUT_WR`, or `SHUT_RDWR`. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 // Perform data exchange…
@@ -751,7 +751,7 @@ if (success)
     print(`Send operations on socket shut down successfully.\n`);
 else
     print(`Failed to shut down send operations: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.peercred() ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
 Retrieves the peer credentials.
@@ -764,7 +764,7 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(socket.AF_UNIX, …);
 sock.connect(…);
 
@@ -786,7 +786,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [sockname()](#module_socket.socket+sockname)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -795,7 +795,7 @@ if (peerAddress)
     print(`Connected to ${peerAddress}\n`);
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.sockname() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the local address.
@@ -808,7 +808,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [peername()](#module_socket.socket+peername)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -830,12 +830,12 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 // Perform operations with the socket…
 sock.close();
-```ucode
+```
 
 #### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.

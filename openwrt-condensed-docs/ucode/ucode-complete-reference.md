@@ -1,15 +1,15 @@
 ---
 module: "ucode"
-total_token_count: 80157
+total_token_count: 79910
 section_count: 14
 is_monolithic: true
-generated: "2026-03-09T18:13:10.135565+00:00"
+generated: "2026-03-09T18:31:11.751655+00:00"
 ---
 
 # ucode Complete Reference
 
 > **Contains:** 14 documents concatenated
-> **Tokens:** ~80157 (cl100k_base)
+> **Tokens:** ~79910 (cl100k_base)
 
 ---
 
@@ -374,7 +374,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 md5("This is a test");  // Returns "ce114e4501d2f4e2dcea3e17b546f339"
 md5(123);               // Returns null
-```ucode
+```
 
 ### digest.sha1(str) ⇒ `string`
 Calculates the SHA1 hash of string and returns that hash.
@@ -408,7 +408,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 sha256("This is a test");  // Returns "c7be1ed902fb8dd4d48997c6452f5d7e509fbcdbe2808b16bcf4edce4c07d14e"
 sha256(123);               // Returns null
-```ucode
+```
 
 ### digest.md2(str) ⇒ `string`
 Calculates the MD2 hash of string and returns that hash.
@@ -442,7 +442,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 md4("This is a test");  // Returns "3b487cf6856af7e330bc4b1b7d977ef8"
 md4(123);               // Returns null
-```ucode
+```
 
 ### digest.sha384(str) ⇒ `string`
 Calculates the SHA384 hash of string and returns that hash.
@@ -476,7 +476,7 @@ Returns `null` if a non-string argument is given.
 ```ucode
 sha512("This is a test");  // Returns "a028d4f74b602ba45eb0a93c9a4677240dcf281a1a9322f183bd32f0bed82ec72de9c3957b2f4c9a1ccf7ed14f85d73498df38017e703d47ebb9f0b3bf116f69"
 sha512(123);               // Returns null
-```ucode
+```
 
 ### digest.md5\_file(path) ⇒ `string`
 Calculates the MD5 hash of a given file and returns that hash.
@@ -605,7 +605,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.popen(command, [mode]) ⇒ [`proc`](#module_fs.proc)
 Starts a process and returns a handle representing the executed process.
@@ -677,7 +677,7 @@ Returns a file handle object associated with the opened file.
 ```ucode
 // Open a file in read-only mode
 const fileHandle = open('file.txt', 'r');
-```ucode
+```
 
 ### fs.fdopen(fd, [mode]) ⇒ `Object`
 Associates a file descriptor number with a file handle object.
@@ -734,7 +734,7 @@ Returns `null` on error.
 const logfile = open('/tmp/error.log', 'w');
 dup2(logfile.fileno(), 2);
 logfile.close();
-```ucode
+```
 
 ### fs.opendir(path) ⇒ [`dir`](#module_fs.dir)
 Opens a directory and returns a directory handle associated with the open
@@ -773,7 +773,7 @@ Returns `null` if an error occurred.
 ```ucode
 // Read the value of a symbolic link
 const targetPath = readlink('symbolicLink');
-```ucode
+```
 
 ### fs.stat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 Retrieves information about a file or directory.
@@ -812,7 +812,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 ```ucode
 // Get information about a directory
 const dirInfo = lstat('path/to/directory');
-```ucode
+```
 
 ### fs.mkdir(path) ⇒ `boolean`
 Creates a new directory.
@@ -850,7 +850,7 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 ```ucode
 // Remove a directory
 rmdir('path/to/directory');
-```ucode
+```
 
 ### fs.symlink(target, path) ⇒ `boolean`
 Creates a new symbolic link.
@@ -889,7 +889,7 @@ Returns `null` if an error occurred, e.g. due to inexistent path.
 ```ucode
 // Remove a file
 unlink('path/to/file');
-```ucode
+```
 
 ### fs.getcwd() ⇒ `string`
 Retrieves the current working directory.
@@ -923,7 +923,7 @@ invalid arguments.
 ```ucode
 // Change the current working directory
 chdir('new-directory');
-```ucode
+```
 
 ### fs.chmod(path, mode) ⇒ `boolean`
 Changes the permission mode bits of a file or directory.
@@ -976,7 +976,7 @@ chown('path/to/file', 1000);
 
 // Change the group of a directory
 chown('/htdocs/', null, 'www-data');
-```ucode
+```
 
 ### fs.rename(oldPath, newPath) ⇒ `boolean`
 Renames or moves a file or directory.
@@ -1015,7 +1015,7 @@ Returns `null` if the path argument is not a string.
 ```ucode
 // Get the directory name of a path
 const directoryName = dirname('/path/to/file.txt');
-```ucode
+```
 
 ### fs.basename(path) ⇒ `string`
 Retrieves the base name of a path.
@@ -1055,7 +1055,7 @@ be opened.
 ```ucode
 // List the content of a directory
 const fileList = lsdir('/path/to/directory');
-```ucode
+```
 
 ### fs.mkstemp([template]) ⇒ [`file`](#module_fs.file)
 Creates a unique, ephemeral temporary file.
@@ -1122,7 +1122,7 @@ inaccessible directory.
 ```ucode
 // Create a unique temporary directory in the current working directory
 const tempDir = mkdtemp('./data-XXXXXX');
-```ucode
+```
 
 ### fs.access(path, [mode]) ⇒ `boolean`
 Checks the accessibility of a file or directory.
@@ -1182,7 +1182,7 @@ const content = readfile('path/to/file', 100);
 
 // Read entire file content
 const content = readfile('path/to/file');
-```ucode
+```
 
 ### fs.writefile(path, data, [limit]) ⇒ `number`
 Writes the given data to a file, optionally truncated to the given amount
@@ -1244,7 +1244,7 @@ Returns `null` if an error occurred, e.g. due to insufficient permissions.
 ```ucode
 // Resolve the absolute path of a file
 const absolutePath = realpath('path/to/file', 'utf8');
-```ucode
+```
 
 ### fs.pipe() ⇒ [`Array.<file>`](#module_fs.file)
 Creates a pipe and returns file handle objects associated with the read- and
@@ -1350,7 +1350,7 @@ const content = fp.read("all");
 
 // Example 4: Read until encountering the character ':'
 const field = fp.read(":");
-```ucode
+```
 
 #### proc.write(data) ⇒ `number`
 Writes a chunk of data to the program handle.
@@ -1416,7 +1416,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.file
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1537,7 +1537,7 @@ Returns `null` if a write error occurred.
 const fp = open("file.txt", "w");
 
 fp.write("Hello world!\n");
-```ucode
+```
 
 #### file.seek([offset], [position]) ⇒ `boolean`
 Set file read position.
@@ -1691,7 +1691,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.dir
 **Kind**: static class of [`fs`](#module_fs)  
@@ -1793,7 +1793,7 @@ unlink('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(error(), "\n");
-```ucode
+```
 
 ### fs.FileStatResult : `Object`
 **Kind**: static typedef of [`fs`](#module_fs)  
@@ -1882,7 +1882,7 @@ io.open('/path/does/not/exist');
 
 // Print error (should yield "No such file or directory")
 print(io.error(), "\n");
-```ucode
+```
 
 ### io.new(fd) ⇒ [`handle`](#module_io.handle)
 Creates an io.handle from a file descriptor number.
@@ -1929,7 +1929,7 @@ Returns `null` if an error occurred.
 const handle = io.open('/tmp/test.txt', O_RDWR | O_CREAT, 0o644);
 handle.write('Hello World\n');
 handle.close();
-```ucode
+```
 
 ### io.pipe() ⇒ [`Array.<handle>`](#module_io.handle)
 Creates a pipe.
@@ -1978,7 +1978,7 @@ import { open as fsopen } from 'fs';
 const fp = fsopen('/tmp/test.txt', 'r');
 const handle = io.from(fp);
 const data = handle.read(100);
-```ucode
+```
 
 ### io.handle
 **Kind**: static class of [`io`](#module_io)  
@@ -2043,7 +2043,7 @@ const handle = io.open('/dev/tty', O_RDWR);
 const attrs = handle.tcgetattr();
 if (attrs)
     print("Input flags: ", attrs.iflag, "\n");
-```ucode
+```
 
 #### handle.tcsetattr(attrs, [when]) ⇒ `boolean`
 Sets terminal attributes.
@@ -2098,7 +2098,7 @@ const master = io.open('/dev/ptmx', O_RDWR);
 if (master.grantpt()) {
     print("Granted access to slave device\n");
 }
-```ucode
+```
 
 #### handle.unlockpt() ⇒ `boolean`
 Unlocks a pseudo-terminal slave device.
@@ -2142,7 +2142,7 @@ Returns `null` if a read error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const data = handle.read(1024);
-```ucode
+```
 
 #### handle.write(data) ⇒ `number`
 Writes data to the file descriptor.
@@ -2186,7 +2186,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.seek(100, 0);  // Seek to byte 100 from start
-```ucode
+```
 
 #### handle.tell() ⇒ `number`
 Gets the current file descriptor position.
@@ -2216,7 +2216,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 const dup_handle = handle.dup();
-```ucode
+```
 
 #### handle.dup2(newfd) ⇒ `boolean`
 Duplicates the file descriptor to a specific descriptor number.
@@ -2252,7 +2252,7 @@ Returns `null` if the handle is closed.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 print(handle.fileno(), "\n");
-```ucode
+```
 
 #### handle.fcntl(cmd, [arg]) ⇒ `number` \| [`handle`](#module_io.handle)
 Performs fcntl() operations on the file descriptor.
@@ -2313,7 +2313,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/dev/tty', O_RDWR);
 const size = handle.ioctl(IOC_DIR_READ, 0x54, 0x13, 8);  // TIOCGWINSZ
-```ucode
+```
 
 #### handle.isatty() ⇒ `boolean`
 Checks if the file descriptor refers to a terminal.
@@ -2347,7 +2347,7 @@ Returns `null` if an error occurred.
 ```ucode
 const handle = io.open('/tmp/test.txt', O_RDONLY);
 handle.close();
-```ucode
+```
 
 #### handle.error() ⇒ `string`
 Query error information.
@@ -2511,7 +2511,7 @@ openlog("myapp", LOG_PID | LOG_NDELAY, LOG_LOCAL0);
 
 // Using option names instead of bitmask and LOG_USER facility
 openlog("myapp", [ "pid", "ndelay" ], "user");
-```ucode
+```
 
 ### log.syslog(priority, format, [...args]) ⇒ `boolean`
 Log a message to the system logger.
@@ -2618,7 +2618,7 @@ ulog_open(["stdio", "kmsg"], "daemon", "my-program");
 
 // Use numeric constants and use implicit default ident
 ulog_open(ULOG_SYSLOG, LOG_LOCAL0);
-```ucode
+```
 
 ### log.ulog(priority, format, [...args]) ⇒ `boolean`
 Log a message via the ulog mechanism.
@@ -2731,7 +2731,7 @@ ulog(LOG_DEBUG, "Testing thresholds");
 
 // Using priority name
 ulog_threshold("debug");
-```ucode
+```
 
 ### log.INFO(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_INFO.
@@ -2769,7 +2769,7 @@ See [ulog()](#module_log+ulog) for details.
 **Example**  
 ```ucode
 NOTE("This is a notification log message");
-```ucode
+```
 
 ### log.WARN(format, [...args]) ⇒ `boolean`
 Invoke ulog with LOG_WARNING.
@@ -2807,7 +2807,7 @@ See [ulog()](#module_log+ulog) for details.
 **Example**  
 ```ucode
 ERR("This is an error!");
-```ucode
+```
 
 ### log.LogOption : `enum`
 The following log option strings are recognized:
@@ -3191,7 +3191,7 @@ syntax:
   let event = waitfor([const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
   if (event)
       print('Received scan results:', event.msg, '\n');
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
@@ -3523,17 +3523,17 @@ DNS query results are returned as objects where:
 ### Record Format by Type
 
 **A and AAAA records:**
-```ucode
+```json
 {
   "example.com": {
     "A": ["192.0.2.1", "192.0.2.2"],
     "AAAA": ["2001:db8::1", "2001:db8::2"]
   }
 }
-```ucode
+```
 
 **MX records:**
-```ucode
+```json
 {
   "example.com": {
     "MX": [
@@ -3545,7 +3545,7 @@ DNS query results are returned as objects where:
 ```
 
 **SRV records:**
-```ucode
+```json
 {
   "_http._tcp.example.com": {
     "SRV": [
@@ -3554,10 +3554,10 @@ DNS query results are returned as objects where:
     ]
   }
 }
-```ucode
+```
 
 **SOA records:**
-```ucode
+```json
 {
   "example.com": {
     "SOA": [
@@ -3576,7 +3576,7 @@ DNS query results are returned as objects where:
 ```
 
 **TXT, NS, CNAME, PTR records:**
-```ucode
+```json
 {
   "example.com": {
     "TXT": ["v=spf1 include:_spf.example.com ~all"],
@@ -3584,10 +3584,10 @@ DNS query results are returned as objects where:
     "CNAME": ["alias.example.com"]
   }
 }
-```ucode
+```
 
 **Error responses:**
-```ucode
+```json
 {
   "nonexistent.example.com": {
     "rcode": "NXDOMAIN"
@@ -3610,7 +3610,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 
 Specific record type query:
 
@@ -3635,7 +3635,7 @@ const results = query(
     nameserver: ['8.8.8.8', '1.1.1.1']
   }
 );
-```ucode
+```
 
 Reverse DNS lookup:
 
@@ -3692,7 +3692,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Specific record type queries
@@ -3715,7 +3715,7 @@ const results = query(
     timeout: 10000
   }
 );
-```ucode
+```
 **Example**  
 ```ucode
 // Reverse DNS lookup
@@ -3742,7 +3742,7 @@ printf(txtResult, "\n");
 //     ]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Handling errors
@@ -3778,7 +3778,7 @@ const err = error();
 if (err) {
   print("DNS query failed: ", err, "\n");
 }
-```ucode
+```
 
 ---
 
@@ -3806,7 +3806,7 @@ syntax:
   let routeListener = listener((msg) => {
       print('Received route message:', msg, '\n');
   }, [RTM_NEWROUTE, RTM_DELROUTE]);
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
@@ -3840,7 +3840,7 @@ request('invalid_command', {}, {});
 
 // Print error (should yield error description)
 print(error(), "\n");
-```ucode
+```
 
 ### rtnl.request(cmd, flags, payload) ⇒ `\*`
 Send a netlink request.
@@ -3883,7 +3883,7 @@ commands and multicast groups.
 let routeListener = listener((msg) => {
     print('Received route message:', msg, '\n');
 }, [RTM_NEWROUTE, RTM_DELROUTE]);
-```ucode
+```
 
 ### rtnl.listener
 **Kind**: static class of [`rtnl`](#module_rtnl)  
@@ -3922,7 +3922,7 @@ Closes the netlink listener and stops receiving messages.
 ```ucode
 // Close the listener
 listener.close();
-```ucode
+```
 
 ### rtnl~Netlink message flags
 **Kind**: inner typedef of [`rtnl`](#module_rtnl)  
@@ -4538,7 +4538,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```ucode
+  ```text
   import { AF_INET, SOCK_STREAM, create as socket } from 'socket';
 
   let sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -4546,12 +4546,12 @@ syntax:
   sock.send(…);
   sock.recv(…);
   sock.close();
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported
 using a wildcard import statement:
 
-  ```ucode
+  ```text
   import * as socket from 'socket';
 
   let sock = socket.create(socket.AF_INET, socket.SOCK_STREAM, 0);
@@ -4594,7 +4594,7 @@ socket.addrinfo("doesnotexist.org");
 
 // Query error code (should yield -2 for EAI_NONAME)
 print(socket.error(true), "\n");  //
-```ucode
+```
 
 ### socket.strerror(code) ⇒ `string`
 Returns a string containing a description of the positive (`errno`) or
@@ -4661,7 +4661,7 @@ const address4 = sockaddr({ address: '192.168.0.1', port: 8080 });
 
 // Convert a path value to a UNIX domain socket address
 const address5 = sockaddr('/var/run/daemon.sock');
-```ucode
+```
 
 ### socket.nameinfo(address, [flags]) ⇒ `Object`
 Resolves the given network address into hostname and service name.
@@ -4725,7 +4725,7 @@ const ipv4addresses = socket.addrinfo('example.com', 'http', { family: socket.AF
 
 // Resolve IPv6 addresses without specifying a service
 const ipv6Addresses = socket.addrinfo('example.com', null, { family: socket.AF_INET6 });
-```ucode
+```
 
 ### socket.poll(timeout, ...sockets) ⇒ [`Array.<PollSpec>`](#module_socket.PollSpec)
 Polls a number of sockets for state changes.
@@ -4800,7 +4800,7 @@ let conn = socket.connect({ address: "127.0.0.1", port: 9000 });
 
 // Use SocketAddress structure to connect a UNIX domain socket
 let conn = socket.connect({ path: "/var/run/daemon.sock" });
-```ucode
+```
 
 ### socket.listen(host, [service], [hints], [backlog], [reuseaddr]) ⇒ [`socket`](#module_socket.socket)
 Binds a listening network socket to the specified host and service.
@@ -4874,7 +4874,7 @@ const tcp_socket = create(AF_INET, SOCK_STREAM);
 
 // Create a nonblocking IPv6 UDP socket
 const udp_socket = create(AF_INET6, SOCK_DGRAM | SOCK_NONBLOCK);
-```ucode
+```
 
 ### socket.open([fd]) ⇒ [`socket`](#module_socket.socket)
 Creates a network socket instance from an existing file descriptor.
@@ -5044,7 +5044,7 @@ udp_sock.send("Hello there!", 0, {
   address: "255.255.255.255",
   port: 9000
 });
-```ucode
+```
 
 #### socket.recv([length], [flags], [address]) ⇒ `string`
 Receives data from the socket.
@@ -5142,7 +5142,7 @@ print(`Message parts: ${msg.data[0]}, ${msg.data[1]}, ${msg.data[2]}\n`);
 // Peek buffer
 const msg = sk.recvmsg(0, 0, socket.MSG_PEEK|socket.MSG_TRUNC);
 print(`Received ${length(msg.data)} bytes, ${msg.length} bytes available\n`);
-```ucode
+```
 
 #### socket.bind(address) ⇒ `boolean`
 Binds a socket to a specific address.
@@ -5160,7 +5160,7 @@ Returns `null` on error, e.g. when the address is in use.
 | address | `string` \| [`SocketAddress`](#module_socket.socket.SocketAddress) | The IP address to bind the socket to. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 const success = sock.bind("192.168.0.1:80");
 
@@ -5193,7 +5193,7 @@ Returns `null` if an error occurred, e.g. when the requested port is in use.
 | [backlog] | `number` | `128` | The maximum length of the queue of pending connections. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.bind(…);
 
@@ -5202,7 +5202,7 @@ if (success)
     print(`Socket is listening for incoming connections!\n`);
 else
     print(`Failed to listen on socket: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.accept([address], [flags]) ⇒ [`socket`](#module_socket.socket)
 Accept a connection on a socket.
@@ -5233,7 +5233,7 @@ Returns `null` if an error occurred.
 | [flags] | `number` | Optional flags to modify the behavior of the peer socket. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.bind(…);
 sock.listen();
@@ -5267,7 +5267,7 @@ Returns `null` if an error occurred.
 | how | `number` | Specifies which half of the connection to shut down. It can be one of the following constant values: `SHUT_RD`, `SHUT_WR`, or `SHUT_RDWR`. |
 
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 // Perform data exchange…
@@ -5277,7 +5277,7 @@ if (success)
     print(`Send operations on socket shut down successfully.\n`);
 else
     print(`Failed to shut down send operations: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.peercred() ⇒ [`PeerCredentials`](#module_socket.socket.PeerCredentials)
 Retrieves the peer credentials.
@@ -5290,7 +5290,7 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(socket.AF_UNIX, …);
 sock.connect(…);
 
@@ -5312,7 +5312,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [sockname()](#module_socket.socket+sockname)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -5321,7 +5321,7 @@ if (peerAddress)
     print(`Connected to ${peerAddress}\n`);
 else
     print(`Failed to retrieve peer address: ${sock.error()}\n`);
-```ucode
+```
 
 #### socket.sockname() ⇒ [`SocketAddress`](#module_socket.socket.SocketAddress)
 Retrieves the local address.
@@ -5334,7 +5334,7 @@ Returns `null` on error.
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **See**: [peername()](#module_socket.socket+peername)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 
@@ -5356,12 +5356,12 @@ Returns `null` on error.
 
 **Kind**: instance method of [`socket`](#module_socket.socket)  
 **Example**  
-```ucode
+```text
 const sock = socket.create(…);
 sock.connect(…);
 // Perform operations with the socket…
 sock.close();
-```ucode
+```
 
 #### socket.error([numeric]) ⇒ `string` \| `number`
 Query error information.
@@ -5966,16 +5966,16 @@ In [-p argument], line 1, byte 24:
 
  `struct.pack(">h", 99999)`
   Near here -------------^
-```ucode
+```
 
 Demonstrate the difference between `'s'` and `'c'` format characters:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("@ccc", "1", "2", "3");  // "123"
 pack("@3s", "123");           // "123"
-```ucode
+```
 
 The ordering of format characters may have an impact on size in native
 mode since padding is implicit. In standard mode, the user is
@@ -5985,39 +5985,39 @@ Note in the first `pack()` call below that three NUL bytes were added after
 the packed `'#'` to align the following integer on a four-byte boundary.
 In this example, the output was produced on a little endian machine:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("@ci", "#", 0x12131415);  // "#\x00\x00\x00\x15\x14\x13\x12"
 pack("@ic", 0x12131415, "#");  // "\x15\x14\x13\x12#"
-```ucode
+```
 
 The following format `'ih0i'` results in two pad bytes being added at the
 end, assuming the platform's ints are aligned on 4-byte boundaries:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("ih0i", 0x01010101, 0x0202);  // "\x01\x01\x01\x01\x02\x02\x00\x00"
-```ucode
+```
 
 Use the wildcard format to extract the remainder of the input data:
 
-```
+```ucode
 import { unpack } from 'struct';
 
 unpack("ccc*", "foobarbaz");   // [ "f", "o", "o", "barbaz" ]
 unpack("ccc3*", "foobarbaz");  // [ "f", "o", "o", "bar" ]
-```ucode
+```
 
 Use the wildcard format to pack binary stings as-is into the result data:
 
-```
+```ucode
 import { pack } from 'struct';
 
 pack("h*h", 0x0101, "\x02\x00\x03", 0x0404);  // "\x01\x01\x02\x00\x03\x04\x04"
 pack("c3*c", "a", "foobar", "c");  // "afooc"
-```ucode
+```
 
 ### struct.pack(format, ...values) ⇒ `string`
 Pack given values according to specified format.
@@ -6073,7 +6073,7 @@ input string or offset value is given.
 const numbers =
   unpack('!III', '\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x03');
 print(numbers, "\n"); // [ 1, 2, 3 ]
-```ucode
+```
 
 ### struct.new(format) ⇒ [`instance`](#module_struct.instance)
 Precompile format string.
@@ -6138,7 +6138,7 @@ dataBuf.end().put('I', 5678);
 
 // Alternative chained syntax for initializing and appending
 const buf = struct.buffer("\x01\x02\x03\x04").end().put('I', 5678);
-```ucode
+```
 
 ### struct.instance
 **Kind**: static class of [`struct`](#module_struct)  
@@ -6166,7 +6166,7 @@ required type of the corresponding format string directive.
 | ...values | `\*` | Variable number of values to pack. |
 
 **Example**  
-```ucode
+```text
 const fmt = struct.new(…);
 const data = fmt.pack(…);
 ```
@@ -6193,10 +6193,10 @@ given.
 | [offset] | `number` | `0` | The offset within the input string to start unpacking from. |
 
 **Example**  
-```ucode
+```text
 const fmt = struct.new(…);
 const values = fmt.unpack(…);
-```ucode
+```
 
 ### struct.buffer
 **Kind**: static class of [`struct`](#module_struct)  
@@ -6265,7 +6265,7 @@ buf.slice();                      // Trailing null bytes: "abc\x00\x00\x00"
 
 buf.length(2);                    // Truncate to 2 bytes
 buf.slice();                      // Truncated data: "ab"
-```ucode
+```
 
 #### buffer.start() ⇒ [`buffer`](#module_struct.buffer)
 Set the buffer position to the start (0).
@@ -6285,7 +6285,7 @@ Set the buffer position to the end.
 **Example**  
 ```ucode
 buf.end();
-```ucode
+```
 
 #### buffer.put(format, ...values) ⇒ [`buffer`](#module_struct.buffer)
 Pack data into the buffer at the current position.
@@ -6340,7 +6340,7 @@ while postive ones extracts that many bytes after.
 const val = buf.get('I');
 const str = buf.get(5);    // equivalent to buf.get('5s')
 const str = buf.get(-3);   // equivalent to buf.pos(buf.pos() - 3).get('3s')
-```ucode
+```
 
 #### buffer.get(format) ⇒ `array`
 Unpack multiple values from the buffer at the current position.
@@ -6386,7 +6386,7 @@ three bytes of data.
 **Example**  
 ```ucode
 const slice = buf.slice(4, 8);
-```ucode
+```
 
 #### buffer.set([value], [start], [end]) ⇒ [`buffer`](#module_struct.buffer)
 Set a slice of the buffer content to given byte value.
@@ -6429,7 +6429,7 @@ and resets the buffer to an empty state.
 **Example**  
 ```ucode
 const allData = buf.pull();
-```ucode
+```
 
 ---
 
@@ -6484,7 +6484,7 @@ ctx.set("not_existing_config", "test", "1");
 
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
-```ucode
+```
 
 ### uci.cursor([config_dir], [delta_dir], [config2_dir], Parser) ⇒ [`cursor`](#module_uci.cursor)
 Instantiate uci cursor.
@@ -6605,7 +6605,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the type of the section is returned instead. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query an option, extended section notation is supported
@@ -6640,7 +6640,7 @@ or if an invalid argument was passed.
 | [section] | `string` | The name of the section to query within the configuration. If omitted a nested dictionary containing all section values is returned. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query all lan interface details
@@ -6648,7 +6648,7 @@ ctx.get_all('network', 'lan');
 
 // Dump the entire dhcp configuration
 ctx.get_all('dhcp');
-```ucode
+```
 
 #### cursor.get\_first(config, type, [option]) ⇒ `string` \| `Array.<string>`
 Query option value or name of first section of given type.
@@ -6677,7 +6677,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the name of the section is returned instead. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query hostname in first anonymous "system" section of /etc/config/system
@@ -6713,7 +6713,7 @@ if an invalid section type value was passed.
 | type | `string` | The type value to use for the added section. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Load firewall configuration
@@ -6726,7 +6726,7 @@ const sid = ctx.add('firewall', 'rule');
 ctx.set('firewall', sid, 'name', 'A test');
 ctx.set('firewall', sid, 'target', 'ACCEPT');
 …
-```ucode
+```
 
 #### cursor.set(config, section, option_or_type, [value]) ⇒ `boolean`
 Set option value or add named section in given configuration.
@@ -6758,7 +6758,7 @@ if an invalid value was passed.
 | [value] | `Array.<(string\|boolean\|number)>` \| `string` \| `boolean` \| `number` | The option value to set. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Add named `config interface guest` section
@@ -6800,7 +6800,7 @@ if an invalid value was passed.
 | [option] | `string` | The option name to remove within the section. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Delete 'disabled' option in first wifi-iface section
@@ -6811,7 +6811,7 @@ ctx.delete('network', 'lan');
 
 // Delete last firewall rule
 ctx.delete('firewall', '@rule[-1]');
-```ucode
+```
 
 #### cursor.list\_append(config, section, option, value) ⇒ `boolean`
 Add an item to a list option in given configuration.
@@ -6838,7 +6838,7 @@ if an invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to add to the list option. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Add '192.168.1.1' to the 'dns' list in the 'lan' interface
@@ -6873,7 +6873,7 @@ invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to remove from the list option. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Remove '8.8.8.8' from the 'dns' list in the 'lan' interface
@@ -6881,7 +6881,7 @@ ctx.delete_list('network', 'lan', 'dns', '8.8.8.8');
 
 // Remove a port from the first redirect section
 ctx.delete_list('firewall', '@redirect[0]', 'src_dport', '8080');
-```ucode
+```
 
 #### cursor.rename(config, section, option_or_name, [name]) ⇒ `boolean`
 Rename an option or section in given configuration.
@@ -6911,7 +6911,7 @@ if an invalid value was passed.
 | [name] | `string` | The new name of the option to rename. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Assign explicit name to last anonymous firewall rule section
@@ -6947,7 +6947,7 @@ if an invalid value was passed.
 | index | `number` | The target index to move the section to, starting from `0`. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query whole firewall config and reorder resulting dict by type and name
@@ -6983,7 +6983,7 @@ let position = 0;
 
 for (let sid in values)
   ctx.reorder('firewall', sid, position++);
-```ucode
+```
 
 #### cursor.save([config]) ⇒ `boolean`
 Save accumulated cursor changes to delta directory.
@@ -7023,7 +7023,7 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to save delta records for, e.g. `"system"` to store changes for `/etc/config/system`. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '1');
@@ -7054,12 +7054,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to commit, e.g. `"system"` to update the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.commit('system');
-```ucode
+```
 
 #### cursor.revert([config]) ⇒ `boolean`
 Revert accumulated cursor changes and associated delta records.
@@ -7085,7 +7085,7 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to revert, e.g. `"system"` to discard any changes for the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
@@ -7115,7 +7115,7 @@ loaded.
 | [config] | `string` | The name of the configuration file to enumerate changes for, e.g. `"system"` to query pending changes for the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Enumerate changes for all currently loaded configurations
@@ -7123,7 +7123,7 @@ const deltas = ctx.changes();
 
 // Explicitly load and enumerate changes for the "system" configuration
 const deltas = ctx.changes('system');
-```ucode
+```
 
 #### cursor.foreach(config, type, callback) ⇒ `boolean`
 Iterate configuration sections.
@@ -7154,7 +7154,7 @@ requested configuration not found.
 | callback | [`SectionCallback`](#module_uci.cursor.SectionCallback) | The callback to invoke for each section, will receive a section dictionary as sole argument. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Iterate all network interfaces
@@ -7174,12 +7174,12 @@ Returns `null` on error, e.g. due to filesystem errors.
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Enumerate all present configuration file names
 const configurations = ctx.configs();
-```ucode
+```
 
 #### cursor.error() ⇒ `string`
 Query error information.
@@ -7269,7 +7269,7 @@ Functions can be individually imported and directly accessed using the
 [named import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#named_import)
 syntax:
 
-  ```ucode
+  ```text
   import { init, handle, timer, interval, process, signal, task, run } from 'uloop';
 
   init();
@@ -7282,12 +7282,12 @@ syntax:
   task(…);
 
   run();
-  ```ucode
+  ```
 
 Alternatively, the module namespace can be imported using a wildcard import
 statement:
 
-  ```ucode
+  ```text
   import * as uloop from 'uloop';
 
   uloop.init();
@@ -7322,7 +7322,7 @@ if (errorMessage)
     printf(`Error message: ${errorMessage}\n`);
 else
     printf("No error occurred\n");
-```ucode
+```
 
 ### uloop.init() ⇒ `boolean`
 Initializes the uloop event loop.
@@ -7377,7 +7377,7 @@ if (rc == null)
     die(`Error occurred during uloop execution: ${uloop.error()}\n`);
 else if (rc != 0)
     printf("uloop event loop was interrupted by a signal: %d\n", rc);
-```ucode
+```
 
 ### uloop.cancelling() ⇒ `boolean`
 Checks if the uloop event loop is currently shutting down.
@@ -7413,7 +7413,7 @@ if (isRunning)
     printf("uloop event loop is currently running\n");
 else
     printf("uloop event loop is not running\n");
-```ucode
+```
 
 ### uloop.end() ⇒ `void`
 Halts the uloop event loop.
@@ -7445,7 +7445,7 @@ resources.
 ```ucode
 // Stop the uloop event loop and clean up resources
 uloop.done();
-```ucode
+```
 
 ### uloop.timer([timeout], callback) ⇒ [`timer`](#module_uloop.timer)
 Creates a timer instance for scheduling callbacks.
@@ -7510,7 +7510,7 @@ const sock = socket.connect("example.org", 80);
 uloop.handle(sock, (events) => {
     sock.send("GET / HTTP/1.0\r\n\r\n");
 }, uloop.ULOOP_WRITE)
-```ucode
+```
 
 ### uloop.process(executable, [args], [env], callback) ⇒ [`process`](#module_uloop.process)
 Creates a process instance for executing external programs.
@@ -7577,7 +7577,7 @@ const myTask = uloop.task(
         return "Input from main thread\n";
     }
 );
-```ucode
+```
 
 ### uloop.interval([timeout], callback) ⇒ [`interval`](#module_uloop.interval)
 Creates an interval instance for scheduling repeated callbacks.
@@ -7631,7 +7631,7 @@ Returns `null` when the signal or callback arguments are invalid.
 const mySignal = uloop.signal("SIGINT", () => {
     printf("SIGINT caught!\n");
 });
-```ucode
+```
 
 ### uloop.timer
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -7658,7 +7658,7 @@ disabled until rearmed with a positive timeout value.
 | [timeout] | `number` | `-1` | Optional. The timeout value in milliseconds until the timer expires. Defaults to -1, which disables the timer until rearmed with a positive timeout. |
 
 **Example**  
-```ucode
+```text
 const timeout = uloop.timer(…);
 
 // Rearm the uloop timer with a timeout of 1000 milliseconds
@@ -7684,7 +7684,7 @@ if (remainingTime !== -1)
     printf("Time remaining until timer expires: %d ms\n", remainingTime);
 else
     printf("Timer is not armed\n");
-```ucode
+```
 
 #### timer.cancel() ⇒ `boolean`
 Cancels the uloop timer, disarming it and removing it from the event loop.
@@ -7721,7 +7721,7 @@ handle, which might refer to a socket or file instance.
 // Get the file descriptor number associated with the uloop handle
 const fd = handle.fileno();
 printf("File descriptor number: %d\n", fd);
-```ucode
+```
 
 #### handle.handle() ⇒ `module:fs.file` \| `module:fs.proc` \| `module:socket.socket`
 Returns the underlying file or socket instance.
@@ -7752,7 +7752,7 @@ should no longer be used.
 // Unregister the uloop handle and free associated resources
 handle.delete();
 printf("Handle deleted successfully\n");
-```ucode
+```
 
 ### uloop.process
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -7771,7 +7771,7 @@ launched by {@link module:uloop#process|process().
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `number` - The process ID (PID) of the associated launched process.  
 **Example**  
-```ucode
+```text
 const proc = uloop.process(…);
 
 printf("Process ID: %d\n", proc.pid());
@@ -7787,11 +7787,11 @@ itself is not terminated by this method.
 **Kind**: instance method of [`process`](#module_uloop.process)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```ucode
+```text
 const proc = uloop.process(…);
 
 proc.delete();
-```ucode
+```
 
 ### uloop.pipe
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -7852,7 +7852,7 @@ if (message !== null)
     printf("Received message: %s\n", message);
 else
     die(`Error receiving message: ${uloop.error()}\n`);
-```ucode
+```
 
 #### pipe.sending() ⇒ `boolean`
 Checks if the task handle provides input.
@@ -7892,7 +7892,7 @@ if (hasOutputCallback)
     printf("Output callback is registered on task handle\n");
 else
     printf("No output callback on the task handle\n");
-```ucode
+```
 
 ### uloop.task
 **Kind**: static class of [`uloop`](#module_uloop)  
@@ -7912,7 +7912,7 @@ launched by {@link module:uloop#task|task().
 **Kind**: instance method of [`task`](#module_uloop.task)  
 **Returns**: `number` - The process ID (PID) of the forked task process.  
 **Example**  
-```ucode
+```text
 const task = uloop.task(…);
 
 printf("Process ID: %d\n", task.pid());
@@ -7938,7 +7938,7 @@ if (success)
     printf("Task process terminated successfully\n");
 else
     die(`Error terminating task process: ${uloop.error()}\n`);
-```ucode
+```
 
 #### task.finished() ⇒ `boolean`
 Checks if the task ran to completion.
@@ -8003,7 +8003,7 @@ if (success)
     printf("Interval disabled successfully\n");
 else
     printf("Error occurred while disabling interval: ${uloop.error()}\n");
-```ucode
+```
 
 #### interval.remaining() ⇒ `number`
 Returns the milliseconds until the next expiration.
@@ -8039,7 +8039,7 @@ This method returns the number of times the uloop interval timer has expired
 // Get the number of times the uloop interval timer has expired
 const expirations = interval.expirations();
 printf("Number of expirations: %d\n", expirations);
-```ucode
+```
 
 #### interval.cancel() ⇒ `boolean`
 Cancels the uloop interval.
@@ -8076,7 +8076,7 @@ configured to respond to.
 // Get the signal number that the uloop signal handler is responding to
 const sighandler = uloop.signal("SIGINT", () => printf("Cought INT\n"));
 printf("Signal number: %d\n", sighandler.signo());
-```ucode
+```
 
 #### signal.delete() ⇒ `boolean`
 Uninstalls the signal handler.
@@ -8087,7 +8087,7 @@ handler for the signal, and releasing any associated resources.
 **Kind**: instance method of [`signal`](#module_uloop.signal)  
 **Returns**: `boolean` - Returns `true` on success.  
 **Example**  
-```ucode
+```text
 // Uninstall the signal handler and restore the previous/default handler
 const sighandler = uloop.signal(…);
 sighandler.delete();
@@ -8149,7 +8149,7 @@ const deflated = deflate(content);
 
 // deflate content using fastest compression
 const deflated = deflate(content, Z_BEST_SPEED);
-```ucode
+```
 
 ### zlib.inflate(str_or_resource) ⇒ `string`
 Decompresses data in Zlib or gzip format.
@@ -8206,7 +8206,7 @@ Returns `null` if an error occurred.
 ```ucode
 // initialize an inflate stream
 const zstrmi = inflater();
-```ucode
+```
 
 ### zlib.deflate
 **Kind**: static class of [`zlib`](#module_zlib)  

@@ -72,17 +72,17 @@ DNS query results are returned as objects where:
 ### Record Format by Type
 
 **A and AAAA records:**
-```ucode
+```json
 {
   "example.com": {
     "A": ["192.0.2.1", "192.0.2.2"],
     "AAAA": ["2001:db8::1", "2001:db8::2"]
   }
 }
-```ucode
+```
 
 **MX records:**
-```ucode
+```json
 {
   "example.com": {
     "MX": [
@@ -94,7 +94,7 @@ DNS query results are returned as objects where:
 ```
 
 **SRV records:**
-```ucode
+```json
 {
   "_http._tcp.example.com": {
     "SRV": [
@@ -103,10 +103,10 @@ DNS query results are returned as objects where:
     ]
   }
 }
-```ucode
+```
 
 **SOA records:**
-```ucode
+```json
 {
   "example.com": {
     "SOA": [
@@ -125,7 +125,7 @@ DNS query results are returned as objects where:
 ```
 
 **TXT, NS, CNAME, PTR records:**
-```ucode
+```json
 {
   "example.com": {
     "TXT": ["v=spf1 include:_spf.example.com ~all"],
@@ -133,10 +133,10 @@ DNS query results are returned as objects where:
     "CNAME": ["alias.example.com"]
   }
 }
-```ucode
+```
 
 **Error responses:**
-```ucode
+```json
 {
   "nonexistent.example.com": {
     "rcode": "NXDOMAIN"
@@ -159,7 +159,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 
 Specific record type query:
 
@@ -184,7 +184,7 @@ const results = query(
     nameserver: ['8.8.8.8', '1.1.1.1']
   }
 );
-```ucode
+```
 
 Reverse DNS lookup:
 
@@ -241,7 +241,7 @@ print(result, "\n");
 //     "AAAA": ["2001:db8::1"]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Specific record type queries
@@ -264,7 +264,7 @@ const results = query(
     timeout: 10000
   }
 );
-```ucode
+```
 **Example**  
 ```ucode
 // Reverse DNS lookup
@@ -291,7 +291,7 @@ printf(txtResult, "\n");
 //     ]
 //   }
 // }
-```ucode
+```
 **Example**  
 ```ucode
 // Handling errors
@@ -327,4 +327,4 @@ const err = error();
 if (err) {
   print("DNS query failed: ", err, "\n");
 }
-```ucode
+```

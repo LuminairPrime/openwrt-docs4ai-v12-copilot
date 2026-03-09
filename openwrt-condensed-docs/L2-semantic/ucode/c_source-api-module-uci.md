@@ -2,10 +2,10 @@
 title: 'ucode module: uci'
 module: ucode
 origin_type: c_source
-token_count: 7883
+token_count: 7849
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-uci.md
-last_pipeline_run: '2026-03-09T18:12:55.650305+00:00'
+last_pipeline_run: '2026-03-09T18:30:57.384548+00:00'
 upstream_path: lib/uci.c
 language: c
 ---
@@ -60,7 +60,7 @@ ctx.set("not_existing_config", "test", "1");
 
 // Print error (should yield "Entry not found")
 print(ctx.error(), "\n");
-```ucode
+```
 
 ### uci.cursor([config_dir], [delta_dir], [config2_dir], Parser) ⇒ [`cursor`](#module_uci.cursor)
 Instantiate uci cursor.
@@ -181,7 +181,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the type of the section is returned instead. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query an option, extended section notation is supported
@@ -216,7 +216,7 @@ or if an invalid argument was passed.
 | [section] | `string` | The name of the section to query within the configuration. If omitted a nested dictionary containing all section values is returned. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query all lan interface details
@@ -224,7 +224,7 @@ ctx.get_all('network', 'lan');
 
 // Dump the entire dhcp configuration
 ctx.get_all('dhcp');
-```ucode
+```
 
 #### cursor.get\_first(config, type, [option]) ⇒ `string` \| `Array.<string>`
 Query option value or name of first section of given type.
@@ -253,7 +253,7 @@ or if an invalid argument was passed.
 | [option] | `string` | The name of the option to query within the section. If omitted, the name of the section is returned instead. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query hostname in first anonymous "system" section of /etc/config/system
@@ -289,7 +289,7 @@ if an invalid section type value was passed.
 | type | `string` | The type value to use for the added section. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Load firewall configuration
@@ -302,7 +302,7 @@ const sid = ctx.add('firewall', 'rule');
 ctx.set('firewall', sid, 'name', 'A test');
 ctx.set('firewall', sid, 'target', 'ACCEPT');
 …
-```ucode
+```
 
 #### cursor.set(config, section, option_or_type, [value]) ⇒ `boolean`
 Set option value or add named section in given configuration.
@@ -334,7 +334,7 @@ if an invalid value was passed.
 | [value] | `Array.<(string\|boolean\|number)>` \| `string` \| `boolean` \| `number` | The option value to set. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Add named `config interface guest` section
@@ -376,7 +376,7 @@ if an invalid value was passed.
 | [option] | `string` | The option name to remove within the section. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Delete 'disabled' option in first wifi-iface section
@@ -387,7 +387,7 @@ ctx.delete('network', 'lan');
 
 // Delete last firewall rule
 ctx.delete('firewall', '@rule[-1]');
-```ucode
+```
 
 #### cursor.list\_append(config, section, option, value) ⇒ `boolean`
 Add an item to a list option in given configuration.
@@ -414,7 +414,7 @@ if an invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to add to the list option. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Add '192.168.1.1' to the 'dns' list in the 'lan' interface
@@ -449,7 +449,7 @@ invalid value was passed.
 | value | `string` \| `boolean` \| `number` | The value to remove from the list option. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Remove '8.8.8.8' from the 'dns' list in the 'lan' interface
@@ -457,7 +457,7 @@ ctx.delete_list('network', 'lan', 'dns', '8.8.8.8');
 
 // Remove a port from the first redirect section
 ctx.delete_list('firewall', '@redirect[0]', 'src_dport', '8080');
-```ucode
+```
 
 #### cursor.rename(config, section, option_or_name, [name]) ⇒ `boolean`
 Rename an option or section in given configuration.
@@ -487,7 +487,7 @@ if an invalid value was passed.
 | [name] | `string` | The new name of the option to rename. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Assign explicit name to last anonymous firewall rule section
@@ -523,7 +523,7 @@ if an invalid value was passed.
 | index | `number` | The target index to move the section to, starting from `0`. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Query whole firewall config and reorder resulting dict by type and name
@@ -559,7 +559,7 @@ let position = 0;
 
 for (let sid in values)
   ctx.reorder('firewall', sid, position++);
-```ucode
+```
 
 #### cursor.save([config]) ⇒ `boolean`
 Save accumulated cursor changes to delta directory.
@@ -599,7 +599,7 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to save delta records for, e.g. `"system"` to store changes for `/etc/config/system`. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('wireless', '@wifi-iface[0]', 'disabled', '1');
@@ -630,12 +630,12 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to commit, e.g. `"system"` to update the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
 ctx.commit('system');
-```ucode
+```
 
 #### cursor.revert([config]) ⇒ `boolean`
 Revert accumulated cursor changes and associated delta records.
@@ -661,7 +661,7 @@ or when a file system error occurred.
 | [config] | `string` | The name of the configuration file to revert, e.g. `"system"` to discard any changes for the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 ctx.set('system', '@system[0]', 'hostname', 'example.org');
@@ -691,7 +691,7 @@ loaded.
 | [config] | `string` | The name of the configuration file to enumerate changes for, e.g. `"system"` to query pending changes for the `/etc/config/system` file. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Enumerate changes for all currently loaded configurations
@@ -699,7 +699,7 @@ const deltas = ctx.changes();
 
 // Explicitly load and enumerate changes for the "system" configuration
 const deltas = ctx.changes('system');
-```ucode
+```
 
 #### cursor.foreach(config, type, callback) ⇒ `boolean`
 Iterate configuration sections.
@@ -730,7 +730,7 @@ requested configuration not found.
 | callback | [`SectionCallback`](#module_uci.cursor.SectionCallback) | The callback to invoke for each section, will receive a section dictionary as sole argument. |
 
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Iterate all network interfaces
@@ -750,12 +750,12 @@ Returns `null` on error, e.g. due to filesystem errors.
 
 **Kind**: instance method of [`cursor`](#module_uci.cursor)  
 **Example**  
-```ucode
+```text
 const ctx = cursor(…);
 
 // Enumerate all present configuration file names
 const configurations = ctx.configs();
-```ucode
+```
 
 #### cursor.error() ⇒ `string`
 Query error information.
