@@ -1,57 +1,47 @@
 # openwrt-docs4ai
 
-> OpenWrt developer documentation, condensed and optimized for AI LLMs and humans.
+OpenWrt documentation collection and condensation pipeline for humans, tooling, and LLM workflows.
 
-[![Pipeline](https://github.com/LuminairPrime/openwrt-docs4ai/actions/workflows/openwrt-docs4ai-00-pipeline.yml/badge.svg)](https://github.com/LuminairPrime/openwrt-docs4ai/actions)
+## What This Repository Does
 
-## What This Is
+This repository pulls documentation from multiple OpenWrt-related sources, normalizes it into stable intermediate layers, and generates compact outputs intended for:
 
-A monthly automated pipeline that scrapes OpenWrt project documentation from 5 upstream sources and condenses it into compact, LLM-ready markdown files. Two consumption modes:
+- targeted human lookup
+- LLM context ingestion
+- IDE and tooling support
+- long-term monthly refresh automation
 
-1. **Complete references** — single files containing all docs per source (feed directly to an LLM)
-2. **Individual files** — per-module, per-page markdown files (for targeted lookups)
+The current development stage is local-first stabilization. The codebase is being polished so the Windows development path, the documentation structure, and the local smoke tests are trustworthy before GitHub Actions becomes the authoritative execution environment.
 
-## Using the Documentation
+## Source Families
 
-**Entry point:** [`openwrt-condensed-docs/llms.txt`](openwrt-condensed-docs/llms.txt)
+- OpenWrt wiki pages
+- `jow-/ucode`
+- `openwrt/luci`
+- `openwrt/openwrt`
+- OpenWrt-adjacent API and example sources extracted from those repositories
 
-| File | What It Contains | Skeleton Version Included? |
-|------|-----------------|------------------------|
-| `ucode-complete-reference.md` | ucode scripting language — all modules and tutorials | ⚡ `ucode-skeleton.md` (Headers & Signatures only) |
-| `luci-jsapi-complete-reference.md` | LuCI web interface JavaScript API | ⚡ `luci-jsapi-skeleton.md` |
-| `openwrt-wiki-complete-reference.md` | OpenWrt developer wiki (techref + guide-developer) | ⚡ `openwrt-wiki-skeleton.md` |
-| `openwrt-buildroot-complete-reference.md` | Package metadata from the buildroot source tree | ⚡ `openwrt-buildroot-skeleton.md` |
-| `openwrt-examples-complete-reference.md` | Curated LuCI application source code examples | ⚡ *(Inapplicable)* |
+## Output Model
 
-For targeted lookups, browse the subdirectories in [`openwrt-condensed-docs/`](openwrt-condensed-docs/). Every markdown file now contains YAML Frontmatter for LLM indexing accuracy.
+Generated artifacts live under `openwrt-condensed-docs/`.
 
-For targeted lookups, browse the subdirectories in [`openwrt-condensed-docs/`](openwrt-condensed-docs/).
+- `L1-raw/` contains normalized raw markdown plus sidecar metadata.
+- `L2-semantic/` contains semantic markdown with YAML frontmatter and cross-links.
+- Root and per-module outputs contain maps, monoliths, skeletons, HTML landing pages, and telemetry.
 
-## Data Sources
+The exact output set is defined in `docs/ARCHITECTURE.md` and `docs/specs/v12/`.
 
-| Source | Upstream | Method |
-|--------|----------|--------|
-| Wiki | [openwrt.org/docs/](https://openwrt.org/docs/) | DokuWiki namespace crawl + pandoc |
-| ucode | [jow-/ucode](https://github.com/jow-/ucode) | jsdoc2md from source |
-| LuCI JS API | [openwrt/luci](https://github.com/openwrt/luci) | jsdoc2md from source |
-| Buildroot pkgs | [openwrt/openwrt](https://github.com/openwrt/openwrt) | Makefile parsing |
-| Examples | [openwrt/luci](https://github.com/openwrt/luci) | Curated file copy |
-| Procd API | [openwrt/openwrt](https://github.com/openwrt/openwrt) | C-comment Regex Regex Parser (`procd.sh`) |
-| Hotplug | [openwrt/openwrt](https://github.com/openwrt/openwrt) | Source scanning (`hotplug-events`) |
+## Repository Guidance
 
-## How It Works
+- Read `DEVELOPMENT.md` for local setup and testing.
+- Read `docs/ARCHITECTURE.md` for repository structure and naming rules.
+- Read `docs/specs/v12/` for the active v12 technical specifications.
+- Treat `docs/archive/v12/` as historical context only.
 
-Scripts in `.github/scripts/` run via GitHub Actions on the 1st of each month:
+## Status
 
-1. **Clone** upstream repos (shallow, sparse where possible)
-2. **Scrape** all sources in parallel
-3. **Enrich** with cross-references and optional AI summaries
-4. **Assemble** complete reference files
-5. **Validate** — staging gate checks file integrity before promotion
-6. **Promote** — only validated output is committed to the repo
-
-See [DEVELOPMENT.md](DEVELOPMENT.md) for technical details and local development setup.
+The repository contains a substantial v12 implementation, but remote GitHub Actions behavior is not yet treated as verified. Local smoke test repair, deterministic fixture coverage, and L1/L2 output characterization are the active priorities.
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details. The generated documentation content is derived from upstream OpenWrt project sources and retains their respective licenses.
+Licensed under the Apache License, Version 2.0. See `LICENSE` for details. Generated documentation derives from upstream OpenWrt project sources and retains their respective upstream licensing context.
