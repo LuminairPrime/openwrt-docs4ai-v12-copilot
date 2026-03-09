@@ -172,6 +172,24 @@ def normalize_fenced_blocks(markdown, default_language):
     return "\n".join(output)
 
 
+def fix_known_ucode_example_issues(markdown):
+    cleaned = re.sub(r'(?m)^(\s*[^\n]*?;)\s+\*\s*$', r'\1', markdown)
+    cleaned = cleaned.replace(
+        "const [reader, writer] = io.pipe();",
+        "const pipe_handles = io.pipe();\nconst reader = pipe_handles[0];\nconst writer = pipe_handles[1];",
+    )
+
+    named_const_import = "import { error, request, listener, waitfor, const } from 'nl80211';"
+    if named_const_import in cleaned:
+        cleaned = cleaned.replace(
+            named_const_import,
+            "import { error, request, listener, waitfor, const as nl80211const } from 'nl80211';",
+        )
+        cleaned = cleaned.replace("const.", "nl80211const.")
+
+    return cleaned
+
+
 def cleanup_ucode_jsdoc_output(markdown, is_c):
     cleaned = re.sub(r'<pre class="prettyprint[^"]*"><code>', '```c\n' if is_c else '```ucode\n', markdown)
     cleaned = cleaned.replace('</code></pre>', '\n```')
@@ -184,6 +202,7 @@ def cleanup_ucode_jsdoc_output(markdown, is_c):
     cleaned = re.sub(r'^\s*##\s+[^\n]+\n#\s+([^\n]+)', r'## \1', cleaned, count=1, flags=re.MULTILINE)
     cleaned = re.sub(r'```(?:javascript|js)\r?\n', '```ucode\n', cleaned, flags=re.IGNORECASE)
     cleaned = normalize_fenced_blocks(cleaned, 'ucode')
+    cleaned = fix_known_ucode_example_issues(cleaned)
     cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
     return cleaned.strip()
 
