@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 5098
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-log.md
-last_pipeline_run: '2026-03-09T18:48:36.746267+00:00'
+last_pipeline_run: '2026-03-09T19:21:03.362055+00:00'
 upstream_path: lib/log.c
 language: c
 ---

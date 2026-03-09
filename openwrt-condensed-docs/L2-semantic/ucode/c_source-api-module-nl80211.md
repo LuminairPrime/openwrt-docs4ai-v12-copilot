@@ -2,10 +2,10 @@
 title: 'ucode module: nl80211'
 module: ucode
 origin_type: c_source
-token_count: 3962
+token_count: 3950
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-nl80211.md
-last_pipeline_run: '2026-03-09T18:48:36.746267+00:00'
+last_pipeline_run: '2026-03-09T19:21:03.362055+00:00'
 upstream_path: lib/nl80211.c
 language: c
 ---
@@ -25,18 +25,18 @@ Functions can be individually imported and directly accessed using the
 syntax:
 
   ```ucode
-  import { error, request, listener, waitfor, const as nl80211const } from 'nl80211';
+  import * as nl80211 from 'nl80211';
 
   // Send a nl80211 request
-  let response = request(nl80211const.NL80211_CMD_GET_WIPHY, 0, { wiphy: 0 });
+  let response = nl80211.request(nl80211.const.NL80211_CMD_GET_WIPHY, 0, { wiphy: 0 });
 
   // Create a listener for wireless events
-  let wifiListener = listener((msg) => {
+  let wifiListener = nl80211.listener((msg) => {
       print('Received wireless event:', msg, '\n');
-  }, [nl80211const.NL80211_CMD_NEW_INTERFACE, nl80211const.NL80211_CMD_DEL_INTERFACE]);
+  }, [nl80211.const.NL80211_CMD_NEW_INTERFACE, nl80211.const.NL80211_CMD_DEL_INTERFACE]);
 
   // Wait for a specific nl80211 event
-  let event = waitfor([nl80211const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
+  let event = nl80211.waitfor([nl80211.const.NL80211_CMD_NEW_SCAN_RESULTS], 5000);
   if (event)
       print('Received scan results:', event.msg, '\n');
   ```
@@ -48,12 +48,12 @@ using a wildcard import statement:
   import * as nl80211 from 'nl80211';
 
   // Send a nl80211 request
-  let response = nl80211.request(nl80211.nl80211const.NL80211_CMD_GET_WIPHY, 0, { wiphy: 0 });
+  let response = nl80211.request(nl80211.const.NL80211_CMD_GET_WIPHY, 0, { wiphy: 0 });
 
   // Create a listener for wireless events
   let listener = nl80211.listener((msg) => {
       print('Received wireless event:', msg, '\n');
-  }, [nl80211.nl80211const.NL80211_CMD_NEW_INTERFACE, nl80211.nl80211const.NL80211_CMD_DEL_INTERFACE]);
+  }, [nl80211.const.NL80211_CMD_NEW_INTERFACE, nl80211.const.NL80211_CMD_DEL_INTERFACE]);
   ```
 
 Additionally, the nl80211 module namespace may also be imported by invoking

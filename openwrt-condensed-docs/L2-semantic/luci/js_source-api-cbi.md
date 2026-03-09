@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 3075
 version: unknown
 source_file: L1-raw/luci/js_source-api-cbi.md
-last_pipeline_run: '2026-03-09T18:48:36.746267+00:00'
+last_pipeline_run: '2026-03-09T19:21:03.362055+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/cbi.js
 language: javascript
 ---

@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 951
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-frequent-pr-mistakes.md
-last_pipeline_run: '2026-03-09T18:48:36.746267+00:00'
+last_pipeline_run: '2026-03-09T19:21:03.362055+00:00'
 language: text
 ---
 # Frequent PR mistakes or "How to prevent my PR from getting delayed for sure"

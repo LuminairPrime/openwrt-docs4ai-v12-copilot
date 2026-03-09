@@ -7,6 +7,6 @@
   "language": "c",
   "upstream_path": "lib/socket.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T18:36:14.593618+00:00",
-  "content_hash": "9410f564"
+  "extraction_timestamp": "2026-03-09T19:17:14.158087+00:00",
+  "content_hash": "0f406d5a"
 }
