@@ -5,7 +5,7 @@ origin_type: header_api
 token_count: 352
 version: unknown
 source_file: L1-raw/procd/header_api-procd-api.md
-last_pipeline_run: '2026-03-09T17:21:52.132037+00:00'
+last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
 upstream_path: package/system/procd/files/procd.sh
 language: bash
 ---

@@ -7,6 +7,6 @@
   "language": "c",
   "upstream_path": "lib/resolv.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-09T17:18:23.899512+00:00",
+  "extraction_timestamp": "2026-03-09T17:25:20.555069+00:00",
   "content_hash": "0ee69521"
 }

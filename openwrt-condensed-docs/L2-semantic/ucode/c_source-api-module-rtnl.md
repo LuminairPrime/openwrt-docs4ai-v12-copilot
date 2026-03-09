@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 9218
 version: unknown
 source_file: L1-raw/ucode/c_source-api-module-rtnl.md
-last_pipeline_run: '2026-03-09T17:21:52.132037+00:00'
+last_pipeline_run: '2026-03-09T17:28:41.757217+00:00'
 upstream_path: lib/rtnl.c
 language: c
 ---
