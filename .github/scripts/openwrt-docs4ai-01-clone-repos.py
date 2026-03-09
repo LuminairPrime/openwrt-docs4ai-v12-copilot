@@ -17,6 +17,8 @@ import os
 import sys
 import subprocess
 import shutil
+import datetime
+import json
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -109,7 +111,6 @@ manifest = {
     "openwrt": openwrt_commit if not SKIP_BUILDROOT else "skipped",
     "timestamp": datetime.datetime.now(datetime.UTC).isoformat()
 }
-import json
 with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
     json.dump(manifest, f, indent=2)
 print(f"[01] OK: Manifest written to {MANIFEST_PATH}")
