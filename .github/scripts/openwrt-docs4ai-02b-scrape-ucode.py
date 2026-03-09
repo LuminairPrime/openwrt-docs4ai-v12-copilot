@@ -3,7 +3,7 @@ Purpose: Generate ucode language and module API documentation using jsdoc2md int
 Phase: Extraction
 Layers: L0 -> L1
 Inputs: tmp/repo-ucode/docs/ and tmp/repo-ucode/lib/
-Outputs: tmp/.L1-raw/ucode/*.md and .meta.json
+Outputs: tmp/L1-raw/ucode/*.md and .meta.json
 Environment Variables: WORKDIR
 Dependencies: jsdoc2md (npm global install), Node.js, lib.config, lib.extractor
 Notes: Uses isolated temporary directories for each .c file to workaround jsdoc2md recursive bug.
