@@ -38,64 +38,76 @@ if not os.path.isdir(SRC):
     print("[02e] FAIL: repo-luci not found")
     sys.exit(1)
 
-outputs_generated = 0
+def main():
+    outputs_generated = 0
+    read_failures = 0
 
-for app, desc in APPS.items():
-    app_dir = os.path.join(SRC, app)
-    if not os.path.isdir(app_dir):
-        print(f"[02e] WARN: {app} not found at {app_dir} — skipping")
-        continue
+    for app, desc in APPS.items():
+        app_dir = os.path.join(SRC, app)
+        if not os.path.isdir(app_dir):
+            print(f"[02e] WARN: {app} not found at {app_dir} — skipping")
+            continue
 
-    print(f"[02e] Extracting {app}...")
+        print(f"[02e] Extracting {app}...")
 
-    uc_count = 0
-    js_count = 0
+        uc_count = 0
+        js_count = 0
+        app_read_failures = 0
 
-    for root, _, files in os.walk(app_dir):
-        for fname in sorted(files):
-            if not (fname.endswith(".uc") or fname.endswith(".js")):
-                continue
-                
-            src_file = os.path.join(root, fname)
-            try:
-                with open(src_file, encoding="utf-8", errors="replace") as f:
-                    content = f.read()
-            except Exception:
-                continue
-            
-            rel = os.path.relpath(src_file, app_dir).replace("\\", "/")
-            slug = f"{app}-{rel.replace('/', '-')}"
-            slug = re.sub(r'[^a-zA-Z0-9-]', '-', slug).lower()
-            
-            is_uc = fname.endswith(".uc")
-            lang = "ucode" if is_uc else "javascript"
-            
-            if is_uc:
-                uc_count += 1
-            else:
-                js_count += 1
-            
-            # Code Wrapper Compliance Check (H1 with filename + code block)
-            final_content = extractor.wrap_code_block(fname, content, lang)
-            
-            metadata = {
-                "extractor": "02e-scrape-example-packages.py",
-                "origin_type": "example_app",
-                "module": "luci-examples",
-                "slug": slug,
-                "original_url": None,
-                "language": lang,
-                "upstream_path": f"applications/{app}/{rel}",
-                "fetch_status": "success",
-                "extraction_timestamp": TS
-            }
-            
-            extractor.write_l1_markdown("luci-examples", "example_app", slug, final_content, metadata)
-            outputs_generated += 1
+        for root, _, files in os.walk(app_dir):
+            for fname in sorted(files):
+                if not (fname.endswith(".uc") or fname.endswith(".js")):
+                    continue
 
-    print(f"[02e] OK: {app} ({uc_count} .uc, {js_count} .js)")
+                src_file = os.path.join(root, fname)
+                rel = os.path.relpath(src_file, app_dir).replace("\\", "/")
+                try:
+                    with open(src_file, encoding="utf-8", errors="replace") as f:
+                        content = f.read()
+                except Exception as exc:
+                    read_failures += 1
+                    app_read_failures += 1
+                    print(f"[02e] WARN: Could not read {app}/{rel}: {exc}")
+                    continue
 
-print(f"[02e] Complete: {outputs_generated} total extracted.")
-if outputs_generated == 0:
-    print("[02e] FAIL: Zero output files generated. Exiting with error.")
-    sys.exit(1)
+                slug = f"{app}-{rel.replace('/', '-')}"
+                slug = re.sub(r'[^a-zA-Z0-9-]', '-', slug).lower()
+
+                is_uc = fname.endswith(".uc")
+                lang = "ucode" if is_uc else "javascript"
+
+                if is_uc:
+                    uc_count += 1
+                else:
+                    js_count += 1
+
+                final_content = extractor.wrap_code_block(fname, content, lang)
+
+                metadata = {
+                    "extractor": "02e-scrape-example-packages.py",
+                    "origin_type": "example_app",
+                    "module": "luci-examples",
+                    "slug": slug,
+                    "original_url": None,
+                    "language": lang,
+                    "upstream_path": f"applications/{app}/{rel}",
+                    "fetch_status": "success",
+                    "extraction_timestamp": TS
+                }
+
+                extractor.write_l1_markdown("luci-examples", "example_app", slug, final_content, metadata)
+                outputs_generated += 1
+
+        print(f"[02e] OK: {app} ({uc_count} .uc, {js_count} .js, {app_read_failures} read failures)")
+
+    print(f"[02e] Complete: {outputs_generated} total extracted.")
+    if read_failures:
+        print(f"[02e] WARN: Encountered {read_failures} curated file read failure(s).")
+    if outputs_generated == 0:
+        print("[02e] FAIL: Zero output files generated. Exiting with error.")
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

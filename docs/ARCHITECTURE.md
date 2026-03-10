@@ -10,7 +10,7 @@ The primary engineering goal for the current stage is maintainable correctness o
 
 | Path | Role | Notes |
 | --- | --- | --- |
-| `.github/scripts/` | Numbered pipeline scripts | `00` is workflow orchestration, `01` through `08` are ordered pipeline stages. Letter suffixes indicate scripts that are parallelizable in deployment. |
+| `.github/scripts/` | Numbered pipeline scripts | `00` is workflow orchestration. Whole numbers denote stage boundaries, and letter suffixes denote sibling scripts within a stage family. |
 | `.github/workflows/` | GitHub Actions workflows | Remote execution only. Current stabilization work does not assume GitHub behavior is already verified. |
 | `lib/` | Shared Python support code | Shared config, file writing, extraction helpers, and other reusable logic. |
 | `tests/` | Local deterministic tests and smoke runners | Local verification is required before remote workflow testing. |
@@ -36,8 +36,9 @@ The primary engineering goal for the current stage is maintainable correctness o
 ### Script numbering
 
 - `00` denotes orchestration or workflow entry points.
-- `01` through `08` denote the sequential execution order.
-- A letter suffix such as `06a` or `06d` denotes scripts that can run in parallel in deployment.
+- Whole numbers denote dependency boundaries and high-level stage order.
+- A letter suffix such as `05a` or `05d` denotes sibling scripts inside the same stage family.
+- Stage-family siblings may run sequentially locally and may be parallelized in deployment when their direct dependencies are satisfied.
 - Local smoke tests may still run all scripts sequentially for simplicity and debuggability.
 
 ### Directory names
@@ -58,10 +59,11 @@ The primary engineering goal for the current stage is maintainable correctness o
 2. `02a` through `02h` extract source-specific content into L1.
 3. `03` normalizes L1 into L2 and promotes stable intermediates into the output tree.
 4. `04` optionally enriches staged L2 files with AI summary metadata.
-5. `05` assembles skeletons and monolithic references.
-6. `06a` through `06d` generate indexes, agent guidance, IDE schemas, and telemetry.
-7. `07` generates the HTML landing page after the map outputs exist.
-8. `08` validates the entire output tree.
+5. `05a` assembles the publishable skeletons and monolithic references.
+6. `05b`, `05c`, and `05d` generate companion publication artifacts from the stabilized post-`03` snapshot.
+7. `06` generates routing indexes after `05a` has produced the publishable reference assets.
+8. `07` generates the HTML landing page after `06` has produced the routing indexes.
+9. `08` validates the entire output tree.
 
 ## Local-First Verification Model
 

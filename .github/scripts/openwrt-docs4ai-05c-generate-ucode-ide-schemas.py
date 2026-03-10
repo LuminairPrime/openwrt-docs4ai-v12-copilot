@@ -22,17 +22,17 @@ sys.stdout.reconfigure(line_buffering=True)
 OUTDIR = config.OUTDIR
 REGISTRY_PATH = os.path.join(OUTDIR, "cross-link-registry.json")
 
-print("[06c] Generating ucode.d.ts IDE schemas")
+print("[05c] Generating ucode.d.ts IDE schemas")
 
 if not os.path.isfile(REGISTRY_PATH):
-    print(f"[06c] FAIL: cross-link-registry.json not found at {REGISTRY_PATH}")
+    print(f"[05c] FAIL: cross-link-registry.json not found at {REGISTRY_PATH}")
     sys.exit(1)
 
 try:
     with open(REGISTRY_PATH, "r", encoding="utf-8") as f:
         registry = json.load(f)
 except Exception as e:
-    print(f"[06c] FAIL: Could not parse registry: {e}")
+    print(f"[05c] FAIL: Could not parse registry: {e}")
     sys.exit(1)
 
 # Filter for ucode symbols only
@@ -43,7 +43,7 @@ for sym, meta in registry.get("symbols", {}).items():
         ucode_symbols[sym] = meta
 
 if not ucode_symbols:
-    print("[06c] INFO: No ucode symbols found in registry. Skipping .d.ts generation.")
+    print("[05c] INFO: No ucode symbols found in registry. Skipping .d.ts generation.")
     sys.exit(0)
 
 # Group by base module (e.g., 'fs' from 'fs.open')
@@ -139,4 +139,4 @@ out_path = os.path.join(out_dir, "ucode.d.ts")
 with open(out_path, "w", encoding="utf-8", newline="\n") as f:
     f.write("\n".join(dts_lines))
 
-print(f"[06c] OK: {out_path} ({len(ucode_symbols)} symbols)")
+print(f"[05c] OK: {out_path} ({len(ucode_symbols)} symbols)")

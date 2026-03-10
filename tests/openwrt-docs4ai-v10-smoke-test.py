@@ -49,9 +49,14 @@ scripts_to_test = [
     ".github/scripts/openwrt-docs4ai-02h-scrape-hotplug-events.py",
     # Skip wiki completely or run it? Let's run it capped to see frontmatter output:
     ".github/scripts/openwrt-docs4ai-02a-scrape-wiki.py",
-    ".github/scripts/openwrt-docs4ai-05-assemble-references.py", # Note: it's named 05-assemble-references.py
-    ".github/scripts/openwrt-docs4ai-06-generate-index.py",
-    ".github/scripts/openwrt-docs4ai-07-validate.py"
+    ".github/scripts/openwrt-docs4ai-03-normalize-semantic.py",
+    ".github/scripts/openwrt-docs4ai-05a-assemble-references.py",
+    ".github/scripts/openwrt-docs4ai-05b-generate-agents-and-readme.py",
+    ".github/scripts/openwrt-docs4ai-05c-generate-ucode-ide-schemas.py",
+    ".github/scripts/openwrt-docs4ai-05d-generate-api-drift-changelog.py",
+    ".github/scripts/openwrt-docs4ai-06-generate-llm-routing-indexes.py",
+    ".github/scripts/openwrt-docs4ai-07-generate-web-index.py",
+    ".github/scripts/openwrt-docs4ai-08-validate-output.py"
 ]
 
 for script in scripts_to_test:

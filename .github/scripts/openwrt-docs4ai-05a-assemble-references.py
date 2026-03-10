@@ -24,19 +24,19 @@ sys.stdout.reconfigure(line_buffering=True)
 try:
     import yaml
 except ImportError:
-    print("[05] FAIL: 'pyyaml' package not installed")
+    print("[05a] FAIL: 'pyyaml' package not installed")
     sys.exit(1)
 
 OUTDIR = config.OUTDIR
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
 
 if not os.path.isdir(L2_DIR):
-    print(f"[05] FAIL: L2 semantic directory not found: {L2_DIR}")
+    print(f"[05a] FAIL: L2 semantic directory not found: {L2_DIR}")
     sys.exit(1)
 
 TS = datetime.datetime.now(datetime.UTC).isoformat()
 
-print("[05] Assemble L4 monolithic files and L3 skeletons")
+print("[05a] Assemble L4 monolithic files and L3 skeletons")
 
 
 def rewrite_relative_links(module, body_text):
@@ -55,7 +55,7 @@ def rewrite_relative_links(module, body_text):
 modules = [d for d in os.listdir(L2_DIR) if os.path.isdir(os.path.join(L2_DIR, d))]
 
 if not modules:
-    print("[05] FAIL: No modules found in L2 semantic directory.")
+    print("[05a] FAIL: No modules found in L2 semantic directory.")
     sys.exit(1)
 
 warn_count = 0
@@ -68,7 +68,7 @@ for module in sorted(modules):
     if not md_files:
         continue
         
-    print(f"[05] Processing module: {module} ({len(md_files)} files)")
+    print(f"[05a] Processing module: {module} ({len(md_files)} files)")
     
     # We output to the top-level OUTDIR / module path for publishable layers
     out_mod_dir = os.path.join(OUTDIR, module)
@@ -87,13 +87,13 @@ for module in sorted(modules):
             with open(fpath, encoding="utf-8") as f:
                 content = f.read().strip()
         except Exception as e:
-            print(f"[05] WARN: Could not read {fpath}: {e}")
+            print(f"[05a] WARN: Could not read {fpath}: {e}")
             continue
             
         # Extract and parse frontmatter
         fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
         if not fm_match:
-            print(f"[05] WARN: Invalid L2 schema in {fpath}")
+            print(f"[05a] WARN: Invalid L2 schema in {fpath}")
             continue
             
         fm_text = fm_match.group(1)
@@ -102,7 +102,7 @@ for module in sorted(modules):
         try:
             fm = yaml.safe_load(fm_text) or {}
         except Exception as e:
-            print(f"[05] WARN: YAML parse error in {fpath}: {e}")
+            print(f"[05a] WARN: YAML parse error in {fpath}: {e}")
             continue
             
         # Accumulate metrics
@@ -133,7 +133,7 @@ for module in sorted(modules):
         
     # Warn if L4 monolith exceeds 100k limit
     if total_tokens > 100000:
-        print(f"[05] WARN: {module} monolith exceeds 100k tokens ({total_tokens})")
+        print(f"[05a] WARN: {module} monolith exceeds 100k tokens ({total_tokens})")
         warn_count += 1
         
     # Write L4 Monolith
@@ -167,12 +167,12 @@ for module in sorted(modules):
         
     outputs_generated += 1
     
-    print(f"[05] OK: {module} L4 ({total_tokens} tokens) and L3 skeleton")
+    print(f"[05a] OK: {module} L4 ({total_tokens} tokens) and L3 skeleton")
 
-print(f"[05] Complete: {outputs_generated} artifacts generated.")
+print(f"[05a] Complete: {outputs_generated} artifacts generated.")
 if outputs_generated == 0:
-    print("[05] FAIL: Zero outputs generated.")
+    print("[05a] FAIL: Zero outputs generated.")
     sys.exit(1)
 
 if warn_count > 0:
-    print(f"[05] Process finished with {warn_count} size warnings.")
+    print(f"[05a] Process finished with {warn_count} size warnings.")

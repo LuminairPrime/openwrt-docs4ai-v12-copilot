@@ -36,6 +36,7 @@ CODE_KEYWORD_RE = re.compile(r'^\s*(?:import|const|let|local|function|export|if|
 PSEUDOCODE_ELLIPSIS_CALL_RE = re.compile(r'\(\s*…\s*(?:[,)]|$)')
 PSEUDOCODE_ELLIPSIS_ASSIGN_RE = re.compile(r'=\s*…\s*;?$')
 PSEUDOCODE_ELLIPSIS_ARG_RE = re.compile(r',\s*…\s*[)\]}]?\s*;?$')
+JSDOC_TIMEOUT = int(os.environ.get("JSDOC_TIMEOUT", "120"))
 
 
 def strip_jsdoc_toc(markdown):
@@ -188,6 +189,17 @@ def cleanup_ucode_jsdoc_output(markdown, is_c):
     return cleaned.strip()
 
 
+def run_jsdoc_command(cmd, cwd, timeout=JSDOC_TIMEOUT):
+    return subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        cwd=cwd,
+        encoding="utf-8",
+        timeout=timeout,
+    )
+
+
 def main():
     print("[02b] Generate ucode documentation (JSDoc)")
 
@@ -265,7 +277,13 @@ def main():
             cmd = [jsdoc2md, "--heading-depth", "2", "--global-index-format", "none",
                    "--configure", "jsdoc-ephemeral.json", "--files", os.path.basename(temp_c)]
 
-            res = subprocess.run(cmd, capture_output=True, text=True, cwd=tempd, encoding="utf-8")
+            try:
+                res = run_jsdoc_command(cmd, tempd)
+            except subprocess.TimeoutExpired:
+                print(f"[02b] FAIL: jsdoc2md timed out for {mod} after {JSDOC_TIMEOUT}s")
+                with open(os.path.join(config.WORKDIR, "jsdoc-ucode.err"), "a", encoding="utf-8") as err_f:
+                    err_f.write(f"TIMEOUT for {mod}: jsdoc2md exceeded {JSDOC_TIMEOUT}s\n")
+                continue
 
         stdout = res.stdout or ""
         stderr = res.stderr or ""

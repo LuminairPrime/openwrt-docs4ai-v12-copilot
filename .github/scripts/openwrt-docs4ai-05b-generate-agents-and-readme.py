@@ -25,12 +25,12 @@ REGISTRY_PATH = os.path.join(OUTDIR, "cross-link-registry.json")
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
 TS = datetime.datetime.now(datetime.UTC).isoformat()
 
-print("[06b] Generating AGENTS.md and README.md")
+print("[05b] Generating AGENTS.md and README.md")
 
 try:
     import yaml
 except ImportError:
-    print("[06b] FAIL: 'pyyaml' package not installed")
+    print("[05b] FAIL: 'pyyaml' package not installed")
     sys.exit(1)
 
 
@@ -43,7 +43,7 @@ def load_registry_summary():
             registry = json.load(handle)
         return len(registry.get("symbols", {}))
     except Exception as exc:
-        print(f"[06b] WARN: Could not parse cross-link-registry.json: {exc}")
+        print(f"[05b] WARN: Could not parse cross-link-registry.json: {exc}")
         return symbol_count
 
 
@@ -71,7 +71,7 @@ def load_l2_summary():
                 fm_data = yaml.safe_load(fm_match.group(1)) or {}
                 total_tokens += int(fm_data.get("token_count", 0))
             except Exception as exc:
-                print(f"[06b] WARN: Could not inspect {file_path}: {exc}")
+                print(f"[05b] WARN: Could not inspect {file_path}: {exc}")
 
     return modules, total_tokens
 
@@ -130,4 +130,4 @@ with open(os.path.join(OUTDIR, "AGENTS.md"), "w", encoding="utf-8", newline="\n"
 with open(os.path.join(OUTDIR, "README.md"), "w", encoding="utf-8", newline="\n") as f:
     f.write(readme_content)
 
-print("[06b] Complete.")
+print("[05b] Complete.")

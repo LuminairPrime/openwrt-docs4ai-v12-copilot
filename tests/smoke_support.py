@@ -10,13 +10,13 @@ SCRIPTS_DIR = os.path.join(PROJECT_ROOT, ".github", "scripts")
 POST_EXTRACT_PIPELINE = [
     "openwrt-docs4ai-03-normalize-semantic.py",
     "openwrt-docs4ai-04-generate-ai-summaries.py",
-    "openwrt-docs4ai-05-assemble-references.py",
-    "openwrt-docs4ai-06a-generate-llms-txt.py",
-    "openwrt-docs4ai-06b-generate-agents-md.py",
-    "openwrt-docs4ai-06c-generate-ide-schemas.py",
-    "openwrt-docs4ai-06d-generate-changelog.py",
-    "openwrt-docs4ai-07-generate-index-html.py",
-    "openwrt-docs4ai-08-validate.py",
+    "openwrt-docs4ai-05a-assemble-references.py",
+    "openwrt-docs4ai-05b-generate-agents-and-readme.py",
+    "openwrt-docs4ai-05c-generate-ucode-ide-schemas.py",
+    "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
+    "openwrt-docs4ai-06-generate-llm-routing-indexes.py",
+    "openwrt-docs4ai-07-generate-web-index.py",
+    "openwrt-docs4ai-08-validate-output.py",
 ]
 
 FULL_PIPELINE = [
@@ -107,9 +107,6 @@ def build_env(workdir, outdir, run_ai=False, extra_env=None):
     env["OUTDIR"] = outdir
     env["SKIP_AI"] = "false" if run_ai else "true"
     env["VALIDATE_MODE"] = env.get("VALIDATE_MODE", "hard")
-    env["OPENWRT_COMMIT"] = env.get("OPENWRT_COMMIT", "openwrt-test")
-    env["LUCI_COMMIT"] = env.get("LUCI_COMMIT", "luci-test")
-    env["UCODE_COMMIT"] = env.get("UCODE_COMMIT", "ucode-test")
     if extra_env:
         env.update(extra_env)
     return env
@@ -176,9 +173,9 @@ def seed_l1_fixtures(workdir):
             json.dump(metadata, handle, indent=2)
 
     manifest = {
-        "openwrt": "openwrt-test",
-        "luci": "luci-test",
-        "ucode": "ucode-test",
+        "openwrt": "1111111",
+        "luci": "2222222",
+        "ucode": "3333333",
         "timestamp": "2026-03-09T00:00:00Z",
     }
     with open(os.path.join(workdir, "repo-manifest.json"), "w", encoding="utf-8", newline="\n") as handle:

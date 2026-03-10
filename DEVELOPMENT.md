@@ -40,7 +40,7 @@ The `--run-ai` path is cache-backed for local verification, so it can validate t
 - `openwrt-condensed-docs/` is the stable generated output root.
 - `tmp/` is ephemeral and never authoritative.
 - `L1-raw` and `L2-semantic` are the standard intermediate layer names.
-- Script numbering denotes run order. Letter suffixes denote scripts that are parallelizable in deployment.
+- Script numbering denotes stage families and dependency boundaries. Letter suffixes denote sibling scripts inside the same stage family.
 - Local smoke runs may still execute the lettered scripts sequentially.
 
 ## Script Families
@@ -51,10 +51,13 @@ The `--run-ai` path is cache-backed for local verification, so it can validate t
 | `openwrt-docs4ai-02a` through `02h` | Source-specific extraction into L1 |
 | `openwrt-docs4ai-03-normalize-semantic.py` | L1 to L2 normalization and promotion |
 | `openwrt-docs4ai-04-generate-ai-summaries.py` | Optional AI summary enrichment |
-| `openwrt-docs4ai-05-assemble-references.py` | L3 skeleton and L4 monolith assembly |
-| `openwrt-docs4ai-06a` through `06d` | Maps, agent guidance, IDE schemas, telemetry |
-| `openwrt-docs4ai-07-generate-index-html.py` | HTML landing page generation |
-| `openwrt-docs4ai-08-validate.py` | Whole-output validation gate |
+| `openwrt-docs4ai-05a-assemble-references.py` | Assemble publishable L3 skeletons and L4 monoliths |
+| `openwrt-docs4ai-05b-generate-agents-and-readme.py` | Generate AGENTS.md and the root generated README |
+| `openwrt-docs4ai-05c-generate-ucode-ide-schemas.py` | Generate ucode IDE schema output |
+| `openwrt-docs4ai-05d-generate-api-drift-changelog.py` | Generate API drift telemetry against the baseline inventory |
+| `openwrt-docs4ai-06-generate-llm-routing-indexes.py` | Generate llms.txt, llms-full.txt, and module routing indexes |
+| `openwrt-docs4ai-07-generate-web-index.py` | HTML landing page generation |
+| `openwrt-docs4ai-08-validate-output.py` | Whole-output validation gate |
 
 ## Local Tests
 
@@ -108,9 +111,22 @@ Scripts should emit concise line-buffered messages using the numbered prefix con
 
 ```text
 [02a] OK: scraped 15 pages
+[05d] INFO: Baseline lacks module metadata; suppressing module drift sections
 [04] SKIP: AI enrichment disabled
 [08] FAIL: missing llms.txt
 ```
+
+## Deferred Bugs
+
+- `luci-app-dockerman` still produces one truthful non-blocking standalone `ucode` validation warning in `docker_rpc.uc`. Keep it soft until a higher-fidelity LuCI runtime validation context exists.
+- Mermaid template promotion is still deferred. The repository has Mermaid source templates, but the exact publication targets and insertion rules are not constrained tightly enough to inject diagrams automatically without risking incorrect output.
+
+## Deferred Features
+
+- Extreme A3 renaming remains deferred. If revisited, prefer fully descriptive stage-prefixed or category-first filenames only after the current moderate stage-family contract is stable across the workflow, tests, and docs.
+- `signature-inventory.json` still does not emit explicit module metadata. The current `05d` fix suppresses false module drift against legacy baselines; richer schema expansion remains a later compatibility decision.
+- Curated example extraction still warns on partial read failures instead of failing the run. Hard-failing partial omissions is deferred until the curated app and file inventory is formalized.
+- Broader validation coverage beyond the current targeted fixes is deferred until the renamed stage contract and baseline expectations are stable.
 
 ## Windows Notes
 

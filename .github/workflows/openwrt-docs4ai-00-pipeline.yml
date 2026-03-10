@@ -118,7 +118,7 @@ jobs:
           retention-days: 1
           if-no-files-found: ignore
 
-  # ── Phase 3-5: Normalize, Assemble, Validate ─────────
+  # ── Phase 3-8: Normalize, Publish, Validate ──────────
   process:
     needs: extract
     runs-on: ubuntu-latest
@@ -193,17 +193,21 @@ jobs:
           MAX_AI_FILES: ${{ inputs.max_ai_files || '40' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
-      - name: Assemble L3/L4
-        run: python .github/scripts/openwrt-docs4ai-05-assemble-references.py
-      - name: Generate L3/L5 Maps
+      - name: Assemble publishable references (05a)
+        run: python .github/scripts/openwrt-docs4ai-05a-assemble-references.py
+      - name: Generate publication companion outputs (05b-05d)
+        env:
+          BASELINE_DIR: ${{ github.workspace }}/baseline
         run: |
-          python .github/scripts/openwrt-docs4ai-06a-generate-llms-txt.py
-          python .github/scripts/openwrt-docs4ai-06b-generate-agents-md.py
-          python .github/scripts/openwrt-docs4ai-06c-generate-ide-schemas.py
-          python .github/scripts/openwrt-docs4ai-06d-generate-changelog.py
-          python .github/scripts/openwrt-docs4ai-07-generate-index-html.py
-      - name: Validate
-        run: python .github/scripts/openwrt-docs4ai-08-validate.py
+          python .github/scripts/openwrt-docs4ai-05b-generate-agents-and-readme.py
+          python .github/scripts/openwrt-docs4ai-05c-generate-ucode-ide-schemas.py
+          python .github/scripts/openwrt-docs4ai-05d-generate-api-drift-changelog.py
+      - name: Generate LLM routing indexes (06)
+        run: python .github/scripts/openwrt-docs4ai-06-generate-llm-routing-indexes.py
+      - name: Generate web landing page (07)
+        run: python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
+      - name: Validate published output (08)
+        run: python .github/scripts/openwrt-docs4ai-08-validate-output.py
       - name: Upload Final Staging
         uses: actions/upload-artifact@v4
         with:

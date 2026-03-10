@@ -22,6 +22,9 @@ import json
 
 sys.stdout.reconfigure(line_buffering=True)
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from lib import repo_manifest
+
 WORKDIR = os.environ.get("WORKDIR", os.path.join(os.getcwd(), "tmp"))
 SKIP_BUILDROOT = os.environ.get("SKIP_BUILDROOT", "false").lower() == "true"
 GITHUB_ENV = os.environ.get("GITHUB_ENV")
@@ -43,7 +46,16 @@ def get_commit(repo_dir):
         ["git", "-C", repo_dir, "rev-parse", "--short", "HEAD"],
         capture_output=True, text=True
     )
-    return result.stdout.strip() if result.returncode == 0 else "unknown"
+    if result.returncode != 0:
+        stderr = (result.stderr or "").strip()
+        raise RuntimeError(
+            f"git rev-parse failed for {repo_dir} with exit {result.returncode}: {stderr or 'no stderr'}"
+        )
+
+    try:
+        return repo_manifest.validate_commit_hash(result.stdout, label=f"commit for {repo_dir}")
+    except repo_manifest.ManifestError as exc:
+        raise RuntimeError(str(exc)) from exc
 
 def set_env(name, value):
     """Write an env var to GITHUB_ENV for subsequent CI steps."""
@@ -76,43 +88,50 @@ def clone_repo(url, dest, label, sparse_paths=None):
 
 # --- Main ---
 
-print("[01] Phase 1: Clone upstream repositories")
+def main():
+    print("[01] Phase 1: Clone upstream repositories")
 
-# ucode
-ucode_commit = clone_repo(
-    "https://github.com/jow-/ucode.git",
-    "repo-ucode", "ucode"
-)
-set_env("UCODE_COMMIT", ucode_commit)
+    try:
+        ucode_commit = clone_repo(
+            "https://github.com/jow-/ucode.git",
+            "repo-ucode", "ucode"
+        )
+        set_env("UCODE_COMMIT", ucode_commit)
 
-# LuCI
-luci_commit = clone_repo(
-    "https://github.com/openwrt/luci.git",
-    "repo-luci", "LuCI"
-)
-set_env("LUCI_COMMIT", luci_commit)
+        luci_commit = clone_repo(
+            "https://github.com/openwrt/luci.git",
+            "repo-luci", "LuCI"
+        )
+        set_env("LUCI_COMMIT", luci_commit)
 
-# OpenWrt buildroot (sparse checkout, optional)
-if not SKIP_BUILDROOT:
-    openwrt_commit = clone_repo(
-        "https://github.com/openwrt/openwrt.git",
-        "repo-openwrt", "OpenWrt buildroot (sparse)",
-        sparse_paths=[
-            "package/network", "package/kernel", "package/utils",
-            "package/system", "package/libs", "package/firmware",
-            "package/boot", "package/multimedia", "include", "scripts"
-        ]
-    )
-    set_env("OPENWRT_COMMIT", openwrt_commit)
-# Generate repo-manifest.json (BUG-035)
-manifest = {
-    "ucode": ucode_commit,
-    "luci": luci_commit,
-    "openwrt": openwrt_commit if not SKIP_BUILDROOT else "skipped",
-    "timestamp": datetime.datetime.now(datetime.UTC).isoformat()
-}
-with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
-    json.dump(manifest, f, indent=2)
-print(f"[01] OK: Manifest written to {MANIFEST_PATH}")
+        openwrt_commit = "skipped"
+        if not SKIP_BUILDROOT:
+            openwrt_commit = clone_repo(
+                "https://github.com/openwrt/openwrt.git",
+                "repo-openwrt", "OpenWrt buildroot (sparse)",
+                sparse_paths=[
+                    "package/network", "package/kernel", "package/utils",
+                    "package/system", "package/libs", "package/firmware",
+                    "package/boot", "package/multimedia", "include", "scripts"
+                ]
+            )
+            set_env("OPENWRT_COMMIT", openwrt_commit)
 
-print("[01] Phase 1 complete.")
+        manifest = {
+            "ucode": ucode_commit,
+            "luci": luci_commit,
+            "openwrt": openwrt_commit,
+            "timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+        }
+        with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+        print(f"[01] OK: Manifest written to {MANIFEST_PATH}")
+        print("[01] Phase 1 complete.")
+        return 0
+    except Exception as exc:
+        print(f"[01] FAIL: {exc}")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

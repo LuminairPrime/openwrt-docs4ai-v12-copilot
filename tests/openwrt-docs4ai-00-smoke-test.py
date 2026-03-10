@@ -5,7 +5,7 @@ Purpose  : Sequential local smoke runner for the numbered pipeline scripts.
 Flags    : --keep-temp         keep the temp tree for inspection
            --run-ai            include the optional AI stage
            --include-extractors run 01 and 02* before the fixture-backed stages
-           --only <id>         run only scripts matching a partial identifier such as 03 or 06c
+           --only <id>         run only scripts matching a partial identifier such as 03, 05c, or 06
 Outputs  : Appends step logs to tmp/logs/openwrt-docs4ai-00-smoke-test-log.txt
 Notes    : Default mode is fixture-backed and offline-friendly. The extractor path is optional.
 """
@@ -39,7 +39,7 @@ def parse_args():
     parser.add_argument("--keep-temp", action="store_true", help="Keep the temp directory after completion")
     parser.add_argument("--run-ai", action="store_true", help="Include the optional AI stage")
     parser.add_argument("--include-extractors", action="store_true", help="Run 01 and 02* before the fixture-backed processing stages")
-    parser.add_argument("--only", type=str, default=None, help="Run only scripts matching a partial identifier such as 03 or 06c")
+    parser.add_argument("--only", type=str, default=None, help="Run only scripts matching a partial identifier such as 03, 05c, or 06")
     return parser.parse_args()
 
 
@@ -92,7 +92,7 @@ def main():
     total_start = time.time()
 
     for index, script in enumerate(pipeline, start=1):
-        extra_args = ["--warn-only"] if script.endswith("08-validate.py") else []
+        extra_args = ["--warn-only"] if script.endswith("08-validate-output.py") else []
         print(f"[{index:2d}/{len(pipeline)}] {script:45s} ... ", end="", flush=True)
         start = time.time()
         try:

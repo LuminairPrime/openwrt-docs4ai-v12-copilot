@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description="Deterministic v12 local smoke test")
     parser.add_argument("--keep-temp", action="store_true", help="Keep the temporary directory after completion")
     parser.add_argument("--run-ai", action="store_true", help="Enable the optional AI stage")
-    parser.add_argument("--only", type=str, default=None, help="Run only a single script identifier such as 03 or 06c")
+    parser.add_argument("--only", type=str, default=None, help="Run only a single script identifier such as 03, 05c, or 06")
     args = parser.parse_args()
 
     log_file = get_local_log_path("smoke-test-log.txt")
@@ -52,7 +52,7 @@ def main():
             scripts = [script for script in scripts if "04-generate-ai-summaries" not in script]
 
         for script in scripts:
-            extra_args = ["--warn-only"] if script.endswith("08-validate.py") else []
+            extra_args = ["--warn-only"] if script.endswith("08-validate-output.py") else []
             result = run_named_script(script, env, PROJECT_ROOT, log_file=log_file, extra_args=extra_args)
             print(result.stdout, end="")
             if result.stderr:

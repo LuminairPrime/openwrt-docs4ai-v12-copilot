@@ -21,7 +21,7 @@ from collections import Counter
 from html import unescape
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from lib import config
+from lib import config, repo_manifest
 
 try:
     from bs4 import BeautifulSoup, Comment, NavigableString, Tag
@@ -34,6 +34,10 @@ except ImportError:
     markdownify_html = None
 
 sys.stdout.reconfigure(line_buffering=True)
+
+WORKDIR = config.WORKDIR
+L1_DIR = config.L1_RAW_WORKDIR
+L2_DIR = config.L2_SEMANTIC_WORKDIR
 
 try:
     import tiktoken
@@ -676,22 +680,35 @@ def clean_wiki_semantic_content(title, content):
         return cleaned
     return normalize_wiki_semantic_content_v2(title, cleaned)
 
+
+def resolve_pipeline_commits():
+    env_snapshot = {key: os.environ.get(key) for key in repo_manifest.COMMIT_ENV_TO_MANIFEST_KEY}
+    missing = [key for key, value in env_snapshot.items() if not value]
+    commits, manifest_path = repo_manifest.resolve_commit_environment(
+        env=env_snapshot,
+        extra_manifest_paths=[config.REPO_MANIFEST_PATH, os.path.join(config.OUTDIR, "repo-manifest.json")],
+    )
+
+    if missing and manifest_path:
+        print(f"[03] INFO: Loaded missing commit versions from {manifest_path}")
+
+    return {
+        "openwrt-core": commits["OPENWRT_COMMIT"],
+        "openwrt-hotplug": commits["OPENWRT_COMMIT"],
+        "procd": commits["OPENWRT_COMMIT"],
+        "uci": commits["OPENWRT_COMMIT"],
+        "wiki": "N/A",
+        "luci": commits["LUCI_COMMIT"],
+        "luci-examples": commits["LUCI_COMMIT"],
+        "ucode": commits["UCODE_COMMIT"],
+    }
+
 def pass_1_normalize_all(ts_now):
     print("[03] Pass 1: YAML Schema Injection & Link Registry Build")
     cross_link_registry = {"pipeline_date": ts_now, "symbols": {}}
     l2_files = []
-    
-    # Commit map for versioning from environment
-    COMMITS = {
-        "openwrt-core": os.environ.get("OPENWRT_COMMIT", "unknown"),
-        "openwrt-hotplug": os.environ.get("OPENWRT_COMMIT", "unknown"),
-        "procd": os.environ.get("OPENWRT_COMMIT", "unknown"),
-        "uci": os.environ.get("OPENWRT_COMMIT", "unknown"),
-        "wiki": "N/A",
-        "luci": os.environ.get("LUCI_COMMIT", "unknown"),
-        "luci-examples": os.environ.get("LUCI_COMMIT", "unknown"),
-        "ucode": os.environ.get("UCODE_COMMIT", "unknown"),
-    }
+
+    commits = resolve_pipeline_commits()
 
     for root, _, files in os.walk(L1_DIR):
         for f in files:
@@ -726,7 +743,7 @@ def pass_1_normalize_all(ts_now):
             l1_rel = os.path.relpath(md_path, WORKDIR).replace("\\", "/")
             y_meta = {
                 "title": title, "module": module, "origin_type": o_type,
-                "token_count": count_tokens(content), "version": COMMITS.get(module, "unknown"),
+                "token_count": count_tokens(content), "version": commits.get(module, "unknown"),
                 "source_file": l1_rel, "last_pipeline_run": ts_now
             }
             for k in ["upstream_path", "language", "description"]:
@@ -860,7 +877,6 @@ def promote_to_staging(registry_path):
         if os.path.isfile(f): shutil.copy2(f, os.path.join(dst_root, os.path.basename(f)))
 
 if __name__ == "__main__":
-    WORKDIR, L1_DIR, L2_DIR = config.WORKDIR, config.L1_RAW_WORKDIR, config.L2_SEMANTIC_WORKDIR
     if not os.path.isdir(L1_DIR):
         print(f"[03] FAIL: L1 input directory not found: {L1_DIR}"); sys.exit(1)
     
