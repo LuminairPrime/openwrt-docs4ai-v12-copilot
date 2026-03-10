@@ -21,6 +21,8 @@ node_modules/
 
 # Local review bundles and scratch reports
 tests/comprehensive-test-results-*/
+tests/smoke-test-log.txt
+tests/openwrt-docs4ai-00-smoke-test-log.txt
 
 # Smoke test terminal output (large, regenerated each run)
 tests/openwrt-docs4ai-00-smoke-test-terminal-output-recent.txt

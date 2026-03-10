@@ -2,6 +2,13 @@
 
 Recorded: 2026-03-10
 
+## Status On 2026-03-10
+
+- The stage-family rename and conservative hardening pass completed and was verified both locally and on GitHub Actions.
+- Rolling smoke helpers now write active logs under `tmp/logs/`, not under `tests/`.
+- Historical tracked smoke logs under `tests/` and tracked `lib/__pycache__/` files are being removed so future local runs stay out of Git history.
+- A durable implementation report for the rename, bug-fix, and verification pass lives in `docs/plans/v12/pipeline-stage-alignment-report-2026-03-10.md`.
+
 ## Goals
 
 - Keep local scratch output out of `tests/` and the repo root.
