@@ -24,16 +24,6 @@ from lib import config
 
 sys.stdout.reconfigure(line_buffering=True)
 
-OUTDIR = os.environ.get("OUTDIR", config.OUTDIR)
-VALIDATE_MODE = os.environ.get("VALIDATE_MODE", "hard").lower()
-if "--warn-only" in sys.argv:
-    VALIDATE_MODE = "soft"
-
-print(f"[08] Security & Quality Validation ({OUTDIR}) [Mode: {VALIDATE_MODE}]")
-
-hard_failures = []
-soft_warnings = []
-
 RELATIVE_MD_LINK_RE = re.compile(
     r'\[[^\]\n]+\]\(((?!https?:\/\/|mailto:|[a-z0-9]+:)[^)\s]+?\.md(?:#[^)\s]+)?)\)',
     re.IGNORECASE,
@@ -45,14 +35,6 @@ UCODE_IMPORT_RE = re.compile(
 UCODE_EXPORT_RE = re.compile(r'^\s*export\b', re.MULTILINE)
 CODE_FENCE_START_RE = re.compile(r'^(\s*)```(javascript|ucode|js|uc)\s*$')
 CODE_FENCE_END_RE = re.compile(r'^(\s*)```\s*$')
-
-def hard_fail(msg):
-    hard_failures.append(msg)
-    print(f"[08] FAIL: {msg}")
-
-def soft_warn(msg):
-    soft_warnings.append(msg)
-    print(f"[08] WARN: {msg}")
 
 
 def extract_ucode_imports(code):
@@ -95,215 +77,220 @@ def extract_markdown_code_blocks(content):
 
     return blocks
 
-# ============================================================
-# Check 1: Structural Integrity (L3 Entry Points)
-# ============================================================
-CORE_FILES = ["llms.txt", "llms-full.txt", "AGENTS.md", "README.md", "index.html"]
-for f in CORE_FILES:
-    if not os.path.isfile(os.path.join(OUTDIR, f)):
-        hard_fail(f"Missing core L3 file: {f}")
 
-# Registry Schema Validation
-import json
-registry_path = os.path.join(OUTDIR, "cross-link-registry.json")
-if os.path.isfile(registry_path):
-    try:
-        with open(registry_path, "r", encoding="utf-8") as f:
-            reg = json.load(f)
-        if "symbols" not in reg or "pipeline_date" not in reg:
-            hard_fail("cross-link-registry.json missing core fields ('symbols', 'pipeline_date')")
-    except Exception as e:
-        hard_fail(f"Could not parse cross-link-registry.json: {e}")
+def validate_outdir(outdir):
+    hard_failures = []
+    soft_warnings = []
 
-# ============================================================
-# Check 2: Content Validation (0-byte, HTML Leaks, UTF-8, Size)
-# ============================================================
-HTML_ERROR_MARKERS = [
-    "<!DOCTYPE", "<html", "404 Not Found", "Access Denied", "captcha",
-    "cloudflare", "captcha-delivery", "Just a moment...", "Checking your browser",
-    "Rate limit exceeded", "Service Temporarily Unavailable"
-]
-MAX_FILE_SIZE_MB = 2.0
+    def hard_fail(msg):
+        hard_failures.append(msg)
+        print(f"[08] FAIL: {msg}")
 
-all_md = glob.glob(os.path.join(OUTDIR, "**", "*.md"), recursive=True)
-checked_count = 0
-skipped_ucode_ast_files = {}
+    def soft_warn(msg):
+        soft_warnings.append(msg)
+        print(f"[08] WARN: {msg}")
 
-for fpath in all_md:
-    rel = os.path.relpath(fpath, OUTDIR)
-    checked_count += 1
-    
-    # Check 0-byte & Size ceiling
-    f_size = os.path.getsize(fpath)
-    if f_size == 0:
-        hard_fail(f"0-byte file detected: {rel}")
-        continue
-    
-    size_mb = f_size / (1024 * 1024)
-    if size_mb > MAX_FILE_SIZE_MB:
-        hard_fail(f"Oversized file ({size_mb:.1f}MB): {rel}")
-        continue
+    core_files = ["llms.txt", "llms-full.txt", "AGENTS.md", "README.md", "index.html"]
+    for file_name in core_files:
+        if not os.path.isfile(os.path.join(outdir, file_name)):
+            hard_fail(f"Missing core L3 file: {file_name}")
 
-    try:
-        with open(fpath, "r", encoding="utf-8") as f:
-            content = f.read()
-    except UnicodeDecodeError:
-        hard_fail(f"Non-UTF-8 content: {rel}")
-        continue
+    import json
 
-    # FIX BUG-017: Check for HTML leak with structural requirement
-    has_structural = "<!DOCTYPE" in content or "<html" in content
-    if has_structural:
-        for marker in HTML_ERROR_MARKERS:
-            if marker in content[:500]:
-                hard_fail(f"HTML error/leak detected ({marker}): {rel}")
-                break
+    registry_path = os.path.join(outdir, "cross-link-registry.json")
+    if os.path.isfile(registry_path):
+        try:
+            with open(registry_path, "r", encoding="utf-8") as file:
+                reg = json.load(file)
+            if "symbols" not in reg or "pipeline_date" not in reg:
+                hard_fail("cross-link-registry.json missing core fields ('symbols', 'pipeline_date')")
+        except Exception as exc:
+            hard_fail(f"Could not parse cross-link-registry.json: {exc}")
 
-    # L2 YAML Validation
-    if "L2-semantic" in rel:
-        if not content.startswith("---"):
-            hard_fail(f"Missing YAML frontmatter in L2: {rel}")
-        else:
-            try:
-                parts = content.split("---", 2)
-                if len(parts) >= 3:
-                    yaml_data = yaml.safe_load(parts[1])
-                    required = ["title", "module", "origin_type", "token_count", "version"]
-                    for field in required:
-                        if field not in yaml_data:
-                            hard_fail(f"L2 YAML missing required field '{field}': {rel}")
-            except Exception as e:
-                hard_fail(f"Malformed YAML in L2: {rel} ({e})")
+    html_error_markers = [
+        "<!DOCTYPE", "<html", "404 Not Found", "Access Denied", "captcha",
+        "cloudflare", "captcha-delivery", "Just a moment...", "Checking your browser",
+        "Rate limit exceeded", "Service Temporarily Unavailable"
+    ]
+    max_file_size_mb = 2.0
 
-        if '<a name="' in content:
-            soft_warn(f"Raw HTML anchor tag leaked into L2: {rel}")
+    all_md = glob.glob(os.path.join(outdir, "**", "*.md"), recursive=True)
+    checked_count = 0
+    skipped_ucode_ast_files = {}
 
-# ============================================================
-# Check 3: Link Integrity (L2 Relative Links)
-# ============================================================
-for fpath in all_md:
-    if "L2-semantic" not in fpath:
-        continue
-    
-    rel_dir = os.path.dirname(fpath)
-    with open(fpath, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    for match in RELATIVE_MD_LINK_RE.finditer(content):
-        link = match.group(1)
-        target_file = link.split("#", 1)[0]
-        target_path = os.path.normpath(os.path.join(rel_dir, target_file))
-        if not os.path.isfile(target_path):
-            hard_fail(f"Broken relative link in {os.path.relpath(fpath, OUTDIR)}: {link}")
-
-# ============================================================
-# Check 3.5: Index Reconciliation (BUG-008)
-# ============================================================
-full_txt_path = os.path.join(OUTDIR, "llms-full.txt")
-if os.path.isfile(full_txt_path):
-    with open(full_txt_path, "r", encoding="utf-8") as f:
-        full_index = f.read()
-    
     for fpath in all_md:
-        if "L2-semantic" not in fpath: continue
-        fname = os.path.basename(fpath)
-        if fname not in full_index:
-            soft_warn(f"L2 file missing from llms-full.txt index: {fname}")
+        rel = os.path.relpath(fpath, outdir)
+        checked_count += 1
 
-# ============================================================
-# Check 4: AST Validation (Soft)
-# ============================================================
-JS_BINARY = shutil.which("node")
-UCODE_BINARY = shutil.which("ucode")
+        f_size = os.path.getsize(fpath)
+        if f_size == 0:
+            hard_fail(f"0-byte file detected: {rel}")
+            continue
 
-def check_ast(code, lang, rel_path):
-    if lang == "javascript" and JS_BINARY:
-        with tempfile.NamedTemporaryFile(suffix=".js", delete=False, mode="w", encoding="utf-8") as tmp:
-            tmp.write(code)
-            tmp_path = tmp.name
-        res = subprocess.run([JS_BINARY, "--check", tmp_path], capture_output=True, text=True)
-        os.unlink(tmp_path)
-        if res.returncode != 0:
-            soft_warn(f"JS Syntax Error in {rel_path}: {res.stderr.strip()}")
-    elif lang == "ucode" and UCODE_BINARY:
-        with tempfile.NamedTemporaryFile(suffix=".uc", delete=False, mode="w", encoding="utf-8") as tmp:
-            tmp.write(code)
-            tmp_path = tmp.name
-        compile_flags = []
-        if UCODE_EXPORT_RE.search(code):
-            compile_flags.append("module")
-        compile_flags.extend(f"dynlink={module}" for module in extract_ucode_imports(code))
+        size_mb = f_size / (1024 * 1024)
+        if size_mb > max_file_size_mb:
+            hard_fail(f"Oversized file ({size_mb:.1f}MB): {rel}")
+            continue
 
-        def run_ucode_check(flags):
-            compile_arg = "-c"
-            if flags:
-                compile_arg += "," + ",".join(flags)
-            return subprocess.run([UCODE_BINARY, compile_arg, tmp_path], capture_output=True, text=True)
+        try:
+            with open(fpath, "r", encoding="utf-8") as file:
+                content = file.read()
+        except UnicodeDecodeError:
+            hard_fail(f"Non-UTF-8 content: {rel}")
+            continue
 
-        res = run_ucode_check(compile_flags)
-        if (
-            res.returncode != 0
-            and "module" not in compile_flags
-            and "return must be inside function body" in res.stderr
-        ):
-            res = run_ucode_check(["module", *compile_flags])
+        has_structural = "<!DOCTYPE" in content or "<html" in content
+        if has_structural:
+            for marker in html_error_markers:
+                if marker in content[:500]:
+                    hard_fail(f"HTML error/leak detected ({marker}): {rel}")
+                    break
 
-        os.unlink(tmp_path)
-        if res.returncode != 0:
-            soft_warn(f"uCode Syntax Error in {rel_path}: {res.stderr.strip()}")
+        if "L2-semantic" in rel:
+            if not content.startswith("---"):
+                hard_fail(f"Missing YAML frontmatter in L2: {rel}")
+            else:
+                try:
+                    parts = content.split("---", 2)
+                    if len(parts) >= 3:
+                        yaml_data = yaml.safe_load(parts[1])
+                        required = ["title", "module", "origin_type", "token_count", "version"]
+                        for field in required:
+                            if field not in yaml_data:
+                                hard_fail(f"L2 YAML missing required field '{field}': {rel}")
+                except Exception as exc:
+                    hard_fail(f"Malformed YAML in L2: {rel} ({exc})")
 
-# Check only canonical L2 files for syntax errors (Soft).
-# L1 raw captures and assembled L3/L4 outputs duplicate the same code blocks,
-# which inflates warning volume without adding meaningful signal.
-if JS_BINARY or UCODE_BINARY:
+            if '<a name="' in content:
+                soft_warn(f"Raw HTML anchor tag leaked into L2: {rel}")
+
     for fpath in all_md:
         if "L2-semantic" not in fpath:
             continue
-        rel = os.path.relpath(fpath, OUTDIR)
-        with open(fpath, "r", encoding="utf-8") as f:
-            content = f.read()
-        
-        blocks = extract_markdown_code_blocks(content)
-        for lang, code in blocks:
-            # Normalize lang names
-            l = "javascript" if lang in ["js", "javascript"] else "ucode"
-            if l == "ucode" and not UCODE_BINARY:
-                skipped_ucode_ast_files[rel] = skipped_ucode_ast_files.get(rel, 0) + 1
+
+        rel_dir = os.path.dirname(fpath)
+        with open(fpath, "r", encoding="utf-8") as file:
+            content = file.read()
+
+        for match in RELATIVE_MD_LINK_RE.finditer(content):
+            link = match.group(1)
+            target_file = link.split("#", 1)[0]
+            target_path = os.path.normpath(os.path.join(rel_dir, target_file))
+            if not os.path.isfile(target_path):
+                hard_fail(f"Broken relative link in {os.path.relpath(fpath, outdir)}: {link}")
+
+    full_txt_path = os.path.join(outdir, "llms-full.txt")
+    if os.path.isfile(full_txt_path):
+        with open(full_txt_path, "r", encoding="utf-8") as file:
+            full_index = file.read()
+
+        for fpath in all_md:
+            if "L2-semantic" not in fpath:
                 continue
-            check_ast(code, l, rel)
+            fname = os.path.basename(fpath)
+            if fname not in full_index:
+                soft_warn(f"L2 file missing from llms-full.txt index: {fname}")
 
-if skipped_ucode_ast_files:
-    skipped_blocks = sum(skipped_ucode_ast_files.values())
-    soft_warn(
-        "uCode syntax validation skipped for "
-        f"{skipped_blocks} code block(s) across {len(skipped_ucode_ast_files)} file(s): "
-        "'ucode' binary not found in PATH"
-    )
+    js_binary = shutil.which("node")
+    ucode_binary = shutil.which("ucode")
 
-# ============================================================
-# Summary
-# ============================================================
-print(f"\n[08] ----------------------------------------------")
-print(f"[08] Validation Results")
-print(f"[08]   Files Checked: {checked_count}")
-print(f"[08]   Hard Failures: {len(hard_failures)}")
-print(f"[08]   Soft Warnings: {len(soft_warnings)}")
-print(f"[08] ----------------------------------------------")
+    def check_ast(code, lang, rel_path):
+        if lang == "javascript" and js_binary:
+            with tempfile.NamedTemporaryFile(suffix=".js", delete=False, mode="w", encoding="utf-8") as tmp:
+                tmp.write(code)
+                tmp_path = tmp.name
+            res = subprocess.run([js_binary, "--check", tmp_path], capture_output=True, text=True)
+            os.unlink(tmp_path)
+            if res.returncode != 0:
+                soft_warn(f"JS Syntax Error in {rel_path}: {res.stderr.strip()}")
+        elif lang == "ucode" and ucode_binary:
+            with tempfile.NamedTemporaryFile(suffix=".uc", delete=False, mode="w", encoding="utf-8") as tmp:
+                tmp.write(code)
+                tmp_path = tmp.name
+            compile_flags = []
+            if UCODE_EXPORT_RE.search(code):
+                compile_flags.append("module")
+            compile_flags.extend(f"dynlink={module}" for module in extract_ucode_imports(code))
 
-if hard_failures:
-    print("\n[08] BLOCKING FAILURES:")
-    for f in hard_failures:
-        print(f"  X {f}")
-    
-    if VALIDATE_MODE == "hard":
-        sys.exit(1)
-    else:
+            def run_ucode_check(flags):
+                compile_arg = "-c"
+                if flags:
+                    compile_arg += "," + ",".join(flags)
+                return subprocess.run([ucode_binary, compile_arg, tmp_path], capture_output=True, text=True)
+
+            res = run_ucode_check(compile_flags)
+            if (
+                res.returncode != 0
+                and "module" not in compile_flags
+                and "return must be inside function body" in res.stderr
+            ):
+                res = run_ucode_check(["module", *compile_flags])
+
+            os.unlink(tmp_path)
+            if res.returncode != 0:
+                soft_warn(f"uCode Syntax Error in {rel_path}: {res.stderr.strip()}")
+
+    if js_binary or ucode_binary:
+        for fpath in all_md:
+            if "L2-semantic" not in fpath:
+                continue
+            rel = os.path.relpath(fpath, outdir)
+            with open(fpath, "r", encoding="utf-8") as file:
+                content = file.read()
+
+            blocks = extract_markdown_code_blocks(content)
+            for lang, code in blocks:
+                normalized_lang = "javascript" if lang in ["js", "javascript"] else "ucode"
+                if normalized_lang == "ucode" and not ucode_binary:
+                    skipped_ucode_ast_files[rel] = skipped_ucode_ast_files.get(rel, 0) + 1
+                    continue
+                check_ast(code, normalized_lang, rel)
+
+    if skipped_ucode_ast_files:
+        skipped_blocks = sum(skipped_ucode_ast_files.values())
+        soft_warn(
+            "uCode syntax validation skipped for "
+            f"{skipped_blocks} code block(s) across {len(skipped_ucode_ast_files)} file(s): "
+            "'ucode' binary not found in PATH"
+        )
+
+    return checked_count, hard_failures, soft_warnings
+
+
+def main(argv=None):
+    argv = argv or sys.argv[1:]
+    outdir = os.environ.get("OUTDIR", config.OUTDIR)
+    validate_mode = os.environ.get("VALIDATE_MODE", "hard").lower()
+    if "--warn-only" in argv:
+        validate_mode = "soft"
+
+    print(f"[08] Security & Quality Validation ({outdir}) [Mode: {validate_mode}]")
+    checked_count, hard_failures, soft_warnings = validate_outdir(outdir)
+
+    print(f"\n[08] ----------------------------------------------")
+    print(f"[08] Validation Results")
+    print(f"[08]   Files Checked: {checked_count}")
+    print(f"[08]   Hard Failures: {len(hard_failures)}")
+    print(f"[08]   Soft Warnings: {len(soft_warnings)}")
+    print(f"[08] ----------------------------------------------")
+
+    if hard_failures:
+        print("\n[08] BLOCKING FAILURES:")
+        for failure in hard_failures:
+            print(f"  X {failure}")
+
+        if validate_mode == "hard":
+            return 1
         print("[08] INFO: Continuing despite failures due to VALIDATE_MODE=soft")
 
-if soft_warnings:
-    print("\n[08] NON-BLOCKING WARNINGS:")
-    for w in soft_warnings:
-        print(f"  ! {w}")
+    if soft_warnings:
+        print("\n[08] NON-BLOCKING WARNINGS:")
+        for warning in soft_warnings:
+            print(f"  ! {warning}")
 
-print("\n[08] Validation pass complete.")
-sys.exit(0)
+    print("\n[08] Validation pass complete.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

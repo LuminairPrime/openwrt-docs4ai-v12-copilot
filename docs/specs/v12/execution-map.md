@@ -29,12 +29,21 @@ Letter suffixes denote scripts that are parallelizable in deployment. Local smok
 
 - `01` produces cloned repositories and any repo manifest data required by downstream stages.
 - `02*` scripts write L1 markdown plus `.meta.json` sidecars.
+- `02b` now exposes import-safe helper surfaces for fenced-block normalization and example fixups so targeted tests can import it directly.
 - `03` reads only L1 plus metadata and writes L2 plus a cross-link registry before promoting stable intermediates into `OUTDIR`.
+- `03` is also the correct place for bounded module-specific cleanup that should not mutate L1 raw retention; the current live example is wiki-only cleanup for residual DokuWiki and pandoc artifacts.
 - `04` mutates staged L2 files in place when enabled.
 - `05` consumes staged L2 files and emits skeletons plus monolithic references.
 - `06*` scripts consume staged L2 metadata and generated references to emit maps, agent instructions, IDE schemas, and telemetry.
 - `07` consumes the map outputs and writes the HTML landing page.
-- `08` validates the full `OUTDIR` tree.
+- `08` validates the full `OUTDIR` tree and now exposes import-safe parsing helpers for direct unit coverage.
+
+## High-Value Debugging Paths
+
+- If the issue is stale or malformed wiki prose in committed outputs, inspect `02a` for source/cache behavior and `03` for semantic cleanup.
+- If the issue is misclassified ucode examples or false syntax warnings, inspect `02b` and `08` together because the extractor and validator now share regression coverage boundaries.
+- If the issue is missing or overwritten generated outputs, inspect the workflow `process` to `deploy` handoff because `staging/` is now the authoritative promotion source.
+- If the issue is only visible in committed `openwrt-condensed-docs/`, compare it against the focused corpus sanity snapshot from `tests/test_pipeline_hardening.py` to decide whether the repo tree is stale or the normalization logic is still wrong.
 
 ## Required Environment Variables
 
@@ -53,6 +62,6 @@ Letter suffixes denote scripts that are parallelizable in deployment. Local smok
 - L2 files require YAML frontmatter with at least `title`, `module`, `origin_type`, `token_count`, and `version`.
 - L4 files use one top-level YAML block for the full monolith rather than reusing L2 frontmatter inline.
 
-## Local Verification Priority
+## Verified Execution Priority
 
-The first verified execution path is local and sequential. GitHub Actions behavior is an additional future verification layer and is not assumed by this execution map.
+The first required execution proof remains local and sequential. GitHub Actions is now a verified second-stage execution and publication layer, so pipeline debugging should distinguish between local logic regressions and remote promotion or cache-state effects.

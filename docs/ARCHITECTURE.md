@@ -4,7 +4,7 @@
 
 This repository is a documentation production pipeline, not an application runtime. Its job is to collect OpenWrt documentation from multiple upstream sources, normalize it into stable intermediate layers, and publish compact outputs that are useful to humans, IDE tooling, and LLM workflows.
 
-The primary engineering goal for the current stage is local correctness and maintainability on Windows. GitHub Actions automation is a later verification and deployment layer, not the current source of truth.
+The primary engineering goal for the current stage is maintainable correctness on Windows with verified remote publication behavior. Local validation remains the first gate, and GitHub Actions is now a confirmed verification and deployment layer rather than an unproven future target.
 
 ## Repository Zones
 
@@ -68,7 +68,14 @@ The primary engineering goal for the current stage is local correctness and main
 - The required first-stage verification path is local and sequential.
 - Deterministic fixture tests are the core protection against accidental regressions.
 - Local smoke tests should isolate `WORKDIR` and `OUTDIR` so the repository is not corrupted during development.
-- GitHub Actions should be treated as a later execution target to verify once the local path is stable.
+- GitHub Actions remains a second-stage verification target after local proof, and it is now also the normal publication path for generated outputs.
+
+## Remote Promotion Contract
+
+- The `process` job builds generated artifacts into `staging/` (`OUTDIR`) and uploads that tree as `final-staging`.
+- The `deploy` job promotes `final-staging` into `openwrt-condensed-docs/` with `rsync -a --delete`.
+- Generated-output commits use the `docs: v12 auto-update YYYY-MM-DD` format and are written by the GitHub Actions bot only when the staged tree changed.
+- GitHub Pages publishes a `public/` copy of staging that excludes `L1-raw` and `L2-semantic`, so those intermediate layers remain committed in-repo without being exposed on the public site.
 
 ## Active Documents
 

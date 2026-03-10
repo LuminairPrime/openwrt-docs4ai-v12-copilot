@@ -51,6 +51,10 @@ COMMON_WORDS = {
 # procd is NOT common (BUG-041)
 COMMON_WORDS.discard("procd")
 
+WIKI_WRAP_TAG_RE = re.compile(r'\\?<\/?WRAP\b[^>]*\\?>', re.IGNORECASE)
+WIKI_COLOR_TAG_RE = re.compile(r'(?:\\?<\/?color\b[^>]*\\?>|&lt;\/?color\b[^&]*&gt;)', re.IGNORECASE)
+WIKI_HEADING_RE = re.compile(r'^(#{1,6})\s+(.+?)\s*$', re.MULTILINE)
+
 def is_code_symbol(name):
     if name.lower() in COMMON_WORDS: return False
     if len(name) < 4: return False
@@ -61,6 +65,87 @@ def is_code_symbol(name):
     # Const/Enum
     if re.match(r'^[A-Z]{3,10}$', name): return True
     return False
+
+
+def normalize_heading_text(text):
+    return re.sub(r'\s+', ' ', text.strip()).casefold()
+
+
+def strip_duplicate_lead_heading(title, content):
+    lines = content.splitlines()
+    if not lines:
+        return content
+
+    title_key = normalize_heading_text(title)
+    first_heading_index = None
+    for index, line in enumerate(lines):
+        if line.startswith("# "):
+            first_heading_index = index
+            break
+        if line.strip():
+            break
+
+    if first_heading_index is None:
+        return content
+
+    probe = first_heading_index + 1
+    while probe < len(lines) and not lines[probe].strip():
+        probe += 1
+
+    if probe >= len(lines):
+        return content
+
+    match = WIKI_HEADING_RE.match(lines[probe].strip())
+    if not match:
+        return content
+
+    if normalize_heading_text(match.group(2)) != title_key:
+        return content
+
+    del lines[probe]
+    if probe < len(lines) and not lines[probe].strip() and probe - 1 >= 0 and not lines[probe - 1].strip():
+        del lines[probe]
+    return "\n".join(lines)
+
+
+def collapse_duplicate_html_table_rows(content):
+    output = []
+    current_row = []
+    previous_row = None
+
+    for line in content.splitlines():
+        stripped = line.lstrip()
+        if not current_row:
+            if stripped.startswith("<tr"):
+                current_row = [line]
+            else:
+                output.append(line)
+            continue
+
+        current_row.append(line)
+        if "</tr>" not in stripped:
+            continue
+
+        row_block = "\n".join(current_row)
+        if row_block != previous_row:
+            output.extend(current_row)
+            previous_row = row_block
+        current_row = []
+
+    if current_row:
+        output.extend(current_row)
+
+    return "\n".join(output)
+
+
+def clean_wiki_semantic_content(title, content):
+    cleaned = WIKI_WRAP_TAG_RE.sub('', content)
+    cleaned = WIKI_COLOR_TAG_RE.sub('', cleaned)
+    cleaned = strip_duplicate_lead_heading(title, cleaned)
+    cleaned = collapse_duplicate_html_table_rows(cleaned)
+    cleaned = re.sub(r'(?m)[ \t]+$', '', cleaned)
+    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+    return cleaned.strip() + "\n"
 
 def pass_1_normalize_all(ts_now):
     print("[03] Pass 1: YAML Schema Injection & Link Registry Build")
@@ -98,6 +183,9 @@ def pass_1_normalize_all(ts_now):
             
             title_m = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
             title = title_m.group(1).strip() if title_m else slug
+
+            if module == "wiki":
+                content = clean_wiki_semantic_content(title, content)
 
             # Mermaid Injection (Specific to procd)
             if module == "procd" and "init" in title.lower():

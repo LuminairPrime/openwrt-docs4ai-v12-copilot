@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file is the maintainer quick start for local development. The current engineering priority is to make the local Windows development path and the sequential smoke-test path reliable before remote GitHub Actions verification is treated as authoritative.
+This file is the maintainer quick start for local development. The current engineering priority is to keep the Windows development path and the sequential smoke-test path reliable while preserving the now-verified GitHub Actions publication flow.
 
 ## Prerequisites
 
@@ -63,6 +63,14 @@ The `--run-ai` path is cache-backed for local verification, so it can validate t
 
 During the current stabilization pass, these test entry points are being repaired and treated as first-class engineering assets.
 
+## Remote Publish Policy
+
+- The workflow builds generated artifacts into `staging/` first and only promotes them in the `deploy` job.
+- On push, schedule, and manual runs, the deploy job syncs `staging/` into `openwrt-condensed-docs/` with `rsync -a --delete`.
+- If the promoted tree changed, GitHub Actions writes a bot-authored commit in the form `docs: v12 auto-update YYYY-MM-DD`.
+- GitHub Pages publishes a `public/` copy of staging that excludes `L1-raw` and `L2-semantic`.
+- Avoid hand-editing generated outputs if the next workflow run is expected to republish them.
+
 ## Environment Variables
 
 | Variable | Default | Purpose |
@@ -112,8 +120,8 @@ Scripts should emit concise line-buffered messages using the numbered prefix con
 
 ## Current Focus
 
-The immediate next engineering tasks are:
+The immediate engineering focus is:
 
-1. generate and measure persistent local L1 and L2 outputs
-2. use those measurements to decide the long-term storage policy for L1 and L2
-3. prepare the later remote GitHub verification checklist from a stable local baseline
+1. keep local and remote verification green while leaving the remaining dockerman warning as a truthful deferred soft warning
+2. finish validating the bounded L2 wiki cleanup against regenerated real outputs
+3. only add corpus-level QA or telemetry if the maintenance cost is justified by clear payoff for this pipeline

@@ -2,17 +2,21 @@
 
 ## Current State
 
-v12 now has fresh local and remote verification from the 2026-03-09 stabilization pass, but it is still in a final hardening phase rather than declared fully finished.
+v12 now has fresh local and remote verification from the 2026-03-09 stabilization pass and the follow-up wiki hardening passes. The system is operationally stable, but it is still in a bounded hardening phase rather than declared fully finished.
 
 The current authoritative position is:
 
 - code exists for the numbered pipeline stages
 - documentation and test surfaces were realigned with the current script layout on 2026-03-09
 - local smoke, sequential local verification, and cache-backed AI verification paths are passing
-- GitHub Actions behavior is verified through run `22870498903`, including `initialize`, all `extract` jobs, `process`, and `deploy`
-- the latest fully verified remote run completed with `0` hard failures and `1` soft warning
+- GitHub Actions behavior is verified through runs `22877164042` and `22877413563`, including `initialize`, all `extract` jobs, `process`, and `deploy`
+- the latest fully checked remote runs completed with `0` hard failures and `1` soft warning
+- the second warm-cache wiki verification proved the hardened `02a` cache paths with `0` fetched, `92` unchanged, `5` too short, `0` reused-cache, and `0` failed pages
+- push, schedule, and manual workflow runs now promote staged generated outputs into `openwrt-condensed-docs/` via bot-authored `docs: v12 auto-update YYYY-MM-DD` commits, while GitHub Pages excludes `L1-raw` and `L2-semantic`
 - L1 and L2 are intentionally retained under `openwrt-condensed-docs`; only L0 remains transient
-- remaining risk is concentrated in one residual dockerman ucode soft warning and wiki-conversion cleanliness, not in broad pipeline instability
+- the only verified remote warning is the deferred dockerman ucode context mismatch; the remaining content work is bounded wiki-derived cleanup in L2 rather than broad pipeline instability
+- a follow-up local patch that tightens wiki L2 cleanup and adds direct regression coverage for `02b`, `03`, and `08` is now passing focused tests and the deterministic smoke path
+- a committed-corpus sanity snapshot now reports the current checked-in wiki L2 tree in human-readable terms so stale versus abnormal artifact levels can be judged quickly during bug triage
 
 ## Verification Matrix
 
@@ -25,12 +29,14 @@ The current authoritative position is:
 | Deterministic local smoke test | verified | `python tests/00-smoke-test.py` passes locally |
 | Sequential local smoke runner | verified | `python tests/openwrt-docs4ai-00-smoke-test.py` passes locally |
 | Local AI-summary integration | verified | Cache-backed local AI path passes via `--run-ai` without requiring a live token |
-| GitHub Actions remote verification | verified | Latest fully checked run `22870498903` passed end to end on 2026-03-09 |
+| GitHub Actions remote verification | verified | Latest fully checked runs `22877164042` and `22877413563` passed end to end on 2026-03-09 |
 | Remote output measurement | verified | Successful staging artifact contained 151 L1 markdown docs, 151 L2 markdown docs, and 397 indexed symbols |
-| Generated output promotion | verified | Deploy produced commit `3d3e6d3` (`docs: v12 auto-update 2026-03-09`) |
+| Generated output promotion | verified | Deploy produced follow-up output commits `e13fb46` and `ffe48ad` (`docs: v12 auto-update 2026-03-09`) |
 | L1/L2 retention policy | decided | L1 and L2 remain committed under `openwrt-condensed-docs`; L0 remains transient only |
-| Remote warning reduction | verified | Remote soft warnings were reduced from 48 to 1 across the 2026-03-09 hardening passes |
-| Latest local follow-up patch | verified | Remote run `22870498903` cleared the `nl80211` warning and left only one residual dockerman soft warning |
+| Remote warning reduction | verified | Remote soft warnings were reduced from 48 to 1 and stayed at 1 across the wiki hardening verification runs |
+| Wiki scraper hardening round 2 | verified | Commit `69e98c7` plus runs `22877164042` and `22877413563` hardened cache trust, redirect validation, and short-page cache hits |
+| Latest local follow-up patch | locally verified | `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` and `python tests/00-smoke-test.py` pass after the `03` wiki cleanup pass and the import-safe `02b`/`08` refactors |
+| Committed wiki corpus sanity snapshot | locally verified | `tests/test_pipeline_hardening.py` now prints a readable snapshot of current committed wiki L2 artifact levels when run with `pytest -s` |
 
 ## Historical Note
 
@@ -77,6 +83,22 @@ Older status claims from early March 2026 described the pipeline as fully comple
 - Investigated the remaining `docker_rpc.uc` warning and found that the file is consumed by LuCI as multiple rpc objects such as `docker`, `docker.container`, `docker.image`, and `docker.network`, which supports the intentional direct `return methods;` shape.
 - Current evidence indicates that the remaining warning is a standalone `ucode` validation mismatch for a dual-mode rpcd script, not a broad documentation quality failure.
 
+### Milestone 6: wiki hardening and warm-cache proof
+
+- Pushed follow-up hardening commit `69e98c7` (`Harden wiki cache validation`).
+- Verified remote run `22877164042`, which completed successfully with `0` hard failures and `1` soft warning while the wiki job reported `0` fetched, `92` unchanged, `5` too short, `0` reused-cache, and `0` failed pages.
+- Manually triggered remote run `22877413563` to prove the new short-page warm-cache path after the cache schema update.
+- Confirmed that run `22877413563` logged explicit short-page cache hits for the five known short pages while keeping the overall pipeline at `0` hard failures and `1` soft warning.
+- Confirmed that the post-hardening deploy path auto-promoted generated output commits through `e13fb46` and `ffe48ad`.
+
+### Milestone 7: local post-verification cleanup
+
+- Added a bounded wiki-only L2 cleanup pass in `03-normalize-semantic.py` to strip `WRAP` and `color` tags, remove immediate duplicate lead headings, and collapse repeated HTML table rows.
+- Refactored `02b-scrape-ucode.py` and `08-validate.py` so their helper surfaces are import-safe and can be unit tested directly.
+- Added `tests/test_pipeline_hardening.py` to cover the new `02b`, `03`, and `08` hardening surfaces.
+- Added a committed-corpus sanity snapshot in `tests/test_pipeline_hardening.py` so bug triage can read current wiki L2 artifact levels directly from pytest output.
+- Verified the local follow-up patch with `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` and `python tests/00-smoke-test.py`.
+
 ## Remote Output Snapshot
 
 Measured from the `final-staging` artifact produced by run `22864304564`.
@@ -93,9 +115,11 @@ A random slice audit of 10 generated files on 2026-03-09 found that the outputs 
 
 - L1 samples were raw converted source documents without YAML frontmatter and with source-style structure intact.
 - L2 samples carried the required YAML frontmatter and preserved relative links into the generated corpus.
-- The primary remaining content issue is cleanliness in some wiki-derived pages, where legacy DokuWiki or pandoc artifacts still appear (for example `<WRAP>` markers, duplicated top headings, and raw HTML table fragments).
+- The primary remaining content issue was cleanliness in some wiki-derived pages, where legacy DokuWiki or pandoc artifacts still appeared (for example `<WRAP>` markers, duplicated top headings, and raw HTML table fragments).
+- A bounded L2 cleanup pass now strips `WRAP` and `color` tags, removes immediate duplicate lead headings, and collapses repeated HTML table rows during normalization; a regenerated corpus audit is the remaining close-out step for that work.
+- The committed-corpus sanity snapshot currently shows the pre-republish baseline as `92` wiki L2 files, `11` files with `WRAP`, `9` with `color`, `9` with raw HTML tables, and `0` immediate duplicate lead headings.
 
 ### Next Priority
 
-Decide whether the remaining dockerman soft warning is worth any further validator modeling, or leave it as one truthful non-blocking warning and shift attention to wiki-conversion cleanup.
+Keep the remaining dockerman soft warning deferred unless stronger evidence appears, and decide whether any extra corpus-level QA or telemetry is worth the added operational complexity after the bounded wiki cleanup is rerun against the full corpus.
 

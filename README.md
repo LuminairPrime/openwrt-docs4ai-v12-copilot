@@ -11,7 +11,7 @@ This repository pulls documentation from multiple OpenWrt-related sources, norma
 - IDE and tooling support
 - long-term monthly refresh automation
 
-The current development stage is local-first stabilization. The codebase is being polished so the Windows development path, the documentation structure, and the local smoke tests are trustworthy before GitHub Actions becomes the authoritative execution environment.
+The current development stage is verified stabilization and operational hardening. Local-first validation remains the engineering baseline, and GitHub Actions is now a confirmed remote execution and publication path rather than an unproven future target.
 
 ## Source Families
 
@@ -40,12 +40,13 @@ The exact output set is defined in `docs/ARCHITECTURE.md` and `docs/specs/v12/`.
 
 ## Status
 
-The repository now has both local and remote v12 verification from the 2026-03-09 stabilization pass.
+The repository now has both local and remote v12 verification from the 2026-03-09 stabilization pass and the follow-up wiki hardening runs.
 
 - local deterministic smoke coverage is passing
 - the sequential local runner is passing
-- remote GitHub Actions runs are verified through the latest checked run, with `0` hard failures and the warning count reduced to `1`
-- the remaining work is concentrated in one residual dockerman ucode soft warning and wiki-conversion cleanliness, not in broad pipeline breakage
+- remote GitHub Actions runs are verified through warm-cache wiki run `22877413563`, with `0` hard failures and `1` soft warning
+- push, schedule, and manual workflow runs auto-promote staged generated outputs back into `openwrt-condensed-docs/`; GitHub Pages excludes `L1-raw` and `L2-semantic`
+- the remaining work is concentrated in one deferred dockerman ucode soft warning, bounded wiki-derived cleanup, and deciding whether extra corpus telemetry is worth the complexity
 
 ## License
 
