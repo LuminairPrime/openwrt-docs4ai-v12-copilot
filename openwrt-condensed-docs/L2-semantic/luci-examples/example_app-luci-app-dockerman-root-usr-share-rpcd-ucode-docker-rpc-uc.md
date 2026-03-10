@@ -5,7 +5,7 @@ origin_type: example_app
 token_count: 5819
 version: 31f220d
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-root-usr-share-rpcd-ucode-docker-rpc-uc.md
-last_pipeline_run: '2026-03-10T12:02:28.138705+00:00'
+last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
 upstream_path: applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc
 language: ucode
 ---

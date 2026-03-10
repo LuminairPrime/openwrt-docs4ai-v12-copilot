@@ -7,6 +7,6 @@
   "language": "javascript",
   "upstream_path": "applications/luci-app-example/htdocs/luci-static/resources/view/example/rpc-jsonmap-tablesection.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-10T11:59:12.568626+00:00",
+  "extraction_timestamp": "2026-03-10T12:13:01.156026+00:00",
   "content_hash": "ef8dbb42"
 }

@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 3903
 version: e87be9d
 source_file: L1-raw/ucode/c_source-api-module-debug.md
-last_pipeline_run: '2026-03-10T12:02:28.138705+00:00'
+last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
 upstream_path: lib/debug.c
 language: c
 ---

@@ -5,7 +5,7 @@ origin_type: hotplug_event
 token_count: 1412
 version: 24ce149
 source_file: L1-raw/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md
-last_pipeline_run: '2026-03-10T12:02:28.138705+00:00'
+last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
 upstream_path: package/**/etc/hotplug.d/*
 language: bash
 ---

@@ -1,7 +1,7 @@
 # openwrt-hotplug (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for openwrt-hotplug.
-> **Generated:** 2026-03-10T12:02:43.319301+00:00
+> **Generated:** 2026-03-10T12:16:57.006070+00:00
 
 ---
 
