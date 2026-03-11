@@ -1,0 +1,16 @@
+{
+  "slug": "c_source-api-module-debug",
+  "module": "ucode",
+  "title": "ucode module: debug",
+  "content_hash": "8806a8a259d5",
+  "ai_summary": "Provides runtime introspection and tracing utilities for ucode scripts. Implements traceback() to capture the current call stack, getinfo() to inspect function and closure metadata, and memdump() for object inspection at runtime. Used primarily for structured error reporting and development-time debugging in production handlers.",
+  "ai_when_to_use": "Use to produce meaningful stack traces in error handlers, inspect closures during development, or emit diagnostic context information in ucode services running under procd where stderr is not easily accessible.",
+  "ai_related_topics": [
+    "debug.traceback",
+    "debug.getinfo",
+    "debug.memdump"
+  ],
+  "generated_at": "2026-03-11T00:00:00Z",
+  "model": "github-copilot-seeded",
+  "pipeline_version": "v12"
+}

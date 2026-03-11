@@ -1,0 +1,19 @@
+{
+  "slug": "c_source-api-module-math",
+  "module": "ucode",
+  "title": "ucode module: math",
+  "content_hash": "63954ce10507",
+  "ai_summary": "Provides standard mathematical functions for ucode scripts, mirroring the JavaScript Math object surface. Implements abs(), atan2(), ceil(), cos(), exp(), floor(), log(), max(), min(), pow(), round(), sin(), sqrt(), and tan() along with the constants math.PI and math.E for floating-point arithmetic.",
+  "ai_when_to_use": "Use for numerical calculations in LuCI view scripts, configuration validators, and network metric processors that need floating-point math beyond basic arithmetic operators available in ucode natively.",
+  "ai_related_topics": [
+    "math.floor",
+    "math.ceil",
+    "math.abs",
+    "math.sqrt",
+    "math.pow",
+    "math.round"
+  ],
+  "generated_at": "2026-03-11T00:00:00Z",
+  "model": "github-copilot-seeded",
+  "pipeline_version": "v12"
+}

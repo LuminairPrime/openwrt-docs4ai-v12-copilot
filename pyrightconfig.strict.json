@@ -1,0 +1,13 @@
+{
+  "typeCheckingMode": "strict",
+  "include": [
+    "lib/ai_store.py",
+    "lib/config.py",
+    ".github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "tmp"
+  ],
+  "pythonVersion": "3.11"
+}

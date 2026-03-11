@@ -1,0 +1,19 @@
+{
+  "slug": "header_api-procd-api",
+  "module": "procd",
+  "title": "procd init.d API Reference",
+  "content_hash": "ab597ed1fef8",
+  "ai_summary": "Defines the procd init script Bash API for service registration and supervised process lifecycle control. Exposes procd_open_service(), procd_close_service(), procd_open_instance(), procd_close_instance(), and procd_set_param() for declaring supervised processes with respawn rules, environment variables, limits, file triggers, and bound network devices. Also provides procd_add_reload_trigger() for UCI-based reload events.",
+  "ai_when_to_use": "Use in every /etc/init.d/ script that must integrate with the OpenWrt procd process supervisor for automatic respawn, controlled signal handling, and named trigger-based reload without manual service polling.",
+  "ai_related_topics": [
+    "procd_open_service",
+    "procd_close_service",
+    "procd_open_instance",
+    "procd_close_instance",
+    "procd_set_param",
+    "procd_add_reload_trigger"
+  ],
+  "generated_at": "2026-03-11T00:00:00Z",
+  "model": "github-copilot-seeded",
+  "pipeline_version": "v12"
+}

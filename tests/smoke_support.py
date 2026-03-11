@@ -1,11 +1,14 @@
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, ".github", "scripts")
+SCRIPT_NAME_RE = re.compile(r"^openwrt-docs4ai-(?P<stage_id>\d{2}[a-z]?)-.+\.py$")
+STAGE_FAMILY_RE = re.compile(r"^\d{2}$")
 
 POST_EXTRACT_PIPELINE = [
     "openwrt-docs4ai-03-normalize-semantic.py",
@@ -31,6 +34,39 @@ FULL_PIPELINE = [
     "openwrt-docs4ai-02h-scrape-hotplug-events.py",
     *POST_EXTRACT_PIPELINE,
 ]
+
+
+def get_stage_id(script_name):
+    match = SCRIPT_NAME_RE.match(script_name)
+    if not match:
+        raise ValueError(f"Unsupported pipeline script name: {script_name}")
+    return match.group("stage_id")
+
+
+def select_pipeline_scripts(pipeline, only=None):
+    scripts = list(pipeline)
+    if only is None:
+        return scripts
+
+    selector = only.strip().lower()
+    if not selector:
+        raise ValueError("Stage selector cannot be empty.")
+
+    exact_stage_matches = [script for script in scripts if get_stage_id(script).lower() == selector]
+    if exact_stage_matches:
+        return exact_stage_matches
+
+    if STAGE_FAMILY_RE.fullmatch(selector):
+        family_matches = [script for script in scripts if get_stage_id(script).lower().startswith(selector)]
+        if family_matches:
+            return family_matches
+
+    full_name_matches = [script for script in scripts if script.lower() == selector]
+    if full_name_matches:
+        return full_name_matches
+
+    available = ", ".join(get_stage_id(script) for script in scripts)
+    raise ValueError(f"No scripts match selector '{only}'. Available stage ids in this run: {available}")
 
 FIXTURE_DOCS = [
     {
@@ -106,7 +142,13 @@ def build_env(workdir, outdir, run_ai=False, extra_env=None):
     env["WORKDIR"] = workdir
     env["OUTDIR"] = outdir
     env["SKIP_AI"] = "false" if run_ai else "true"
+    env["AI_DATA_BASE_DIR"] = os.path.join(workdir, "ai-data", "base")
+    env["AI_DATA_OVERRIDE_DIR"] = os.path.join(workdir, "ai-data", "override")
     env["VALIDATE_MODE"] = env.get("VALIDATE_MODE", "hard")
+
+    os.makedirs(env["AI_DATA_BASE_DIR"], exist_ok=True)
+    os.makedirs(env["AI_DATA_OVERRIDE_DIR"], exist_ok=True)
+
     if extra_env:
         env.update(extra_env)
     return env

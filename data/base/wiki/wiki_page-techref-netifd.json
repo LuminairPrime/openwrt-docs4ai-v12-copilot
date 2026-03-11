@@ -1,0 +1,20 @@
+{
+  "slug": "wiki_page-techref-netifd",
+  "module": "wiki",
+  "title": "OpenWrt Technical Reference: netifd",
+  "content_hash": null,
+  "ai_summary": "Documents netifd, the OpenWrt network interface daemon responsible for managing network interfaces based on UCI config. Explains the interface/device/proto handler model, the /etc/config/network schema (interface, device, bridge, route, rule sections), protocol handler shell scripts in /lib/netifd/proto/, ifup/ifdown/ifupdate hotplug event flow, and the ubus network API exposed by netifd.",
+  "ai_when_to_use": "Reference when diagnosing why an interface fails to come up, implementing a custom protocol handler (proto script in /lib/netifd/proto/), writing hotplug scripts that react to ifup/ifdown events, or calling netifd ubus methods like network.interface.status or network.interface.up.",
+  "ai_related_topics": [
+    "netifd ubus API",
+    "proto_run_command",
+    "proto_export_env",
+    "hotplug.iface",
+    "network.interface.status",
+    "UCI network config",
+    "bridge"
+  ],
+  "generated_at": "2026-03-11T00:00:00Z",
+  "model": "manual",
+  "pipeline_version": "v12"
+}
