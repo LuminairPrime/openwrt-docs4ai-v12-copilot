@@ -5,7 +5,7 @@ origin_type: example_app
 token_count: 247
 version: 8e3bc67
 source_file: L1-raw/luci-examples/example_app-luci-app-commands-htdocs-luci-static-resources-view-commands-js.md
-last_pipeline_run: '2026-03-11T14:34:47.275634+00:00'
+last_pipeline_run: '2026-03-11T14:46:50.602050+00:00'
 upstream_path: applications/luci-app-commands/htdocs/luci-static/resources/view/commands.js
 language: javascript
 ---

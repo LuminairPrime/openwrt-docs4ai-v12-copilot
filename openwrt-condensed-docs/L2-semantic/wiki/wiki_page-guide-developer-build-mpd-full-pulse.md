@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 390
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-build-mpd-full-pulse.md
-last_pipeline_run: '2026-03-11T14:34:47.275634+00:00'
+last_pipeline_run: '2026-03-11T14:46:50.602050+00:00'
 language: text
 ---
 # Building MPD-full with PulseAudio

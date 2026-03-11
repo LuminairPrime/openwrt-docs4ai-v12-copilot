@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 6807
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-brcm63xx-imagetag.md
-last_pipeline_run: '2026-03-11T14:34:47.275634+00:00'
+last_pipeline_run: '2026-03-11T14:46:50.602050+00:00'
 language: text
 ---
 # BCM63xx Firmware Image Information

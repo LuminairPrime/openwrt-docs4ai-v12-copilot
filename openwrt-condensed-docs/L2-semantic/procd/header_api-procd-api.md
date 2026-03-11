@@ -5,7 +5,7 @@ origin_type: header_api
 token_count: 352
 version: 4f107d7
 source_file: L1-raw/procd/header_api-procd-api.md
-last_pipeline_run: '2026-03-11T14:34:47.275634+00:00'
+last_pipeline_run: '2026-03-11T14:46:50.602050+00:00'
 upstream_path: package/system/procd/files/procd.sh
 language: bash
 ai_summary: Defines the procd init script Bash API for service registration and supervised process lifecycle control. Exposes procd_open_service(), procd_close_service(), procd_open_instance(), procd_close_instance(), and procd_set_param() for declaring supervised processes with respawn rules, environment variables, limits, file triggers, and bound network devices. Also provides procd_add_reload_trigger() for UCI-based reload events.
