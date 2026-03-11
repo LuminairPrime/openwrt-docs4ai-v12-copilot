@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 140
 version: 8e3bc67
 source_file: L1-raw/luci/js_source-api-fs.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/fs.js
 language: javascript
 ai_summary: Provides the LuCI client-side filesystem API that proxies calls to the rpcd file plugin over HTTP. Implements stat(), list(), read(), write(), exec(), remove(), and lines(); all functions return Promises and pass arguments as JSON to the /ubus endpoint, so the calling LuCI view does not need to manage XHR directly.

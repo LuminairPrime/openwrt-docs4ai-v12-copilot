@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 540
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-building-kernels-for-debian-binaries.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 language: text
 ---
 # Building OpenWrt Kernel for Debian System

@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 484
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-embedding-files-in-image.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 language: text
 ---
 # embedding-files-in-image

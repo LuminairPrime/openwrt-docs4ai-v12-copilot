@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 3903
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-debug.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: lib/debug.c
 language: c
 ai_summary: Provides runtime introspection and tracing utilities for ucode scripts. Implements traceback() to capture the current call stack, getinfo() to inspect function and closure metadata, and memdump() for object inspection at runtime. Used primarily for structured error reporting and development-time debugging in production handlers.

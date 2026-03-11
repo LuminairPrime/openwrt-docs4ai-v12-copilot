@@ -5,7 +5,7 @@ origin_type: makefile_meta
 token_count: 5273
 version: 4f107d7
 source_file: L1-raw/openwrt-core/makefile_meta-category-libs.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: package/libs
 language: makefile
 ---

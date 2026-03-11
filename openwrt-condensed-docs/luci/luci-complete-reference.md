@@ -3,7 +3,7 @@ module: "luci"
 total_token_count: 19723
 section_count: 10
 is_monolithic: true
-generated: "2026-03-11T13:21:37.778398+00:00"
+generated: "2026-03-11T14:18:28.808254+00:00"
 ---
 
 # luci Complete Reference

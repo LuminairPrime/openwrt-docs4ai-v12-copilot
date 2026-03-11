@@ -7,6 +7,6 @@
   "language": "ucode",
   "upstream_path": "applications/luci-app-ddns/root/usr/share/rpcd/ucode/ddns.uc",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-11T13:18:28.321162+00:00",
+  "extraction_timestamp": "2026-03-11T14:15:27.356954+00:00",
   "content_hash": "245bc06a"
 }

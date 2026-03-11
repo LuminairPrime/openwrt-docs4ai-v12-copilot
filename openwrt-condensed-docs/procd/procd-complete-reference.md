@@ -3,7 +3,7 @@ module: "procd"
 total_token_count: 352
 section_count: 1
 is_monolithic: true
-generated: "2026-03-11T13:21:37.778398+00:00"
+generated: "2026-03-11T14:18:28.808254+00:00"
 ---
 
 # procd Complete Reference

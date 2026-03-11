@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 143
 version: 8e3bc67
 source_file: L1-raw/luci/js_source-api-form.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/form.js
 language: javascript
 ai_summary: Provides the first-class LuCI form rendering framework used by modern views. Defines Map, JSONMap, Section, NamedSection, TableSection, and GridSection containers plus widget types (Flag, Value, ListValue, DynamicList, MultiValue, SectionValue, HiddenValue); supports async option loading via load() and custom validation callbacks on each widget.

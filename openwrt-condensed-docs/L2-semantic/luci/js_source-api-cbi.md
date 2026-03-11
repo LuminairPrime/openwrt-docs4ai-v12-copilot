@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 3075
 version: 8e3bc67
 source_file: L1-raw/luci/js_source-api-cbi.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/cbi.js
 language: javascript
 ai_summary: Implements the CBI declarative form framework for LuCI. Defines Map, Section, TypedSection, TableSection, and over 30 widget classes including Value, Flag, ListValue, MultiValue, DynamicList, and TextValue; CBI maps UCI package sections directly to HTML forms and calls uci.save() on submit, enabling config UIs with minimal JavaScript.

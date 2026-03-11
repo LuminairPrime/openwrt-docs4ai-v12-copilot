@@ -5,7 +5,7 @@ origin_type: example_app
 token_count: 11218
 version: 8e3bc67
 source_file: L1-raw/luci-examples/example_app-luci-app-ddns-htdocs-luci-static-resources-view-ddns-overview-js.md
-last_pipeline_run: '2026-03-11T13:21:22.584928+00:00'
+last_pipeline_run: '2026-03-11T14:18:13.562842+00:00'
 upstream_path: applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js
 language: javascript
 ---
