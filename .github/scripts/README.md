@@ -50,6 +50,7 @@ for the full dependency graph, input/output tables, and AI data flow diagram.
 | `AI_CACHE_PATH` | `ai-summaries-cache.json` | 04 |
 | `AI_DATA_BASE_DIR` | `data/base/` | 04 |
 | `AI_DATA_OVERRIDE_DIR` | `data/override/` | 04 |
+| `AI_VALIDATE_PAYLOAD` | `true` | 04 |
 | `VALIDATE_MODE` | `hard` | 08 |
 | `OPENWRT_COMMIT` | (set by 01) | 03, 06 |
 | `LUCI_COMMIT` | (set by 01) | 03, 06 |

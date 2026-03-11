@@ -18,6 +18,8 @@ Environment Variables:
     AI_CACHE_PATH    Optional override for legacy ai-summaries-cache.json path.
   AI_DATA_BASE_DIR    Override default data/base/ location.
   AI_DATA_OVERRIDE_DIR Override default data/override/ location.
+  AI_VALIDATE_PAYLOAD  Validate AI payloads before injection. Default: true.
+                       Set to false only when debugging malformed API responses locally.
 Dependencies: requests, pyyaml, lib.config, lib.ai_store
 
 =========================== MANUAL AI GENERATION PROMPT ===========================
@@ -76,6 +78,7 @@ SKIP_AI = os.environ.get("SKIP_AI", "false").lower() == "true"
 WRITE_AI = os.environ.get("WRITE_AI", "true").lower() == "true"
 MAX_FILES = int(os.environ.get("MAX_AI_FILES", "40"))
 TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("LOCAL_DEV_TOKEN")
+VALIDATE_PAYLOAD = os.environ.get("AI_VALIDATE_PAYLOAD", "true").lower() != "false"
 
 # Legacy flat cache — migrated opportunistically on first run that encounters it
 _LEGACY_CACHE_PATH = os.path.abspath(
@@ -129,6 +132,39 @@ def _coerce_related_topics(value: Any) -> list[str]:
         if topic:
             out.append(topic)
     return out
+
+
+_UNSAFE_PAYLOAD_RE = re.compile(
+    r"<script\b|javascript:|data:text/html|[\x00-\x08\x0b\x0c\x0e-\x1f]",
+    re.IGNORECASE,
+)
+
+
+def _validate_payload(payload: SummaryPayload, label: str) -> bool:
+    """Light safety/sanity check before injecting an AI payload into L2 frontmatter.
+
+    Rejects payloads that are empty, suspiciously short, or contain characters or
+    patterns that should never appear in documentation text (e.g. script injection,
+    binary control characters). Does not reject for style or length opinions beyond
+    a very low minimum bar.
+    """
+    summary = payload.get("summary", "").strip()
+    when_to_use = payload.get("when_to_use", "").strip()
+
+    if not summary or not when_to_use:
+        print(f"[04] WARN: Rejecting empty AI payload for {label}")
+        return False
+
+    if len(summary) < 20:
+        print(f"[04] WARN: Rejecting too-short summary for {label} (len={len(summary)})")
+        return False
+
+    for field_name, field_val in (("summary", summary), ("when_to_use", when_to_use)):
+        if _UNSAFE_PAYLOAD_RE.search(field_val):
+            print(f"[04] WARN: Unsafe content in {field_name} for {label}; skipping injection")
+            return False
+
+    return True
 
 
 def _load_legacy_cache() -> dict[str, dict[str, Any]]:
@@ -393,7 +429,10 @@ for module, slug, fpath in all_targets:
             else:
                 print(f"[04] WARN: No summary generated for {module}/{slug}")
 
-    # 4. Inject into L2 YAML frontmatter
+    # 4. Validate and inject into L2 YAML frontmatter
+    if result and VALIDATE_PAYLOAD and not _validate_payload(result, f"{module}/{slug}"):
+        result = None
+
     if result:
         try:
             loaded_fm: Any = _yaml.safe_load(fm_text)

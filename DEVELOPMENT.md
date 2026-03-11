@@ -79,6 +79,71 @@ During the current stabilization pass, these test entry points are being repaire
 
 The current non-AI hardening slice intentionally avoided direct implementation changes to `04-generate-ai-summaries.py` and `lib/ai_store.py`.
 
+## CI Operations
+
+### Waiting for a GitHub Actions run and reading its logs
+
+This pipeline runs CI frequently. Follow the procedure below every time you push a commit and need to verify the result. Do not improvise — the anti-pattern list below is based on real mistakes that have caused wasted debug cycles in this project.
+
+**Best method: pin-then-triage**
+
+**Phase A — wait for the right run to complete**
+
+1. Capture the exact commit SHA you pushed:
+
+   ```powershell
+   git rev-parse HEAD
+   ```
+
+2. List recent workflow runs and find the one that matches that SHA (never assume "latest" is yours — a deploy auto-update commit may have started a newer run):
+
+   ```powershell
+   gh run list --workflow "openwrt-docs4ai pipeline (v12)" --limit 20 --json databaseId,headSha,status,conclusion,url
+   ```
+
+3. Copy the `databaseId` of the matching entry and wait on that specific run with a bounded poll interval:
+
+   ```powershell
+   gh run watch <run_id> --exit-status --interval 15
+   ```
+
+   `--exit-status` returns exit code 1 on failure so the caller detects it without manual logic. `--interval 15` polls every 15 seconds. Block here until it exits — do not proceed to Phase B while the run is still in progress.
+
+**Phase B — triage from summary artifacts before opening raw logs**
+
+4. Download and inspect the structured pipeline summary artifact first:
+
+   ```powershell
+   gh run download <run_id> -n pipeline-summary -D tmp/ci/pipeline-summary
+   Get-Content tmp/ci/pipeline-summary/*.json | ConvertFrom-Json
+   ```
+
+5. If that implicates a specific extractor, also pull the per-extractor status bundle:
+
+   ```powershell
+   gh run download <run_id> -n extract-summary -D tmp/ci/extract-summary
+   ```
+
+6. Only if the summary artifacts indicate a failure you still cannot explain structurally, open raw failed-job logs:
+
+   ```powershell
+   gh run view <run_id> --log-failed
+   ```
+
+Quick whole-run status check:
+
+```powershell
+gh run view <run_id> --json jobs,conclusion,url
+```
+
+### Things to avoid when waiting for CI
+
+- **Do not poll "the latest run"** — always pin to the SHA of your push. After a successful deploy the workflow writes a bot-authored `docs: v12 auto-update YYYY-MM-DD` commit which triggers a new run; the "latest" ID is no longer yours.
+- **Do not run an open-ended polling loop** — an unbounded `while ($true)` loop in a chat session consumes tokens, hides intermediate output, and looks like an infinite hang to both the user and the model. Always use `gh run watch` with `--interval` instead.
+- **Do not pull full logs before the run finishes** — logs are noisy and incomplete mid-run; wait for `gh run watch` to exit cleanly before any log inspection.
+- **Do not skip the artifact triage phase** — `pipeline-summary`, `process-summary`, and `extract-summary` exist precisely to avoid log forensics; read them first and fall back to raw logs only for unexplained failures.
+- **Do not assume a deploy auto-commit is your commit** — verify by checking `headSha` on the run, not by run order.
+
 ## Environment Variables
 
 | Variable | Default | Purpose |
