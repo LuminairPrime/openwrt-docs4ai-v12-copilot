@@ -206,8 +206,11 @@ Scripts should emit concise line-buffered messages using the numbered prefix con
 
 ## Current Focus
 
-The immediate engineering focus is:
+The pipeline reached a stable, fully-tested state on 2026-03-11. All stabilization phases are complete.
 
-1. keep local and remote verification green while leaving the remaining dockerman warning as a truthful deferred soft warning
-2. finish validating the bounded L2 wiki cleanup against regenerated real outputs
-3. only add corpus-level QA or telemetry if the maintenance cost is justified by clear payoff for this pipeline
+Ongoing monitored items:
+
+1. The `luci-app-dockerman` ucode warning (`REMOTE-008`) remains a deferred soft warning — intentionally preserved as a truthful signal, not suppressed.
+2. Mermaid diagram template promotion remains deferred until a concrete consumer exists.
+
+The pipeline is otherwise healthy: local tests pass, CI runs succeed with 0 hard failures, and published outputs are generated and committed correctly on every run. When returning to active development, run `python tests/00-smoke-test.py` locally first, then follow the CI Operations procedure above.

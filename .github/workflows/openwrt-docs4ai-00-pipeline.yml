@@ -549,7 +549,10 @@ jobs:
           echo "$WORKDIR/repo-ucode/build-install/bin" >> "$GITHUB_PATH"
           echo "LD_LIBRARY_PATH=$WORKDIR/repo-ucode/build-install/lib:${LD_LIBRARY_PATH}" >> "$GITHUB_ENV"
       - name: Normalize L2
-        run: python .github/scripts/openwrt-docs4ai-03-normalize-semantic.py
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-03-normalize-semantic.py
+          echo "PROC_TIMER_03=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: "AI summaries (Optional)"
         id: ai_summaries
         env:
@@ -559,22 +562,38 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p "$WORKDIR/run-summary"
+          _T=$(date +%s)
           python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py | tee "$WORKDIR/run-summary/ai-stage.log"
+          echo "PROC_TIMER_04=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Assemble publishable references (05a)
-        run: python .github/scripts/openwrt-docs4ai-05a-assemble-references.py
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-05a-assemble-references.py
+          echo "PROC_TIMER_05A=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Generate publication companion outputs (05b-05d)
         env:
           BASELINE_DIR: ${{ github.workspace }}/baseline
         run: |
+          _T=$(date +%s)
           python .github/scripts/openwrt-docs4ai-05b-generate-agents-and-readme.py
           python .github/scripts/openwrt-docs4ai-05c-generate-ucode-ide-schemas.py
           python .github/scripts/openwrt-docs4ai-05d-generate-api-drift-changelog.py
+          echo "PROC_TIMER_05BCD=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Generate LLM routing indexes (06)
-        run: python .github/scripts/openwrt-docs4ai-06-generate-llm-routing-indexes.py
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-06-generate-llm-routing-indexes.py
+          echo "PROC_TIMER_06=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Generate web landing page (07)
-        run: python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
+          echo "PROC_TIMER_07=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Validate published output (08)
-        run: python .github/scripts/openwrt-docs4ai-08-validate-output.py
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-08-validate-output.py
+          echo "PROC_TIMER_08=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Validate staging contract and build process summary
         id: process_contract
         continue-on-error: true
@@ -678,6 +697,23 @@ jobs:
           ai_timers = ai["timers"] if isinstance(ai.get("timers"), dict) else {}
           ai_counters = ai["counters"] if isinstance(ai.get("counters"), dict) else {}
 
+          stage_timer_keys = [
+              ("PROC_TIMER_03",    "03-normalize"),
+              ("PROC_TIMER_04",    "04-ai-summaries"),
+              ("PROC_TIMER_05A",   "05a-assemble"),
+              ("PROC_TIMER_05BCD", "05bcd-companions"),
+              ("PROC_TIMER_06",    "06-llm-indexes"),
+              ("PROC_TIMER_07",    "07-web-index"),
+              ("PROC_TIMER_08",    "08-validate"),
+          ]
+          stage_timings: dict[str, int] = {}
+          for env_key, label in stage_timer_keys:
+              raw = os.environ.get(env_key, "").strip()
+              if raw.isdigit():
+                  stage_timings[label] = int(raw)
+
+          payload["stage_timings"] = stage_timings
+
           lines = [
               "# Process Summary",
               "",
@@ -696,6 +732,20 @@ jobs:
               lines.append(f"- missing_required_files: {', '.join(missing)}")
           else:
               lines.append("- missing_required_files: none")
+
+          if stage_timings:
+              total_secs = sum(stage_timings.values())
+              lines += [
+                  "",
+                  "## Process Stage Timings",
+                  "",
+                  "| Stage | Seconds |",
+                  "|-------|---------|",
+              ]
+              for label, secs in stage_timings.items():
+                  lines.append(f"| {label} | {secs} |")
+              lines.append(f"| **total** | **{total_secs}** |")
+
           (summary_dir / "process-summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
           if missing:
@@ -893,6 +943,20 @@ jobs:
               lines.append(f"- ai_enriched: {ai_counters.get('applied', 'n/a')}")
           else:
               lines.append("- ai stage summary unavailable")
+
+          if process_summary and process_summary.get("stage_timings"):
+              timings = process_summary["stage_timings"]
+              total = sum(timings.values())
+              lines += [
+                  "",
+                  "## Process Stage Timings",
+                  "",
+                  "| Stage | Seconds |",
+                  "|-------|---------|",
+              ]
+              for label, secs in timings.items():
+                  lines.append(f"| {label} | {secs} |")
+              lines.append(f"| **total** | **{total}** |")
 
           (run_summary_dir / "pipeline-summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
           PY

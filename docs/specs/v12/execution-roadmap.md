@@ -64,7 +64,7 @@ Status: complete
 4. Preserve deploy isolation so only approved staged outputs can modify committed published artifacts.
 5. Keep long-lived local scratch and legacy-review material in gitignored locations while keeping the public repo surface minimal.
 
-Status: in progress
+Status: complete
 
 ### 2026-03-11 Non-AI Option B Slice (implemented)
 
@@ -76,11 +76,8 @@ Status: in progress
 
 ## Current Focus
 
-1. Preserve the now-verified stabilization baseline while continuing to treat `REMOTE-008` as a truthful deferred warning unless stronger evidence appears.
-2. Formalize AI-summary state architecture so expensive optional enrichment remains isolated from normal output generation.
-3. Add lightweight timing and run-state observability so performance and regressions are visible without deep log forensics.
-4. Keep public-repo hygiene tight while retaining local legacy backups in gitignored paths.
+All planned work is complete. The pipeline is in maintenance mode as of 2026-03-11. Deferred items (`REMOTE-008`, Mermaid templates) are documented in the bug log and DEVELOPMENT.md and are intentionally left open as low-priority non-blocking items. No active engineering focus remains.
 
 ## Immediate Next Action
 
-Ratify and implement the AI-summary storage and promotion contract in a dedicated follow-up slice, then align AI-stage observability details with the new run-summary framework without regressing the stabilized non-AI path.
+No immediate action required. The pipeline is stable, all stability contracts are hardened, per-stage process timings are visible in pipeline-summary artifacts, and CI runs clean on every push. Resume this roadmap if a new capability slice is started.
