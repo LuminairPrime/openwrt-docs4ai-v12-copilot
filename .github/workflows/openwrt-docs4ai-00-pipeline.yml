@@ -2,7 +2,7 @@ name: openwrt-docs4ai pipeline (v12)
 
 on:
   schedule:
-    - cron: "0 4 1 * *"
+    - cron: "0 13 1 * *"
   push:
     branches:
       - main
