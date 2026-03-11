@@ -268,6 +268,8 @@ if SKIP_AI:
     sys.exit(0)
 
 print("[04] AI summary enrichment starting")
+stage_start_epoch = int(time.time())
+stage_timer_start = time.perf_counter()
 if not WRITE_AI:
     print("[04] INFO: WRITE_AI=false — applying stored summaries only, no API calls")
 
@@ -288,6 +290,7 @@ if not os.path.isdir(l2_dir):
     sys.exit(1)
 
 all_targets: list[tuple[str, str, str]] = []
+discover_targets_start = time.perf_counter()
 for module in sorted(os.listdir(l2_dir)):
     mod_dir = os.path.join(l2_dir, module)
     if not os.path.isdir(mod_dir):
@@ -296,7 +299,9 @@ for module in sorted(os.listdir(l2_dir)):
         if fname.endswith(".md"):
             all_targets.append((module, fname[:-3], os.path.join(mod_dir, fname)))
 
+discover_targets_seconds = time.perf_counter() - discover_targets_start
 print(f"[04] Found {len(all_targets)} L2 documents")
+print(f"[04] TIMER: phase=discover_targets seconds={discover_targets_seconds:.3f}")
 
 # ── Counters ──────────────────────────────────────────────────────────────────
 
@@ -308,6 +313,10 @@ generated_via_api = 0
 stale_applied = 0
 api_stopped = False
 api_calls_made = 0
+store_lookup_seconds = 0.0
+legacy_migration_seconds = 0.0
+api_generation_seconds = 0.0
+injection_seconds = 0.0
 
 # ── Process ───────────────────────────────────────────────────────────────────
 
@@ -344,6 +353,7 @@ for module, slug, fpath in all_targets:
     result: SummaryPayload | None = None
 
     # 1. Structured data store (override takes precedence over base)
+    store_lookup_start = time.perf_counter()
     status, record = ai_store.load_summary(module, slug, current_hash=body_hash)
 
     if status == "ok" and record:
@@ -367,8 +377,10 @@ for module, slug, fpath in all_targets:
                 "related_topics": _coerce_related_topics(record.get("ai_related_topics", [])),
             }
             stale_applied += 1
+    store_lookup_seconds += time.perf_counter() - store_lookup_start
 
     # 2. Legacy hash-keyed cache (migrate to structured store on hit)
+    legacy_migration_start = time.perf_counter()
     if result is None and body_hash in legacy_cache:
         legacy_entry = legacy_cache[body_hash]
         result = {
@@ -392,8 +404,10 @@ for module, slug, fpath in all_targets:
             },
         )
         migrated_from_legacy += 1
+    legacy_migration_seconds += time.perf_counter() - legacy_migration_start
 
     # 3. Generate via API
+    api_generation_start = time.perf_counter()
     if result is None and WRITE_AI and TOKEN and not api_stopped:
         if api_calls_made >= MAX_FILES:
             if api_calls_made == MAX_FILES:
@@ -428,8 +442,10 @@ for module, slug, fpath in all_targets:
                 time.sleep(0.5)
             else:
                 print(f"[04] WARN: No summary generated for {module}/{slug}")
+    api_generation_seconds += time.perf_counter() - api_generation_start
 
     # 4. Validate and inject into L2 YAML frontmatter
+    injection_start = time.perf_counter()
     if result and VALIDATE_PAYLOAD and not _validate_payload(result, f"{module}/{slug}"):
         result = None
 
@@ -455,6 +471,7 @@ for module, slug, fpath in all_targets:
             applied += 1
         except Exception as exc:
             print(f"[04] ERR: YAML injection failed for {module}/{slug}: {exc}")
+    injection_seconds += time.perf_counter() - injection_start
 
 # ── Summary ───────────────────────────────────────────────────────────────────
 
@@ -470,6 +487,22 @@ print(
 print(
     f"[04] Data store: {base_count} base records, "
     f"{override_count} override records."
+)
+
+stage_end_epoch = int(time.time())
+total_seconds = time.perf_counter() - stage_timer_start
+print(
+    "[04] TIMER: "
+    f"stage_start_epoch={stage_start_epoch} "
+    f"stage_end_epoch={stage_end_epoch} "
+    f"total_seconds={total_seconds:.3f} "
+    f"discover_targets_seconds={discover_targets_seconds:.3f} "
+    f"store_lookup_seconds={store_lookup_seconds:.3f} "
+    f"legacy_migration_seconds={legacy_migration_seconds:.3f} "
+    f"api_generation_seconds={api_generation_seconds:.3f} "
+    f"injection_seconds={injection_seconds:.3f} "
+    f"targets={len(all_targets)} "
+    f"api_calls={api_calls_made}"
 )
 if api_stopped and generated_via_api == 0:
     print(

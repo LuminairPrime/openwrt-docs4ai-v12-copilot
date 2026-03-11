@@ -87,7 +87,7 @@ These artifacts are intended to be the first-stop troubleshooting surface before
 
 ## Scope Note
 
-The current parallelization and observability tranche intentionally excludes direct behavior changes in AI-touching implementation surfaces (`04-generate-ai-summaries.py` and `lib/ai_store.py`).
+The current parallelization and observability tranche now includes stage-04 timer logging and AI timing roll-up in process/pipeline summaries; deeper AI storage and persistence architecture changes remain deferred.
 
 ## High-Value Debugging Paths
 

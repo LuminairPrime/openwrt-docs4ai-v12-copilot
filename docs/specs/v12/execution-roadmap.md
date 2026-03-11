@@ -72,7 +72,7 @@ Status: in progress
 2. Added extractor contract diagnostics: matrix fail-fast disabled, per-extractor status manifests, and always-run extract summary artifact.
 3. Added process and pipeline summary artifacts plus staging/public contract checks for faster operational triage.
 4. Added workflow concurrency and timeout guardrails.
-5. Explicitly left AI-touching implementation surfaces out of this slice (`04-generate-ai-summaries.py`, `lib/ai_store.py`).
+5. Added AI-stage timer logging and summary integration while still deferring deeper AI storage/persistence architecture changes.
 
 ## Current Focus
 

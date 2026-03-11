@@ -636,7 +636,7 @@ jobs:
               )
               if timer_line:
                   timers: dict[str, object] = {}
-                  for key, raw in re.findall(r"([a-z_]+)=([0-9]+(?:\\.[0-9]+)?)", timer_line):
+                  for key, raw in re.findall(r"([a-z_]+)=([0-9]+(?:\.[0-9]+)?)", timer_line):
                       if "." in raw:
                           timers[key] = float(raw)
                       else:
@@ -648,7 +648,7 @@ jobs:
               complete_line = next((line for line in ai_lines if line.startswith("[04] Complete:")), None)
               if complete_line:
                   match = re.search(
-                      r"Complete:\\s+(\\d+) enriched \\((\\d+) API-generated, (\\d+) migrated from legacy cache, (\\d+) applied stale\\), (\\d+) already had summaries, (\\d+) too short\\.",
+                      r"Complete:\s+(\d+) enriched \((\d+) API-generated, (\d+) migrated from legacy cache, (\d+) applied stale\), (\d+) already had summaries, (\d+) too short\.",
                       complete_line,
                   )
                   if match:
