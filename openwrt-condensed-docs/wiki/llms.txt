@@ -36,14 +36,14 @@
 - [wiki_page-guide-developer-overview.md](../L2-semantic/wiki/wiki_page-guide-developer-overview.md) (1468 tokens) - No description
 - [wiki_page-guide-developer-package-policies.md](../L2-semantic/wiki/wiki_page-guide-developer-package-policies.md) (5457 tokens) - No description
 - [wiki_page-guide-developer-packages-flags.md](../L2-semantic/wiki/wiki_page-guide-developer-packages-flags.md) (695 tokens) - No description
-- [wiki_page-guide-developer-packages.md](../L2-semantic/wiki/wiki_page-guide-developer-packages.md) (11047 tokens) - No description
+- [wiki_page-guide-developer-packages.md](../L2-semantic/wiki/wiki_page-guide-developer-packages.md) (11047 tokens) - Step-by-step guide for creating a new OpenWrt package from scratch. Covers directory layout under package/mypackage/, the minimal Makefile skeleton (include $(TOPDIR)/rules.mk, Package/define, Build/Compile, Package/install), adding dependencies via DEPENDS:=, using PKG_INSTALL=1 vs. custom Build/Compile, creating conffiles, installing init scripts, and submitting packages to the upstream feed.
 - [wiki_page-guide-developer-procd-init-script-example.md](../L2-semantic/wiki/wiki_page-guide-developer-procd-init-script-example.md) (2384 tokens) - No description
-- [wiki_page-guide-developer-procd-init-scripts.md](../L2-semantic/wiki/wiki_page-guide-developer-procd-init-scripts.md) (5333 tokens) - No description
+- [wiki_page-guide-developer-procd-init-scripts.md](../L2-semantic/wiki/wiki_page-guide-developer-procd-init-scripts.md) (5333 tokens) - Practical guide for writing procd-based /etc/init.d/ service scripts. Walks through USE_PROCD=1, procd_open_instance, procd_set_param command/respawn/stdout/stderr, procd_close_instance, and the service_triggers() callback for uci-change-triggered reloads; includes worked examples for a simple daemon, a daemon with multiple instances, and a service that reloads on UCI changes to a specific package.
 - [wiki_page-guide-developer-rpcd.md](../L2-semantic/wiki/wiki_page-guide-developer-rpcd.md) (274 tokens) - No description
 - [wiki_page-guide-developer-security-incidents-response.md](../L2-semantic/wiki/wiki_page-guide-developer-security-incidents-response.md) (901 tokens) - No description
 - [wiki_page-guide-developer-security.md](../L2-semantic/wiki/wiki_page-guide-developer-security.md) (2146 tokens) - No description
 - [wiki_page-guide-developer-selinux-policy-development.md](../L2-semantic/wiki/wiki_page-guide-developer-selinux-policy-development.md) (8662 tokens) - No description
-- [wiki_page-guide-developer-ubus.md](../L2-semantic/wiki/wiki_page-guide-developer-ubus.md) (405 tokens) - No description
+- [wiki_page-guide-developer-ubus.md](../L2-semantic/wiki/wiki_page-guide-developer-ubus.md) (405 tokens) - Practical guide for using ubus from shell scripts, C code, and Lua/ucode. Covers the ubus CLI (ubus call, ubus listen, ubus wait_for), calling ubus from C (ubus_lookup_id, ubus_invoke, ubus_send_event), registering a new ubus object in a C daemon (ubus_add_object, ubus_method definitions), and the ACL permission file format for granting rpcd access to specific ubus paths.
 - [wiki_page-guide-developer-uci-defaults.md](../L2-semantic/wiki/wiki_page-guide-developer-uci-defaults.md) (1137 tokens) - No description
 - [wiki_page-guide-developer-uefi-bootable-image.md](../L2-semantic/wiki/wiki_page-guide-developer-uefi-bootable-image.md) (842 tokens) - No description
 - [wiki_page-guide-developer-working-with-git-email.md](../L2-semantic/wiki/wiki_page-guide-developer-working-with-git-email.md) (174 tokens) - No description
@@ -53,7 +53,7 @@
 - [wiki_page-techref-block-mount.md](../L2-semantic/wiki/wiki_page-techref-block-mount.md) (2063 tokens) - No description
 - [wiki_page-techref-bootloader.md](../L2-semantic/wiki/wiki_page-techref-bootloader.md) (2139 tokens) - No description
 - [wiki_page-techref-brcm63xx-imagetag.md](../L2-semantic/wiki/wiki_page-techref-brcm63xx-imagetag.md) (6807 tokens) - No description
-- [wiki_page-techref-buildroot.md](../L2-semantic/wiki/wiki_page-techref-buildroot.md) (1012 tokens) - No description
+- [wiki_page-techref-buildroot.md](../L2-semantic/wiki/wiki_page-techref-buildroot.md) (1012 tokens) - Explains the OpenWrt build system (buildroot), covering the directory layout (package/, target/, toolchain/, staging_dir/), the package Makefile structure (PKG_NAME, PKG_BUILD_DIR, Package/install, Build/Compile targets), the feeds system for third-party packages, the menuconfig workflow for selecting packages and target configs, and DL_DIR/TOPDIR conventions for reproducible builds.
 - [wiki_page-techref-busybox.md](../L2-semantic/wiki/wiki_page-techref-busybox.md) (676 tokens) - No description
 - [wiki_page-techref-dfs.md](../L2-semantic/wiki/wiki_page-techref-dfs.md) (611 tokens) - No description
 - [wiki_page-techref-externaldocumentation.md](../L2-semantic/wiki/wiki_page-techref-externaldocumentation.md) (771 tokens) - No description
@@ -67,27 +67,27 @@
 - [wiki_page-techref-image-format.md](../L2-semantic/wiki/wiki_page-techref-image-format.md) (1610 tokens) - No description
 - [wiki_page-techref-image-makefile.md](../L2-semantic/wiki/wiki_page-techref-image-makefile.md) (1303 tokens) - No description
 - [wiki_page-techref-init-detail-cc.md](../L2-semantic/wiki/wiki_page-techref-init-detail-cc.md) (5589 tokens) - No description
-- [wiki_page-techref-initscripts.md](../L2-semantic/wiki/wiki_page-techref-initscripts.md) (2388 tokens) - No description
+- [wiki_page-techref-initscripts.md](../L2-semantic/wiki/wiki_page-techref-initscripts.md) (2388 tokens) - Documents the OpenWrt /etc/init.d/ procd init script system, including the required START/STOP priority numbers, the USE_PROCD=1 flag, mandatory shell functions (start_service, stop_service, reload, status), and the boot sequence ordering enforced by procd. Covers how to enable/disable services via symlinks in /etc/rc.d/, reload semantics, and the difference between restart and reload.
 - [wiki_page-techref-internal-layout.md](../L2-semantic/wiki/wiki_page-techref-internal-layout.md) (732 tokens) - No description
 - [wiki_page-techref-libnl.md](../L2-semantic/wiki/wiki_page-techref-libnl.md) (545 tokens) - No description
-- [wiki_page-techref-libubox.md](../L2-semantic/wiki/wiki_page-techref-libubox.md) (748 tokens) - No description
+- [wiki_page-techref-libubox.md](../L2-semantic/wiki/wiki_page-techref-libubox.md) (748 tokens) - Documents libubox, the OpenWrt utility library that underpins ubus, procd, and netifd. Covers the blob/blobmsg API for binary/JSON message encoding (blob_buf_init, blobmsg_add_*), the uloop event loop (uloop_run, uloop_fd_add, uloop_timeout_*), avl/list data structures, and the json_script policy-based configuration evaluator used by procd.
 - [wiki_page-techref-lldpd.md](../L2-semantic/wiki/wiki_page-techref-lldpd.md) (335 tokens) - No description
-- [wiki_page-techref-luci.md](../L2-semantic/wiki/wiki_page-techref-luci.md) (1499 tokens) - No description
+- [wiki_page-techref-luci.md](../L2-semantic/wiki/wiki_page-techref-luci.md) (1499 tokens) - Provides a technical overview of the LuCI web interface framework for OpenWrt. Covers the three-tier architecture (controller/model/view), the CBI/form module system, Lua vs. JavaScript view types, the rpcd permission model, package Makefile conventions for registering menu entries and ACL files, and the workflow for developing and testing LuCI packages locally.
 - [wiki_page-techref-luci2.md](../L2-semantic/wiki/wiki_page-techref-luci2.md) (1821 tokens) - No description
 - [wiki_page-techref-mountd.md](../L2-semantic/wiki/wiki_page-techref-mountd.md) (323 tokens) - No description
 - [wiki_page-techref-mtd.md](../L2-semantic/wiki/wiki_page-techref-mtd.md) (1589 tokens) - No description
-- [wiki_page-techref-netifd.md](../L2-semantic/wiki/wiki_page-techref-netifd.md) (1929 tokens) - No description
+- [wiki_page-techref-netifd.md](../L2-semantic/wiki/wiki_page-techref-netifd.md) (1929 tokens) - Documents netifd, the OpenWrt network interface daemon responsible for managing network interfaces based on UCI config. Explains the interface/device/proto handler model, the /etc/config/network schema (interface, device, bridge, route, rule sections), protocol handler shell scripts in /lib/netifd/proto/, ifup/ifdown/ifupdate hotplug event flow, and the ubus network API exposed by netifd.
 - [wiki_page-techref-odhcpd.md](../L2-semantic/wiki/wiki_page-techref-odhcpd.md) (2900 tokens) - No description
 - [wiki_page-techref-preinit-mount.md](../L2-semantic/wiki/wiki_page-techref-preinit-mount.md) (12192 tokens) - No description
-- [wiki_page-techref-procd.md](../L2-semantic/wiki/wiki_page-techref-procd.md) (1963 tokens) - No description
+- [wiki_page-techref-procd.md](../L2-semantic/wiki/wiki_page-techref-procd.md) (1963 tokens) - Describes procd, the OpenWrt process manager and init system that replaces busybox init. Covers the procd init script lifecycle (start_service, stop_service, reload), the procd_add_instance/procd_set_param API for declaring managed processes, service watchdog behavior, instance respawn limits, stdio/logging configuration, trigger-based reload via ubus events, and the /etc/init.d/ enable/disable mechanism.
 - [wiki_page-techref-process-boot.md](../L2-semantic/wiki/wiki_page-techref-process-boot.md) (3243 tokens) - No description
 - [wiki_page-techref-requirements-boot-process.md](../L2-semantic/wiki/wiki_page-techref-requirements-boot-process.md) (1562 tokens) - No description
-- [wiki_page-techref-rpcd.md](../L2-semantic/wiki/wiki_page-techref-rpcd.md) (1043 tokens) - No description
+- [wiki_page-techref-rpcd.md](../L2-semantic/wiki/wiki_page-techref-rpcd.md) (1043 tokens) - Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. Explains the plugin architecture (/usr/lib/rpcd/*.so), ACL JSON files that grant LuCI views permission to call specific ubus paths, the session management API (rpcd-mod-session), the file plugin for proxied filesystem reads/writes, and how LuCI RPC calls are authenticated via the uhttpd session cookie.
 - [wiki_page-techref-swconfig.md](../L2-semantic/wiki/wiki_page-techref-swconfig.md) (3222 tokens) - No description
 - [wiki_page-techref-sysupgrade.md](../L2-semantic/wiki/wiki_page-techref-sysupgrade.md) (2605 tokens) - No description
 - [wiki_page-techref-ubox.md](../L2-semantic/wiki/wiki_page-techref-ubox.md) (242 tokens) - No description
-- [wiki_page-techref-ubus.md](../L2-semantic/wiki/wiki_page-techref-ubus.md) (6656 tokens) - No description
-- [wiki_page-techref-uci.md](../L2-semantic/wiki/wiki_page-techref-uci.md) (3923 tokens) - No description
+- [wiki_page-techref-ubus.md](../L2-semantic/wiki/wiki_page-techref-ubus.md) (6656 tokens) - Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. Covers ubus object and method registration, the ubusd broker, ubus_context lifecycle, blob_buf message encoding, ubus_lookup, ubus_invoke, ubus_register_event_handler, and the acl JSON permission system.
+- [wiki_page-techref-uci.md](../L2-semantic/wiki/wiki_page-techref-uci.md) (3923 tokens) - Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. Explains the /etc/config/ text file format, section and option syntax, the uci CLI (uci set/get/add/delete/commit/revert), the C library API (uci_load, uci_set, uci_commit), and batch-change semantics where changes stay staged in memory until commit.
 - [wiki_page-techref-ucwmp.md](../L2-semantic/wiki/wiki_page-techref-ucwmp.md) (943 tokens) - No description
 - [wiki_page-techref-unetd.md](../L2-semantic/wiki/wiki_page-techref-unetd.md) (3162 tokens) - No description
 - [wiki_page-techref-wireless-modes.md](../L2-semantic/wiki/wiki_page-techref-wireless-modes.md) (349 tokens) - No description

@@ -3,11 +3,19 @@ title: 'LuCI API: static'
 module: luci
 origin_type: js_source
 token_count: 217
-version: 31f220d
+version: 8e3bc67
 source_file: L1-raw/luci/js_source-api-protocol-static.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/protocol/static.js
 language: javascript
+ai_summary: Implements the LuCI protocol handler for static IP interfaces. Extends the base network Protocol class with getIPAddr(), getNetmask(), getGateway(), and getDNS() accessors that read directly from the UCI interface section; used by the LuCI Network model when rendering or editing a static-type interface in the Interfaces page.
+ai_when_to_use: Reference when extending LuCI network views that need to read or display static IP configuration, or when implementing a custom protocol handler that should follow the same pattern of extending LuCI.network.Protocol with typed getter methods.
+ai_related_topics:
+- LuCI.network.Protocol
+- LuCI.network.getIPAddr
+- LuCI.network.getNetmask
+- LuCI.network.getGateway
+- LuCI.uci
 ---
 # LuCI API: static
 

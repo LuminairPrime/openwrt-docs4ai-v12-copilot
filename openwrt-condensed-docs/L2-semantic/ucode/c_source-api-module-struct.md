@@ -3,11 +3,17 @@ title: 'ucode module: struct'
 module: ucode
 origin_type: c_source
 token_count: 7325
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-struct.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/struct.c
 language: c
+ai_summary: Provides binary data packing and unpacking for ucode using a Python struct-style format string syntax. Implements pack() to encode values into a binary string and unpack() to decode a binary buffer into an array of typed values. Supports format codes for unsigned/signed integers of all widths (B, H, I, Q), floats, and byte strings.
+ai_when_to_use: Use when parsing binary kernel netlink messages, reading custom binary protocol headers from raw sockets, or inspecting C struct layouts read through /proc or /sys files in ucode scripts.
+ai_related_topics:
+- struct.pack
+- struct.unpack
+- struct.new
 ---
 # ucode module: struct
 

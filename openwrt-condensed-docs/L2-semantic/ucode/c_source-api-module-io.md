@@ -3,11 +3,20 @@ title: 'ucode module: io'
 module: ucode
 origin_type: c_source
 token_count: 4058
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-io.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/io.c
 language: c
+ai_summary: Provides buffered I/O stream primitives for ucode. Implements open() and fdopen() returning stream objects with read(), write(), readline(), flush(), seek(), tell(), and close() methods. Exposes io.stdin, io.stdout, and io.stderr as pre-opened streams, and pipe() for creating connected stream pairs for subprocess communication.
+ai_when_to_use: Use for line-oriented reading of large files or when piped subprocess output needs to be consumed incrementally rather than loaded entirely into memory with fs.readfile(); also use io.stderr for error output in scripts run under procd.
+ai_related_topics:
+- io.open
+- io.fdopen
+- io.pipe
+- io.stdin
+- io.stdout
+- io.stderr
 ---
 # ucode module: io
 

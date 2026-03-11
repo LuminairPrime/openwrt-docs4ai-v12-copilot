@@ -3,11 +3,20 @@ title: 'LuCI API: luci'
 module: luci
 origin_type: js_source
 token_count: 14614
-version: 31f220d
+version: 8e3bc67
 source_file: L1-raw/luci/js_source-api-luci.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/luci.js
 language: javascript
+ai_summary: Defines the core LuCI JavaScript framework and application runtime. Implements the LuCI class with load(), resolveDefault(), bind(), require(), raise(), and the env runtime property for accessing router info; also exposes the Class.extend() inheritance model used by all other LuCI modules and manages async module loading via XHR.
+ai_when_to_use: Reference when bootstrapping a new LuCI view, defining a custom class inheriting from LuCI.Class, or understanding how LuCI dynamically loads modules, handles errors with raise(), and passes environment data like hostname and boardname to views.
+ai_related_topics:
+- LuCI.load
+- LuCI.require
+- LuCI.Class.extend
+- LuCI.raise
+- LuCI.env
+- LuCI.bind
 ---
 # LuCI API: luci
 

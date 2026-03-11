@@ -3,11 +3,16 @@ title: 'ucode module: resolv'
 module: ucode
 origin_type: c_source
 token_count: 2516
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-resolv.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/resolv.c
 language: c
+ai_summary: Provides DNS name resolution for ucode scripts using the system resolver. Implements query() for raw DNS record lookups (A, AAAA, MX, TXT, etc.) and getaddrinfo() for hostname-to-address resolution returning both IPv4 and IPv6 results in a structured array.
+ai_when_to_use: Use in ucode-based network management scripts that must resolve hostnames to IP addresses before establishing connections, checking reachability, or populating firewall rules — replaces spawning nslookup or dig subprocesses.
+ai_related_topics:
+- resolv.query
+- resolv.getaddrinfo
 ---
 # ucode module: resolv
 

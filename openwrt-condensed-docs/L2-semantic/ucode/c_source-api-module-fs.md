@@ -3,11 +3,20 @@ title: 'ucode module: fs'
 module: ucode
 origin_type: c_source
 token_count: 10288
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-fs.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/fs.c
 language: c
+ai_summary: Provides POSIX-style filesystem access for ucode scripts. Implements readfile(), writefile(), popen(), opendir(), stat(), rename(), unlink(), chmod(), realpath(), and readlink() for complete file and directory management. Supports atomic writes via temporary file patterns and direct subprocess output capture through popen() stream objects.
+ai_when_to_use: Use for all ucode filesystem interactions on OpenWrt, particularly for reading UCI config fragments, writing status files atomically, and capturing command output without spawning a shell subprocess.
+ai_related_topics:
+- fs.readfile
+- fs.writefile
+- fs.popen
+- fs.opendir
+- fs.stat
+- fs.realpath
 ---
 # ucode module: fs
 

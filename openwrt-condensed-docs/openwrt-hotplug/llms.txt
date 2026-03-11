@@ -1,4 +1,4 @@
 # openwrt-hotplug module
 > **Total Context:** ~1412 tokens
 
-- [hotplug_event-netifd-hotplug-events.md](../L2-semantic/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md) (1412 tokens) - No description
+- [hotplug_event-netifd-hotplug-events.md](../L2-semantic/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md) (1412 tokens) - Documents the standard hotplug event environment variables injected by OpenWrt's netifd and network subsystems into scripts in /etc/hotplug.d/. Covers iface subsystem events (ifup, ifdown, ifupdate) with $INTERFACE, $DEVICE, and $ACTION variables; net subsystem events for physical interface changes; and hotplug script patterns using uci_toggle_state for persistent state tracking.

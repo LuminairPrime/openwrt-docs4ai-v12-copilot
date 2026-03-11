@@ -1,7 +1,7 @@
 # wiki (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for wiki.
-> **Generated:** 2026-03-10T12:16:57.006070+00:00
+> **Generated:** 2026-03-11T12:37:30.365238+00:00
 
 ---
 
@@ -512,6 +512,8 @@
 ## CMake
 ## Scons
 
+> **Summary:** Step-by-step guide for creating a new OpenWrt package from scratch. Covers directory layout under package/mypackage/, the minimal Makefile skeleton (include $(TOPDIR)/rules.mk, Package/define, Build/Compile, Package/install), adding dependencies via DEPENDS:=, using PKG_INSTALL=1 vs. custom Build/Compile, creating conffiles, installing init scripts, and submitting packages to the upstream feed.
+> **Use Case:** Reference when porting a new open-source application to OpenWrt or creating a first-party package: follow the Makefile skeleton to define metadata, set the correct PKG_RELEASE, and use $(INSTALL_BIN)/$(INSTALL_CONF) macros in Package/install to place files in the correct image paths.
 # Creating packages
 ## BuildPackage variables
 
@@ -607,6 +609,8 @@
 #!/bin/sh /etc/rc.common
 ## Advanced options
 
+> **Summary:** Practical guide for writing procd-based /etc/init.d/ service scripts. Walks through USE_PROCD=1, procd_open_instance, procd_set_param command/respawn/stdout/stderr, procd_close_instance, and the service_triggers() callback for uci-change-triggered reloads; includes worked examples for a simple daemon, a daemon with multiple instances, and a service that reloads on UCI changes to a specific package.
+> **Use Case:** Reference when writing or debugging a procd init script; use this guide to correctly set respawn thresholds, wire stdout/stderr to logd, add UCI change triggers so the service restarts when its config file changes, and test reload without a full reboot using /etc/init.d/myservice reload.
 # Procd Init Scripts
 
 #!/bin/sh /etc/rc.common
@@ -665,6 +669,8 @@
 #### Extend selinux-policy-myfork with basic skeleton for helloworld
 ## In closing
 
+> **Summary:** Practical guide for using ubus from shell scripts, C code, and Lua/ucode. Covers the ubus CLI (ubus call, ubus listen, ubus wait_for), calling ubus from C (ubus_lookup_id, ubus_invoke, ubus_send_event), registering a new ubus object in a C daemon (ubus_add_object, ubus_method definitions), and the ACL permission file format for granting rpcd access to specific ubus paths.
+> **Use Case:** Reference when calling an existing ubus service from a shell script (ubus call system board), writing a C daemon that needs to expose methods over ubus, or configuring rpcd ACL files to allow a LuCI JavaScript view to invoke a ubus path without root privileges.
 # uBus IPC/RPC System
 ## uBus - IPC/RPC
 ### Reference documentation for ubus
@@ -755,6 +761,8 @@
 ### Redboot routers
 ## Table of Broadcom Version for Various Routers
 
+> **Summary:** Explains the OpenWrt build system (buildroot), covering the directory layout (package/, target/, toolchain/, staging_dir/), the package Makefile structure (PKG_NAME, PKG_BUILD_DIR, Package/install, Build/Compile targets), the feeds system for third-party packages, the menuconfig workflow for selecting packages and target configs, and DL_DIR/TOPDIR conventions for reproducible builds.
+> **Use Case:** Reference when creating a new OpenWrt package Makefile, adding a new package to a feed, configuring a cross-compilation toolchain for a specific target board, or troubleshooting why a package fails to compile in the buildroot environment.
 # OpenWrt Buildroot – Technical Reference
 ## Kernel related options
 ### CONFIG_EXTERNAL_KERNEL_TREE
@@ -966,6 +974,8 @@
 ## Procd replaces init
 ## Life and death of a Chaos Calmer system
 
+> **Summary:** Documents the OpenWrt /etc/init.d/ procd init script system, including the required START/STOP priority numbers, the USE_PROCD=1 flag, mandatory shell functions (start_service, stop_service, reload, status), and the boot sequence ordering enforced by procd. Covers how to enable/disable services via symlinks in /etc/rc.d/, reload semantics, and the difference between restart and reload.
+> **Use Case:** Reference when writing or debugging an /etc/init.d/ script: ensure the script sets USE_PROCD=1 and defines at minimum start_service(); use the START= and STOP= priority numbers to control boot ordering relative to netifd (START 20), dnsmasq (START 60), and other system services.
 # Init Scripts
 ## Example Init Script
 # Example script
@@ -980,6 +990,8 @@
 ## libnl
 ## libnl-tiny
 
+> **Summary:** Documents libubox, the OpenWrt utility library that underpins ubus, procd, and netifd. Covers the blob/blobmsg API for binary/JSON message encoding (blob_buf_init, blobmsg_add_*), the uloop event loop (uloop_run, uloop_fd_add, uloop_timeout_*), avl/list data structures, and the json_script policy-based configuration evaluator used by procd.
+> **Use Case:** Reference when implementing a C daemon that needs event-loop integration (uloop), binary message serialization for ubus calls (blobmsg), or efficient key-value lookup (avl_tree); most OpenWrt C programs link against libubox and use blobmsg_parse() to decode incoming ubus method arguments.
 # libubox
 ## libubox/utils.h
 ## libubox/usock.h
@@ -996,6 +1008,8 @@
 ## Usage
 ## Known Issues
 
+> **Summary:** Provides a technical overview of the LuCI web interface framework for OpenWrt. Covers the three-tier architecture (controller/model/view), the CBI/form module system, Lua vs. JavaScript view types, the rpcd permission model, package Makefile conventions for registering menu entries and ACL files, and the workflow for developing and testing LuCI packages locally.
+> **Use Case:** Reference when starting development of a new LuCI package: understand how to register menu items in the luci-base po/ACL system, choose between Lua CBI and JavaScript form views, and set up a local test environment using the LuCI development toolchain.
 # LuCI – Technical Reference
 
 ## What is LuCI
@@ -1031,6 +1045,8 @@
 ## Notes
 
 
+> **Summary:** Documents netifd, the OpenWrt network interface daemon responsible for managing network interfaces based on UCI config. Explains the interface/device/proto handler model, the /etc/config/network schema (interface, device, bridge, route, rule sections), protocol handler shell scripts in /lib/netifd/proto/, ifup/ifdown/ifupdate hotplug event flow, and the ubus network API exposed by netifd.
+> **Use Case:** Reference when diagnosing why an interface fails to come up, implementing a custom protocol handler (proto script in /lib/netifd/proto/), writing hotplug scripts that react to ifup/ifdown events, or calling netifd ubus methods like network.interface.status or network.interface.up.
 # netifd (Network Interface Daemon) – Technical Reference
 
 ### What is netifd?
@@ -1089,6 +1105,8 @@
 ## Adding Example
 # Architecture-specific notes
 
+> **Summary:** Describes procd, the OpenWrt process manager and init system that replaces busybox init. Covers the procd init script lifecycle (start_service, stop_service, reload), the procd_add_instance/procd_set_param API for declaring managed processes, service watchdog behavior, instance respawn limits, stdio/logging configuration, trigger-based reload via ubus events, and the /etc/init.d/ enable/disable mechanism.
+> **Use Case:** Reference when writing an /etc/init.d/ procd init script to manage a daemon: use procd_open_instance to declare the process, procd_set_param command/respawn/limits to configure it, and procd_close_instance to register it; also covers how to wire ubus triggers for config-change reloads.
 # Procd system init and daemon management
 ## Help with the development of procd
 ## Buttons with procd
@@ -1155,6 +1173,8 @@
 ### Goals
 ### Wants
 
+> **Summary:** Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. Explains the plugin architecture (/usr/lib/rpcd/*.so), ACL JSON files that grant LuCI views permission to call specific ubus paths, the session management API (rpcd-mod-session), the file plugin for proxied filesystem reads/writes, and how LuCI RPC calls are authenticated via the uhttpd session cookie.
+> **Use Case:** Reference when a LuCI JavaScript view calls LuCI.rpc.declare() to invoke a ubus method, when writing an rpcd ACL file to grant a non-root package permission to call specific ubus paths, or when implementing a custom C rpcd plugin that exposes new ubus objects.
 # rpcd: OpenWrt ubus RPC daemon for backend server
 ### Default plugins
 ## plugin executables
@@ -1192,6 +1212,8 @@
 # ubox
 ## OpenWrt – operating system architecture
 
+> **Summary:** Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. Covers ubus object and method registration, the ubusd broker, ubus_context lifecycle, blob_buf message encoding, ubus_lookup, ubus_invoke, ubus_register_event_handler, and the acl JSON permission system.
+> **Use Case:** Reference when implementing a new daemon that needs to expose RPC methods to other processes or to LuCI via rpcd, or when a script needs to call an existing ubus service using the ubus CLI or the ubus ucode/Lua binding.
 # ubus (OpenWrt micro bus architecture)
 ## Command-line ubus tool
 ### Help output
@@ -1224,6 +1246,8 @@
 #### User ACL
 ### Getting firmware version
 
+> **Summary:** Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. Explains the /etc/config/ text file format, section and option syntax, the uci CLI (uci set/get/add/delete/commit/revert), the C library API (uci_load, uci_set, uci_commit), and batch-change semantics where changes stay staged in memory until commit.
+> **Use Case:** Reference when reading or modifying OpenWrt configuration from a shell script (uci CLI), a C daemon (libuci), a Lua script (luci.model.uci), or a ucode script (import('uci').cursor()); always call uci commit after changes or they will be lost on next read by other processes.
 # UCI (Unified Configuration Interface) – Technical Reference
 ### What is UCI?
 ### Dependencies of UCI

@@ -3,9 +3,9 @@ title: 'OpenWrt Buildroot: firmware packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 1435
-version: 24ce149
+version: 4f107d7
 source_file: L1-raw/openwrt-core/makefile_meta-category-firmware.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: package/firmware
 language: makefile
 ---

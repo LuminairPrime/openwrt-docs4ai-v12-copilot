@@ -3,11 +3,20 @@ title: 'ucode module: socket'
 module: ucode
 origin_type: c_source
 token_count: 13517
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-socket.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/socket.c
 language: c
+ai_summary: Provides low-level socket programming for ucode via POSIX socket API bindings. Implements create() for AF_INET, AF_INET6, and AF_UNIX socket creation, plus connect(), bind(), listen(), accept(), send(), recv(), recvfrom(), sendto(), close(), setsockopt(), and getsockopt() for full network and IPC socket lifecycle management.
+ai_when_to_use: Use when a ucode service must open a raw or domain socket for custom IPC, network monitoring daemons, or protocol implementation that does not go through ubus and requires direct kernel socket access.
+ai_related_topics:
+- socket.create
+- socket.connect
+- socket.bind
+- socket.listen
+- socket.recv
+- socket.send
 ---
 # ucode module: socket
 

@@ -3,11 +3,20 @@ title: 'ucode module: log'
 module: ucode
 origin_type: c_source
 token_count: 5098
-version: e87be9d
+version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-log.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: lib/log.c
 language: c
+ai_summary: Provides syslog integration for ucode scripts via the POSIX syslog API. Exposes openlog(), syslog(), and closelog() with facility constants (LOG_DAEMON, LOG_USER, LOG_LOCAL0–LOG_LOCAL7) and priority constants (LOG_DEBUG, LOG_INFO, LOG_NOTICE, LOG_WARNING, LOG_ERR, LOG_CRIT). Enables structured kernel-level log emission from ucode services.
+ai_when_to_use: Use in ucode daemons and init handlers to emit structured syslog entries that appear in OpenWrt's logread output alongside other system services, rather than writing to stdout or a plain file.
+ai_related_topics:
+- log.openlog
+- log.syslog
+- log.closelog
+- LOG_DAEMON
+- LOG_INFO
+- LOG_ERR
 ---
 # ucode module: log
 

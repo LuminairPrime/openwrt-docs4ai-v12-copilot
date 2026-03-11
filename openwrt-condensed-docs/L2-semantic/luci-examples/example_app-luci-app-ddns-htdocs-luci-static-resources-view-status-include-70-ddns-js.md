@@ -3,9 +3,9 @@ title: 70_ddns.js
 module: luci-examples
 origin_type: example_app
 token_count: 392
-version: 31f220d
+version: 8e3bc67
 source_file: L1-raw/luci-examples/example_app-luci-app-ddns-htdocs-luci-static-resources-view-status-include-70-ddns-js.md
-last_pipeline_run: '2026-03-10T12:16:41.912319+00:00'
+last_pipeline_run: '2026-03-11T12:37:15.044626+00:00'
 upstream_path: applications/luci-app-ddns/htdocs/luci-static/resources/view/status/include/70_ddns.js
 language: javascript
 ---

@@ -1,4 +1,4 @@
 # uci module
 > **Total Context:** ~420 tokens
 
-- [uci_schema-schema-network-qos.md](../L2-semantic/uci/uci_schema-schema-network-qos.md) (420 tokens) - No description
+- [uci_schema-schema-network-qos.md](../L2-semantic/uci/uci_schema-schema-network-qos.md) (420 tokens) - Defines the default UCI configuration schema for the OpenWrt qos-scripts traffic-shaping system. Specifies interface sections with classgroup, enabled, upload (kbit/s), and download (kbit/s) options, and classify sections mapping port ranges, protocols, and address patterns to priority classes (Priority, Express, Normal, Bulk) used by the HFS+ queue discipline.
