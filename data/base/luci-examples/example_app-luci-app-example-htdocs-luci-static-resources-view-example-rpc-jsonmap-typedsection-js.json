@@ -1,0 +1,19 @@
+{
+  "slug": "example_app-luci-app-example-htdocs-luci-static-resources-view-example-rpc-jsonmap-typedsection-js",
+  "module": "luci-examples",
+  "title": "rpc-jsonmap-typedsection.js",
+  "content_hash": "f80a4eedb221",
+  "ai_summary": "The `rpc-jsonmap-typedsection.js` module is a LuCI example that demonstrates how to create a read-only configuration form using JSON data from an RPC call. It utilizes the `rpc` and `form` libraries to define an RPC method, `get_sample2`, and to render a structured form based on the retrieved JSON data. The module includes functions for error handling and rendering the form with typed sections and options. It is designed to be used with LuCI's JSONMap for displaying configuration data in a user-friendly manner.",
+  "ai_when_to_use": "This module is useful when you need to display configuration data from an RPC source in a structured format within the LuCI interface, particularly when the data is read-only.",
+  "ai_related_topics": [
+    "rpc",
+    "form",
+    "view",
+    "JSONMap",
+    "TypedSection"
+  ],
+  "generated_at": "2026-03-12T08:55:29.267607+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:55:29.267887+00:00"
+}

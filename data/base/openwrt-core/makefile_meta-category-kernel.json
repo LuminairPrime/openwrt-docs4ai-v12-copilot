@@ -1,0 +1,25 @@
+{
+  "slug": "makefile_meta-category-kernel",
+  "module": "openwrt-core",
+  "title": "OpenWrt Buildroot: kernel packages",
+  "content_hash": "0582029dfe2a",
+  "ai_summary": "The OpenWrt Buildroot kernel packages module provides a collection of kernel-related packages essential for various hardware functionalities. It includes drivers and firmware for specific devices, such as ath10k-ct for Qualcomm Atheros chipsets and bcm27xx-gpu-fw for Raspberry Pi GPU support. Other packages like button-hotplug and gpio-button-hotplug facilitate button handling and GPIO support, respectively. Each package is maintained by specific contributors and is available through designated source URLs.",
+  "ai_when_to_use": "Use this module when building custom OpenWrt firmware that requires specific kernel drivers or firmware for hardware support. It is particularly useful for developers targeting embedded devices with unique hardware requirements.",
+  "ai_related_topics": [
+    "ath10k-ct",
+    "bcm27xx-gpu-fw",
+    "bcm63xx-cfe",
+    "bpf-headers",
+    "button-hotplug",
+    "cryptodev-linux",
+    "econet-eth",
+    "gpio-button-hotplug",
+    "gpio-nct5104d",
+    "leds-gca230718",
+    "leds-ws2812b"
+  ],
+  "generated_at": "2026-03-12T08:55:45.565071+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:55:45.565399+00:00"
+}

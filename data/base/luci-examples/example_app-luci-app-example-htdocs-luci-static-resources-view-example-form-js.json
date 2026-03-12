@@ -1,0 +1,20 @@
+{
+  "slug": "example_app-luci-app-example-htdocs-luci-static-resources-view-example-form-js",
+  "module": "luci-examples",
+  "title": "form.js",
+  "content_hash": "484365704fec",
+  "ai_summary": "The `form.js` module is a JavaScript file used in the LuCI framework for creating a user interface form that interacts with UCI configuration files in OpenWrt. It defines a form structure that includes multiple sections and various input types, such as text fields, flags, and dynamic lists. The form is mapped to a configuration file named 'example' located at `/etc/config/example`, allowing users to read and write configuration settings. Each section can contain different types of options, including a password input and a select dropdown with predefined values.",
+  "ai_when_to_use": "Use this module when you need to create a custom configuration form in a LuCI application that interacts with UCI settings in OpenWrt.",
+  "ai_related_topics": [
+    "form.Map",
+    "form.TypedSection",
+    "form.Value",
+    "form.Flag",
+    "form.ListValue",
+    "form.DynamicList"
+  ],
+  "generated_at": "2026-03-12T08:55:15.349899+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:55:15.350284+00:00"
+}

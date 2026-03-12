@@ -1,0 +1,19 @@
+{
+  "slug": "wiki_page-techref-init-detail-cc",
+  "module": "wiki",
+  "title": "Init (User space boot) reference for Chaos Calmer: procd",
+  "content_hash": "499cf2695cf3",
+  "ai_summary": "The Init (User space boot) reference for Chaos Calmer details the implementation of the user space boot sequence in OpenWrt, specifically focusing on the role of procd as the primary process. Procd, which replaces the traditional init system, is responsible for managing services and handling hotplug events after the initial preinit steps are completed by `/sbin/init`. The document outlines the boot process, including filesystem mounting and kernel module loading, as well as the source code paths followed during execution. It serves as a technical reference for developers looking to understand or contribute to the procd implementation in the Chaos Calmer release.",
+  "ai_when_to_use": "This documentation is useful for developers working on the boot process of OpenWrt in the Chaos Calmer release, particularly those interested in modifying or extending the functionality of procd.",
+  "ai_related_topics": [
+    "procd",
+    "init",
+    "kmodloader",
+    "procd_coldplug",
+    "mount_root"
+  ],
+  "generated_at": "2026-03-12T09:00:15.152264+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:00:15.152532+00:00"
+}

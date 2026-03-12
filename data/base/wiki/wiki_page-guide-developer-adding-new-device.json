@@ -1,0 +1,20 @@
+{
+  "slug": "wiki_page-guide-developer-adding-new-device",
+  "module": "wiki",
+  "title": "Adding a new device",
+  "content_hash": "91390bc2677b",
+  "ai_summary": "The 'Adding a new device' module provides a comprehensive guide for developers looking to integrate new hardware into OpenWrt. It emphasizes the importance of examining recent commits and using local grep searches to identify necessary files for device integration. Key directories and their functions are outlined, including base-files for firmware integration, device tree source files, and image configuration. Additionally, it covers the process of making the new device visible in the make menuconfig and the organization of kernel patches.",
+  "ai_when_to_use": "This module is useful when you need to add support for a new device in OpenWrt, particularly for custom or unsupported hardware.",
+  "ai_related_topics": [
+    "target/linux/<arch_name>/base-files/etc/",
+    "target/linux/<arch_name>/base-files/lib/",
+    "target/linux/<arch_name>/dts/",
+    "target/linux/<arch_name>/image/",
+    "target/linux/<arch_name>/<board_name>/",
+    "target/linux/<arch_name>/modules.mk"
+  ],
+  "generated_at": "2026-03-12T08:56:19.081446+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:56:19.081720+00:00"
+}

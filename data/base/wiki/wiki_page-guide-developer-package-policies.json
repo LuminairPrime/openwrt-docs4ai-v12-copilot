@@ -1,0 +1,19 @@
+{
+  "slug": "wiki_page-guide-developer-package-policies",
+  "module": "wiki",
+  "title": "OpenWrt packages",
+  "content_hash": "704ede38cf98",
+  "ai_summary": "OpenWrt packages are essential components of the OpenWrt system, providing software in the form of source and binary packages. A source package includes a Makefile, optional patches, and other static files, while a binary package is a tar archive containing executable artifacts and control files. Binary packages are typically generated from source packages using the OpenWrt buildroot or SDK, ensuring proper compilation and packaging. Manual assembly of binary packages is discouraged due to reproducibility and verification issues.",
+  "ai_when_to_use": "Use OpenWrt packages when developing or customizing firmware for embedded devices, ensuring that software components are properly managed and integrated. This is particularly relevant when creating new features or modifying existing functionalities in OpenWrt.",
+  "ai_related_topics": [
+    "OpenWrt package Makefile",
+    "OpenWrt package patches",
+    "OpenWrt buildroot",
+    "OpenWrt SDK",
+    "OpenWrt package feeds"
+  ],
+  "generated_at": "2026-03-12T08:58:21.355702+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:58:21.355945+00:00"
+}

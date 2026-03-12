@@ -1,0 +1,22 @@
+{
+  "slug": "example_app-luci-app-ddns-htdocs-luci-static-resources-view-ddns-overview-js",
+  "module": "luci-examples",
+  "title": "overview.js",
+  "content_hash": "5241b644ef74",
+  "ai_summary": "The overview.js module is part of the luci-examples application in OpenWrt, designed to manage Dynamic DNS (DDNS) services. It provides functionality to retrieve service logs, check DDNS status, and manage service lists from various sources. Key functions include callGetLogServices, callDDnsGetStatus, and callGenServiceList, which facilitate interaction with DDNS services and their configurations. The module also handles WAN interface detection and service support validation based on user-defined settings.",
+  "ai_when_to_use": "Use this module when you need to manage and monitor Dynamic DNS services in an OpenWrt environment, particularly for applications requiring real-time updates and service status checks.",
+  "ai_related_topics": [
+    "callGetLogServices",
+    "callInitAction",
+    "callDDnsGetStatus",
+    "callDDnsGetEnv",
+    "callDDnsGetServicesStatus",
+    "callGenServiceList",
+    "callGetWanInterface",
+    "handleCheckService"
+  ],
+  "generated_at": "2026-03-12T08:54:00.293069+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:00.293343+00:00"
+}

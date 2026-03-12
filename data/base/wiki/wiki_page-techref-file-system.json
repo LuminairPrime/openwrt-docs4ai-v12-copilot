@@ -1,0 +1,19 @@
+{
+  "slug": "wiki_page-techref-file-system",
+  "module": "wiki",
+  "title": "OpenWrt File System Hierarchy / Memory Usage",
+  "content_hash": "e504bfb2123d",
+  "ai_summary": "The OpenWrt File System Hierarchy and Memory Usage module provides a detailed overview of how flash storage is partitioned and utilized in OpenWrt devices, specifically using the TP-Link WR1043ND as an example. It outlines the different memory layers, including hardware specifications, kernel space, and user space allocations. Key components such as u-boot, firmware, kernel, and root filesystem are identified along with their respective sizes. Additionally, it highlights the usage of overlay filesystems and the distribution of main memory.",
+  "ai_when_to_use": "This module is useful when configuring or troubleshooting memory usage and filesystem layout on OpenWrt devices. It is particularly relevant for developers working on embedded systems that require efficient memory management.",
+  "ai_related_topics": [
+    "Flash Storage Partitioning",
+    "main memory",
+    "Kernel space",
+    "User space",
+    "overlayfs"
+  ],
+  "generated_at": "2026-03-12T08:59:36.884343+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:59:36.884698+00:00"
+}

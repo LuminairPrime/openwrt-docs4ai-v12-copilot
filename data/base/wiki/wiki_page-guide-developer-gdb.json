@@ -1,0 +1,18 @@
+{
+  "slug": "wiki_page-guide-developer-gdb",
+  "module": "wiki",
+  "title": "GNU Debugger",
+  "content_hash": "d42c1536e134",
+  "ai_summary": "The GNU Debugger (GDB) guide provides instructions for using GDB on OpenWrt, focusing on compiling tools and adding debugging capabilities to packages. Users can enable GDB and gdbserver in the menuconfig and add CFLAGS to package Makefiles to include debugging information. The guide also outlines how to start gdbserver on the target device and connect to it from the host for debugging sessions. Key commands for setting breakpoints and running programs within GDB are also included.",
+  "ai_when_to_use": "This guide is useful when developers need to debug applications running on OpenWrt devices. It is particularly applicable when recompiling packages with debugging information to troubleshoot issues.",
+  "ai_related_topics": [
+    "gdb",
+    "gdbserver",
+    "TARGET_CFLAGS",
+    "CONFIG_DEBUG"
+  ],
+  "generated_at": "2026-03-12T08:57:33.740026+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:57:33.740280+00:00"
+}

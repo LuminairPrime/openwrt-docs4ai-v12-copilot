@@ -1,0 +1,20 @@
+{
+  "slug": "wiki_page-guide-developer-packages-flags",
+  "module": "wiki",
+  "title": "Overriding Build Options",
+  "content_hash": "444dd86806d2",
+  "ai_summary": "The Overriding Build Options module in OpenWrt provides developers with the ability to customize build configurations for packages, particularly when cross-compiling. It details how to use various configuration variables such as **CONFIGURE_VARS** and **CONFIGURE_ARGS** to adjust settings during the autoconf process, as well as how to manage compiler flags through **TARGET_CFLAGS** and related variables. Additionally, it covers the use of **MAKE_VARS** for Makefile configurations and options for CMake and Scons. This flexibility allows developers to specify additional options and flags to meet specific package requirements.",
+  "ai_when_to_use": "This module is particularly useful when you need to modify build options for packages that do not provide standard configuration flags or when cross-compiling for different architectures in OpenWrt.",
+  "ai_related_topics": [
+    "CONFIGURE_VARS",
+    "CONFIGURE_ARGS",
+    "TARGET_CFLAGS",
+    "MAKE_VARS",
+    "CMAKE_OPTIONS",
+    "SCONS_VARS"
+  ],
+  "generated_at": "2026-03-12T08:58:24.973635+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:58:24.974006+00:00"
+}

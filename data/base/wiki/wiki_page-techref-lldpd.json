@@ -1,0 +1,16 @@
+{
+  "slug": "wiki_page-techref-lldpd",
+  "module": "wiki",
+  "title": "lldpd",
+  "content_hash": "459cf168808c",
+  "ai_summary": "The lldpd module implements the Link Layer Discovery Protocol (LLDP), an industry-standard protocol that provides a mechanism for network devices to discover each other and share information. It is designed to replace proprietary protocols like Extreme's EDP and Cisco's CDP. Configuration is done through the `/etc/config/lldpd` file, allowing users to set device classes and descriptions. The daemon must be running to utilize the `lldpcli` command for viewing neighbors and statistics.",
+  "ai_when_to_use": "Use lldpd when you need to discover adjacent network devices in a multi-vendor environment. It is particularly useful for network management and monitoring in OpenWrt setups.",
+  "ai_related_topics": [
+    "lldpcli",
+    "lldpd"
+  ],
+  "generated_at": "2026-03-12T09:00:26.658897+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:00:26.659160+00:00"
+}

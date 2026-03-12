@@ -1,0 +1,17 @@
+{
+  "slug": "example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-events-js",
+  "module": "luci-examples",
+  "title": "events.js",
+  "content_hash": "2140175987d6",
+  "ai_summary": "The `events.js` module is part of the Luci Docker Manager application for OpenWrt, designed to handle Docker events and display them in a user-friendly interface. It supports fetching event data in both `application/x-ndjson` and `application/json-seq` formats, allowing for flexible content negotiation. The module includes functions to load events, render event lists, and apply filters based on event types and timestamps. Additionally, it provides a structured way to interact with Docker events through a graphical interface, enhancing usability for managing Docker containers.",
+  "ai_when_to_use": "Use the `events.js` module when you need to display and filter Docker events in the Luci web interface of OpenWrt. It is particularly useful for users managing Docker containers who require real-time insights into container activities.",
+  "ai_related_topics": [
+    "dm2.docker_events",
+    "dm2.Types",
+    "E"
+  ],
+  "generated_at": "2026-03-12T08:54:32.906680+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:32.907026+00:00"
+}

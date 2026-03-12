@@ -1,0 +1,21 @@
+{
+  "slug": "example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-networks-js",
+  "module": "luci-examples",
+  "title": "networks.js",
+  "content_hash": "999d2385878f",
+  "ai_summary": "The `networks.js` module is part of the Luci interface for managing Docker networks within OpenWrt. It provides functionality to load and display a list of Docker networks and associated containers, allowing users to manage these networks through a web interface. Key functions include loading network and container data, rendering a network overview table, and handling network pruning and removal actions. The module utilizes promises for asynchronous operations and integrates with the Docker manager's common functionalities.",
+  "ai_when_to_use": "Use this module when you need to manage Docker networks through the Luci web interface in OpenWrt, particularly for viewing, creating, or removing networks.",
+  "ai_related_topics": [
+    "dm2.dv.extend",
+    "dm2.network_list",
+    "dm2.container_list",
+    "dm2.ActionTypes",
+    "form.JSONMap",
+    "form.TableSection",
+    "view.executeDockerAction"
+  ],
+  "generated_at": "2026-03-12T08:54:53.658912+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:53.659236+00:00"
+}

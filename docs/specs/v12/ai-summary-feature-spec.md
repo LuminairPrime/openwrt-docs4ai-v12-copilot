@@ -145,7 +145,7 @@ AI_DATA_OVERRIDE_DIR = os.environ.get("AI_DATA_OVERRIDE_DIR",
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `SKIP_AI` | `false` | Skip the entire step; exit 0. Use in CI runs that don't have API access. |
+| `SKIP_AI` | `true` for direct script execution | Skip the entire step; exit 0. Hosted workflow and manual dispatch set this explicitly. |
 | `WRITE_AI` | `true` | `false` = apply stored summaries only, never call the API. Useful for local preview. |
 | `MAX_AI_FILES` | `40` | Maximum number of live API calls per run. Prevents runaway quota spend. |
 | `GITHUB_TOKEN` | — | GitHub Models API bearer token. |
@@ -153,6 +153,7 @@ AI_DATA_OVERRIDE_DIR = os.environ.get("AI_DATA_OVERRIDE_DIR",
 | `AI_CACHE_PATH` | `ai-summaries-cache.json` | Optional override path for legacy hash cache migration input. |
 | `AI_DATA_BASE_DIR` | `data/base/` | Override base store path. |
 | `AI_DATA_OVERRIDE_DIR` | `data/override/` | Override override store path. |
+| `AI_VALIDATE_PAYLOAD` | `true` | Reject empty or unsafe payloads before injecting AI fields into L2. |
 
 ### 4.2 Counter output
 
@@ -189,6 +190,22 @@ Manual seeding prompts in script 04 and `data/base/README.md` follow this rule:
 This structure improves routing quality because sentence 1 serves as a dense
 high-level retrieval snippet while later sentences preserve low-level details
 for tool/action planning.
+
+### 4.6 Store-write safety and operator tools
+
+When script `04` writes new base records, it now:
+
+- preserves the L2 `title` field instead of falling back to the slug
+- auto-writes `generated_at` when the caller does not provide it
+- rejects payloads that omit `ai_related_topics`
+
+Read-only operator helpers now exist for real generation workflows:
+
+- `04a-audit-ai-store.py` reports missing, stale, orphaned, and invalid records
+- `04b-validate-ai-store.py` validates JSON schema plus L2 title/hash integrity
+
+The permanent scratch-first workflow for these tools is documented in
+[ai-summary-operations-runbook.md](./ai-summary-operations-runbook.md).
 
 ---
 
@@ -251,20 +268,33 @@ Notes:
 
 ## 8. Local Development Workflow
 
-```bash
+Real AI-summary generation is scratch first. Use
+[ai-summary-operations-runbook.md](./ai-summary-operations-runbook.md) for the
+whole-project workflow, including validation, promotion, and cleanup.
+
+The direct commands below are intentionally scoped runs, not the recommended
+promotion workflow.
+
+```powershell
 # Apply stored summaries only (no API calls):
-export WRITE_AI=false
+$env:SKIP_AI="false"
+$env:WRITE_AI="false"
 python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
 
 # Apply stored + generate up to 5 new ones via API:
-export WRITE_AI=true
-export MAX_AI_FILES=5
-export LOCAL_DEV_TOKEN=<your token>
+$env:SKIP_AI="false"
+$env:WRITE_AI="true"
+$env:MAX_AI_FILES="5"
+$env:LOCAL_DEV_TOKEN="<your token>"
 python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
 
 # Skip entirely:
-export SKIP_AI=true
+$env:SKIP_AI="true"
 python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
+
+# Validate a scratch store against the current L2 corpus:
+python .github/scripts/openwrt-docs4ai-04b-validate-ai-store.py
+python .github/scripts/openwrt-docs4ai-04a-audit-ai-store.py
 ```
 
 ---
@@ -276,8 +306,6 @@ The following enhancements are deferred to AI-V2:
 - **Multi-model support**: allow per-module model overrides (e.g. use Claude for wiki pages)
 - **Auto-promote overrides**: detect when a human override diverges significantly from a
   newly regenerated base entry and surface it for review rather than silently discarding
-- **Staleness dashboard**: a script that prints a table of stale/missing/override records
-  without modifying any files (read-only staleness audit)
 - **Batch API mode**: group multiple short docs into one API call to reduce round trips
 - **Summary quality scoring**: use a second LLM call to self-evaluate summary quality and
   flag entries below a threshold for human review

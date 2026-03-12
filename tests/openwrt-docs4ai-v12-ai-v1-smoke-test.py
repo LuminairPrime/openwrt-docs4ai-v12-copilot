@@ -134,7 +134,6 @@ def validate_ai_store_roundtrip() -> None:
                 "ai_summary": "Describe the module in one sentence.",
                 "ai_when_to_use": "Use when validating store helpers.",
                 "ai_related_topics": ["sample.func"],
-                "generated_at": "2026-03-11T00:00:00Z",
                 "model": "manual",
                 "pipeline_version": "v12",
             }
@@ -142,6 +141,11 @@ def validate_ai_store_roundtrip() -> None:
             ai_store.save_summary("ucode", "sample-doc", seed)
             status_ok, record_ok = ai_store.load_summary("ucode", "sample-doc", current_hash="0123456789ab")
             _assert(status_ok == "ok" and record_ok is not None, "Expected ok status on hash match")
+            _assert(
+                isinstance(record_ok.get("generated_at"), str)
+                and str(record_ok.get("generated_at")).strip(),
+                "Expected save_summary to add generated_at when missing",
+            )
 
             status_stale, record_stale = ai_store.load_summary("ucode", "sample-doc", current_hash="ffffffffffff")
             _assert(status_stale == "stale" and record_stale is not None, "Expected stale status on hash mismatch")

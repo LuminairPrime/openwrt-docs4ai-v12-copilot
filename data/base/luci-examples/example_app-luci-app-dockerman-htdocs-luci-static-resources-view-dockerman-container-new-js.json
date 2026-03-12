@@ -1,0 +1,19 @@
+{
+  "slug": "example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-container-new-js",
+  "module": "luci-examples",
+  "title": "container_new.js",
+  "content_hash": "b24802e9cc26",
+  "ai_summary": "The `container_new.js` module is part of the Luci framework for managing Docker containers within OpenWrt. It provides functionality to create and configure new Docker containers, including handling duplicate container configurations. The module retrieves necessary data such as available images, networks, and volumes, and allows users to set various container parameters like name, image, network settings, and environment variables. Additionally, it reflects changes in the Docker API, such as the removal of MAC address configuration through the container's configuration fields.",
+  "ai_when_to_use": "Use this module when you need to create new Docker containers or duplicate existing ones in an OpenWrt environment. It is particularly useful for managing container configurations through the Luci web interface.",
+  "ai_related_topics": [
+    "dm2.image_list",
+    "dm2.network_list",
+    "dm2.volume_list",
+    "dm2.docker_info",
+    "dm2.container_inspect"
+  ],
+  "generated_at": "2026-03-12T08:54:25.315067+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:25.315469+00:00"
+}

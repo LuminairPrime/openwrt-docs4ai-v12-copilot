@@ -1,0 +1,16 @@
+{
+  "slug": "wiki_page-guide-developer-add-new-platform",
+  "module": "wiki",
+  "title": "Adding new platform support",
+  "content_hash": "f5e812c5ae24",
+  "ai_summary": "The 'Adding new platform support' module provides guidance for developers looking to add new platform support to OpenWrt. It emphasizes the importance of Linux in embedded devices and outlines the need for open-source firmware to enhance functionality and security. The document includes methods for verifying if a device runs Linux, particularly through OS fingerprinting and port scanning using tools like *nmap*. Specific command examples illustrate how to gather information about the device's operating system and running services.",
+  "ai_when_to_use": "This module is useful when you want to extend OpenWrt support to new hardware platforms or verify the Linux compatibility of existing devices. It is particularly relevant for developers aiming to create custom firmware for routers and other embedded devices.",
+  "ai_related_topics": [
+    "add.new.device",
+    "nmap"
+  ],
+  "generated_at": "2026-03-12T08:56:15.691609+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:56:15.691882+00:00"
+}

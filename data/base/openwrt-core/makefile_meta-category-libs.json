@@ -1,0 +1,24 @@
+{
+  "slug": "makefile_meta-category-libs",
+  "module": "openwrt-core",
+  "title": "OpenWrt Buildroot: libs packages",
+  "content_hash": "efe86f6047d0",
+  "ai_summary": "The OpenWrt Buildroot: libs packages module provides a collection of libraries essential for various functionalities in OpenWrt. It includes libraries such as argp-standalone for argument parsing, elfutils for handling ELF files, and jansson for JSON data manipulation. Each library is maintained by different contributors and is available under various licenses, ensuring a wide range of capabilities for developers. The module facilitates the integration of these libraries into OpenWrt builds, enhancing the overall performance and feature set of the system.",
+  "ai_when_to_use": "Use this module when you need to incorporate specific libraries into your OpenWrt build for enhanced functionality, such as JSON processing or advanced argument parsing.",
+  "ai_related_topics": [
+    "argp-standalone",
+    "elfutils",
+    "gettext-full",
+    "gmp",
+    "gnulib-l10n",
+    "jansson",
+    "libbpf",
+    "libbsd",
+    "libcap",
+    "libevent2"
+  ],
+  "generated_at": "2026-03-12T08:55:53.558039+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:55:53.558415+00:00"
+}

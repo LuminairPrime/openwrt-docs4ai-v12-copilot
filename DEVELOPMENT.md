@@ -31,9 +31,26 @@ python tests/00-smoke-test.py
 python tests/00-smoke-test.py --run-ai
 python tests/openwrt-docs4ai-00-smoke-test.py
 python tests/openwrt-docs4ai-00-smoke-test.py --run-ai
+python tests/openwrt-docs4ai-v12-ai-v1-smoke-test.py
 ```
 
 The `--run-ai` path is cache-backed for local verification, so it can validate the placement and mutation behavior of script `04` without requiring a live model token.
+
+For real AI-summary generation, use the scratch-first workflow in [docs/specs/v12/ai-summary-operations-runbook.md](docs/specs/v12/ai-summary-operations-runbook.md). Do not treat `--run-ai` as proof of live API generation or permanent AI-store promotion.
+
+For one-off terminal invocations, either activate `.venv` once before testing or call the workspace interpreter directly via `C:/Users/MC/Documents/AirSentinel/openwrt-docs4ai-v12-copilot/.venv/Scripts/python.exe`. Do not assume the system `python` on `PATH` is the repo interpreter.
+
+## Terminal Testing Discipline
+
+When validating this project from the terminal, prefer deterministic, bounded commands over ad hoc shell control flow.
+
+1. Start in the repo root with the workspace virtual environment active, or use the explicit `.venv` interpreter path when running a single isolated command.
+2. Run the smallest proof first: focused `pytest` targets, then the local smoke runner, then remote workflow validation.
+3. Keep one purpose per command. Prefer a direct command invocation over inline retry loops or multi-purpose shell snippets.
+4. Capture durable local evidence when it matters, typically under `tests/test-results-*.txt` or `tmp/ci/`, so reruns can be compared without re-reading terminal scrollback.
+5. For GitHub Actions validation, pin the run to the pushed commit SHA, identify the matching `databaseId`, and wait on that exact run with `gh run watch <run_id> --exit-status --interval 15`.
+6. After the run finishes, inspect `pipeline-summary`, `process-summary`, and `extract-summary` artifacts before opening raw failed-job logs.
+7. Avoid open-ended polling loops, mid-run log scraping, and assumptions about "the latest run". They create noisy output and make it easy to validate the wrong workflow run.
 
 ## Pre-Change Checklist
 
@@ -87,6 +104,17 @@ A source-repo root `llms.txt` remains intentionally out of scope for the current
 - `tests/openwrt-docs4ai-00-smoke-test.py` is the sequential local runner intended to exercise the numbered scripts more directly.
 
 During the current stabilization pass, these test entry points are being repaired and treated as first-class engineering assets.
+
+## AI Summary Operations
+
+Real AI-summary work is intentionally AI-store first and scratch first.
+
+- `data/base/` and `data/override/` are the authoritative AI-summary surfaces.
+- `openwrt-condensed-docs/` is downstream generated evidence.
+- The permanent workflow lives in [docs/specs/v12/ai-summary-operations-runbook.md](docs/specs/v12/ai-summary-operations-runbook.md).
+- The read-only operator tools are `.github/scripts/openwrt-docs4ai-04a-audit-ai-store.py` and `.github/scripts/openwrt-docs4ai-04b-validate-ai-store.py`.
+
+Use the cache-backed smoke paths for regression proof, and use the runbook plus the `04a` and `04b` helpers for real generation, review, and promotion.
 
 ## Remote Publish Policy
 
@@ -188,17 +216,24 @@ gh run view <run_id> --json jobs,conclusion,url
 
 ## Environment Variables
 
+Defaults below are the direct local defaults from `lib/config.py` and the local
+AI tooling. The hosted workflow overrides `WORKDIR` and `OUTDIR`, and manual
+dispatch exposes `skip_ai=false` by default.
+
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `WORKDIR` | `tmp` | Scratch area for cloned repos and intermediate layers |
 | `OUTDIR` | `openwrt-condensed-docs` | Stable output root for generated artifacts |
 | `SKIP_WIKI` | `false` | Skip wiki extraction |
 | `SKIP_AI` | `true` | Disable optional AI enrichment by default |
+| `WRITE_AI` | `true` | Allow script `04` to create missing base records when AI is enabled |
 | `WIKI_MAX_PAGES` | `300` | Limit wiki traversal depth |
 | `MAX_AI_FILES` | `40` | Limit local or remote AI summary volume |
 | `VALIDATE_MODE` | `hard` | Validation severity mode |
 | `GITHUB_TOKEN` | empty | Remote-only integrations and telemetry fallback retrieval |
 | `LOCAL_DEV_TOKEN` | empty | Local override token for optional AI enrichment |
+| `AI_DATA_BASE_DIR` | `data/base` | Base AI summary store root |
+| `AI_DATA_OVERRIDE_DIR` | `data/override` | Override AI summary store root |
 
 ## Documentation And Reporting Conventions
 

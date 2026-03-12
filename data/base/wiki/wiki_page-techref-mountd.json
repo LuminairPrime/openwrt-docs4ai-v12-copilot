@@ -1,0 +1,19 @@
+{
+  "slug": "wiki_page-techref-mountd",
+  "module": "wiki",
+  "title": "mountd – Technical Reference",
+  "content_hash": "3f002132e601",
+  "ai_summary": "The mountd module is an automount daemon for OpenWrt, configured through the `/etc/config/mountd` file. It has been part of OpenWrt since version r17853 and is licensed under GPLv2. Although mountd was designed for embedded devices, it has since been replaced by blockd in newer versions. The module requires dependencies such as +uci, +kmod-usb-storage, and +kmod-fs-autofs4 to function properly.",
+  "ai_when_to_use": "Use mountd when you need an automount daemon specifically tailored for embedded devices in OpenWrt. However, consider using blockd for newer implementations.",
+  "ai_related_topics": [
+    "mountd",
+    "blockd",
+    "uci",
+    "kmod-usb-storage",
+    "kmod-fs-autofs4"
+  ],
+  "generated_at": "2026-03-12T09:00:34.725521+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:00:34.725769+00:00"
+}

@@ -139,6 +139,7 @@ def save_summary(
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
     record: dict[str, Any] = dict(summary_data)
+    record.setdefault("generated_at", datetime.now(timezone.utc).isoformat())
     record.setdefault("pipeline_version", PIPELINE_VERSION)
     record["saved_at"] = datetime.now(timezone.utc).isoformat()
 

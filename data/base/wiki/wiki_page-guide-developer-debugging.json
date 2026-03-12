@@ -1,0 +1,17 @@
+{
+  "slug": "wiki_page-guide-developer-debugging",
+  "module": "wiki",
+  "title": "Debugging",
+  "content_hash": "c9702021e61e",
+  "ai_summary": "The Debugging module in OpenWrt provides essential tools and techniques for diagnosing issues related to hardware, kernel, and driver development. It covers methods such as adding a serial console, utilizing JTAG for debugging, and employing GDB for code analysis. Additionally, it offers guidance on capturing wireless management traffic using tools like tcpdump and iwcap, as well as adjusting the logging level for hostapd to facilitate troubleshooting. These resources are crucial for developers working on embedded network devices to effectively identify and resolve issues.",
+  "ai_when_to_use": "Use this module when developing or debugging drivers and kernel code on OpenWrt devices, especially when dealing with wireless connectivity issues.",
+  "ai_related_topics": [
+    "port.serial",
+    "port.jtag",
+    "gdb"
+  ],
+  "generated_at": "2026-03-12T08:57:01.126018+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:57:01.126283+00:00"
+}

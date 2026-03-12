@@ -1,0 +1,19 @@
+{
+  "slug": "example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-container-js",
+  "module": "luci-examples",
+  "title": "container.js",
+  "content_hash": "bf63dd2ef91a",
+  "ai_summary": "The `container.js` module is a JavaScript component for the Luci interface of OpenWrt, specifically designed for managing Docker containers. It provides functionalities to calculate memory and CPU usage percentages, utilizing helper functions like `calculateMemoryUsage` and `calculateCPUUsage` to process container statistics. The module also includes dummy data structures for testing and simulating container statistics and process information. This script is part of the `luci-app-dockerman`, which enhances the Docker management experience within the OpenWrt framework.",
+  "ai_when_to_use": "Use this module when integrating Docker container management into the Luci web interface of OpenWrt, particularly for monitoring resource usage of containers.",
+  "ai_related_topics": [
+    "calculateMemoryUsage",
+    "calculateCPUUsage",
+    "dummy_stats",
+    "dummy_ps",
+    "dummy_changes"
+  ],
+  "generated_at": "2026-03-12T08:54:22.170941+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:22.171372+00:00"
+}

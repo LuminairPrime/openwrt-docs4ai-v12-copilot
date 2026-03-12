@@ -1,0 +1,18 @@
+{
+  "slug": "wiki_page-guide-developer-device-support-policies",
+  "module": "wiki",
+  "title": "Device support policies / best practices",
+  "content_hash": "5fdaafa08429",
+  "ai_summary": "The Device support policies / best practices document outlines guidelines for developers submitting device support patches in OpenWrt. It emphasizes the importance of clear commit messages, including specifications and flashing instructions, and provides recommendations for structuring DTS files, such as using consistent naming conventions and proper licensing. Additional tips are offered for enhancing readability and organizing device properties, particularly regarding LED configurations. Following these guidelines can improve the submission experience for both developers and reviewers.",
+  "ai_when_to_use": "Use this document when preparing to submit device support patches to ensure compliance with OpenWrt's best practices and to facilitate a smoother review process.",
+  "ai_related_topics": [
+    "Submitting patches",
+    "DTS files",
+    "dts-v1",
+    "LEDs"
+  ],
+  "generated_at": "2026-03-12T08:57:13.260753+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:57:13.261052+00:00"
+}

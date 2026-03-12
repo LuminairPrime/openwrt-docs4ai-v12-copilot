@@ -1,0 +1,23 @@
+{
+  "slug": "wiki_page-guide-developer-imagebuilder-frontends",
+  "module": "wiki",
+  "title": "Image Builder frontends",
+  "content_hash": "30f5f7b592ab",
+  "ai_summary": "The Image Builder frontends module provides a collection of software tools designed to simplify and automate the generation of OpenWrt images. It includes various frontends such as the OpenWrt Firmware Selector for locating images, Chef Online Imagebuilder for customizing images via an API, and Gluon for creating firmware for wireless mesh nodes. Additionally, it features tools like Temba for generating custom firmware files and openwrt-tools for image generation using YAML templates. These tools cater to different user needs, from simple image downloads to complex custom firmware builds.",
+  "ai_when_to_use": "Use this module when you need to generate or customize OpenWrt firmware images without setting up a full build environment. It is particularly useful for community networks or users looking to automate the image creation process.",
+  "ai_related_topics": [
+    "Image Builder",
+    "OpenWrt Firmware Selector",
+    "Chef Online Imagebuilder",
+    "Gluon",
+    "Freifunk Berlin firmware",
+    "Temba",
+    "imagebuilder.sh",
+    "openwrt-tools",
+    "openwrt-auto-extroot"
+  ],
+  "generated_at": "2026-03-12T08:57:41.547989+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:57:41.548250+00:00"
+}

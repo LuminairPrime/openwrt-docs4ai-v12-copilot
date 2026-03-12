@@ -1,25 +1,27 @@
 """
 Purpose: Apply AI summaries to L2 documentation from the structured data store
-         and optionally generate new summaries via GitHub Models API.
+                 and optionally generate new summaries via GitHub Models API.
 Phase: AI Enrichment (Optional)
 Layers: L2 -> L2 (In-place frontmatter mutation)
 Inputs:  - OUTDIR/L2-semantic/                          (required L2 source)
-         - data/base/{module}/{slug}.json               (base data store)
-         - data/override/{module}/{slug}.json           (override data store)
-         - ai-summaries-cache.json                      (legacy; migrated on run)
+                 - data/base/{module}/{slug}.json               (base data store)
+                 - data/override/{module}/{slug}.json           (override data store)
+                 - ai-summaries-cache.json                      (legacy; migrated on run)
 Outputs: - OUTDIR/L2-semantic/{module}/*.md             (mutated: ai fields added)
-         - data/base/{module}/{slug}.json               (new entries when WRITE_AI)
+                 - data/base/{module}/{slug}.json               (new entries when WRITE_AI)
 Environment Variables:
-  SKIP_AI          Skip entire step cleanly. Default: false.
-  WRITE_AI         Call API for files missing summaries. Default: true.
-  MAX_AI_FILES     Cap on API calls per run. Default: 40.
-  GITHUB_TOKEN     GitHub Models API bearer token.
-  LOCAL_DEV_TOKEN  Local development token (fallback when GITHUB_TOKEN absent).
+    SKIP_AI          Skip entire step cleanly. Default: true for direct local
+                                     execution; the hosted workflow sets it explicitly.
+    WRITE_AI         Call API for files missing summaries. Default: true.
+    MAX_AI_FILES     Cap on API calls per run. Default: 40.
+    GITHUB_TOKEN     GitHub Models API bearer token.
+    LOCAL_DEV_TOKEN  Local development token (fallback when GITHUB_TOKEN absent).
     AI_CACHE_PATH    Optional override for legacy ai-summaries-cache.json path.
-  AI_DATA_BASE_DIR    Override default data/base/ location.
-  AI_DATA_OVERRIDE_DIR Override default data/override/ location.
-  AI_VALIDATE_PAYLOAD  Validate AI payloads before injection. Default: true.
-                       Set to false only when debugging malformed API responses locally.
+    AI_DATA_BASE_DIR Override default data/base/ location.
+    AI_DATA_OVERRIDE_DIR Override default data/override/ location.
+    AI_VALIDATE_PAYLOAD  Validate AI payloads before injection. Default: true.
+                                             Set to false only when debugging malformed API
+                                             responses locally.
 Dependencies: requests, pyyaml, lib.config, lib.ai_store
 
 =========================== MANUAL AI GENERATION PROMPT ===========================
@@ -66,6 +68,7 @@ import os
 import re
 import sys
 import time
+from datetime import datetime, timezone
 from typing import Any, Literal, TypedDict, cast
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
@@ -74,7 +77,7 @@ from lib import config, ai_store
 cast(Any, sys.stdout).reconfigure(line_buffering=True)
 
 OUTDIR = config.OUTDIR
-SKIP_AI = os.environ.get("SKIP_AI", "false").lower() == "true"
+SKIP_AI = os.environ.get("SKIP_AI", "true").lower() == "true"
 WRITE_AI = os.environ.get("WRITE_AI", "true").lower() == "true"
 MAX_FILES = int(os.environ.get("MAX_AI_FILES", "40"))
 TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("LOCAL_DEV_TOKEN")
@@ -150,6 +153,7 @@ def _validate_payload(payload: SummaryPayload, label: str) -> bool:
     """
     summary = payload.get("summary", "").strip()
     when_to_use = payload.get("when_to_use", "").strip()
+    related_topics = _coerce_related_topics(payload.get("related_topics", []))
 
     if not summary or not when_to_use:
         print(f"[04] WARN: Rejecting empty AI payload for {label}")
@@ -163,6 +167,10 @@ def _validate_payload(payload: SummaryPayload, label: str) -> bool:
         if _UNSAFE_PAYLOAD_RE.search(field_val):
             print(f"[04] WARN: Unsafe content in {field_name} for {label}; skipping injection")
             return False
+
+    if not related_topics:
+        print(f"[04] WARN: Rejecting payload without related_topics for {label}")
+        return False
 
     return True
 
@@ -185,6 +193,50 @@ def _load_legacy_cache() -> dict[str, dict[str, Any]]:
     except Exception as exc:
         print(f"[04] WARN: Could not read legacy cache: {exc}")
         return {}
+
+
+def _repair_base_record_metadata(
+    module: str,
+    slug: str,
+    title: str,
+    body_hash: str,
+) -> bool:
+    """Repair base-record metadata drift without touching overrides.
+
+    This is intentionally narrow: it only corrects base-store metadata for
+    records that already resolve cleanly and are not shadowed by an override.
+    It preserves the existing AI text while bringing `title` and `generated_at`
+    back into contract with the current L2 document.
+    """
+    override_path = os.path.join(ai_store.AI_DATA_OVERRIDE_DIR, module, f"{slug}.json")
+    base_path = os.path.join(ai_store.AI_DATA_BASE_DIR, module, f"{slug}.json")
+
+    if os.path.isfile(override_path) or not os.path.isfile(base_path):
+        return False
+
+    status, record = ai_store.load_summary(module, slug, current_hash=body_hash)
+    if status != "ok" or record is None:
+        return False
+
+    generated_at = record.get("generated_at")
+    stored_title = str(record.get("title", "")).strip()
+    has_generated_at = isinstance(generated_at, str) and generated_at.strip()
+
+    if stored_title == title and has_generated_at:
+        return False
+
+    repaired = dict(record)
+    repaired["slug"] = slug
+    repaired["module"] = module
+    repaired["title"] = title
+    if repaired.get("content_hash") is not None:
+        repaired["content_hash"] = body_hash
+    if not has_generated_at:
+        repaired["generated_at"] = datetime.now(timezone.utc).isoformat()
+
+    ai_store.save_summary(module, slug, repaired)
+    print(f"[04] INFO: Repaired base metadata for {module}/{slug}")
+    return True
 
 
 def _call_api(content: str, label: str) -> SummaryPayload | Literal["STOP"] | None:
@@ -339,6 +391,25 @@ for module, slug, fpath in all_targets:
         print(f"[04] WARN: Skipping {slug} — no valid L2 frontmatter")
         continue
 
+    try:
+        loaded_fm_any: Any = _yaml.safe_load(fm_text)
+    except Exception as exc:
+        print(f"[04] WARN: Skipping {slug} — invalid YAML frontmatter: {exc}")
+        continue
+
+    fm_data: dict[str, Any] = {}
+    if isinstance(loaded_fm_any, dict):
+        for key_any, val_any in cast(dict[Any, Any], loaded_fm_any).items():
+            if isinstance(key_any, str):
+                fm_data[key_any] = val_any
+
+    title = str(fm_data.get("title", "")).strip() or slug
+
+    body_hash = _body_hash(body)
+
+    if WRITE_AI:
+        _repair_base_record_metadata(module, slug, title, body_hash)
+
     # Already enriched: skip
     if "ai_summary:" in fm_text:
         skipped_already += 1
@@ -349,7 +420,6 @@ for module, slug, fpath in all_targets:
         skipped_short += 1
         continue
 
-    body_hash = _body_hash(body)
     result: SummaryPayload | None = None
 
     # 1. Structured data store (override takes precedence over base)
@@ -394,11 +464,15 @@ for module, slug, fpath in all_targets:
             {
                 "slug": slug,
                 "module": module,
-                "title": slug,
+                "title": title,
                 "content_hash": body_hash,
                 "ai_summary": result["summary"],
                 "ai_when_to_use": result["when_to_use"],
                 "ai_related_topics": result["related_topics"],
+                "generated_at": legacy_entry.get(
+                    "generated_at",
+                    datetime.now(timezone.utc).isoformat(),
+                ),
                 "model": "migrated-from-legacy-cache",
                 "pipeline_version": "v12",
             },
@@ -428,11 +502,12 @@ for module, slug, fpath in all_targets:
                     {
                         "slug": slug,
                         "module": module,
-                        "title": slug,
+                        "title": title,
                         "content_hash": body_hash,
                         "ai_summary": result["summary"],
                         "ai_when_to_use": result["when_to_use"],
                         "ai_related_topics": result["related_topics"],
+                        "generated_at": datetime.now(timezone.utc).isoformat(),
                         "model": MODEL,
                         "pipeline_version": "v12",
                     },
@@ -451,12 +526,6 @@ for module, slug, fpath in all_targets:
 
     if result:
         try:
-            loaded_fm: Any = _yaml.safe_load(fm_text)
-            fm_data: dict[str, Any] = {}
-            if isinstance(loaded_fm, dict):
-                for key_any, val_any in cast(dict[Any, Any], loaded_fm).items():
-                    if isinstance(key_any, str):
-                        fm_data[key_any] = val_any
             fm_data["ai_summary"] = result["summary"]
             fm_data["ai_when_to_use"] = result["when_to_use"]
             fm_data["ai_related_topics"] = result["related_topics"]

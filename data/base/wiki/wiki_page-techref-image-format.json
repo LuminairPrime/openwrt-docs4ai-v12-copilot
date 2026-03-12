@@ -1,0 +1,29 @@
+{
+  "slug": "wiki_page-techref-image-format",
+  "module": "wiki",
+  "title": "Image formats",
+  "content_hash": "18e94164e9b5",
+  "ai_summary": "The Image formats module provides an overview of various firmware types and their respective file extensions used in OpenWrt. It categorizes these formats into standard and specific types, detailing their usage scenarios such as factory images for OEM flashing and sysupgrade images for upgrading existing OpenWrt installations. Additional formats like ext4, squashfs, and initramfs are explained, highlighting their characteristics and typical applications. The document also includes information on developer files and example firmware image names for different targets.",
+  "ai_when_to_use": "This module is useful when determining the correct firmware image format to use for flashing or upgrading OpenWrt on various devices. It is particularly relevant for developers and users looking to understand the implications of different firmware types.",
+  "ai_related_topics": [
+    "factory",
+    "sysupgrade",
+    "ext4",
+    "squashfs",
+    "initramfs",
+    "sdcard.img.gz",
+    "rootfs",
+    "kernel",
+    "u-boot",
+    "ubinized.bin",
+    "uImage",
+    "zImage",
+    "sdk",
+    "Imagebuilder",
+    "vmlinux"
+  ],
+  "generated_at": "2026-03-12T09:00:07.445771+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:00:07.446020+00:00"
+}

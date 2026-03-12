@@ -1,0 +1,16 @@
+{
+  "slug": "wiki_page-techref-ubox",
+  "module": "wiki",
+  "title": "ubox",
+  "content_hash": "65bce2d6aca6",
+  "ai_summary": "The `ubox` package is a component of the OpenWrt operating system that facilitates the management of UCI configurations and block devices. Introduced in revision r36427, it includes features for generating fstab configurations and detecting block devices. Users can utilize the `block detect` command to create a sample UCI configuration file, which is particularly useful for setting up extroot if the target is set to '/'. Additionally, the `block info` command can be employed to retrieve the UUID of block devices.",
+  "ai_when_to_use": "Use the `ubox` package when configuring block devices and UCI settings in OpenWrt, especially for generating fstab entries. It is particularly relevant during the initial setup of storage devices.",
+  "ai_related_topics": [
+    "block detect",
+    "block info"
+  ],
+  "generated_at": "2026-03-12T09:01:06.983607+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:01:06.983870+00:00"
+}

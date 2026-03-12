@@ -1,0 +1,19 @@
+{
+  "slug": "example_app-luci-app-example-htdocs-luci-static-resources-view-example-rpc-js",
+  "module": "luci-examples",
+  "title": "rpc.js",
+  "content_hash": "37948440a30b",
+  "ai_summary": "The `rpc.js` module in the `luci-examples` application provides a framework for making Remote Procedure Calls (RPC) to the LuCI interface. It defines RPC calls using the `rpc.declare` method, which allows interaction with backend services through defined methods like `get_sample1` and `get_sample3`. The module includes error handling for RPC responses and renders data in a structured format using DOM manipulation. Additionally, it demonstrates how to load data asynchronously and display it in a user-friendly manner.",
+  "ai_when_to_use": "Use this module when you need to implement RPC calls in a LuCI application to interact with backend services and display the results in a web interface.",
+  "ai_related_topics": [
+    "rpc.declare",
+    "view.extend",
+    "E()",
+    "load",
+    "render"
+  ],
+  "generated_at": "2026-03-12T08:55:22.176542+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:55:22.176843+00:00"
+}

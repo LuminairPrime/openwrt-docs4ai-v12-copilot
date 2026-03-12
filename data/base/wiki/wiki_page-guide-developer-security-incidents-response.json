@@ -1,0 +1,16 @@
+{
+  "slug": "wiki_page-guide-developer-security-incidents-response",
+  "module": "wiki",
+  "title": "High-level security incident response handling process",
+  "content_hash": "a37f14687ce7",
+  "ai_summary": "The High-level security incident response handling process outlines the steps necessary for effectively managing security incidents within OpenWrt. It emphasizes the importance of awareness, identification, and collaboration among team members to address security issues promptly. Key tasks include making the security team aware of incidents and analyzing reports for validity and severity. This structured approach ensures that security responses are handled efficiently and effectively.",
+  "ai_when_to_use": "This process should be utilized whenever a security incident is reported to ensure a swift and organized response. It is particularly relevant for developers and security teams working on OpenWrt.",
+  "ai_related_topics": [
+    "Make security team aware",
+    "Analyze report"
+  ],
+  "generated_at": "2026-03-12T08:58:35.443454+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:58:35.443732+00:00"
+}

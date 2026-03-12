@@ -19,7 +19,7 @@ The current authoritative position is:
 - the only verified remote warning is the deferred dockerman ucode context mismatch; `CONTENT-001` is now closed with clean committed-corpus evidence
 - a follow-up local patch that tightens wiki L2 cleanup and adds direct regression coverage for `02b`, `03`, and `08` is now passing focused tests and the deterministic smoke path
 - a committed-corpus sanity snapshot now reports the current checked-in wiki L2 tree in human-readable terms and currently reports `clean` (`92` files, all tracked residue counters at `0`)
-- this hardening tranche explicitly excluded direct AI implementation changes in `04-generate-ai-summaries.py` and `lib/ai_store.py`; AI-alignment follow-up remains a separate slice
+- the AI-alignment follow-up now adds scratch-first operator docs plus read-only AI-store audit and validation helpers, while broader multi-model and quality-scoring work remains deferred
 
 ## Verification Matrix
 

@@ -23,6 +23,8 @@ for the full dependency graph, input/output tables, and AI data flow diagram.
 | `02h-scrape-hotplug-events` | Extraction | L0→L1 | Yes | — |
 | `03-normalize-semantic` | Process | L1→L2 | No | — |
 | `04-generate-ai-summaries` | AI Enrichment | L2→L2 | No | **Writes** base store |
+| `04a-audit-ai-store` | AI Maintenance | Store/L2 | Yes | Read-only audit |
+| `04b-validate-ai-store` | AI Maintenance | Store/L2 | Yes | Read-only validation |
 | `05a-assemble-references` | Assembly | L2→L3/L4 | Yes | Reads AI fields |
 | `05b-generate-agents-and-readme` | Indexing | L3 | Yes | — |
 | `05c-generate-ucode-ide-schemas` | Indexing | L3 | Yes | Reads `ai_summary` fallback |
@@ -35,21 +37,25 @@ for the full dependency graph, input/output tables, and AI data flow diagram.
 
 ## Common Environment Variables
 
+Defaults below are direct local defaults. The hosted workflow overrides
+`WORKDIR` to `${{ github.workspace }}/tmp`, `OUTDIR` to staging, and usually
+sets `SKIP_AI` explicitly via workflow inputs.
+
 | Variable | Default | Used by |
 |----------|---------|---------|
-| `WORKDIR` | `./tmp` | 01, 02*, 03, 06 |
-| `OUTDIR` | `./staging` | 03, 04, 05*, 06, 07, 08 |
+| `WORKDIR` | `tmp` | 01, 02*, 03, 06 |
+| `OUTDIR` | `openwrt-condensed-docs` | 03, 04, 04a, 04b, 05*, 06, 07, 08 |
 | `SKIP_WIKI` | `false` | 02a |
-| `WIKI_MAX_PAGES` | (all) | 02a |
+| `WIKI_MAX_PAGES` | `300` | 02a |
 | `SKIP_BUILDROOT` | `false` | 01, 02d, 02e |
-| `SKIP_AI` | `false` | 04 |
+| `SKIP_AI` | `true` | 04 |
 | `WRITE_AI` | `true` | 04 |
 | `MAX_AI_FILES` | `40` | 04 |
 | `GITHUB_TOKEN` | — | 04 |
 | `LOCAL_DEV_TOKEN` | — | 04 |
 | `AI_CACHE_PATH` | `ai-summaries-cache.json` | 04 |
-| `AI_DATA_BASE_DIR` | `data/base/` | 04 |
-| `AI_DATA_OVERRIDE_DIR` | `data/override/` | 04 |
+| `AI_DATA_BASE_DIR` | `data/base/` | 04, 04a, 04b |
+| `AI_DATA_OVERRIDE_DIR` | `data/override/` | 04, 04a, 04b |
 | `AI_VALIDATE_PAYLOAD` | `true` | 04 |
 | `VALIDATE_MODE` | `hard` | 08 |
 | `OPENWRT_COMMIT` | (set by 01) | 03, 06 |
@@ -87,8 +93,12 @@ Script 04 implements the AI-V1 data store design:
 - Falls back to legacy `ai-summaries-cache.json` and migrates entries on first match
 - Calls GitHub Models API (gpt-4o-mini) for files with no stored summary when `WRITE_AI=true`
 - Injects `ai_summary`, `ai_when_to_use`, `ai_related_topics` into L2 YAML frontmatter
+- `04a-audit-ai-store.py` audits missing, stale, orphaned, and invalid records without mutating files
+- `04b-validate-ai-store.py` validates JSON schema plus title and hash integrity against L2
 
 Full design: [docs/specs/v12/ai-summary-feature-spec.md](../../docs/specs/v12/ai-summary-feature-spec.md)
+
+Permanent operator workflow: [docs/specs/v12/ai-summary-operations-runbook.md](../../docs/specs/v12/ai-summary-operations-runbook.md)
 
 ---
 

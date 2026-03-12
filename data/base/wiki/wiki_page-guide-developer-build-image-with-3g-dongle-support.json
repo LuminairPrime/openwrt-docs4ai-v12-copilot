@@ -1,0 +1,17 @@
+{
+  "slug": "wiki_page-guide-developer-build-image-with-3g-dongle-support",
+  "module": "wiki",
+  "title": "Building image with support for 3g/4g and usb tethering",
+  "content_hash": "8d0295a182db",
+  "ai_summary": "This module provides a comprehensive guide for building an OpenWrt image with support for 3G/4G connectivity and USB tethering. It outlines the necessary steps to prepare the build environment, including cloning the OpenWrt git repository and synchronizing package feeds. The configuration process involves selecting the target architecture and profile, as well as enabling specific kernel modules for USB networking support, such as kmod-usb-net for USB networking interfaces and kmod-usb-serial for legacy 3G dongles. Detailed instructions are provided for selecting various kernel modules to ensure compatibility with different devices and connection types.",
+  "ai_when_to_use": "Use this guide when you need to create a custom OpenWrt image that supports 3G/4G modems and USB tethering for network connectivity.",
+  "ai_related_topics": [
+    "kmod-usb-net",
+    "kmod-usb-serial",
+    "make menuconfig"
+  ],
+  "generated_at": "2026-03-12T08:56:22.971318+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:56:22.971623+00:00"
+}

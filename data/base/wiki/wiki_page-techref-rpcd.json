@@ -1,7 +1,7 @@
 {
   "slug": "wiki_page-techref-rpcd",
   "module": "wiki",
-  "title": "OpenWrt Technical Reference: rpcd",
+  "title": "rpcd: OpenWrt ubus RPC daemon for backend server",
   "content_hash": null,
   "ai_summary": "Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. Explains the plugin architecture (/usr/lib/rpcd/*.so), ACL JSON files that grant LuCI views permission to call specific ubus paths, the session management API (rpcd-mod-session), the file plugin for proxied filesystem reads/writes, and how LuCI RPC calls are authenticated via the uhttpd session cookie.",
   "ai_when_to_use": "Reference when a LuCI JavaScript view calls LuCI.rpc.declare() to invoke a ubus method, when writing an rpcd ACL file to grant a non-root package permission to call specific ubus paths, or when implementing a custom C rpcd plugin that exposes new ubus objects.",
@@ -15,5 +15,6 @@
   ],
   "generated_at": "2026-03-11T00:00:00Z",
   "model": "manual",
-  "pipeline_version": "v12"
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:02:47.491860+00:00"
 }

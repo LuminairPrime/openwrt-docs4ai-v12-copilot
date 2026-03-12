@@ -1,0 +1,18 @@
+{
+  "slug": "wiki_page-guide-developer-frequent-pr-mistakes",
+  "module": "wiki",
+  "title": "Frequent PR mistakes or \"How to prevent my PR from getting delayed for sure\"",
+  "content_hash": "a2b00379beaf",
+  "ai_summary": "This document outlines common mistakes that developers make when submitting Pull Requests (PRs) to OpenWrt, aiming to help them avoid delays in the review process. Key points include the necessity of a commit message, the importance of using a real name and email in the Signed-off-by line, and the distinction between a PR and its commits. Developers are also advised to respond to reviewer questions, avoid multi-posting PRs, and use the checkpatch.pl script for code quality checks.",
+  "ai_when_to_use": "Refer to this guide when preparing a PR for OpenWrt to ensure a smooth review process and to avoid common pitfalls that can lead to delays.",
+  "ai_related_topics": [
+    "Submitting patches",
+    "Device Support Policies",
+    "Reopen closed PR",
+    "checkpatch.pl"
+  ],
+  "generated_at": "2026-03-12T08:57:30.710123+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:57:30.710366+00:00"
+}

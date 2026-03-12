@@ -1,0 +1,17 @@
+{
+  "slug": "example_app-luci-app-ddns-htdocs-luci-static-resources-view-status-include-70-ddns-js",
+  "module": "luci-examples",
+  "title": "70_ddns.js",
+  "content_hash": "c66decff5679",
+  "ai_summary": "The 70_ddns.js module is part of the luci-examples package in OpenWrt, designed to manage Dynamic DNS (DDNS) services through a web interface. It utilizes the RPC mechanism to fetch the status of configured DDNS services and displays this information in a structured table format. The module loads DDNS configurations using the UCI system and presents details such as the next update time, lookup hostname, registered IP address, and network type. It also handles cases where no services are configured by displaying an appropriate message.",
+  "ai_when_to_use": "Use this module when you need to provide a user interface for monitoring and managing Dynamic DNS services in OpenWrt. It is particularly useful for users who require real-time updates on their DDNS configurations.",
+  "ai_related_topics": [
+    "rpc",
+    "uci",
+    "baseclass"
+  ],
+  "generated_at": "2026-03-12T08:54:04.226707+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:04.227108+00:00"
+}

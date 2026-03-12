@@ -131,3 +131,5 @@ DOCUMENT:
   `data/override/<module>/<slug>.json` and edit it there.
 - The script 04 pipeline will automatically pick up new files added here and will
   skip any slug that already has a valid (non-stale) entry.
+- For scratch generation, validation, promotion, and cleanup, use
+  [docs/specs/v12/ai-summary-operations-runbook.md](../../docs/specs/v12/ai-summary-operations-runbook.md).

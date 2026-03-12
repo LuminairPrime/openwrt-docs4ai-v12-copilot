@@ -1,7 +1,7 @@
 {
   "slug": "js_source-api-cbi",
   "module": "luci",
-  "title": "LuCI CBI (Configuration Binding Interface)",
+  "title": "LuCI API: cbi",
   "content_hash": "36b219c24394",
   "ai_summary": "Implements the CBI declarative form framework for LuCI. Defines Map, Section, TypedSection, TableSection, and over 30 widget classes including Value, Flag, ListValue, MultiValue, DynamicList, and TextValue; CBI maps UCI package sections directly to HTML forms and calls uci.save() on submit, enabling config UIs with minimal JavaScript.",
   "ai_when_to_use": "Reference when building a traditional LuCI form-based view against a UCI config file using Map() and TypedSection(); prefer the newer js_source-api-form module for views requiring runtime JSON data or schemas that aren't backed by a flat UCI file.",
@@ -15,5 +15,6 @@
   ],
   "generated_at": "2026-03-11T00:00:00Z",
   "model": "github-copilot-seeded",
-  "pipeline_version": "v12"
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:02:47.274019+00:00"
 }

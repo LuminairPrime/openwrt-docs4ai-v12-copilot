@@ -1,7 +1,7 @@
 {
   "slug": "wiki_page-techref-uci",
   "module": "wiki",
-  "title": "OpenWrt Technical Reference: UCI",
+  "title": "UCI (Unified Configuration Interface) – Technical Reference",
   "content_hash": null,
   "ai_summary": "Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. Explains the /etc/config/ text file format, section and option syntax, the uci CLI (uci set/get/add/delete/commit/revert), the C library API (uci_load, uci_set, uci_commit), and batch-change semantics where changes stay staged in memory until commit.",
   "ai_when_to_use": "Reference when reading or modifying OpenWrt configuration from a shell script (uci CLI), a C daemon (libuci), a Lua script (luci.model.uci), or a ucode script (import('uci').cursor()); always call uci commit after changes or they will be lost on next read by other processes.",
@@ -16,5 +16,6 @@
   ],
   "generated_at": "2026-03-11T00:00:00Z",
   "model": "manual",
-  "pipeline_version": "v12"
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T09:02:47.500867+00:00"
 }

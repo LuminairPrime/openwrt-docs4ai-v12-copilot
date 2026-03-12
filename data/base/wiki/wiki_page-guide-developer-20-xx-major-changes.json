@@ -1,0 +1,18 @@
+{
+  "slug": "wiki_page-guide-developer-20-xx-major-changes",
+  "module": "wiki",
+  "title": "21.02: Major cosmetic changes",
+  "content_hash": "58b09c11716a",
+  "ai_summary": "The 21.02 release of OpenWrt introduces significant cosmetic changes, particularly in the naming conventions for devices and targets. This update aims to standardize device/image names using a vendor_model-variant scheme, enhancing consistency across various components such as Makefiles and DTS files. Key changes include the renaming of targets like ar71xx to ath79 and the systematic application of compatible names for board identification. Developers must adapt their scripts and configurations to reflect these new naming conventions to ensure compatibility with the updated system.",
+  "ai_when_to_use": "This module is essential for developers maintaining or adapting OpenWrt builds, especially those transitioning from older versions like 19.07 to 21.02. It is particularly relevant when updating device configurations and scripts to align with the new naming standards.",
+  "ai_related_topics": [
+    "DEVICE_TITLE",
+    "SUPPORTED_DEVICES",
+    "CONFIG_TARGET_DEVICE_*",
+    "TARGET_*"
+  ],
+  "generated_at": "2026-03-12T08:56:08.660476+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:56:08.660731+00:00"
+}

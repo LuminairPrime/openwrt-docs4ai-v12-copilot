@@ -1,0 +1,19 @@
+{
+  "slug": "wiki_page-guide-developer-config-scripting",
+  "module": "wiki",
+  "title": "Configuration in scripts",
+  "content_hash": "51d4c6c31f0c",
+  "ai_summary": "The Configuration in scripts module provides a set of shell procedures for interacting with UCI (Unified Configuration Interface) to read and process configuration files within shell scripts in OpenWrt. It allows developers to load configuration files using `config_load name`, define callbacks for handling sections and options through `config_cb`, `option_cb`, and `list_cb`, and reset callbacks with `reset_cb`. This functionality is particularly useful for writing startup scripts located in `/etc/init.d/` that require configuration management.",
+  "ai_when_to_use": "Use this module when you need to read and manipulate UCI configuration files within shell scripts, especially for startup scripts in OpenWrt.",
+  "ai_related_topics": [
+    "config_load",
+    "config_cb",
+    "option_cb",
+    "list_cb",
+    "reset_cb"
+  ],
+  "generated_at": "2026-03-12T08:56:44.998579+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:56:44.998852+00:00"
+}

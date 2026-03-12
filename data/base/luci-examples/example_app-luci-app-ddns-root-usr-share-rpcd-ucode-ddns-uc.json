@@ -1,0 +1,18 @@
+{
+  "slug": "example_app-luci-app-ddns-root-usr-share-rpcd-ucode-ddns-uc",
+  "module": "luci-examples",
+  "title": "ddns.uc",
+  "content_hash": "245bc06aec00",
+  "ai_summary": "The `ddns.uc` module is designed for managing Dynamic DNS (DDNS) services within the OpenWrt environment. It provides functions for retrieving service logs, checking the status of DDNS services, and formatting dates. Key functions include `get_services_log`, which fetches logs for specified services, and `get_services_status`, which retrieves the current status of all configured DDNS services. Additionally, it includes utility functions for date formatting and calculating time intervals.",
+  "ai_when_to_use": "Use the `ddns.uc` module when you need to manage or monitor DDNS services in OpenWrt, particularly for logging and status checks.",
+  "ai_related_topics": [
+    "get_services_log",
+    "get_services_status",
+    "calc_seconds",
+    "epoch2date"
+  ],
+  "generated_at": "2026-03-12T08:54:07.352047+00:00",
+  "model": "gpt-4o-mini",
+  "pipeline_version": "v12",
+  "saved_at": "2026-03-12T08:54:07.352486+00:00"
+}
