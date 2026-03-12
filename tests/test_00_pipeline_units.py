@@ -3,6 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from lib import ai_store_workflow
 from pipeline_test_support import load_script_module
 
 
@@ -299,6 +300,53 @@ def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(
     assert commits["procd"] == "1111111"
     assert commits["luci"] == "2222222"
     assert commits["ucode"] == "3333333"
+
+
+def test_ai_store_workflow_expand_option_sequence_supports_review_and_full_modes():
+    assert ai_store_workflow.expand_option_sequence("review") == [
+        "prepare",
+        "generate",
+        "validate",
+        "audit",
+    ]
+    assert ai_store_workflow.expand_option_sequence("full") == [
+        "prepare",
+        "generate",
+        "validate",
+        "audit",
+        "promote",
+    ]
+    assert ai_store_workflow.expand_option_sequence("cleanup") == ["cleanup"]
+
+
+def test_ai_store_workflow_resolve_token_value_prefers_requested_env():
+    token, source = ai_store_workflow.resolve_token_value(
+        write_ai=True,
+        token_env="CUSTOM_TOKEN",
+        environ={
+            "CUSTOM_TOKEN": "custom-value",
+            "LOCAL_DEV_TOKEN": "local-value",
+            "GITHUB_TOKEN": "github-value",
+        },
+    )
+
+    assert token == "custom-value"
+    assert source == "CUSTOM_TOKEN"
+
+
+def test_ai_store_ops_promote_base_records_copies_json_only(tmp_path):
+    source_root = tmp_path / "scratch-base"
+    module_dir = source_root / "ucode"
+    module_dir.mkdir(parents=True)
+    (module_dir / "sample-doc.json").write_text("{}\n", encoding="utf-8")
+    (module_dir / "ignore.txt").write_text("ignore\n", encoding="utf-8")
+
+    target_root = tmp_path / "target-base"
+    copied = ai_store_workflow.promote_base_records(source_root, target_root)
+
+    assert copied == 1
+    assert (target_root / "ucode" / "sample-doc.json").is_file()
+    assert not (target_root / "ucode" / "ignore.txt").exists()
 
 
 def test_llm_routing_build_version_string_reads_manifest_when_env_missing(

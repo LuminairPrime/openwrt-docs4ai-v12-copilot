@@ -131,5 +131,9 @@ DOCUMENT:
   `data/override/<module>/<slug>.json` and edit it there.
 - The script 04 pipeline will automatically pick up new files added here and will
   skip any slug that already has a valid (non-stale) entry.
-- For scratch generation, validation, promotion, and cleanup, use
+- For the maintained scratch-first helper, use
+  `python tools/manage_ai_store.py --option review`.
+- Use `--option promote` after reviewing scratch results, or `--option full` to run
+  the full review-plus-promotion sequence in one command.
+- For detailed manual equivalents and fallback procedures, use
   [docs/specs/v12/ai-summary-operations-runbook.md](../../docs/specs/v12/ai-summary-operations-runbook.md).

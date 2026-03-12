@@ -64,6 +64,16 @@ def test_process_waits_for_extract_and_extract_wiki():
     assert "needs: [extract, extract_wiki]" in process_block
 
 
+def test_process_uses_single_numbered_ai_stage_after_normalize():
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    process_block = get_workflow_job_block(workflow_text, "process")
+
+    assert "Detect committed AI store changes" not in process_block
+    assert "Validate committed AI store against staged L2 (04b)" not in process_block
+    assert "Audit committed AI store coverage (04a)" not in process_block
+    assert "python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py" in process_block
+
+
 def test_extract_matrix_fail_fast_is_disabled():
     workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
     extract_block = get_workflow_job_block(workflow_text, "extract")

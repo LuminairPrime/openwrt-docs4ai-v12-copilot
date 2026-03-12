@@ -191,7 +191,7 @@ This structure improves routing quality because sentence 1 serves as a dense
 high-level retrieval snippet while later sentences preserve low-level details
 for tool/action planning.
 
-### 4.6 Store-write safety and operator tools
+### 4.6 Store-write safety and local support tooling
 
 When script `04` writes new base records, it now:
 
@@ -199,13 +199,35 @@ When script `04` writes new base records, it now:
 - auto-writes `generated_at` when the caller does not provide it
 - rejects payloads that omit `ai_related_topics`
 
-Read-only operator helpers now exist for real generation workflows:
+Script `04` now performs a library-backed AI-store preflight before it applies
+or generates summaries:
 
-- `04a-audit-ai-store.py` reports missing, stale, orphaned, and invalid records
-- `04b-validate-ai-store.py` validates JSON schema plus L2 title/hash integrity
+- schema and integrity validation for the selected base and override roots
+- coverage and hygiene audit reporting for current, pinned, stale, missing,
+  orphaned, and invalid records
+- hard failure on malformed store state or unreadable L2 inputs, while missing
+  or stale coverage remains informational because AI enrichment is optional
+
+The maintained scratch-first support CLI is:
+
+- `tools/manage_ai_store.py` with `--option review`, `--option promote`,
+  `--option full`, and focused sub-operations (`prepare`, `generate`,
+  `validate`, `audit`, `cleanup`)
 
 The permanent scratch-first workflow for these tools is documented in
 [ai-summary-operations-runbook.md](./ai-summary-operations-runbook.md).
+
+### 4.7 Hosted AI stage contract
+
+The hosted `process` job now exposes only one numbered AI stage: `04`.
+
+After `03-normalize-semantic.py`, script `04` performs its own preflight against
+the configured AI store and staged L2 corpus before it applies stored summaries
+or attempts live API generation.
+
+This keeps the hosted pipeline surface consistent with the numbering contract:
+numbered scripts are real pipeline stages, while local review and promotion
+workflows live in non-numbered support tooling.
 
 ---
 
@@ -272,8 +294,15 @@ Real AI-summary generation is scratch first. Use
 [ai-summary-operations-runbook.md](./ai-summary-operations-runbook.md) for the
 whole-project workflow, including validation, promotion, and cleanup.
 
-The direct commands below are intentionally scoped runs, not the recommended
-promotion workflow.
+The preferred whole-project helper is:
+
+```powershell
+python tools/manage_ai_store.py --option review
+python tools/manage_ai_store.py --option promote
+```
+
+The direct commands below are intentionally scoped fallback runs, not the
+recommended promotion workflow.
 
 ```powershell
 # Apply stored summaries only (no API calls):
@@ -292,9 +321,9 @@ python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
 $env:SKIP_AI="true"
 python .github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py
 
-# Validate a scratch store against the current L2 corpus:
-python .github/scripts/openwrt-docs4ai-04b-validate-ai-store.py
-python .github/scripts/openwrt-docs4ai-04a-audit-ai-store.py
+# Validate and audit the prepared scratch store:
+python tools/manage_ai_store.py --option validate
+python tools/manage_ai_store.py --option audit
 ```
 
 ---
@@ -307,6 +336,7 @@ The following enhancements are deferred to AI-V2:
 - **Auto-promote overrides**: detect when a human override diverges significantly from a
   newly regenerated base entry and surface it for review rather than silently discarding
 - **Batch API mode**: group multiple short docs into one API call to reduce round trips
+- **Incremental/hash-diff mode**: target only changed L2 documents instead of reviewing the full corpus every time
 - **Summary quality scoring**: use a second LLM call to self-evaluate summary quality and
   flag entries below a threshold for human review
 - **Localisation**: generate summaries in multiple languages for non-English deployments

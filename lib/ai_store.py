@@ -34,6 +34,7 @@ File format (JSON, one file per L2 document):
 
 import json
 import os
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from typing import Any, Literal, Mapping, TypedDict, cast
 
@@ -215,3 +216,20 @@ def list_all(
 def stats() -> tuple[int, int]:
     """Return (base_count, override_count) count of stored records."""
     return len(list_all("base")), len(list_all("override"))
+
+
+@contextmanager
+def temporary_store_roots(base_dir: str, override_dir: str):
+    """Temporarily point store operations at alternate base and override roots."""
+    global AI_DATA_BASE_DIR, AI_DATA_OVERRIDE_DIR
+
+    previous_base_dir = AI_DATA_BASE_DIR
+    previous_override_dir = AI_DATA_OVERRIDE_DIR
+    AI_DATA_BASE_DIR = base_dir
+    AI_DATA_OVERRIDE_DIR = override_dir
+
+    try:
+        yield
+    finally:
+        AI_DATA_BASE_DIR = previous_base_dir
+        AI_DATA_OVERRIDE_DIR = previous_override_dir

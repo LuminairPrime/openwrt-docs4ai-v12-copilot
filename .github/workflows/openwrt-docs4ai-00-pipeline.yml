@@ -28,10 +28,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: openwrt-docs4ai-v12-${{ github.ref }}
-  cancel-in-progress: false
-
 env:
   PUBLISH_DIR: openwrt-condensed-docs
   WORKDIR: ${{ github.workspace }}/tmp
@@ -479,6 +475,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

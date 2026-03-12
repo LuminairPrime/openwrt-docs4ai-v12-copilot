@@ -2,8 +2,13 @@
   "typeCheckingMode": "strict",
   "include": [
     "lib/ai_store.py",
+    "lib/ai_corpus.py",
+    "lib/ai_store_checks.py",
+    "lib/ai_store_workflow.py",
+    "lib/ai_enrichment.py",
     "lib/config.py",
-    ".github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py"
+    ".github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py",
+    "tools/manage_ai_store.py"
   ],
   "exclude": [
     "**/__pycache__",

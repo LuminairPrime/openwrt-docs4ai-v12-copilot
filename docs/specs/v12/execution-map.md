@@ -15,7 +15,7 @@
 2. `02a-scrape-wiki.py` (independent branch in hosted workflow)
 3. `02b` through `02h` (repo-backed extractors, gated on `01`)
 4. `03-normalize-semantic.py`
-5. `04-generate-ai-summaries.py` when AI enrichment is enabled
+5. `04-generate-ai-summaries.py` when AI enrichment is enabled; it performs its own AI-store preflight before enrichment
 6. `05a-assemble-references.py`
 7. `05b-generate-agents-and-readme.py`
 8. `05c-generate-ucode-ide-schemas.py`
@@ -26,9 +26,7 @@
 
 Letter suffixes denote scripts that are parallelizable in deployment. Local smoke tests may still execute them sequentially.
 
-Read-only local helpers `04a-audit-ai-store.py` and
-`04b-validate-ai-store.py` can be run after `04` or against an existing store,
-but they are intentionally excluded from the hosted workflow.
+`tools/manage_ai_store.py` is the maintained local scratch-first helper.
 
 Hosted Option B topology now runs `02a` in a separate job without waiting on `initialize`, while repo-backed `02b` through `02h` remain in a matrix job that depends on `initialize`.
 
@@ -91,15 +89,15 @@ These artifacts are intended to be the first-stop troubleshooting surface before
 
 ## Scope Note
 
-The current AI-alignment slice now includes scratch-first operator guidance plus
-read-only AI-store audit and validation helpers. Deeper model-selection and
-quality-scoring work remains deferred.
+The current AI-alignment slice keeps `04` as the single numbered AI stage and
+moves local review, audit, validation, and promotion into `tools/manage_ai_store.py`.
+Deeper model-selection and quality-scoring work remains deferred.
 
 ## High-Value Debugging Paths
 
 - If the issue is stale or malformed wiki prose in committed outputs, inspect `02a` for source/cache behavior and `03` for semantic cleanup.
 - If the issue is misclassified ucode examples or false syntax warnings, inspect `02b` and `08` together because the extractor and validator now share regression coverage boundaries.
-- If the issue is missing, stale, or structurally invalid AI summaries, inspect `04`, `04a`, `04b`, and the `data/base/` plus `data/override/` store roots together.
+- If the issue is missing, stale, or structurally invalid AI summaries, inspect `04`, `tools/manage_ai_store.py`, and the `data/base/` plus `data/override/` store roots together.
 - If the issue is missing or overwritten generated outputs, inspect the workflow `process` to `deploy` handoff because `staging/` is now the authoritative promotion source.
 - If the issue is only visible in committed `openwrt-condensed-docs/`, compare it against the focused corpus sanity snapshot from `tests/test_pipeline_hardening.py` to decide whether the repo tree is stale or the normalization logic is still wrong.
 

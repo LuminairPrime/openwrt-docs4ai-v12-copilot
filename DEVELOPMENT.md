@@ -27,6 +27,10 @@ After dependencies are installed, use the local tests in `tests/` rather than re
 ## Recommended Local Commands
 
 ```powershell
+pwsh -File tests/run-local-validation.ps1
+pwsh -File tests/run-local-validation.ps1 -RunAi -KeepTemp
+python tools/manage_ai_store.py --option review
+python tools/manage_ai_store.py --option full --keep-scratch
 python tests/00-smoke-test.py
 python tests/00-smoke-test.py --run-ai
 python tests/openwrt-docs4ai-00-smoke-test.py
@@ -36,9 +40,21 @@ python tests/openwrt-docs4ai-v12-ai-v1-smoke-test.py
 
 The `--run-ai` path is cache-backed for local verification, so it can validate the placement and mutation behavior of script `04` without requiring a live model token.
 
-For real AI-summary generation, use the scratch-first workflow in [docs/specs/v12/ai-summary-operations-runbook.md](docs/specs/v12/ai-summary-operations-runbook.md). Do not treat `--run-ai` as proof of live API generation or permanent AI-store promotion.
+For real AI-summary generation, use `python tools/manage_ai_store.py --option review` or the detailed scratch-first workflow in [docs/specs/v12/ai-summary-operations-runbook.md](docs/specs/v12/ai-summary-operations-runbook.md). Do not treat `--run-ai` as proof of live API generation or permanent AI-store promotion.
 
 For one-off terminal invocations, either activate `.venv` once before testing or call the workspace interpreter directly via `C:/Users/MC/Documents/AirSentinel/openwrt-docs4ai-v12-copilot/.venv/Scripts/python.exe`. Do not assume the system `python` on `PATH` is the repo interpreter.
+
+## PowerShell Validation Helper
+
+`tests/run-local-validation.ps1` is the maintained one-command entry point for the preferred local validation order.
+
+- It uses the repo `.venv` interpreter directly, so it does not depend on whichever `python` happens to be first on `PATH`.
+- It runs focused `pytest` suites first, then `tests/00-smoke-test.py`, then `tests/openwrt-docs4ai-00-smoke-test.py`.
+- It stops on the first failing stage and writes per-stage logs plus a JSON summary under `tmp/ci/local-validation/`.
+- `-RunAi` enables the cache-backed local AI path in both smoke runners.
+- `-KeepTemp` preserves the smoke runners' temp trees for inspection.
+
+The helper is intentionally local-only. Remote GitHub Actions validation still depends on a pushed commit and the run-pinning procedure in `CI Operations`.
 
 ## Terminal Testing Discipline
 
@@ -46,11 +62,12 @@ When validating this project from the terminal, prefer deterministic, bounded co
 
 1. Start in the repo root with the workspace virtual environment active, or use the explicit `.venv` interpreter path when running a single isolated command.
 2. Run the smallest proof first: focused `pytest` targets, then the local smoke runner, then remote workflow validation.
-3. Keep one purpose per command. Prefer a direct command invocation over inline retry loops or multi-purpose shell snippets.
-4. Capture durable local evidence when it matters, typically under `tests/test-results-*.txt` or `tmp/ci/`, so reruns can be compared without re-reading terminal scrollback.
-5. For GitHub Actions validation, pin the run to the pushed commit SHA, identify the matching `databaseId`, and wait on that exact run with `gh run watch <run_id> --exit-status --interval 15`.
-6. After the run finishes, inspect `pipeline-summary`, `process-summary`, and `extract-summary` artifacts before opening raw failed-job logs.
-7. Avoid open-ended polling loops, mid-run log scraping, and assumptions about "the latest run". They create noisy output and make it easy to validate the wrong workflow run.
+3. When you want the full preferred local progression in one command, use `pwsh -File tests/run-local-validation.ps1` instead of rebuilding the sequence ad hoc.
+4. Keep one purpose per command. Prefer a direct command invocation over inline retry loops or multi-purpose shell snippets.
+5. Capture durable local evidence when it matters, typically under `tests/test-results-*.txt` or `tmp/ci/`, so reruns can be compared without re-reading terminal scrollback.
+6. For GitHub Actions validation, pin the run to the pushed commit SHA, identify the matching `databaseId`, and wait on that exact run with `gh run watch <run_id> --exit-status --interval 15`.
+7. After the run finishes, inspect `pipeline-summary`, `process-summary`, and `extract-summary` artifacts before opening raw failed-job logs.
+8. Avoid open-ended polling loops, mid-run log scraping, and assumptions about "the latest run". They create noisy output and make it easy to validate the wrong workflow run.
 
 ## Pre-Change Checklist
 
@@ -79,6 +96,8 @@ A source-repo root `llms.txt` remains intentionally out of scope for the current
 - `tmp/` is ephemeral and never authoritative.
 - `L1-raw` and `L2-semantic` are the standard intermediate layer names.
 - Script numbering denotes stage families and dependency boundaries. Letter suffixes denote sibling scripts inside the same stage family.
+- A bare stage id such as `04` cannot coexist with `04a`, `04b`, or other lettered siblings. A stage is either singular or lettered, never both.
+- Non-pipeline support tools belong outside the numbered stage surface, under `tools/`.
 - Local smoke runs may still execute the lettered scripts sequentially.
 - Local-only references that are out of scope for this repo (for example third-party bug notes) should stay under `tmp/legacy-backup/` so they remain durable locally and gitignored.
 
@@ -112,9 +131,14 @@ Real AI-summary work is intentionally AI-store first and scratch first.
 - `data/base/` and `data/override/` are the authoritative AI-summary surfaces.
 - `openwrt-condensed-docs/` is downstream generated evidence.
 - The permanent workflow lives in [docs/specs/v12/ai-summary-operations-runbook.md](docs/specs/v12/ai-summary-operations-runbook.md).
-- The read-only operator tools are `.github/scripts/openwrt-docs4ai-04a-audit-ai-store.py` and `.github/scripts/openwrt-docs4ai-04b-validate-ai-store.py`.
+- The only numbered AI stage is `.github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py`.
+- Script `04` performs its own library-backed preflight against the selected AI store before applying or generating summaries.
+- The maintained one-command helper is `tools/manage_ai_store.py`.
+- `--option review` prepares scratch data, runs script `04`, then runs the same library-backed validation and audit checks against the scratch store.
+- `--option promote` copies reviewed scratch JSON into `data/base/` and immediately reruns validation and audit against the permanent store.
+- `--option full` runs the full review-plus-promotion path and can remove scratch data automatically unless `--keep-scratch` is set.
 
-Use the cache-backed smoke paths for regression proof, and use the runbook plus the `04a` and `04b` helpers for real generation, review, and promotion.
+Use the cache-backed smoke paths for regression proof, and use the runbook plus `tools/manage_ai_store.py` for real generation, review, and promotion.
 
 ## Remote Publish Policy
 
@@ -146,8 +170,6 @@ Use the cache-backed smoke paths for regression proof, and use the runbook plus 
 ## Optional Workflow Linting
 
 If you edit `.github/workflows/openwrt-docs4ai-00-pipeline.yml`, run `actionlint` locally when it is available on your machine. This is intentionally optional and is not a mandatory bootstrap dependency for the repo.
-
-The current non-AI hardening slice intentionally avoided direct implementation changes to `04-generate-ai-summaries.py` and `lib/ai_store.py`.
 
 ## CI Operations
 

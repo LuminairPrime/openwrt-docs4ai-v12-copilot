@@ -12,9 +12,10 @@ The repository also has a dual-role documentation boundary: maintainer guidance 
 
 | Path | Role | Notes |
 | --- | --- | --- |
-| `.github/scripts/` | Numbered pipeline scripts | `00` is workflow orchestration. Whole numbers denote stage boundaries, and letter suffixes denote sibling scripts within a stage family. |
+| `.github/scripts/` | Numbered pipeline scripts | `00` is workflow orchestration. Whole numbers denote stage boundaries, and letter suffixes denote sibling scripts within a stage family. A bare stage id cannot coexist with same-family lettered siblings. |
 | `.github/workflows/` | GitHub Actions workflows | Remote execution only. Current stabilization work does not assume GitHub behavior is already verified. |
 | `lib/` | Shared Python support code | Shared config, file writing, extraction helpers, and other reusable logic. |
+| `tools/` | Non-numbered maintainer support tools | Local-only operator CLIs and helpers that are not part of the numbered hosted pipeline surface. |
 | `tests/` | Local deterministic tests and smoke runners | Local verification is required before remote workflow testing. |
 | `docs/specs/v12/` | Active v12 technical specifications | These are the current engineering references. |
 | `docs/archive/v12/` | Archived planning and review material | Historical context only. Not authoritative for implementation. |
@@ -40,6 +41,8 @@ The repository also has a dual-role documentation boundary: maintainer guidance 
 - `00` denotes orchestration or workflow entry points.
 - Whole numbers denote dependency boundaries and high-level stage order.
 - A letter suffix such as `05a` or `05d` denotes sibling scripts inside the same stage family.
+- A bare stage id such as `04` cannot coexist with `04a`, `04b`, or other same-family siblings.
+- Non-pipeline helpers must live outside the numbered stage surface, typically under `tools/`.
 - Stage-family siblings may run sequentially locally and may be parallelized in deployment when their direct dependencies are satisfied.
 - Local smoke tests may still run all scripts sequentially for simplicity and debuggability.
 
@@ -61,7 +64,7 @@ The repository also has a dual-role documentation boundary: maintainer guidance 
 2. `02a` is an independent wiki extractor and can run in parallel with `01` in hosted workflow execution.
 3. `02b` through `02h` extract source-specific content into L1 and remain gated on `01` because they consume cloned repositories.
 4. `03` normalizes L1 into L2 and promotes stable intermediates into the output tree.
-5. `04` optionally enriches staged L2 files with AI summary metadata.
+5. `04` optionally enriches staged L2 files with AI summary metadata and performs its own AI-store preflight.
 6. `05a` assembles the publishable skeletons and monolithic references.
 7. `05b`, `05c`, and `05d` generate companion publication artifacts from the stabilized post-`03` snapshot.
 8. `06` generates routing indexes after `05a` has produced the publishable reference assets.
@@ -69,8 +72,6 @@ The repository also has a dual-role documentation boundary: maintainer guidance 
 10. `08` validates the entire output tree.
 
 Current Option B hardening adds per-extractor status manifests, disables matrix fail-fast for repo-backed extractors, and emits extract plus pipeline summary artifacts for faster triage.
-
-The non-AI hardening tranche intentionally excludes direct behavior changes in `04-generate-ai-summaries.py` and `lib/ai_store.py`.
 
 ## Local-First Verification Model
 

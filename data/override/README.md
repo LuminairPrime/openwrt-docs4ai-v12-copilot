@@ -80,4 +80,7 @@ See [data/base/README.md](../base/README.md) for the full schema reference.
 - If you delete an override, the pipeline will fall back to the base store entry
   (or regenerate via API if base is also missing).
 - For whole-project scratch generation and safe promotion into `data/base/`, use
+  `python tools/manage_ai_store.py --option review`
+  followed by `--option promote`, or use `--option full` to run the combined path.
+- For detailed manual equivalents and fallback procedures, use
   [docs/specs/v12/ai-summary-operations-runbook.md](../../docs/specs/v12/ai-summary-operations-runbook.md).

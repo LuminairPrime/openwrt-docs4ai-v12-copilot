@@ -25,12 +25,12 @@
 - `03` converts L1 into L2 and writes the cross-link registry.
 - `03` also promotes stable intermediates into `OUTDIR` so downstream scripts read a consistent tree.
 - `03` may apply module-specific semantic cleanup during L1-to-L2 conversion when raw-source retention is still preserved in L1. The current live example is wiki-only cleanup of residual `WRAP`, `color`, duplicate lead-heading, and repeated HTML-table artifacts.
-- `04` optionally enriches staged L2 files with AI metadata.
+- `04` optionally enriches staged L2 files with AI metadata and performs its own AI-store preflight.
 
 ### Assembly and maps
 
-- `05` produces L3 skeletons and L4 monoliths from staged L2 files.
-- `06a` through `06d` generate indexes, agent guidance, IDE outputs, and telemetry.
+- `05a` through `05d` produce publishable references, agent guidance, IDE outputs, and telemetry from staged L2 files.
+- `06` generates routing indexes after the publishable reference assets exist.
 - `07` produces the HTML landing page after the map outputs exist.
 
 ### Validation
@@ -66,4 +66,6 @@
 - Keep long descriptive script filenames.
 - Keep the numeric execution-order prefix.
 - Use letter suffixes for scripts that are parallelizable within the same execution tier.
+- Do not mix a bare stage id with same-family lettered siblings. Use either `04` or `04a` plus `04b`, never both.
+- Keep non-pipeline maintainer helpers under `tools/`, not in the numbered stage surface.
 - Prefer lowercase hyphenated filenames for human-authored spec documents.

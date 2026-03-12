@@ -17,8 +17,6 @@ which scripts it depends on, and whether it touches AI summary data.
     └──────────────┴──▶ 03-normalize-semantic   (L1 → L2 + staging promotion)
   ↓
 04-generate-ai-summaries  (L2 → L2 AI enrichment, optional)
-  ├──▶ 04a-audit-ai-store     (local read-only coverage audit)
-  ├──▶ 04b-validate-ai-store  (local read-only schema/integrity validation)
   ↓
   ╔════════════════════════════════════╗
   ║  05a assemble-references          ║  (L2 → L3/L4, parallelisable group)
@@ -38,7 +36,9 @@ Hosted workflow execution uses Option B wiring: `02a` runs in its own job withou
 
 Extractor diagnostics are also now explicit in workflow: per-extractor status manifests, fail-fast disabled for the repo-backed matrix, and an always-generated extract summary artifact.
 
-The hosted workflow intentionally excludes the read-only maintainer helpers `04a` and `04b`; they are local operator tools for scratch-first AI-store work.
+The hosted workflow now exposes only the numbered `04` AI stage. Local
+scratch-first review, validation, audit, and promotion live in
+`tools/manage_ai_store.py`.
 
 ---
 
@@ -214,42 +214,26 @@ The hosted workflow intentionally excludes the read-only maintainer helpers `04a
 | Writes | `OUTDIR/L2-semantic/**/*.md` (adds `ai_*` frontmatter fields), `data/base/**/*.json` (new entries when `WRITE_AI=true`) |
 | Depends on | 03 |
 | Depended on by | 05a, 05b, 05c, 05d, 06, 07, 08 |
-| AI data | **Writes** base store; reads base + override; migrates legacy cache; direct downstream AI-field consumers are 05a, 05c, and 06 |
+| AI data | **Writes** base store; reads base + override; migrates legacy cache; performs built-in preflight; direct downstream AI-field consumers are 05a, 05c, and 06 |
 | Parallelisable | No (serial; API rate-limit aware) |
 | Key env vars | `SKIP_AI`, `WRITE_AI`, `MAX_AI_FILES`, `GITHUB_TOKEN`, `LOCAL_DEV_TOKEN`, `AI_CACHE_PATH`, `AI_DATA_BASE_DIR`, `AI_DATA_OVERRIDE_DIR` |
-| Library deps | `lib.ai_store`, `lib.config`, `requests`, `pyyaml` |
+| Library deps | `lib.ai_enrichment`, `lib.ai_store`, `lib.ai_corpus`, `lib.ai_store_checks`, `lib.config`, `requests`, `pyyaml` |
 
 ---
 
-### `04a-audit-ai-store.py`
+### `tools/manage_ai_store.py`
 
 | Attribute | Value |
 |-----------|-------|
-| Phase | AI Maintenance |
-| Layer | L2 + AI store |
-| Reads | `OUTDIR/L2-semantic/**/*.md`, `data/base/**/*.json`, `data/override/**/*.json` |
-| Writes | stdout only |
-| Depends on | 03 or any existing L2 corpus plus AI store |
-| Depended on by | — (local operator tool) |
-| AI data | **Reads** base + override; reports current, pinned, stale, missing, orphan, invalid |
-| Parallelisable | Yes |
-| Key env vars | `OUTDIR`, `AI_DATA_BASE_DIR`, `AI_DATA_OVERRIDE_DIR` |
-
----
-
-### `04b-validate-ai-store.py`
-
-| Attribute | Value |
-|-----------|-------|
-| Phase | AI Maintenance |
-| Layer | AI store + optional L2 cross-check |
-| Reads | `data/base/**/*.json`, `data/override/**/*.json`, `OUTDIR/L2-semantic/**/*.md` |
-| Writes | stdout only |
-| Depends on | Existing AI store; optional current L2 corpus for title/hash checks |
-| Depended on by | — (local operator tool) |
-| AI data | **Reads** base + override; validates schema, title integrity, hash integrity, and override pinning |
-| Parallelisable | Yes |
-| Key env vars | `OUTDIR`, `AI_DATA_BASE_DIR`, `AI_DATA_OVERRIDE_DIR` |
+| Phase | AI Operations |
+| Layer | Store + L2 scratch workspace |
+| Reads | committed `data/base/`, committed `data/override/`, `OUTDIR/L2-semantic/`, optional token env vars |
+| Writes | scratch copies under `tmp/ai-summary-run/`, optional promoted JSON into `data/base/` |
+| Depends on | current L2 corpus plus AI store roots |
+| Depended on by | local operators |
+| AI data | reuses `lib.ai_enrichment`, `lib.ai_store_checks`, and `lib.ai_store_workflow`; promotes reviewed scratch JSON into base |
+| Parallelisable | No |
+| Key env vars | `OUTDIR`, `AI_DATA_BASE_DIR`, `AI_DATA_OVERRIDE_DIR`, `LOCAL_DEV_TOKEN`, `GITHUB_TOKEN` |
 
 ---
 
@@ -385,8 +369,12 @@ OUTDIR/L2-semantic/<module>/<slug>.md
          └──▶ 07   (indirect snippet rendering via 06 output)
 ```
 
-`04a` and `04b` also read the AI store plus L2 documents, but they are
-read-only maintainer tools and not part of the hosted pipeline.
+`04a` and `04b` also read the AI store plus L2 documents. They remain local
+maintainer tools, but the hosted `process` job now invokes them as a committed
+store gate when a push changes `data/base/` or `data/override/`.
+
+`04c` is the preferred local wrapper for scratch-first review, promotion, and
+cleanup.
 
 ---
 
