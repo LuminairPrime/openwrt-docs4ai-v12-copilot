@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 2736
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-feeds.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: OpenWrt Feeds are collections of packages that can be sourced from various locations, including remote servers and version control systems. They are essential for managing additional package build recipes in OpenWrt Buildroot, allowing for customization through a feed configuration file. The configuration is typically done in the `feeds.conf` or `feeds.conf.default` files, where each feed is defined by its method, name, and source. Supported feed methods include `src-git`, `src-bzr`, `src-hg`, and others, enabling diverse ways to retrieve package data.
 ai_when_to_use: Use OpenWrt Feeds when you need to manage and customize package sources for building OpenWrt images. This is particularly useful for integrating additional software or maintaining custom packages.

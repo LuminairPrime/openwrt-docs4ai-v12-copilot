@@ -1,9 +1,9 @@
 ---
-module: "ucode"
+module: ucode
 total_token_count: 79937
 section_count: 14
 is_monolithic: true
-generated: "2026-03-12T18:07:37.690177+00:00"
+generated: '2026-03-12T22:39:38.602793+00:00'
 ---
 
 # ucode Complete Reference
@@ -8339,5 +8339,3 @@ Constants representing flush options.
 | Z_SYNC_FLUSH. | `number` | 
 | Z_FULL_FLUSH. | `number` | 
 | Z_FINISH. | `number` |
-
----

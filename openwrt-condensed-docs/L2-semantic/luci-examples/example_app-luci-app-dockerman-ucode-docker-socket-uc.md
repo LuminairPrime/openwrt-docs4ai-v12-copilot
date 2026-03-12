@@ -3,9 +3,9 @@ title: docker_socket.uc
 module: luci-examples
 origin_type: example_app
 token_count: 724
-version: 8fa4744
+version: 11ff260
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-ucode-docker-socket-uc.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: applications/luci-app-dockerman/ucode/docker_socket.uc
 language: ucode
 ai_summary: 'The `docker_socket.uc` module provides functions to retrieve the Docker socket path from UCI configuration in OpenWrt, ensuring backward compatibility. It includes two main functions: `get_socket_dest_compat`, which returns a socket address structure compatible with various protocols, and `get_socket_dest`, which simply retrieves the socket path as a string. The module supports both Unix and TCP/UDP socket formats, adapting to different configurations. It also handles IPv4 and IPv6 addresses, extracting the necessary details from the provided socket path.'

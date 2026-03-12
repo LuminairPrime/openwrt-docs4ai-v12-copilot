@@ -5,7 +5,10 @@
 ## Recommended Entry Points
 
 - [wiki-skeleton.md](./wiki-skeleton.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~21241 tokens, l3-skeleton)
-- [wiki-complete-reference.md](./wiki-complete-reference.md): Complete monolithic reference for wiki when a larger context window is available. (~202517 tokens, l4-monolith)
+- [wiki-complete-reference.md](./wiki-complete-reference.md): Sharded complete reference index for wiki with links to smaller part files. (~228 tokens, l4-monolith)
+- [wiki-complete-reference.part-01.md](./wiki-complete-reference.part-01.md): Part 1 of the sharded complete reference for wiki when the full module exceeds the token budget. (~98426 tokens, l4-monolith-part)
+- [wiki-complete-reference.part-02.md](./wiki-complete-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~99386 tokens, l4-monolith-part)
+- [wiki-complete-reference.part-03.md](./wiki-complete-reference.part-03.md): Part 3 of the sharded complete reference for wiki when the full module exceeds the token budget. (~4980 tokens, l4-monolith-part)
 
 ## Source Documents
 

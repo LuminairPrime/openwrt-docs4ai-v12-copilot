@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [uci-skeleton.md](./uci-skeleton.md): Structural map for uci that prioritizes quick orientation and symbol discovery. (~210 tokens, l3-skeleton)
-- [uci-complete-reference.md](./uci-complete-reference.md): Complete monolithic reference for uci when a larger context window is available. (~498 tokens, l4-monolith)
+- [uci-complete-reference.md](./uci-complete-reference.md): Complete monolithic reference for uci when a larger context window is available. (~497 tokens, l4-monolith)
 
 ## Source Documents
 

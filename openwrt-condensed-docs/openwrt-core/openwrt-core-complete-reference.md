@@ -1,9 +1,9 @@
 ---
-module: "openwrt-core"
+module: openwrt-core
 total_token_count: 23140
 section_count: 7
 is_monolithic: true
-generated: "2026-03-12T18:07:37.690177+00:00"
+generated: '2026-03-12T22:39:38.602793+00:00'
 ---
 
 # openwrt-core Complete Reference
@@ -3033,6 +3033,4 @@ Copyright (C) 2016 LEDE Project
 
 
 > Source: https://github.com/openwrt/openwrt/blob/master/include/version.mk
----
-
 ---

@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 3404
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-hotplug-legacy.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: The Hotplug -- Legacy module describes the functionality of the deprecated Hotplug2 daemon, which was a lightweight alternative to UDev for managing device events in early Linux userspace. It executed scripts located in `/etc/hotplug.d/` in response to events such as interface status changes or button presses, making it particularly useful for managing PPPoE connections or handling unstable networks. Hotplug2 was removed in 2013 and replaced by the procd system. Configuration involved editing `/etc/hotplug2.rules` to specify which scripts to execute based on device types.
 ai_when_to_use: This module is relevant for users maintaining legacy OpenWrt systems that still utilize Hotplug2 for device management. It may also be of interest for understanding historical context in device event handling.

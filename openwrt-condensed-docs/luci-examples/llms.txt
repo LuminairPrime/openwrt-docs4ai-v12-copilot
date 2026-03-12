@@ -5,7 +5,9 @@
 ## Recommended Entry Points
 
 - [luci-examples-skeleton.md](./luci-examples-skeleton.md): Structural map for luci-examples that prioritizes quick orientation and symbol discovery. (~4066 tokens, l3-skeleton)
-- [luci-examples-complete-reference.md](./luci-examples-complete-reference.md): Complete monolithic reference for luci-examples when a larger context window is available. (~100383 tokens, l4-monolith)
+- [luci-examples-complete-reference.md](./luci-examples-complete-reference.md): Sharded complete reference index for luci-examples with links to smaller part files. (~211 tokens, l4-monolith)
+- [luci-examples-complete-reference.part-01.md](./luci-examples-complete-reference.part-01.md): Part 1 of the sharded complete reference for luci-examples when the full module exceeds the token budget. (~100136 tokens, l4-monolith-part)
+- [luci-examples-complete-reference.part-02.md](./luci-examples-complete-reference.part-02.md): Part 2 of the sharded complete reference for luci-examples when the full module exceeds the token budget. (~421 tokens, l4-monolith-part)
 
 ## Source Documents
 

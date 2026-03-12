@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 3222
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-swconfig.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: The `swconfig` program is used for configuring Ethernet network switches in OpenWrt. It supports various hardware switches through specific drivers and allows users to view and manage switch configurations. Although `swconfig` is considered legacy, it remains functional for supported devices, enabling commands like `swconfig list` and `swconfig dev switch0 show` to display current settings. Users should transition to the DSA framework for new switch drivers to utilize standard tools like `ip` for configuration.
 ai_when_to_use: Use `swconfig` when managing legacy Ethernet switches in OpenWrt that are compatible with its drivers. It is particularly useful for troubleshooting or configuring network settings on older hardware.

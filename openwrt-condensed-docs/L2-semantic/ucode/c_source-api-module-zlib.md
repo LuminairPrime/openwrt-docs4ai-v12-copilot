@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 1913
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-zlib.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: lib/zlib.c
 language: c
 ai_summary: Provides zlib compression and decompression bindings for ucode. Implements compress() and uncompress() for raw deflate/inflate over in-memory byte strings, and deflate()/inflate() for streaming compression contexts. Supports gzip-format data via gzip_compress() and gzip_uncompress() for HTTP transfer-encoding and configuration snapshot handling.

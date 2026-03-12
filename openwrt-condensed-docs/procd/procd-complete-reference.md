@@ -1,9 +1,9 @@
 ---
-module: "procd"
+module: procd
 total_token_count: 352
 section_count: 1
 is_monolithic: true
-generated: "2026-03-12T18:07:37.690177+00:00"
+generated: '2026-03-12T22:39:38.602793+00:00'
 ---
 
 # procd Complete Reference
@@ -51,5 +51,3 @@ Kill a service instance (or all instances)
 procd_send_signal(service, [instance], [signal])
 Send a signal to a service instance (or all instances)
 ```
-
----

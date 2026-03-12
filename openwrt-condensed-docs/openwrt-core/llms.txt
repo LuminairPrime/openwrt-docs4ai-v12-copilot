@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [openwrt-core-skeleton.md](./openwrt-core-skeleton.md): Structural map for openwrt-core that prioritizes quick orientation and symbol discovery. (~2370 tokens, l3-skeleton)
-- [openwrt-core-complete-reference.md](./openwrt-core-complete-reference.md): Complete monolithic reference for openwrt-core when a larger context window is available. (~24823 tokens, l4-monolith)
+- [openwrt-core-complete-reference.md](./openwrt-core-complete-reference.md): Complete monolithic reference for openwrt-core when a larger context window is available. (~24821 tokens, l4-monolith)
 
 ## Source Documents
 

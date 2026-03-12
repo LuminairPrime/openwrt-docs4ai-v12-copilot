@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 676
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-busybox.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: BusyBox is a crucial component in OpenWrt that consolidates various system utilities into a single binary, providing lightweight alternatives to many standard Unix tools. It includes essential commands such as `ash`, `cp`, `ls`, `echo`, and `ping`, which are compiled as 'applets' within `/bin/busybox`. This allows for a more efficient use of system resources on embedded devices. Additionally, BusyBox helps identify the OpenWrt version through the Vendor-Class option in DHCP requests, which includes the BusyBox version number.
 ai_when_to_use: Use BusyBox when you need lightweight command-line utilities in OpenWrt or when diagnosing the OpenWrt version via DHCP requests.

@@ -3,9 +3,9 @@ title: 'OpenWrt Buildroot: Build System Include Files'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 2083
-version: 55f1f2c
+version: 8a7eb57
 source_file: L1-raw/openwrt-core/makefile_meta-include-mk.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: include/
 language: makefile
 ai_summary: The OpenWrt Buildroot includes a collection of Makefile fragments that are essential for the build system. These fragments, such as autotools.mk, debug.mk, and download.mk, provide various functionalities including package configuration, dependency management, and download handling. Each fragment is designed to streamline the build process for OpenWrt packages, ensuring that developers can efficiently compile and manage their software. The documentation for each file is available in the OpenWrt GitHub repository.
