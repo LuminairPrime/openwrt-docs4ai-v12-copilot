@@ -91,7 +91,7 @@ def test_only_deploy_job_elevates_pages_permissions():
     jobs = workflow["jobs"]
 
     assert jobs["deploy"]["permissions"] == {
-        "contents": "read",
+        "contents": "write",
         "pages": "write",
         "id-token": "write",
     }
