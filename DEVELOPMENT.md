@@ -35,6 +35,27 @@ python tests/openwrt-docs4ai-00-smoke-test.py --run-ai
 
 The `--run-ai` path is cache-backed for local verification, so it can validate the placement and mutation behavior of script `04` without requiring a live model token.
 
+## Pre-Change Checklist
+
+Before editing pipeline scripts, generated outputs, or workflow behavior:
+
+1. Decide whether the change affects maintainer docs, generated-corpus contracts, workflow execution, or only local tests.
+2. Read this file, `docs/ARCHITECTURE.md`, `docs/specs/v12/schema-definitions.md`, and `docs/specs/v12/execution-map.md` before changing numbered scripts or the workflow.
+3. If the change touches scripts `05b` through `08`, inspect the currently generated AI-facing outputs first: `openwrt-condensed-docs/llms.txt`, `openwrt-condensed-docs/llms-full.txt`, `openwrt-condensed-docs/AGENTS.md`, and at least one representative `openwrt-condensed-docs/{module}/llms.txt`.
+4. If the change touches `.github/workflows/openwrt-docs4ai-00-pipeline.yml`, map the intended behavior to a specific trigger path: push on `main`, monthly schedule, or `workflow_dispatch` with explicit inputs.
+5. Run the smallest local proof first. Only use remote GitHub Actions runs after local validation passes.
+
+## Dual-Role LLM Surfaces
+
+This repository has two LLM-relevant surfaces and they should not be conflated:
+
+- The source repository is the implementation and maintainer-doc surface. Its authoritative docs live under `docs/`, `README.md`, and `DEVELOPMENT.md`.
+- The generated corpus under `openwrt-condensed-docs/` is the published AI navigation surface consumed by downstream tools and models.
+
+The strict routing contract for generated `llms.txt`, `llms-full.txt`, module `llms.txt`, and `AGENTS.md` lives in `docs/specs/v12/schema-definitions.md`.
+
+A source-repo root `llms.txt` remains intentionally out of scope for the current maintenance tranche. Do not create one opportunistically while working on generated output behavior.
+
 ## Repository Rules
 
 - `openwrt-condensed-docs/` is the stable generated output root.
@@ -76,6 +97,27 @@ During the current stabilization pass, these test entry points are being repaire
 - GitHub Pages publishes a `public/` copy of staging that excludes `L1-raw` and `L2-semantic`.
 - Workflow diagnostics now include `extract-summary`, `process-summary`, and `pipeline-summary` artifacts for first-stop triage.
 - Avoid hand-editing generated outputs if the next workflow run is expected to republish them.
+
+## Workflow Triggers And Manual Inputs
+
+- `push` runs only on `main` and follows the normal publish path.
+- `schedule` runs on the first day of each month at `13:00 UTC`.
+- `workflow_dispatch` exists for targeted verification and controlled reruns.
+- Manual dispatch supports four inputs: `skip_wiki`, `skip_buildroot`, `skip_ai`, and `max_ai_files`.
+- Manual dispatch can target a specific ref. Use `gh workflow run "openwrt-docs4ai-00-pipeline.yml" --ref <branch>` when you need remote proof for a non-`main` branch.
+- Treat `workflow_dispatch` as the preferred remote test path for pipeline changes because it makes the intended skip knobs explicit in run history.
+
+## Dependency Policy
+
+- `.github/scripts/requirements.txt` is intentionally kept as a small direct dependency list rather than a blanket fully pinned lockfile.
+- Add new direct dependencies only when they materially simplify the pipeline or improve output reliability.
+- Do not add exact pins by default. Pin or lock only after verifying a concrete reproducibility or breakage problem.
+- When a dependency-related failure appears, record the exact failing version in the investigation notes and then decide whether targeted pinning is justified.
+- Keep local and CI bootstrap lightweight enough that a low-touch maintainer can rebuild the environment without a separate dependency-management project.
+
+## Optional Workflow Linting
+
+If you edit `.github/workflows/openwrt-docs4ai-00-pipeline.yml`, run `actionlint` locally when it is available on your machine. This is intentionally optional and is not a mandatory bootstrap dependency for the repo.
 
 The current non-AI hardening slice intentionally avoided direct implementation changes to `04-generate-ai-summaries.py` and `lib/ai_store.py`.
 

@@ -254,6 +254,10 @@ def expected_outputs(outdir):
         os.path.join(outdir, "CHANGES.md"),
         os.path.join(outdir, "changelog.json"),
         os.path.join(outdir, "signature-inventory.json"),
+        os.path.join(outdir, "procd", "llms.txt"),
+        os.path.join(outdir, "uci", "llms.txt"),
+        os.path.join(outdir, "ucode", "llms.txt"),
+        os.path.join(outdir, "wiki", "llms.txt"),
         os.path.join(outdir, "ucode", "ucode-complete-reference.md"),
         os.path.join(outdir, "ucode", "ucode-skeleton.md"),
         os.path.join(outdir, "ucode", "ucode.d.ts"),
@@ -281,6 +285,51 @@ def assert_fixture_outputs(outdir, expect_ai=False):
     dts = read_text(os.path.join(outdir, "ucode", "ucode.d.ts"))
     if 'declare module "fs"' not in dts or 'declare module "uloop"' not in dts:
         raise AssertionError("Expected ucode.d.ts to contain declarations for both seeded ucode modules")
+
+    root_llms = read_text(os.path.join(outdir, "llms.txt"))
+    for fragment in [
+        "# openwrt-docs4ai - LLM Routing Index",
+        "[llms-full.txt](./llms-full.txt)",
+        "- [ucode](./ucode/llms.txt):",
+        "- [wiki](./wiki/llms.txt):",
+    ]:
+        if fragment not in root_llms:
+            raise AssertionError(f"Expected root llms.txt to contain: {fragment}")
+
+    module_llms = read_text(os.path.join(outdir, "ucode", "llms.txt"))
+    for fragment in [
+        "# ucode module",
+        "> **Total Context:**",
+        "## Recommended Entry Points",
+        "## Tooling Surfaces",
+        "## Source Documents",
+        "./ucode-skeleton.md",
+        "./ucode-complete-reference.md",
+        "./ucode.d.ts",
+        "../L2-semantic/ucode/c_source-api-fs.md",
+    ]:
+        if fragment not in module_llms:
+            raise AssertionError(f"Expected ucode/llms.txt to contain: {fragment}")
+
+    full_catalog = read_text(os.path.join(outdir, "llms-full.txt"))
+    for fragment in [
+        "# openwrt-docs4ai - Complete Flat Catalog",
+        "./AGENTS.md",
+        "./README.md",
+        "./ucode/llms.txt",
+        "./ucode/ucode.d.ts",
+        "./L2-semantic/ucode/c_source-api-fs.md",
+    ]:
+        if fragment not in full_catalog:
+            raise AssertionError(f"Expected llms-full.txt to contain: {fragment}")
+
+    agents = read_text(os.path.join(outdir, "AGENTS.md"))
+    if "[module]/llms.txt" not in agents:
+        raise AssertionError("Expected AGENTS.md to describe module llms routing")
+
+    generated_readme = read_text(os.path.join(outdir, "README.md"))
+    if "./llms.txt" not in generated_readme or "./llms-full.txt" not in generated_readme:
+        raise AssertionError("Expected generated README.md to route readers to llms indexes")
 
     if expect_ai:
         ucode_l2 = read_text(os.path.join(outdir, "L2-semantic", "ucode", "c_source-api-fs.md"))

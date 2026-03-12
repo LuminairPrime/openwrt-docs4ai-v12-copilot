@@ -6,6 +6,8 @@ This repository is a documentation production pipeline, not an application runti
 
 The primary engineering goal for the current stage is maintainable correctness on Windows with verified remote publication behavior. Local validation remains the first gate, and GitHub Actions is now a confirmed verification and deployment layer rather than an unproven future target.
 
+The repository also has a dual-role documentation boundary: maintainer guidance lives in the source tree under `docs/`, while the generated AI-facing navigation surface lives under `openwrt-condensed-docs/`. The generated-corpus routing contract is authoritative for `llms.txt`, `llms-full.txt`, module `llms.txt`, and `AGENTS.md`; a source-repo root `llms.txt` remains explicitly deferred.
+
 ## Repository Zones
 
 | Path | Role | Notes |

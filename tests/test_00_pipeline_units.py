@@ -1,106 +1,9 @@
-import importlib.util
 import json
-import re
-from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS_DIR = PROJECT_ROOT / ".github" / "scripts"
-SMOKE_SUPPORT_PATH = PROJECT_ROOT / "tests" / "smoke_support.py"
-WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "openwrt-docs4ai-00-pipeline.yml"
-WIKI_L2_DIR = PROJECT_ROOT / "openwrt-condensed-docs" / "L2-semantic" / "wiki"
-
-WIKI_ARTIFACT_PATTERNS = {
-    "wrap": re.compile(r"(?:\\<|&lt;|<)\s*/?wrap\b", re.IGNORECASE),
-    "color": re.compile(r"(?:\\<|&lt;|<)\s*/?color\b", re.IGNORECASE),
-    "html_table": re.compile(r"<table|<tr\b|<td\b|<th\b", re.IGNORECASE),
-    "sortable": re.compile(r"(?:\\?<\s*/?sortable\b[^>]*\\?>|&lt;\/?sortable\b[^&]*&gt;)", re.IGNORECASE),
-    "footnote_aside": re.compile(r"<aside\b[^>]*\bfootnotes\b", re.IGNORECASE),
-}
-
-
-def load_module_from_path(module_name, module_path):
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
-    return module
-
-
-def load_script_module(module_name, script_name):
-    return load_module_from_path(module_name, SCRIPTS_DIR / script_name)
-
-
-def load_smoke_support_module(module_name):
-    return load_module_from_path(module_name, SMOKE_SUPPORT_PATH)
-
-
-def summarize_wiki_l2_corpus(corpus_dir):
-    files = sorted(corpus_dir.glob("*.md"))
-    summary = {"files": len(files), "duplicate_lead_heading_files": 0}
-    for key in WIKI_ARTIFACT_PATTERNS:
-        summary[f"{key}_files"] = 0
-        summary[f"{key}_occurrences"] = 0
-
-    for markdown_file in files:
-        content = markdown_file.read_text(encoding="utf-8")
-        for key, pattern in WIKI_ARTIFACT_PATTERNS.items():
-            matches = pattern.findall(content)
-            if matches:
-                summary[f"{key}_files"] += 1
-                summary[f"{key}_occurrences"] += len(matches)
-        if has_duplicate_lead_heading(content):
-            summary["duplicate_lead_heading_files"] += 1
-
-    return summary
-
-
-def has_duplicate_lead_heading(content):
-    top_heading = None
-    for line in content.splitlines():
-        stripped = line.strip()
-        if not stripped:
-            continue
-        if stripped.startswith("# "):
-            top_heading = stripped[2:].strip().casefold()
-            continue
-        if stripped.startswith("## "):
-            return stripped[3:].strip().casefold() == top_heading
-        return False
-    return False
-
-
-def classify_wiki_l2_sanity(summary):
-    if summary["files"] < 80:
-        return "abnormal"
-    if summary["duplicate_lead_heading_files"] > 0:
-        return "abnormal"
-    for key in WIKI_ARTIFACT_PATTERNS:
-        if summary[f"{key}_files"]:
-            return "abnormal"
-    return "clean"
-
-
-def get_workflow_job_block(workflow_text, job_name):
-    match = re.search(
-        rf"^  {re.escape(job_name)}:\n(.*?)(?=^  [A-Za-z0-9_-]+:\n|\Z)",
-        workflow_text,
-        flags=re.MULTILINE | re.DOTALL,
-    )
-    assert match is not None, f"Missing workflow job block: {job_name}"
-    return match.group(1)
-
-
-def collect_workflow_script_invocations(workflow_text):
-    explicit_scripts = set(re.findall(r"openwrt-docs4ai-\d{2}[a-z]?-[\w-]+\.py", workflow_text))
-    matrix_scripts = {
-        f"openwrt-docs4ai-{name}"
-        for name in re.findall(r'"(02[a-z]-[\w-]+\.py)"', workflow_text)
-    }
-    return explicit_scripts | matrix_scripts
+from pipeline_test_support import load_script_module
 
 
 def test_ucode_normalize_fenced_blocks_classifies_shell_json_and_pseudocode():
@@ -128,7 +31,9 @@ def test_ucode_normalize_fenced_blocks_classifies_shell_json_and_pseudocode():
 
 
 def test_ucode_fix_known_issues_rewrites_nl80211_named_const_import():
-    ucode = load_script_module("ucode_scraper_fixups", "openwrt-docs4ai-02b-scrape-ucode.py")
+    ucode = load_script_module(
+        "ucode_scraper_fixups", "openwrt-docs4ai-02b-scrape-ucode.py"
+    )
 
     source = (
         "import { error, request, listener, waitfor, const } from 'nl80211';\n"
@@ -148,7 +53,9 @@ def test_ucode_fix_known_issues_rewrites_nl80211_named_const_import():
 
 
 def test_clean_wiki_semantic_content_strips_wrap_color_and_duplicate_rows():
-    normalize = load_script_module("normalize_semantic", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# The Bootloader\n\n"
@@ -173,7 +80,9 @@ def test_clean_wiki_semantic_content_strips_wrap_color_and_duplicate_rows():
 
 
 def test_clean_wiki_semantic_content_removes_immediate_duplicate_heading():
-    normalize = load_script_module("normalize_semantic_headings", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_headings", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = "# Adding new elements to LuCI\n\n## Adding new elements to LuCI\n\nBody text.\n"
 
@@ -184,7 +93,9 @@ def test_clean_wiki_semantic_content_removes_immediate_duplicate_heading():
 
 
 def test_clean_wiki_semantic_content_strips_sortable_and_converts_data_table():
-    normalize = load_script_module("normalize_semantic_sortable", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_sortable", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# odhcpd\n\n"
@@ -206,7 +117,9 @@ def test_clean_wiki_semantic_content_strips_sortable_and_converts_data_table():
 
 
 def test_clean_wiki_semantic_content_converts_callout_table_to_admonition():
-    normalize = load_script_module("normalize_semantic_callout", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_callout", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# Hotplug -- Legacy\n\n"
@@ -229,7 +142,9 @@ def test_clean_wiki_semantic_content_converts_callout_table_to_admonition():
 
 
 def test_clean_wiki_semantic_content_converts_wide_layout_table_to_tsv():
-    normalize = load_script_module("normalize_semantic_tsv", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_tsv", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# The OpenWrt Flash Layout\n\n"
@@ -249,7 +164,9 @@ def test_clean_wiki_semantic_content_converts_wide_layout_table_to_tsv():
 
 
 def test_clean_wiki_semantic_content_converts_footnotes_and_inline_html():
-    normalize = load_script_module("normalize_semantic_footnotes", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_footnotes", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# Architecture\n\n"
@@ -270,7 +187,9 @@ def test_clean_wiki_semantic_content_converts_footnotes_and_inline_html():
 
 
 def test_clean_wiki_semantic_content_preserves_unsupported_table_shape():
-    normalize = load_script_module("normalize_semantic_preserve", "openwrt-docs4ai-03-normalize-semantic.py")
+    normalize = load_script_module(
+        "normalize_semantic_preserve", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
 
     raw = (
         "# Preserved Table\n\n"
@@ -285,11 +204,13 @@ def test_clean_wiki_semantic_content_preserves_unsupported_table_shape():
     cleaned = normalize.clean_wiki_semantic_content("Preserved Table", raw)
 
     assert "<table" in cleaned
-    assert "rowspan=\"2\"" in cleaned
+    assert 'rowspan="2"' in cleaned
 
 
 def test_validate_extract_markdown_code_blocks_handles_indented_fences():
-    validate = load_script_module("validator_module", "openwrt-docs4ai-08-validate-output.py")
+    validate = load_script_module(
+        "validator_module", "openwrt-docs4ai-08-validate-output.py"
+    )
 
     markdown = (
         "- Example block:\n\n"
@@ -304,7 +225,9 @@ def test_validate_extract_markdown_code_blocks_handles_indented_fences():
 
 
 def test_validate_extract_ucode_imports_supports_multiple_import_forms():
-    validate = load_script_module("validator_imports", "openwrt-docs4ai-08-validate-output.py")
+    validate = load_script_module(
+        "validator_imports", "openwrt-docs4ai-08-validate-output.py"
+    )
 
     code = (
         "import * as nl from 'nl80211';\n"
@@ -317,8 +240,24 @@ def test_validate_extract_ucode_imports_supports_multiple_import_forms():
     assert imports == ["fs", "nl80211", "uloop"]
 
 
+def test_validate_strip_fenced_code_blocks_preserves_prose():
+    validate = load_script_module(
+        "validator_strip_fences", "openwrt-docs4ai-08-validate-output.py"
+    )
+
+    content = "Intro\n\n```javascript\nconsole.log('hi');\n```\n\nOutro\n"
+
+    stripped = validate.strip_fenced_code_blocks(content)
+
+    assert "console.log" not in stripped
+    assert "Intro" in stripped
+    assert "Outro" in stripped
+
+
 def test_clone_repos_get_commit_rejects_invalid_hash(monkeypatch):
-    clone = load_script_module("clone_repos_invalid_hash", "openwrt-docs4ai-01-clone-repos.py")
+    clone = load_script_module(
+        "clone_repos_invalid_hash", "openwrt-docs4ai-01-clone-repos.py"
+    )
 
     def fake_run(*args, **kwargs):
         return SimpleNamespace(returncode=0, stdout="openwrt-test\n", stderr="")
@@ -329,8 +268,12 @@ def test_clone_repos_get_commit_rejects_invalid_hash(monkeypatch):
         clone.get_commit("repo-openwrt")
 
 
-def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(tmp_path, monkeypatch):
-    normalize = load_script_module("normalize_semantic_manifest", "openwrt-docs4ai-03-normalize-semantic.py")
+def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(
+    tmp_path, monkeypatch
+):
+    normalize = load_script_module(
+        "normalize_semantic_manifest", "openwrt-docs4ai-03-normalize-semantic.py"
+    )
     manifest_path = tmp_path / "repo-manifest.json"
     manifest_path.write_text(
         json.dumps(
@@ -358,8 +301,12 @@ def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(tmp_
     assert commits["ucode"] == "3333333"
 
 
-def test_llm_routing_build_version_string_reads_manifest_when_env_missing(tmp_path, monkeypatch):
-    llms = load_script_module("llm_routing_manifest", "openwrt-docs4ai-06-generate-llm-routing-indexes.py")
+def test_llm_routing_build_version_string_reads_manifest_when_env_missing(
+    tmp_path, monkeypatch
+):
+    llms = load_script_module(
+        "llm_routing_manifest", "openwrt-docs4ai-06-generate-llm-routing-indexes.py"
+    )
     manifest_path = tmp_path / "repo-manifest.json"
     manifest_path.write_text(
         json.dumps(
@@ -387,72 +334,6 @@ def test_llm_routing_build_version_string_reads_manifest_when_env_missing(tmp_pa
     assert "jow-/ucode@3333333" in version_str
 
 
-def test_smoke_selector_rejects_unknown_stage_id():
-    smoke = load_smoke_support_module("smoke_support_unknown_selector")
-
-    with pytest.raises(ValueError, match="does-not-exist"):
-        smoke.select_pipeline_scripts(smoke.POST_EXTRACT_PIPELINE, "does-not-exist")
-
-
-def test_smoke_selector_supports_stage_family_selector():
-    smoke = load_smoke_support_module("smoke_support_stage_family")
-
-    selected = smoke.select_pipeline_scripts(smoke.POST_EXTRACT_PIPELINE, "05")
-
-    assert selected == [
-        "openwrt-docs4ai-05a-assemble-references.py",
-        "openwrt-docs4ai-05b-generate-agents-and-readme.py",
-        "openwrt-docs4ai-05c-generate-ucode-ide-schemas.py",
-        "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
-    ]
-
-
-def test_full_pipeline_registry_matches_files_on_disk():
-    smoke = load_smoke_support_module("smoke_support_registry")
-
-    missing = [script for script in smoke.FULL_PIPELINE if not (SCRIPTS_DIR / script).is_file()]
-
-    assert missing == []
-
-
-def test_full_pipeline_matches_workflow_invocations():
-    smoke = load_smoke_support_module("smoke_support_workflow")
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    workflow_scripts = collect_workflow_script_invocations(workflow_text)
-
-    assert workflow_scripts == set(smoke.FULL_PIPELINE)
-
-
-def test_extract_wiki_runs_without_initialize_dependency():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    wiki_block = get_workflow_job_block(workflow_text, "extract_wiki")
-
-    assert re.search(r"^\s+needs:\s", wiki_block, flags=re.MULTILINE) is None
-
-
-def test_process_waits_for_extract_and_extract_wiki():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    process_block = get_workflow_job_block(workflow_text, "process")
-
-    assert "needs: [extract, extract_wiki]" in process_block
-
-
-def test_extract_matrix_fail_fast_is_disabled():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    extract_block = get_workflow_job_block(workflow_text, "extract")
-
-    assert "fail-fast: false" in extract_block
-
-
-def test_extract_contract_and_summary_artifacts_exist():
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-
-    assert "extract-status-${{ matrix.script }}" in workflow_text
-    assert "extract-status-02a-scrape-wiki.py" in workflow_text
-    assert "name: extract-summary" in workflow_text
-    assert "name: pipeline-summary" in workflow_text
-
-
 def test_jsdoc_fallback_requires_zero_exit_code():
     jsdoc = load_script_module("luci_jsdoc_fallback", "openwrt-docs4ai-02c-scrape-jsdoc.py")
 
@@ -462,7 +343,9 @@ def test_jsdoc_fallback_requires_zero_exit_code():
 
 
 def test_api_drift_legacy_baseline_suppresses_module_diff(tmp_path):
-    changelog = load_script_module("api_drift_legacy_baseline", "openwrt-docs4ai-05d-generate-api-drift-changelog.py")
+    changelog = load_script_module(
+        "api_drift_legacy_baseline", "openwrt-docs4ai-05d-generate-api-drift-changelog.py"
+    )
     baseline_path = tmp_path / "signature-inventory.json"
     baseline_path.write_text(
         json.dumps(
@@ -483,27 +366,3 @@ def test_api_drift_legacy_baseline_suppresses_module_diff(tmp_path):
     assert added_mods == []
     assert removed_mods == []
     assert "## New Modules" not in markdown
-
-
-def test_wiki_l2_committed_corpus_sanity_snapshot():
-    assert WIKI_L2_DIR.exists(), f"Missing committed wiki corpus: {WIKI_L2_DIR}"
-
-    summary = summarize_wiki_l2_corpus(WIKI_L2_DIR)
-    status = classify_wiki_l2_sanity(summary)
-    artifact_stats = " ".join(
-        f"{name}={summary[f'{name}_files']}/{summary[f'{name}_occurrences']}"
-        for name in WIKI_ARTIFACT_PATTERNS
-    )
-
-    print(
-        "[sanity] wiki-l2 "
-        f"status={status} "
-        f"files={summary['files']} "
-        f"{artifact_stats} "
-        f"duplicate_lead_heading={summary['duplicate_lead_heading_files']}"
-    )
-
-    assert status == "clean"
-    assert summary["duplicate_lead_heading_files"] == 0
-    for key in WIKI_ARTIFACT_PATTERNS:
-        assert summary[f"{key}_files"] == 0

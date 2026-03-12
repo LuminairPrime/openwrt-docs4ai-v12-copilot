@@ -2,20 +2,20 @@
 Purpose: Generates the L3 navigational maps (llms.txt and llms-full.txt).
 Phase: Aggregation / Indexing
 Layers: L4 -> L3
-Inputs: OUTDIR/ 
+Inputs: OUTDIR/
 Outputs: OUTDIR/llms.txt, OUTDIR/llms-full.txt, OUTDIR/{module}/llms.txt
 Environment Variables: OUTDIR, OPENWRT_COMMIT, LUCI_COMMIT, WORKDIR
-Dependencies: pyyaml, lib.config
-Notes: Creates both the hierarchical entry point and the flat global catalog.
+Dependencies: pyyaml, lib.config, lib.repo_manifest
+Notes: Root llms.txt remains a decision tree, while llms-full.txt and module
+       llms.txt implement the stricter generated-corpus routing contract.
 """
 
+import glob
 import os
 import re
-import glob
-import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, repo_manifest
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -26,32 +26,173 @@ except ImportError:
     print("[06] FAIL: 'pyyaml' package not installed")
     sys.exit(1)
 
+try:
+    import tiktoken
+except ImportError:
+    tiktoken = None
+
 OUTDIR = config.OUTDIR
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
+DESCRIPTION_FALLBACK = "Description unavailable."
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
 
-CATEGORIES = {
-    "Core Daemons": ["procd", "uci", "openwrt-hotplug"],
-    "Scripting & Logic": ["ucode", "luci"],
-    "Ecosystem": ["openwrt-core", "luci-examples"],
-    "Manuals": ["wiki"]
+MODULE_CATEGORIES = {
+    "procd": "Core Daemons",
+    "uci": "Core Daemons",
+    "openwrt-hotplug": "Core Daemons",
+    "ucode": "Scripting & Logic",
+    "luci": "Scripting & Logic",
+    "openwrt-core": "Ecosystem",
+    "luci-examples": "Ecosystem",
+    "wiki": "Manuals",
 }
+CATEGORY_ORDER = [
+    "Core Daemons",
+    "Scripting & Logic",
+    "Ecosystem",
+    "Manuals",
+]
 
+ENCODER = None
+if tiktoken is not None:
+    try:
+        ENCODER = tiktoken.get_encoding("cl100k_base")
+    except Exception:
+        ENCODER = None
 
 
 def build_version_string(env=None):
-    env_snapshot = env if env is not None else {key: os.environ.get(key) for key in repo_manifest.COMMIT_ENV_TO_MANIFEST_KEY}
+    env_snapshot = env if env is not None else {
+        key: os.environ.get(key) for key in repo_manifest.COMMIT_ENV_TO_MANIFEST_KEY
+    }
     missing = [key for key, value in env_snapshot.items() if not value]
     commits, manifest_path = repo_manifest.resolve_commit_environment(
         env=env_snapshot,
-        extra_manifest_paths=[config.REPO_MANIFEST_PATH, os.path.join(OUTDIR, "repo-manifest.json")],
+        extra_manifest_paths=[
+            config.REPO_MANIFEST_PATH,
+            os.path.join(OUTDIR, "repo-manifest.json"),
+        ],
     )
 
     versions = [
         f"openwrt/openwrt@{commits['OPENWRT_COMMIT']}",
         f"openwrt/luci@{commits['LUCI_COMMIT']}",
-        f"jow-/ucode@{commits['UCODE_COMMIT']}"
+        f"jow-/ucode@{commits['UCODE_COMMIT']}",
     ]
     return ", ".join(versions), missing, manifest_path
+
+
+def normalize_whitespace(text):
+    return re.sub(r"\s+", " ", (text or "").strip())
+
+
+def strip_markdown_noise(text):
+    cleaned = text or ""
+    cleaned = re.sub(r"```.*?```", " ", cleaned, flags=re.DOTALL)
+    cleaned = re.sub(r"`([^`]+)`", r"\1", cleaned)
+    cleaned = re.sub(r"!\[[^\]]*\]\([^)]+\)", " ", cleaned)
+    cleaned = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", cleaned)
+    cleaned = re.sub(r"^\s{0,3}#{1,6}\s*", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^\s*[-*+]\s+", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^\s*\d+\.\s+", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"<[^>]+>", " ", cleaned)
+    cleaned = cleaned.replace("|", " ")
+    return normalize_whitespace(cleaned)
+
+
+def first_sentence(text):
+    cleaned = strip_markdown_noise(text)
+    if not cleaned:
+        return ""
+
+    sentence = SENTENCE_SPLIT_RE.split(cleaned, maxsplit=1)[0].strip()
+    if not sentence:
+        return ""
+    if len(sentence) > 240:
+        sentence = sentence[:237].rstrip() + "..."
+    return sentence
+
+
+def choose_short_description(frontmatter, body, fallback=DESCRIPTION_FALLBACK):
+    for candidate in [
+        frontmatter.get("ai_summary"),
+        frontmatter.get("description"),
+        body,
+    ]:
+        sentence = first_sentence(candidate)
+        if sentence and sentence.casefold() != "no description":
+            return sentence
+    return fallback
+
+
+def estimate_tokens(text):
+    if ENCODER is not None:
+        return len(ENCODER.encode(text))
+    return max(1, round(len(text) / 4))
+
+
+def load_markdown_file(path):
+    with open(path, "r", encoding="utf-8") as handle:
+        return handle.read()
+
+
+def extract_frontmatter_and_body(content, path):
+    match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?(.*)", content, re.DOTALL)
+    if not match:
+        raise ValueError(f"Invalid L2 schema in {path}")
+    return yaml.safe_load(match.group(1)) or {}, match.group(2)
+
+
+def build_catalog_entry(label, rel_path, description, tokens, kind):
+    return {
+        "label": label,
+        "rel_path": rel_path,
+        "description": description,
+        "tokens": int(tokens),
+        "kind": kind,
+    }
+
+
+def build_generated_entry(rel_path, description, kind):
+    full_path = os.path.join(OUTDIR, rel_path.replace("/", os.sep))
+    content = load_markdown_file(full_path)
+    return build_catalog_entry(
+        label=os.path.basename(rel_path),
+        rel_path=rel_path,
+        description=description,
+        tokens=estimate_tokens(content),
+        kind=kind,
+    )
+
+
+def format_entry_line(label, link, description, tokens, kind=None):
+    token_text = f"~{int(tokens)} tokens"
+    if kind:
+        token_text += f", {kind}"
+    return f"- [{label}]({link}): {description} ({token_text})"
+
+
+def render_section(title, entries):
+    if not entries:
+        return []
+
+    lines = [f"## {title}", ""]
+    for entry in entries:
+        lines.append(
+            format_entry_line(
+                entry["label"],
+                entry["link"],
+                entry["description"],
+                entry["tokens"],
+                entry.get("kind"),
+            )
+        )
+    lines.append("")
+    return lines
+
+
+def module_sort_key(module_name):
+    return (MODULE_CATEGORIES.get(module_name, "Other Components"), module_name)
 
 
 def main():
@@ -63,125 +204,257 @@ def main():
     if missing and manifest_path:
         print(f"[06] INFO: Loaded missing commit versions from {manifest_path}")
 
-    global_tokens = 0
-    global_files = []
-    module_registry = {}
-
     print("[06] Generating L3 Navigational Maps (llms.txt)")
 
-    for module in sorted(os.listdir(L2_DIR)):
+    global_tokens = 0
+    full_catalog = []
+    module_registry = {}
+
+    for module in sorted(os.listdir(L2_DIR), key=module_sort_key):
         mod_dir = os.path.join(L2_DIR, module)
         if not os.path.isdir(mod_dir):
             continue
 
-        mod_files = []
-        mod_tokens = 0
-        mod_desc = module
+        l2_entries = []
+        module_tokens = 0
 
         for fpath in sorted(glob.glob(os.path.join(mod_dir, "*.md"))):
             try:
-                with open(fpath, "r", encoding="utf-8") as f:
-                    content = f.read()
+                content = load_markdown_file(fpath)
+                frontmatter, body = extract_frontmatter_and_body(content, fpath)
+            except Exception as exc:
+                print(f"[06] WARN: Skipping {fpath}: {exc}")
+                continue
 
-                fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
-                if not fm_match:
-                    print(f"[06] WARN: Invalid L2 schema in {fpath}")
-                    continue
+            tokens = int(frontmatter.get("token_count", 0) or 0)
+            description = choose_short_description(frontmatter, body)
+            rel_path = f"L2-semantic/{module}/{os.path.basename(fpath)}"
 
-                fm_text = fm_match.group(1)
-                fm = yaml.safe_load(fm_text) or {}
+            module_tokens += tokens
+            global_tokens += tokens
 
-                tokens = fm.get("token_count", 0)
-                desc = fm.get("ai_summary") or fm.get("description", "No description")
+            l2_entries.append(
+                build_catalog_entry(
+                    label=os.path.basename(fpath),
+                    rel_path=rel_path,
+                    description=description,
+                    tokens=tokens,
+                    kind="l2-source",
+                )
+            )
 
-                global_tokens += tokens
-                mod_tokens += tokens
-
-                rel_path = f"L2-semantic/{module}/{os.path.basename(fpath)}"
-                record = {
-                    "rel_path": rel_path,
-                    "tokens": tokens,
-                    "desc": desc
-                }
-                mod_files.append(record)
-                global_files.append(record)
-
-                if mod_desc == module and desc != "No description":
-                    mod_desc = desc
-
-            except Exception as e:
-                print(f"[06] WARN: Skipping {fpath}: {e}")
-
-        if not mod_files:
+        if not l2_entries:
             continue
 
         out_mod_dir = os.path.join(OUTDIR, module)
         os.makedirs(out_mod_dir, exist_ok=True)
 
-        with open(os.path.join(out_mod_dir, "llms.txt"), "w", encoding="utf-8", newline="\n") as f:
-            f.write(f"# {module} module\n")
-            f.write(f"> **Total Context:** ~{mod_tokens} tokens\n\n")
-            for rec in mod_files:
-                target = f"../L2-semantic/{module}/{os.path.basename(rec['rel_path'])}"
-                f.write(f"- [{os.path.basename(rec['rel_path'])}]({target}) ({rec['tokens']} tokens) - {rec['desc']}\n")
+        recommended_entries = []
+        tooling_entries = []
+
+        skeleton_name = f"{module}-skeleton.md"
+        skeleton_path = os.path.join(out_mod_dir, skeleton_name)
+        if os.path.isfile(skeleton_path):
+            recommended_entries.append(
+                build_generated_entry(
+                    f"{module}/{skeleton_name}",
+                    f"Structural map for {module} that prioritizes quick orientation and symbol discovery.",
+                    "l3-skeleton",
+                )
+            )
+
+        monolith_name = f"{module}-complete-reference.md"
+        monolith_path = os.path.join(out_mod_dir, monolith_name)
+        if os.path.isfile(monolith_path):
+            recommended_entries.append(
+                build_generated_entry(
+                    f"{module}/{monolith_name}",
+                    f"Complete monolithic reference for {module} when a larger context window is available.",
+                    "l4-monolith",
+                )
+            )
+
+        for dts_path in sorted(glob.glob(os.path.join(out_mod_dir, "*.d.ts"))):
+            dts_name = os.path.basename(dts_path)
+            tooling_entries.append(
+                build_generated_entry(
+                    f"{module}/{dts_name}",
+                    f"TypeScript declarations for IDE navigation and static analysis of {module}.",
+                    "l3-ide-schema",
+                )
+            )
+
+        source_section_entries = []
+        for entry in l2_entries:
+            source_section_entries.append(
+                {
+                    "label": entry["label"],
+                    "link": f"../{entry['rel_path']}",
+                    "description": entry["description"],
+                    "tokens": entry["tokens"],
+                    "kind": entry["kind"],
+                }
+            )
+            full_catalog.append(entry)
+
+        module_description = next(
+            (entry["description"] for entry in l2_entries if entry["description"] != DESCRIPTION_FALLBACK),
+            DESCRIPTION_FALLBACK,
+        )
+
+        module_lines = [
+            f"# {module} module",
+            f"> {module_description}",
+            f"> **Total Context:** ~{module_tokens} tokens",
+            "",
+        ]
+
+        module_lines.extend(
+            render_section(
+                "Recommended Entry Points",
+                [
+                    {
+                        "label": entry["label"],
+                        "link": f"./{os.path.basename(entry['rel_path'])}",
+                        "description": entry["description"],
+                        "tokens": entry["tokens"],
+                        "kind": entry["kind"],
+                    }
+                    for entry in recommended_entries
+                ],
+            )
+        )
+        module_lines.extend(
+            render_section(
+                "Tooling Surfaces",
+                [
+                    {
+                        "label": entry["label"],
+                        "link": f"./{os.path.basename(entry['rel_path'])}",
+                        "description": entry["description"],
+                        "tokens": entry["tokens"],
+                        "kind": entry["kind"],
+                    }
+                    for entry in tooling_entries
+                ],
+            )
+        )
+        module_lines.extend(render_section("Source Documents", source_section_entries))
+
+        module_content = "\n".join(module_lines).rstrip() + "\n"
+        module_index_path = os.path.join(out_mod_dir, "llms.txt")
+        with open(module_index_path, "w", encoding="utf-8", newline="\n") as handle:
+            handle.write(module_content)
+
+        module_index_entry = build_catalog_entry(
+            label="llms.txt",
+            rel_path=f"{module}/llms.txt",
+            description=f"Module-specific routing guide for {module} with preferred entry points, tooling, and source documents.",
+            tokens=estimate_tokens(module_content),
+            kind="l3-module-index",
+        )
+
+        full_catalog.append(module_index_entry)
+        full_catalog.extend(recommended_entries)
+        full_catalog.extend(tooling_entries)
 
         module_registry[module] = {
-            "tokens": mod_tokens,
-            "desc": mod_desc,
-            "path": f"./{module}/llms.txt"
+            "tokens": module_tokens,
+            "description": module_description,
+            "path": f"./{module}/llms.txt",
         }
 
-        l4_name = f"{module}-complete-reference.md"
-        l3_name = f"{module}-skeleton.md"
+    if os.path.isfile(os.path.join(OUTDIR, "AGENTS.md")):
+        full_catalog.append(
+            build_generated_entry(
+                "AGENTS.md",
+                "AI agent usage rules for navigating the generated OpenWrt documentation corpus.",
+                "l3-agent-guide",
+            )
+        )
 
-        if os.path.isfile(os.path.join(out_mod_dir, l4_name)):
-            global_files.append({
-                "rel_path": f"{module}/{l4_name}",
-                "tokens": mod_tokens,
-                "desc": f"Complete monolithic reference for {module}"
-            })
-        if os.path.isfile(os.path.join(out_mod_dir, l3_name)):
-            global_files.append({
-                "rel_path": f"{module}/{l3_name}",
-                "tokens": int(mod_tokens * 0.1),
-                "desc": f"Structural skeleton/map for {module}"
-            })
+    if os.path.isfile(os.path.join(OUTDIR, "README.md")):
+        full_catalog.append(
+            build_generated_entry(
+                "README.md",
+                "Generated corpus overview and quick-start guidance for published outputs.",
+                "l3-generated-readme",
+            )
+        )
 
-    print(f"[06] Indexed {len(global_files)} files totaling ~{global_tokens} tokens.")
+    print(f"[06] Indexed {len(full_catalog)} catalog entries across {len(module_registry)} modules totaling ~{global_tokens} underlying L2 tokens.")
 
-    with open(os.path.join(OUTDIR, "llms.txt"), "w", encoding="utf-8", newline="\n") as f:
-        f.write("# openwrt-docs4ai - LLM Routing Index\n")
-        f.write("> For a flat file listing, see [llms-full.txt](./llms-full.txt)\n\n")
-        f.write(f"> **Version:** {version_str}\n")
-        f.write(f"> **Total Context Available:** ~{global_tokens} tokens\n\n")
+    with open(os.path.join(OUTDIR, "llms.txt"), "w", encoding="utf-8", newline="\n") as handle:
+        handle.write("# openwrt-docs4ai - LLM Routing Index\n")
+        handle.write("> For a flat file listing, see [llms-full.txt](./llms-full.txt)\n\n")
+        handle.write(f"> **Version:** {version_str}\n")
+        handle.write(f"> **Total Context Available:** ~{global_tokens} tokens\n\n")
 
-        for cat_name, mod_list in CATEGORIES.items():
-            found = [m for m in mod_list if m in module_registry]
-            if found:
-                f.write(f"## {cat_name}\n")
-                for m in found:
-                    reg = module_registry[m]
-                    f.write(f"- [{m}]({reg['path']}): {reg['desc']} (~{reg['tokens']} tokens)\n")
-                f.write("\n")
+        for category in CATEGORY_ORDER:
+            modules_in_category = [
+                module
+                for module in sorted(module_registry)
+                if MODULE_CATEGORIES.get(module) == category
+            ]
+            if not modules_in_category:
+                continue
 
-        uncat = [m for m in module_registry.keys() if not any(m in cat_list for cat_list in CATEGORIES.values())]
-        if uncat:
-            f.write("## Other Components\n")
-            for m in sorted(uncat):
-                reg = module_registry[m]
-                f.write(f"- [{m}]({reg['path']}): {reg['desc']} (~{reg['tokens']} tokens)\n")
-            f.write("\n")
+            handle.write(f"## {category}\n")
+            for module in modules_in_category:
+                registry = module_registry[module]
+                handle.write(
+                    format_entry_line(
+                        module,
+                        registry["path"],
+                        registry["description"],
+                        registry["tokens"],
+                    )
+                    + "\n"
+                )
+            handle.write("\n")
 
-        f.write("## Complete Aggregation\n")
-        f.write("If your context window permits, you may fetch the flat URL index:\n")
-        f.write("- [llms-full.txt](./llms-full.txt)\n")
+        uncategorized_modules = [
+            module for module in sorted(module_registry) if module not in MODULE_CATEGORIES
+        ]
+        if uncategorized_modules:
+            handle.write("## Other Components\n")
+            for module in uncategorized_modules:
+                registry = module_registry[module]
+                handle.write(
+                    format_entry_line(
+                        module,
+                        registry["path"],
+                        registry["description"],
+                        registry["tokens"],
+                    )
+                    + "\n"
+                )
+            handle.write("\n")
 
-    with open(os.path.join(OUTDIR, "llms-full.txt"), "w", encoding="utf-8", newline="\n") as f:
-        f.write("# openwrt-docs4ai - Complete Flat Catalog\n")
-        f.write(f"> **Total Context:** ~{global_tokens} tokens\n\n")
+        handle.write("## Complete Aggregation\n")
+        handle.write("If your context window permits, you may fetch the flat URL index:\n")
+        handle.write("- [llms-full.txt](./llms-full.txt): Exhaustive flat catalog of generated AI-facing documents. (~0 tokens)\n")
 
-        for rec in sorted(global_files, key=lambda x: x["rel_path"]):
-            f.write(f"- [{rec['rel_path']}](./{rec['rel_path']}) ({rec['tokens']} tokens) - {rec['desc']}\n")
+    with open(os.path.join(OUTDIR, "llms-full.txt"), "w", encoding="utf-8", newline="\n") as handle:
+        handle.write("# openwrt-docs4ai - Complete Flat Catalog\n")
+        handle.write("> Includes generated AI-facing helper surfaces and all published L2 source documents.\n")
+        handle.write(f"> **Total Underlying L2 Context:** ~{global_tokens} tokens\n\n")
+
+        seen_paths = set()
+        for entry in sorted(full_catalog, key=lambda item: item["rel_path"]):
+            if entry["rel_path"] in seen_paths:
+                continue
+            seen_paths.add(entry["rel_path"])
+            handle.write(
+                format_entry_line(
+                    entry["label"],
+                    f"./{entry['rel_path']}",
+                    entry["description"],
+                    entry["tokens"],
+                    entry["kind"],
+                )
+                + "\n"
+            )
 
     print("[06] Complete: Generated llms.txt, llms-full.txt, and module-level indexes.")
     return 0
