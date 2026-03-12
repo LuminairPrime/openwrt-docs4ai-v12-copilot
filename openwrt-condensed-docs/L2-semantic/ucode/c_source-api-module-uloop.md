@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 7457
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-uloop.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: lib/uloop.c
 language: c
 ai_summary: Provides ucode bindings for the OpenWrt libubox uloop event loop. Implements asynchronous programming primitives including timer(), interval(), handle(), process(), signal(), task(), and run() for single-threaded event-driven applications. Supports file descriptor watching, child process lifecycle management, and UNIX signal handling within ucode scripts.

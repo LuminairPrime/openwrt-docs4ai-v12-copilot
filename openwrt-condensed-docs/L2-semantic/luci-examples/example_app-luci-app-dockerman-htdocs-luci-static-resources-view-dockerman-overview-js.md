@@ -3,9 +3,9 @@ title: overview.js
 module: luci-examples
 origin_type: example_app
 token_count: 2680
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-overview-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/overview.js
 language: javascript
 ai_summary: The `overview.js` module is part of the `luci-examples` application for managing Docker containers through the LuCI interface in OpenWrt. It provides functions to retrieve sets of image IDs, network IDs, and volume mountpoints currently in use by Docker containers. Key functions include `getImagesInUseByContainers`, `getNetworksInUseByContainers`, and `getVolumesInUseByContainers`, which process container objects to extract relevant information. The module also handles loading Docker-related data and executing actions on containers through the `handleAction` method.

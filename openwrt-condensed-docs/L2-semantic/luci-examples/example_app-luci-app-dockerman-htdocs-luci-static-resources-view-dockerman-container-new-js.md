@@ -3,9 +3,9 @@ title: container_new.js
 module: luci-examples
 origin_type: example_app
 token_count: 9374
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-container-new-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/container_new.js
 language: javascript
 ai_summary: The `container_new.js` module is part of the Luci framework for managing Docker containers within OpenWrt. It provides functionality to create and configure new Docker containers, including handling duplicate container configurations. The module retrieves necessary data such as available images, networks, and volumes, and allows users to set various container parameters like name, image, network settings, and environment variables. Additionally, it reflects changes in the Docker API, such as the removal of MAC address configuration through the container's configuration fields.

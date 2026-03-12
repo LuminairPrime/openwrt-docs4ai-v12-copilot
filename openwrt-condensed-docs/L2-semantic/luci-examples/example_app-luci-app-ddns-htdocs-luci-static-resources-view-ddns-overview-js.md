@@ -3,9 +3,9 @@ title: overview.js
 module: luci-examples
 origin_type: example_app
 token_count: 11218
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-ddns-htdocs-luci-static-resources-view-ddns-overview-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js
 language: javascript
 ai_summary: The overview.js module is part of the luci-examples application in OpenWrt, designed to manage Dynamic DNS (DDNS) services. It provides functionality to retrieve service logs, check DDNS status, and manage service lists from various sources. Key functions include callGetLogServices, callDDnsGetStatus, and callGenServiceList, which facilitate interaction with DDNS services and their configurations. The module also handles WAN interface detection and service support validation based on user-defined settings.

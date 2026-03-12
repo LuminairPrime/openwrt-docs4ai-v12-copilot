@@ -3,9 +3,9 @@ title: configuration.js
 module: luci-examples
 origin_type: example_app
 token_count: 1336
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-configuration-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/configuration.js
 language: javascript
 ai_summary: The `configuration.js` module is part of the `luci-examples` package and provides a JavaScript interface for configuring Docker settings within the LuCI web interface. It allows users to set global Docker configurations such as default flags, API version, Docker root directory, default bridge network, registry mirrors, log levels, and client connection settings. The module also includes options for configuring registry authentication for push/pull operations on custom registries. This module enhances the management of Docker containers through a user-friendly web interface.

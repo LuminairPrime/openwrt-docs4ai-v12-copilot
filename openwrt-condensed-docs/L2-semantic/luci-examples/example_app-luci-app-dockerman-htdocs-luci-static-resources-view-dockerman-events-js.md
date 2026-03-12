@@ -3,9 +3,9 @@ title: events.js
 module: luci-examples
 origin_type: example_app
 token_count: 2942
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-events-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js
 language: javascript
 ai_summary: The `events.js` module is part of the Luci Docker Manager application for OpenWrt, designed to handle Docker events and display them in a user-friendly interface. It supports fetching event data in both `application/x-ndjson` and `application/json-seq` formats, allowing for flexible content negotiation. The module includes functions to load events, render event lists, and apply filters based on event types and timestamps. Additionally, it provides a structured way to interact with Docker events through a graphical interface, enhancing usability for managing Docker containers.

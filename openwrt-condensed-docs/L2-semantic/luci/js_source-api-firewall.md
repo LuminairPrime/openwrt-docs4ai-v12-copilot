@@ -3,9 +3,9 @@ title: 'LuCI API: firewall'
 module: luci
 origin_type: js_source
 token_count: 262
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci/js_source-api-firewall.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/firewall.js
 language: javascript
 ai_summary: Implements the LuCI firewall abstraction over the nftables/iptables UCI config. Provides Firewall, Zone, Rule, Redirect, and Forwarding classes; Firewall.getZones() returns zone objects with getNetworks(), getSrcRules(), getDestRules(); Rule and Redirect mirror UCI firewall sections and expose getOptions(), setOption(), and remove() for in-memory editing before save.

@@ -7,6 +7,6 @@
   "language": "javascript",
   "upstream_path": "modules/luci-base/htdocs/luci-static/resources/firewall.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-12T14:06:48.980943+00:00",
+  "extraction_timestamp": "2026-03-12T17:59:49.627610+00:00",
   "content_hash": "60542be3"
 }

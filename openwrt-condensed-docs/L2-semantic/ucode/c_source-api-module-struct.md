@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 7325
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-struct.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: lib/struct.c
 language: c
 ai_summary: Provides binary data packing and unpacking for ucode using a Python struct-style format string syntax. Implements pack() to encode values into a binary string and unpack() to decode a binary buffer into an array of typed values. Supports format codes for unsigned/signed integers of all widths (B, H, I, Q), floats, and byte strings.

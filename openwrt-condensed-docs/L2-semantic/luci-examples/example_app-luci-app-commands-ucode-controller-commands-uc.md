@@ -3,9 +3,9 @@ title: commands.uc
 module: luci-examples
 origin_type: example_app
 token_count: 1625
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-commands-ucode-controller-commands-uc.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-commands/ucode/controller/commands.uc
 language: ucode
 ai_summary: The `commands.uc` module in the `luci-examples` application provides functionality to parse command-line arguments and execute commands within the OpenWrt environment. It includes functions like `parse_args` for decoding strings into arguments, `parse_cmdline` for constructing command arguments from UCI configurations, and `execute_command` for running commands and capturing their output. Additionally, it handles output redirection and checks for binary data in the command output. This module is essential for applications that require dynamic command execution based on user input or configurations.

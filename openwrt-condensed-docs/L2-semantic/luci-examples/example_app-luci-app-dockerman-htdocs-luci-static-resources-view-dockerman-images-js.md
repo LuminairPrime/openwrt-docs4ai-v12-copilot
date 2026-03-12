@@ -3,9 +3,9 @@ title: images.js
 module: luci-examples
 origin_type: example_app
 token_count: 6386
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-images-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/images.js
 language: javascript
 ai_summary: The `images.js` module is part of the Luci Docker Manager application for OpenWrt, providing functionalities to manage Docker images through a web interface. It allows users to load and display available Docker images and containers, pull new images from a registry, and calculate the total size of images. Key functions include `load()`, which retrieves image and container lists, and `render()`, which constructs the user interface for displaying images and their details. The module also includes features for managing image tags and handling user interactions for pulling images.

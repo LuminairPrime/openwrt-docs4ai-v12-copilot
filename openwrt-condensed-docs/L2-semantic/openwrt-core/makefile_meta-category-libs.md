@@ -5,7 +5,7 @@ origin_type: makefile_meta
 token_count: 5273
 version: 55f1f2c
 source_file: L1-raw/openwrt-core/makefile_meta-category-libs.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: package/libs
 language: makefile
 ai_summary: 'The OpenWrt Buildroot: libs packages module provides a collection of libraries essential for various functionalities in OpenWrt. It includes libraries such as argp-standalone for argument parsing, elfutils for handling ELF files, and jansson for JSON data manipulation. Each library is maintained by different contributors and is available under various licenses, ensuring a wide range of capabilities for developers. The module facilitates the integration of these libraries into OpenWrt builds, enhancing the overall performance and feature set of the system.'

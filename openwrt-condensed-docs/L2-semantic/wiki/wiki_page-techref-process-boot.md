@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 3243
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-process-boot.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 language: text
 ai_summary: The Boot Process module provides a comprehensive overview of the sequence of operations that occur when an OpenWrt device is powered on, starting from the bootloader to the initialization of user space. It details the roles of the bootloader, kernel, and init processes, including specific actions like kernel decompression, filesystem mounting, and the execution of startup scripts. Key components such as [kexec], [extroot_configuration], and [OpenWrt FailSafe] are mentioned to illustrate their relevance during the boot process. Additionally, it highlights the importance of various scripts and configurations that influence system startup.
 ai_when_to_use: This module is useful for developers and system integrators who need to understand the boot sequence of OpenWrt for troubleshooting or customizing the boot process. It is particularly relevant when configuring boot parameters or debugging startup issues.

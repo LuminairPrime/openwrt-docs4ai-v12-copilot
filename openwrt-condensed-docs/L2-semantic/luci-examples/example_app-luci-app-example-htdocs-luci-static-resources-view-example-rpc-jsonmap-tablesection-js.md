@@ -3,9 +3,9 @@ title: rpc-jsonmap-tablesection.js
 module: luci-examples
 origin_type: example_app
 token_count: 923
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-example-htdocs-luci-static-resources-view-example-rpc-jsonmap-tablesection-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-example/htdocs/luci-static/resources/view/example/rpc-jsonmap-tablesection.js
 language: javascript
 ai_summary: The `rpc-jsonmap-tablesection.js` module is a JavaScript example for LuCI that demonstrates how to create a view using a JSONMap to display data retrieved via RPC calls. It defines an RPC call to fetch sample data and utilizes the LuCI form API to render this data in a structured format. The module includes error handling for RPC failures and sets up a read-only form with a tabbed display for better organization. Additionally, it provides a mechanism to capitalize option names and dynamically list items, enhancing the user interface experience.

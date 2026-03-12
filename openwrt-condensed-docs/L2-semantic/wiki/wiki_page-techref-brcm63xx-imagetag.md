@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 6807
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-brcm63xx-imagetag.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 language: text
 ai_summary: The BCM63xx Firmware Image Information module provides tools and details for analyzing firmware image tags specific to Broadcom 63xx devices. It includes a program called `analyzetag` that can be compiled to extract information from firmware image files using various command-line options. Users can specify the input file, tag ID, flash start address, and firmware offset to retrieve detailed metadata about the firmware image. The documentation also outlines the structure of the Broadcom imagetag format, detailing the fields and their purposes for different versions of the imagetag.
 ai_when_to_use: This module is useful when working with firmware images for Broadcom 63xx devices in OpenWrt, especially for developers needing to analyze or modify firmware images.

@@ -3,9 +3,9 @@ title: rpc.js
 module: luci-examples
 origin_type: example_app
 token_count: 1185
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci-examples/example_app-luci-app-example-htdocs-luci-static-resources-view-example-rpc-js.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: applications/luci-app-example/htdocs/luci-static/resources/view/example/rpc.js
 language: javascript
 ai_summary: The `rpc.js` module in the `luci-examples` application provides a framework for making Remote Procedure Calls (RPC) to the LuCI interface. It defines RPC calls using the `rpc.declare` method, which allows interaction with backend services through defined methods like `get_sample1` and `get_sample3`. The module includes error handling for RPC responses and renders data in a structured format using DOM manipulation. Additionally, it demonstrates how to load data asynchronously and display it in a user-friendly manner.

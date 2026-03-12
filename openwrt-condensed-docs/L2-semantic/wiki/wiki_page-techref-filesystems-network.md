@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 330
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-filesystems-network.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 language: text
 ai_summary: The Network Filesystems module in OpenWrt allows the system to mount various filesystems over an IP network, functioning as both a client and a server. Supported filesystems include ftp, sshfs, sftp, nfs, cifs, iscsi, remotefs, tftp, and webdav, each with specific configurations and capabilities. This module facilitates file sharing and storage solutions across networked devices. Security features vary by filesystem, with some supporting tcp-wrappers and authentication mechanisms.
 ai_when_to_use: Use this module when you need to access or share files over a network in OpenWrt, such as setting up a NAS or connecting to remote storage solutions.

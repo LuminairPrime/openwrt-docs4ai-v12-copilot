@@ -7,6 +7,6 @@
   "language": "bash",
   "upstream_path": "package/**/etc/hotplug.d/*",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-12T14:06:47.035263+00:00",
+  "extraction_timestamp": "2026-03-12T17:59:44.464350+00:00",
   "content_hash": "7254e56a"
 }

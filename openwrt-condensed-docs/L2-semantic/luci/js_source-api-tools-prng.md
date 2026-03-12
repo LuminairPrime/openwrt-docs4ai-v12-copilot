@@ -3,9 +3,9 @@ title: 'LuCI API: prng'
 module: luci
 origin_type: js_source
 token_count: 982
-version: 3da0ac5
+version: 8fa4744
 source_file: L1-raw/luci/js_source-api-tools-prng.md
-last_pipeline_run: '2026-03-12T14:09:22.059148+00:00'
+last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/tools/prng.js
 language: javascript
 ai_summary: Provides a lightweight pseudo-random number generator utility for the LuCI frontend. Implements prng.generate(n) to produce n-byte hex strings and prng.uuid() for v4-compatible UUID generation; uses the Web Crypto API when available and falls back to Math.random(), making it suitable for generating unique DOM IDs and one-time tokens in LuCI views.
