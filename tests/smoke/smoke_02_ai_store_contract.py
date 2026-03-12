@@ -11,12 +11,13 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 import tempfile
 import sys
 from typing import Any
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, PROJECT_ROOT)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(PROJECT_ROOT))
 
 from lib import ai_store
 
@@ -45,7 +46,7 @@ def _read_text(path: str) -> str:
 
 
 def validate_base_store_schema() -> tuple[int, dict[str, int]]:
-    base_root = os.path.join(PROJECT_ROOT, "data", "base")
+    base_root = os.path.join(str(PROJECT_ROOT), "data", "base")
     _assert(os.path.isdir(base_root), f"Missing data/base directory: {base_root}")
 
     total = 0
@@ -102,9 +103,9 @@ def validate_base_store_schema() -> tuple[int, dict[str, int]]:
 
 def validate_prompt_contract() -> None:
     script_04 = _read_text(
-        os.path.join(PROJECT_ROOT, ".github", "scripts", "openwrt-docs4ai-04-generate-ai-summaries.py")
+        os.path.join(str(PROJECT_ROOT), ".github", "scripts", "openwrt-docs4ai-04-generate-ai-summaries.py")
     )
-    base_readme = _read_text(os.path.join(PROJECT_ROOT, "data", "base", "README.md"))
+    base_readme = _read_text(os.path.join(str(PROJECT_ROOT), "data", "base", "README.md"))
 
     expected_fragments = (
         "Sentence 1",

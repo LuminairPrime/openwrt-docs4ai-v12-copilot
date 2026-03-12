@@ -5,9 +5,9 @@ from pathlib import Path
 import yaml
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = PROJECT_ROOT / ".github" / "scripts"
-SMOKE_SUPPORT_PATH = PROJECT_ROOT / "tests" / "smoke_support.py"
+SMOKE_SUPPORT_PATH = PROJECT_ROOT / "tests" / "support" / "smoke_pipeline_support.py"
 WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "openwrt-docs4ai-00-pipeline.yml"
 WIKI_L2_DIR = PROJECT_ROOT / "openwrt-condensed-docs" / "L2-semantic" / "wiki"
 

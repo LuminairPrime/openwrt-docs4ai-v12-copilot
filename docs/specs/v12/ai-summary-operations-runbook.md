@@ -19,7 +19,7 @@ edit surface.
 - [data/override/README.md](../../../data/override/README.md)
 - [openwrt-docs4ai-04-generate-ai-summaries.py](../../../.github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py)
 - [manage_ai_store.py](../../../tools/manage_ai_store.py)
-- [openwrt-docs4ai-v12-ai-v1-smoke-test.py](../../../tests/openwrt-docs4ai-v12-ai-v1-smoke-test.py)
+- [smoke_02_ai_store_contract.py](../../../tests/smoke/smoke_02_ai_store_contract.py)
 
 ## Safety Rules
 
@@ -133,7 +133,7 @@ python tools/manage_ai_store.py --option audit --scratch-root tmp/ai-summary-run
 
 Use all three checks before promotion:
 
-1. `python tests/openwrt-docs4ai-v12-ai-v1-smoke-test.py`
+1. `python tests/smoke/smoke_02_ai_store_contract.py`
 2. `python tools/manage_ai_store.py --option validate ...`
 3. `python tools/manage_ai_store.py --option audit ...`
 

@@ -99,7 +99,7 @@ Deeper model-selection and quality-scoring work remains deferred.
 - If the issue is misclassified ucode examples or false syntax warnings, inspect `02b` and `08` together because the extractor and validator now share regression coverage boundaries.
 - If the issue is missing, stale, or structurally invalid AI summaries, inspect `04`, `tools/manage_ai_store.py`, and the `data/base/` plus `data/override/` store roots together.
 - If the issue is missing or overwritten generated outputs, inspect the workflow `process` to `deploy` handoff because `staging/` is now the authoritative promotion source.
-- If the issue is only visible in committed `openwrt-condensed-docs/`, compare it against the focused corpus sanity snapshot from `tests/test_pipeline_hardening.py` to decide whether the repo tree is stale or the normalization logic is still wrong.
+- If the issue is only visible in committed `openwrt-condensed-docs/`, compare it against the focused corpus sanity snapshot from `tests/pytest/pytest_03_wiki_corpus_sanity_test.py` to decide whether the repo tree is stale or the normalization logic is still wrong.
 
 ## Required Environment Variables
 

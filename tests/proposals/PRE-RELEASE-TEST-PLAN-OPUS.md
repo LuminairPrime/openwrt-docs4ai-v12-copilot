@@ -85,7 +85,7 @@ These tests represent the minimum quality bar. Any failure here is a **release b
 
 ### T1.1 — Existing Unit Tests (pytest)
 
-**What:** Run the full pytest suite — 40 unit tests covering wiki scraper logic, pipeline hardening, normalization, validation, cross-link resolution, and workflow structure.
+**What:** Run the maintained pytest suite covering wiki scraper logic, pipeline hardening, normalization, validation, cross-link resolution, and workflow structure.
 
 **Why:** These tests validate the correctness of every pipeline stage's core logic. A regression here means the pipeline will produce incorrect output.
 
@@ -93,7 +93,7 @@ These tests represent the minimum quality bar. Any failure here is a **release b
 
 ```powershell
 cd C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-v12-copilot
-python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -v --tb=short 2>&1 | Tee-Object -FilePath tests\test-results-unit.txt
+python tests/run_pytest.py -v --tb=short 2>&1 | Tee-Object -FilePath tests\test-results-unit.txt
 ```
 
 **Expected results:**
@@ -120,7 +120,7 @@ python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -v 
 
 ```powershell
 cd C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-v12-copilot
-python tests/openwrt-docs4ai-00-smoke-test.py --keep-temp 2>&1 | Tee-Object -FilePath tests\test-results-smoke.txt
+python tests/smoke/smoke_01_full_local_pipeline.py --keep-temp 2>&1 | Tee-Object -FilePath tests\test-results-smoke.txt
 ```
 
 **Expected results:**
@@ -360,7 +360,7 @@ bandit -r .github/scripts/ lib/ -f txt -ll 2>&1 | Tee-Object -FilePath tests\tes
 ```powershell
 cd C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-v12-copilot
 
-python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py --cov=.github/scripts --cov=lib --cov-report=term-missing --cov-report=html:tests/coverage-report -v 2>&1 | Tee-Object -FilePath tests\test-results-coverage.txt
+python tests/run_pytest.py --cov=.github/scripts --cov=lib --cov-report=term-missing --cov-report=html:tests/coverage-report -v 2>&1 | Tee-Object -FilePath tests\test-results-coverage.txt
 ```
 
 **Expected results:**
@@ -694,10 +694,10 @@ cd C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-v12-copilot
 .\.venv\Scripts\Activate.ps1
 
 Write-Host "`n========== T1.1: Unit Tests ==========" -ForegroundColor Cyan
-python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -v --tb=short 2>&1 | Tee-Object -FilePath tests\test-results-unit.txt
+python tests/run_pytest.py -v --tb=short 2>&1 | Tee-Object -FilePath tests\test-results-unit.txt
 
 Write-Host "`n========== T1.2: Smoke Test ==========" -ForegroundColor Cyan
-python tests/openwrt-docs4ai-00-smoke-test.py 2>&1 | Tee-Object -FilePath tests\test-results-smoke.txt
+python tests/smoke/smoke_01_full_local_pipeline.py 2>&1 | Tee-Object -FilePath tests\test-results-smoke.txt
 
 Write-Host "`n========== T1.3: Ruff Lint ==========" -ForegroundColor Cyan
 ruff check .github/scripts/ lib/ --output-format=grouped 2>&1 | Tee-Object -FilePath tests\test-results-ruff-scripts.txt
@@ -715,7 +715,7 @@ Write-Host "`n========== T2.3: Bandit Security ==========" -ForegroundColor Cyan
 bandit -r .github/scripts/ lib/ -f txt -ll 2>&1 | Tee-Object -FilePath tests\test-results-bandit.txt
 
 Write-Host "`n========== T2.4: Test Coverage ==========" -ForegroundColor Cyan
-python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py --cov=.github/scripts --cov=lib --cov-report=term-missing -v 2>&1 | Tee-Object -FilePath tests\test-results-coverage.txt
+python tests/run_pytest.py --cov=.github/scripts --cov=lib --cov-report=term-missing -v 2>&1 | Tee-Object -FilePath tests\test-results-coverage.txt
 
 Write-Host "`n========== Complete ==========" -ForegroundColor Green
 Write-Host "Test result files saved to tests\ directory"

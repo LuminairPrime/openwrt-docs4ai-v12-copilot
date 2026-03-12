@@ -1,8 +1,12 @@
 from pathlib import Path
 
-from smoke_support import assert_fixture_outputs, build_env, run_named_script, seed_l1_fixtures
-
-from pipeline_test_support import PROJECT_ROOT, load_script_module
+from tests.support.pytest_pipeline_support import PROJECT_ROOT, load_script_module
+from tests.support.smoke_pipeline_support import (
+    assert_fixture_outputs,
+    build_env,
+    run_named_script,
+    seed_l1_fixtures,
+)
 
 
 ROUTING_PIPELINE = [

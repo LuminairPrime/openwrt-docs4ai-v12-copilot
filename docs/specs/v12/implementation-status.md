@@ -29,8 +29,8 @@ The current authoritative position is:
 | Active spec structure | complete | Active specs moved to `docs/specs/v12/` on 2026-03-09 |
 | Archive separation | complete | Historical planning and bug notes moved to `docs/archive/v12/` |
 | Root documentation accuracy | complete | Root docs now point to the current architecture, specs, and local smoke paths |
-| Deterministic local smoke test | verified | `python tests/00-smoke-test.py` passes locally |
-| Sequential local smoke runner | verified | `python tests/openwrt-docs4ai-00-smoke-test.py` passes locally |
+| Deterministic local smoke test | verified | `python tests/smoke/smoke_00_post_extract_pipeline.py` passes locally |
+| Sequential local smoke runner | verified | `python tests/smoke/smoke_01_full_local_pipeline.py` passes locally |
 | Local AI-summary integration | verified | Cache-backed local AI path passes via `--run-ai` without requiring a live token |
 | GitHub Actions remote verification | verified | Runs `22877164042`, `22877413563`, `22901356504`, and `22901854476` passed end to end |
 | Remote output measurement | verified | Successful staging artifact contained 151 L1 markdown docs, 151 L2 markdown docs, and 397 indexed symbols |
@@ -38,8 +38,8 @@ The current authoritative position is:
 | L1/L2 retention policy | decided | L1 and L2 remain committed under `openwrt-condensed-docs`; L0 remains transient only |
 | Remote warning reduction | verified | Remote soft warnings were reduced from 48 to 1 and stayed at 1 across the wiki hardening verification runs |
 | Wiki scraper hardening round 2 | verified | Commit `69e98c7` plus runs `22877164042` and `22877413563` hardened cache trust, redirect validation, and short-page cache hits |
-| Latest local follow-up patch | locally verified | `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` and `python tests/00-smoke-test.py` pass after the `03` wiki cleanup pass and the import-safe `02b`/`08` refactors |
-| Committed wiki corpus sanity snapshot | verified-clean | `pytest -s tests/test_pipeline_hardening.py -q` now reports `status=clean` with `wrap=0`, `color=0`, `html_table=0`, `sortable=0`, `footnote_aside=0`, and `duplicate_lead_heading=0` across 92 files |
+| Latest local follow-up patch | locally verified | `python tests/run_pytest.py` and `python tests/smoke/smoke_00_post_extract_pipeline.py` pass after the `03` wiki cleanup pass and the import-safe `02b`/`08` refactors |
+| Committed wiki corpus sanity snapshot | verified-clean | `pytest -s tests/pytest/pytest_03_wiki_corpus_sanity_test.py -q` now reports `status=clean` with `wrap=0`, `color=0`, `html_table=0`, `sortable=0`, `footnote_aside=0`, and `duplicate_lead_heading=0` across 92 files |
 
 ## Historical Note
 
@@ -57,8 +57,8 @@ Older status claims from early March 2026 described the pipeline as fully comple
 
 ### Milestone 2: Local smoke repair and runtime hardening
 
-- Rewrote `tests/00-smoke-test.py` into a deterministic fixture-backed regression harness for the current L1 to L5 contract.
-- Rewrote `tests/openwrt-docs4ai-00-smoke-test.py` into a sequential local runner with fixture-backed default mode and optional extractor mode.
+- Rewrote `tests/smoke/smoke_00_post_extract_pipeline.py` into a deterministic fixture-backed regression harness for the current L1 to L5 contract.
+- Rewrote `tests/smoke/smoke_01_full_local_pipeline.py` into a sequential local runner with fixture-backed default mode and optional extractor mode.
 - Repaired runtime issues in `03`, `04`, `05`, `06b`, and `06c` that were surfaced by the local smoke path.
 - Verified local AI enrichment in cache-backed mode without external model calls.
 
@@ -98,13 +98,13 @@ Older status claims from early March 2026 described the pipeline as fully comple
 
 - Added a bounded wiki-only L2 cleanup pass in `03-normalize-semantic.py` to strip `WRAP` and `color` tags, remove immediate duplicate lead headings, and collapse repeated HTML table rows.
 - Refactored `02b-scrape-ucode.py` and `08-validate.py` so their helper surfaces are import-safe and can be unit tested directly.
-- Added `tests/test_pipeline_hardening.py` to cover the new `02b`, `03`, and `08` hardening surfaces.
-- Added a committed-corpus sanity snapshot in `tests/test_pipeline_hardening.py` so bug triage can read current wiki L2 artifact levels directly from pytest output.
-- Verified the local follow-up patch with `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` and `python tests/00-smoke-test.py`.
+- Added `tests/pytest/pytest_00_pipeline_units_test.py` to cover the new `02b`, `03`, and `08` hardening surfaces.
+- Added a committed-corpus sanity snapshot in `tests/pytest/pytest_03_wiki_corpus_sanity_test.py` so bug triage can read current wiki L2 artifact levels directly from pytest output.
+- Verified the local follow-up patch with `python tests/run_pytest.py` and `python tests/smoke/smoke_00_post_extract_pipeline.py`.
 
 ### Milestone 8: stabilization closeout and alignment confirmation
 
-- Re-ran local closeout checks on 2026-03-11: `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` (`37 passed`), `python -m pytest -s tests/test_pipeline_hardening.py -q` (`status=clean` corpus snapshot), and `python tests/00-smoke-test.py`.
+- Re-ran local closeout checks on 2026-03-11: `python tests/run_pytest.py`, `python -m pytest -s tests/pytest/pytest_03_wiki_corpus_sanity_test.py -q` (`status=clean` corpus snapshot), and `python tests/smoke/smoke_00_post_extract_pipeline.py`.
 - Confirmed hosted workflow stability after stage-family alignment and hygiene follow-through via successful runs `22901356504` and `22901854476`.
 - Closed `CONTENT-001` as fixed-and-verified based on clean corpus evidence plus hosted verification.
 - Shifted operational focus from first-stage stabilization to post-stabilization optimization and explicit AI-summary state-architecture decisions.

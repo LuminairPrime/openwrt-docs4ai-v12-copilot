@@ -23,7 +23,7 @@ Recorded: 2026-03-10
 | `.github/workflows/` | Yes | Live CI orchestration | Local-only helper commands or notes |
 | `lib/` | Yes | Shared Python helpers | Throwaway utilities used once |
 | `tests/` | Yes | Real tests, fixtures, intentionally committed test helpers | Rolling logs, temp outputs, ad hoc result dumps |
-| `tests/fixtures/` | Yes | Small durable repro inputs | Generated run output |
+| `tests/sample-inputs/` | Yes | Small durable repro inputs | Generated run output |
 | `docs/plans/v12/` | Yes | Maintainer plans, review notes, hygiene docs | Large generated comparisons |
 | `openwrt-condensed-docs/` | Yes | Intended published output tree | Scratch rewrites, temporary comparisons |
 | `tmp/` | No | Local scratch space, temp runs, logs, review bundles, copied snapshots | Anything you expect to publish or review in Git history |
@@ -52,7 +52,7 @@ These names are already wired into the workflow, the architecture docs, and the 
 | Change live pipeline behavior | `.github/scripts/` and `lib/` |
 | Change CI behavior | `.github/workflows/` |
 | Add a new committed regression test | `tests/` |
-| Add a tiny reusable test input | `tests/fixtures/` |
+| Add a tiny reusable test input | `tests/sample-inputs/` |
 | Write a maintainer note or plan you want in Git history | `docs/plans/v12/` |
 | Inspect the current publishable output | `openwrt-condensed-docs/` |
 | Run local smoke tests and keep logs | `tmp/logs/` |

@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from lib import ai_store_workflow
-from pipeline_test_support import load_script_module
+from tests.support.pytest_pipeline_support import load_script_module
 
 
 def test_ucode_normalize_fenced_blocks_classifies_shell_json_and_pseudocode():

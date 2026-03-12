@@ -1,4 +1,4 @@
-from pipeline_test_support import (
+from tests.support.pytest_pipeline_support import (
     WIKI_ARTIFACT_PATTERNS,
     WIKI_L2_DIR,
     classify_wiki_l2_sanity,

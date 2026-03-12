@@ -5,7 +5,7 @@ import re
 import subprocess
 import sys
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, ".github", "scripts")
 SCRIPT_NAME_RE = re.compile(r"^openwrt-docs4ai-(?P<stage_id>\d{2}[a-z]?)-.+\.py$")
 STAGE_FAMILY_RE = re.compile(r"^\d{2}$")

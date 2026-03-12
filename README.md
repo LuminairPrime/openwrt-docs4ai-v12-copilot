@@ -34,7 +34,8 @@ The exact output set is defined in `docs/ARCHITECTURE.md` and `docs/specs/v12/`.
 ## Repository Guidance
 
 - Read `DEVELOPMENT.md` for local setup and testing.
-- Use `tests/run-local-validation.ps1` for the scripted maintainer validation path. It runs focused pytest plus both local smoke runners in the documented order and stores durable logs under `tmp/ci/local-validation/`.
+- Read `tests/README.md` for the test-tree layout, supported entry points, and result bundle locations.
+- Use `python tests/run_smoke_and_pytest.py` for the scripted maintainer validation path. It runs the focused pytest lane plus the maintained smoke stages in order and stores durable logs under `tmp/ci/local-validation/`.
 - Use `python tools/manage_ai_store.py --option review` for the maintained scratch-first AI-store workflow.
 - Read `docs/ARCHITECTURE.md` for repository structure and naming rules.
 - Read `docs/specs/v12/` for the active v12 technical specifications.

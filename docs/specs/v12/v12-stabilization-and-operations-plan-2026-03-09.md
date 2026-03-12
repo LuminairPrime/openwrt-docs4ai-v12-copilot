@@ -16,8 +16,8 @@ Stabilize v12 as an engineering system that is locally correct, documented, test
 
 ## 2026-03-11 Closeout Update
 
-- The bounded wiki-cleanup closeout gate completed: `pytest -s tests/test_pipeline_hardening.py -q` now reports `status=clean` for the committed wiki L2 corpus (`92` files; `wrap=0`, `color=0`, `html_table=0`, `sortable=0`, `footnote_aside=0`, `duplicate_lead_heading=0`).
-- Local stabilization checks are currently green: `python -m pytest tests/test_pipeline_hardening.py tests/test_wiki_scraper.py -q` (`37 passed`) and `python tests/00-smoke-test.py` passed.
+- The bounded wiki-cleanup closeout gate completed: `pytest -s tests/pytest/pytest_03_wiki_corpus_sanity_test.py -q` now reports `status=clean` for the committed wiki L2 corpus (`92` files; `wrap=0`, `color=0`, `html_table=0`, `sortable=0`, `footnote_aside=0`, `duplicate_lead_heading=0`).
+- Local stabilization checks are currently green: `python tests/run_pytest.py` and `python tests/smoke/smoke_00_post_extract_pipeline.py` passed.
 - Hosted verification remains healthy after stage-family alignment and hygiene follow-through: runs `22901356504` and `22901854476` completed successfully.
 - `CONTENT-001` is now closed as fixed-and-verified in the active bug log.
 - First-stage stabilization is considered complete; the next work is post-stabilization optimization and explicit AI-summary state separation.
@@ -44,9 +44,9 @@ Stabilize v12 as an engineering system that is locally correct, documented, test
 
 ## Lightweight Corpus Sanity Policy
 
-- The project now keeps a lightweight committed-corpus sanity snapshot in `tests/test_pipeline_hardening.py` instead of adding a broader telemetry subsystem.
+- The project now keeps a lightweight committed-corpus sanity snapshot in `tests/pytest/pytest_03_wiki_corpus_sanity_test.py` instead of adding a broader telemetry subsystem.
 - The intent is fast human triage, not a new enforcement regime: the snapshot prints current wiki L2 artifact levels and classifies them as `clean`, `bounded-stale`, or `abnormal`.
-- Run it with `pytest -s tests/test_pipeline_hardening.py` when you want the readable summary in terminal output.
+- Run it with `pytest -s tests/pytest/pytest_03_wiki_corpus_sanity_test.py -q` when you want the readable summary in terminal output.
 - Treat `bounded-stale` as a signal that committed outputs may simply need regeneration after a logic fix; treat `abnormal` as a stronger indication that the normalization or promotion logic regressed.
 
 ## Phases

@@ -43,8 +43,8 @@
 - Local fixture-based tests must be able to exercise the L2 through L5 flow without relying on the live internet.
 - Sequential local smoke tests must invoke the real numbered scripts using current names.
 - AI summary integration must be verifiable locally with seeded data before any remote model usage is considered required.
-- `tests/test_pipeline_hardening.py` is the focused regression suite for brittle helper surfaces in `02b`, `03`, and `08`.
-- That suite also provides a lightweight committed-corpus sanity snapshot for `openwrt-condensed-docs/L2-semantic/wiki`; run it with `pytest -s` when you want the readable artifact summary in the console.
+- `tests/pytest/pytest_00_pipeline_units_test.py` is the focused regression suite for brittle helper surfaces in `02b`, `03`, and `08`.
+- `tests/pytest/pytest_03_wiki_corpus_sanity_test.py` provides the lightweight committed-corpus sanity snapshot for `openwrt-condensed-docs/L2-semantic/wiki`; run it with `pytest -s` when you want the readable artifact summary in the console.
 
 ## Verified Remote Policy
 

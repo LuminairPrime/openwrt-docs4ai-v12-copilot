@@ -1,25 +1,31 @@
 """
-openwrt-docs4ai-00-smoke-test.py
+smoke_01_full_local_pipeline.py
 
 Purpose  : Sequential local smoke runner for the numbered pipeline scripts.
 Flags    : --keep-temp         keep the temp tree for inspection
            --run-ai            include the optional AI stage
            --include-extractors run 01 and 02* before the fixture-backed stages
            --only <id>         run only a stage id, stage family, or script name such as 03, 05, 05c, or 06
-Outputs  : Appends step logs to tmp/logs/openwrt-docs4ai-00-smoke-test-log.txt
+Outputs  : Appends step logs to tmp/logs/smoke-01-full-local-pipeline-log.txt
 Notes    : Default mode is fixture-backed and offline-friendly. The extractor path is optional.
 """
 
 import argparse
 import datetime
 import os
+from pathlib import Path
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
 
-from smoke_support import (
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from tests.support.smoke_pipeline_support import (
     FULL_PIPELINE,
     POST_EXTRACT_PIPELINE,
     PROJECT_ROOT,
@@ -32,7 +38,7 @@ from smoke_support import (
     seed_l1_fixtures,
 )
 
-LOG_FILE = get_local_log_path("openwrt-docs4ai-00-smoke-test-log.txt")
+LOG_FILE = get_local_log_path("smoke-01-full-local-pipeline-log.txt")
 
 
 def parse_args():

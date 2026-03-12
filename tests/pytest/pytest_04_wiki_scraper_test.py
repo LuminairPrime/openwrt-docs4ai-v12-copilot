@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SCRIPT_PATH = PROJECT_ROOT / ".github" / "scripts" / "openwrt-docs4ai-02a-scrape-wiki.py"
 
 

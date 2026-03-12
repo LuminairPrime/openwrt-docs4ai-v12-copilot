@@ -1,8 +1,15 @@
 import argparse
 import os
+from pathlib import Path
+import sys
 import tempfile
 
-from smoke_support import (
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from tests.support.smoke_pipeline_support import (
     POST_EXTRACT_PIPELINE,
     PROJECT_ROOT,
     assert_fixture_outputs,
@@ -22,7 +29,7 @@ def main():
     parser.add_argument("--only", type=str, default=None, help="Run only a stage id, stage family, or script name such as 03, 05, 05c, or 06")
     args = parser.parse_args()
 
-    log_file = get_local_log_path("smoke-test-log.txt")
+    log_file = get_local_log_path("smoke-00-post-extract-pipeline-log.txt")
     if os.path.exists(log_file):
         os.remove(log_file)
 

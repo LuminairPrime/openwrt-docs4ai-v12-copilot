@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from pipeline_test_support import (
+from tests.support.pytest_pipeline_support import (
     SCRIPTS_DIR,
     WORKFLOW_PATH,
     collect_workflow_script_invocations,

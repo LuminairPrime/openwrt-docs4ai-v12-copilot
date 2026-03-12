@@ -67,8 +67,8 @@ The following high-confidence fixes landed:
 
 The following supporting surfaces were updated:
 
-- `tests/test_pipeline_hardening.py` gained targeted regressions for provenance fallback, invalid commit hash handling, `02c` fallback behavior, and legacy changelog baseline behavior.
-- `tests/smoke_support.py`, `tests/00-smoke-test.py`, and `tests/openwrt-docs4ai-00-smoke-test.py` now exercise the renamed pipeline and no longer mask provenance fallback by seeding fake commit environment variables.
+- `tests/pytest/pytest_00_pipeline_units_test.py` gained targeted regressions for provenance fallback, invalid commit hash handling, `02c` fallback behavior, and legacy changelog baseline behavior.
+- `tests/support/smoke_pipeline_support.py`, `tests/smoke/smoke_00_post_extract_pipeline.py`, and `tests/smoke/smoke_01_full_local_pipeline.py` now exercise the renamed pipeline and no longer mask provenance fallback by seeding fake commit environment variables.
 - `DEVELOPMENT.md` and `docs/ARCHITECTURE.md` now document the whole-number boundary and stage-family sibling rule.
 - `docs/specs/v12/v12-bug-log.md` now records the newly verified local fixes and keeps the deferred Dockerman warning policy explicit.
 
@@ -78,10 +78,10 @@ The following supporting surfaces were updated:
 
 The renamed and hardened pipeline was verified locally with:
 
-- `python -m pytest tests/test_pipeline_hardening.py -q`
-- `python tests/00-smoke-test.py`
-- `python tests/openwrt-docs4ai-00-smoke-test.py`
-- `python tests/00-smoke-test.py --run-ai`
+- `python tests/run_pytest.py`
+- `python tests/smoke/smoke_00_post_extract_pipeline.py`
+- `python tests/smoke/smoke_01_full_local_pipeline.py`
+- `python tests/smoke/smoke_00_post_extract_pipeline.py --run-ai`
 
 Those local checks passed before the hosted rerun.
 
