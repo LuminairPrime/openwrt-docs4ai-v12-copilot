@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 1656
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-architecture.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 language: text
 ai_summary: OpenWrt's operating system architecture is designed to be lightweight and efficient, utilizing components like libubox, ubus, and procd instead of the larger libraries commonly found in desktop distributions. This architecture allows OpenWrt to function effectively on devices with limited resources, such as 32 MiB to 512 MiB of RAM. Key features include a custom init system (procd), a package management system (opkg), and a unique network configuration tool (netifd). The system is built on the Linux kernel, providing essential functionalities without the overhead of traditional desktop environments.
 ai_when_to_use: This architecture is particularly useful for embedded network devices that require a minimal footprint while still delivering robust networking capabilities. Use OpenWrt when developing firmware for routers or IoT devices with constrained hardware resources.

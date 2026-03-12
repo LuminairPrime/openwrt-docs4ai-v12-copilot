@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 13517
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-socket.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 upstream_path: lib/socket.c
 language: c
 ai_summary: Provides low-level socket programming for ucode via POSIX socket API bindings. Implements create() for AF_INET, AF_INET6, and AF_UNIX socket creation, plus connect(), bind(), listen(), accept(), send(), recv(), recvfrom(), sendto(), close(), setsockopt(), and getsockopt() for full network and IPC socket lifecycle management.

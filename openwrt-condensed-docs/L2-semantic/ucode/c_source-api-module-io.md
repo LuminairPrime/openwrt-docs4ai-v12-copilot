@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 4058
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-io.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 upstream_path: lib/io.c
 language: c
 ai_summary: Provides buffered I/O stream primitives for ucode. Implements open() and fdopen() returning stream objects with read(), write(), readline(), flush(), seek(), tell(), and close() methods. Exposes io.stdin, io.stdout, and io.stderr as pre-opened streams, and pipe() for creating connected stream pairs for subprocess communication.

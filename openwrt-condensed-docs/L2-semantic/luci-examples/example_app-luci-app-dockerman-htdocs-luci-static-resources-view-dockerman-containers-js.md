@@ -3,9 +3,9 @@ title: containers.js
 module: luci-examples
 origin_type: example_app
 token_count: 3219
-version: e08008c
+version: 3da0ac5
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-containers-js.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/containers.js
 language: javascript
 ai_summary: The `containers.js` module is a JavaScript component for the LuCI interface of OpenWrt that manages Docker containers. It provides functionalities to list, display, and interact with Docker containers, images, and networks on a connected Docker host. The module includes methods for loading data, rendering the user interface, and calculating container states such as running, paused, and stopped. Additionally, it allows users to prune unused containers through a button action in the UI.

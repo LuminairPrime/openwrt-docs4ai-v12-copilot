@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 748
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-libubox.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 language: text
 ai_summary: Documents libubox, the OpenWrt utility library that underpins ubus, procd, and netifd. Covers the blob/blobmsg API for binary/JSON message encoding (blob_buf_init, blobmsg_add_*), the uloop event loop (uloop_run, uloop_fd_add, uloop_timeout_*), avl/list data structures, and the json_script policy-based configuration evaluator used by procd.
 ai_when_to_use: Reference when implementing a C daemon that needs event-loop integration (uloop), binary message serialization for ubus calls (blobmsg), or efficient key-value lookup (avl_tree); most OpenWrt C programs link against libubox and use blobmsg_parse() to decode incoming ubus method arguments.

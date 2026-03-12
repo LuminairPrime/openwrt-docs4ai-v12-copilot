@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 2106
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-20-xx-major-changes.md
-last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
+last_pipeline_run: '2026-03-12T13:29:57.345766+00:00'
 language: text
 ai_summary: The 21.02 release of OpenWrt introduces significant cosmetic changes, particularly in the naming conventions for devices and targets. This update aims to standardize device/image names using a vendor_model-variant scheme, enhancing consistency across various components such as Makefiles and DTS files. Key changes include the renaming of targets like ar71xx to ath79 and the systematic application of compatible names for board identification. Developers must adapt their scripts and configurations to reflect these new naming conventions to ensure compatibility with the updated system.
 ai_when_to_use: This module is essential for developers maintaining or adapting OpenWrt builds, especially those transitioning from older versions like 19.07 to 21.02. It is particularly relevant when updating device configurations and scripts to align with the new naming standards.
