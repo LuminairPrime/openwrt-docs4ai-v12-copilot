@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 95
 version: e08008c
 source_file: L1-raw/luci/js_source-api-uci.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/uci.js
 language: javascript
 ai_summary: Provides the LuCI JavaScript UCI binding that defers all reads and writes to batched rpcd calls. Implements load(), get(), set(), unset(), save(), apply(), revert(), sections(), add(), remove(), and foreach(); changes are staged in memory and only flushed to the router on save()/apply(), making it safe to call get() before load() resolves.

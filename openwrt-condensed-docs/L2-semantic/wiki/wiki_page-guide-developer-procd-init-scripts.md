@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 5333
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-procd-init-scripts.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
 ai_summary: Practical guide for writing procd-based /etc/init.d/ service scripts. Walks through USE_PROCD=1, procd_open_instance, procd_set_param command/respawn/stdout/stderr, procd_close_instance, and the service_triggers() callback for uci-change-triggered reloads; includes worked examples for a simple daemon, a daemon with multiple instances, and a service that reloads on UCI changes to a specific package.
 ai_when_to_use: Reference when writing or debugging a procd init script; use this guide to correctly set respawn thresholds, wire stdout/stderr to logd, add UCI change triggers so the service restarts when its config file changes, and test reload without a full reboot using /etc/init.d/myservice reload.

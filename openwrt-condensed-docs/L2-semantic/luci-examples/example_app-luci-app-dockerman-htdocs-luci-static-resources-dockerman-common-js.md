@@ -5,9 +5,15 @@ origin_type: example_app
 token_count: 11882
 version: e08008c
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-dockerman-common-js.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/dockerman/common.js
 language: javascript
+ai_summary: The `common.js` module is part of the `luci-examples` application and provides JavaScript functions for interacting with Docker containers through the LuCI interface in OpenWrt. It includes a variety of RPC methods for managing Docker containers, such as creating, inspecting, starting, stopping, and removing containers. Additional functionalities include retrieving container logs, stats, and events, as well as Docker system information and version details. This module is designed to streamline Docker management tasks within the OpenWrt environment.
+ai_when_to_use: Use this module when developing a LuCI application that requires Docker container management capabilities on OpenWrt devices.
+ai_related_topics:
+- rpc.declare
+- docker.container
+- docker
 ---
 # common.js
 ```javascript

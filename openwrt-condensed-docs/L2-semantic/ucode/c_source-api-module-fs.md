@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 10288
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-fs.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: lib/fs.c
 language: c
 ai_summary: Provides POSIX-style filesystem access for ucode scripts. Implements readfile(), writefile(), popen(), opendir(), stat(), rename(), unlink(), chmod(), realpath(), and readlink() for complete file and directory management. Supports atomic writes via temporary file patterns and direct subprocess output capture through popen() stream objects.

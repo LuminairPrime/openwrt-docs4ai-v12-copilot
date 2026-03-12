@@ -5,8 +5,29 @@ origin_type: wiki_page
 token_count: 771
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-externaldocumentation.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The External Documentation module for OpenWrt provides links to various upstream documentation relevant to the components used within the OpenWrt Linux distribution. It includes resources for bootloaders like Das U-Boot and RedBoot, as well as the Linux Kernel and GNU/Linux drivers. Additionally, it covers libraries such as µClibc and BusyBox, which are integral to the OpenWrt environment. Other topics include package management with Opkg, networking with Netfilter, and server options like µHTTPd and lighttpd.
+ai_when_to_use: Use this module when you need to reference external documentation for components integrated into OpenWrt, especially during development or troubleshooting. It is particularly useful for understanding the underlying systems and libraries that support OpenWrt functionalities.
+ai_related_topics:
+- Das U-Boot
+- RedBoot
+- CFE
+- Linux Kernel
+- µClibc
+- EGLIBC
+- newlib
+- diet libc
+- Opkg
+- BusyBox
+- Netfilter
+- Dropbear
+- Dnsmasq
+- Samba
+- µHTTPd
+- httpd
+- lighttpd
+- mini-httpd
 ---
 # External Documentation
 

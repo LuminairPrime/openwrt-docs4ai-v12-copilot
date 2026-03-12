@@ -5,9 +5,20 @@ origin_type: makefile_meta
 token_count: 3710
 version: 1f30a32
 source_file: L1-raw/openwrt-core/makefile_meta-category-boot.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: package/boot
 language: makefile
+ai_summary: The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. It includes several trusted firmware implementations for different hardware platforms, such as bcm63xx, mediatek, microchipsw, mvebu, rockchip, stm32, and sunxi. Each package is maintained by specific individuals and is sourced from respective repositories. The module facilitates the integration of these boot packages into the OpenWrt build system, ensuring compatibility and functionality across supported devices.
+ai_when_to_use: Use this module when building OpenWrt firmware for ARM devices that require specific boot firmware. It is particularly useful for developers targeting various hardware platforms needing trusted firmware.
+ai_related_topics:
+- apex
+- arm-trusted-firmware-bcm63xx
+- arm-trusted-firmware-mediatek
+- arm-trusted-firmware-microchipsw
+- arm-trusted-firmware-mvebu
+- arm-trusted-firmware-rockchip
+- arm-trusted-firmware-stm32
+- arm-trusted-firmware-sunxi
 ---
 # OpenWrt Buildroot: boot packages
 

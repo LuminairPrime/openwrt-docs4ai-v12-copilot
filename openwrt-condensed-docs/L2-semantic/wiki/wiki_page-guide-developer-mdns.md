@@ -5,8 +5,17 @@ origin_type: wiki_page
 token_count: 2298
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-mdns.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The umdns package provides local DNS name resolution for OpenWrt routers, allowing services to be accessed via *hostname.local* instead of an IP address. It utilizes mDNS (multicast DNS), enabling automatic discovery of devices and services on the local network without requiring complex configuration. Installation is straightforward, available through the LuCI web interface or via `opkg install umdns`. Configuration options include setting the hostname, local domain, and specifying network interfaces for mDNS advertisement.
+ai_when_to_use: Use umdns when you want to simplify access to your OpenWrt router and its services on a local network without needing to remember IP addresses.
+ai_related_topics:
+- option hostname
+- option local
+- option domain
+- option jail
+- list network
+- config rule
 ---
 # umdns for Local Device Discovery
 

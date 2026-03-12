@@ -5,9 +5,17 @@ origin_type: example_app
 token_count: 2045
 version: e08008c
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-network-new-js.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/network_new.js
 language: javascript
+ai_summary: The `network_new.js` module is part of the Luci application for managing Docker networks within OpenWrt. It provides a user interface for creating new Docker networks by allowing users to specify various parameters such as network name, driver type, and subnet configurations. Key functions include rendering a form with options for network properties, such as 'macvlan_mode' and 'ipvlan_mode', as well as enabling users to set labels and options for the network. This module is designed to facilitate the creation and management of Docker networks seamlessly through the OpenWrt web interface.
+ai_when_to_use: Use the `network_new.js` module when you need to create and configure new Docker networks in an OpenWrt environment, especially when managing containerized applications.
+ai_related_topics:
+- form
+- fs
+- ui
+- tools.widgets
+- dockerman.common
 ---
 # network_new.js
 ```javascript

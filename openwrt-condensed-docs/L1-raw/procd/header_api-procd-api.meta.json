@@ -7,6 +7,6 @@
   "language": "bash",
   "upstream_path": "package/system/procd/files/procd.sh",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-12T08:33:10.546364+00:00",
+  "extraction_timestamp": "2026-03-12T09:06:48.448033+00:00",
   "content_hash": "ab597ed1"
 }

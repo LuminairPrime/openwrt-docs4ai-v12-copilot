@@ -5,8 +5,14 @@ origin_type: wiki_page
 token_count: 502
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-xenomai.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The Xenomai module provides a real-time framework within OpenWrt, allowing for the handling of interrupts in a prioritized manner through Adeos. It facilitates the development of applications that can transition between the real-time Xenomai environment and the standard Linux system, utilizing a set of APIs known as 'skins' that emulate traditional RTOSes. This module is currently a work in progress and is not fully supported, with specific architecture and kernel version requirements for proper functionality. Users are advised to refer to the Xenomai website for examples and further guidance.
+ai_when_to_use: Use Xenomai in OpenWrt when real-time processing is critical for your application, particularly in embedded systems requiring precise timing and responsiveness.
+ai_related_topics:
+- Adeos
+- Xenomai
+- skins
 ---
 # Xenomai - real-time framework inside OpenWrt
 

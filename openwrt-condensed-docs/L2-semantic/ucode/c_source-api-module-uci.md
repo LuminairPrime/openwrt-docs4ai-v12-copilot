@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 7849
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-uci.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: lib/uci.c
 language: c
 ai_summary: Provides direct ucode bindings for OpenWrt libuci to read and write UCI configuration. Exposes cursor() to create a UCI cursor with methods get(), set(), unset(), commit(), revert(), sections(), foreach(), delete(), and add() for complete UCI config management from ucode scripts. Supports transactional reads and staged writes with explicit commit.

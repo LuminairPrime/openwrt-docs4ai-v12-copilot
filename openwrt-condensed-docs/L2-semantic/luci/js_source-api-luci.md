@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 14614
 version: e08008c
 source_file: L1-raw/luci/js_source-api-luci.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/luci.js
 language: javascript
 ai_summary: Defines the core LuCI JavaScript framework and application runtime. Implements the LuCI class with load(), resolveDefault(), bind(), require(), raise(), and the env runtime property for accessing router info; also exposes the Class.extend() inheritance model used by all other LuCI modules and manages async module loading via XHR.

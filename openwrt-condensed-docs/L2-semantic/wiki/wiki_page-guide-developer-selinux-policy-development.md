@@ -5,8 +5,15 @@ origin_type: wiki_page
 token_count: 8662
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-selinux-policy-development.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The OpenWrt SELinux policy development module provides guidance on customizing, developing, and testing SELinux policies for OpenWrt devices. It outlines the prerequisites, including the use of Fedora 34 for building images and the necessity of a git repository for accessing policy components. The module emphasizes the importance of tailoring the SELinux policy to specific device configurations to enhance efficiency and reduce unnecessary resource usage. Additionally, it encourages contributors to submit patches for improvements once their policies are tested and deemed beneficial for the community.
+ai_when_to_use: Use this module when you need to develop or customize SELinux policies for OpenWrt devices, particularly if you aim to optimize the policy for specific hardware configurations.
+ai_related_topics:
+- selinux-policy
+- OpenWrt Image Builder
+- Wish List
+- Feedback Checklist
 ---
 # OpenWrt SELinux policy development, customization, and testing
 

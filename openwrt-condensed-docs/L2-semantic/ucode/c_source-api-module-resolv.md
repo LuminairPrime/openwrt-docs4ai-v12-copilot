@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 2516
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-resolv.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: lib/resolv.c
 language: c
 ai_summary: Provides DNS name resolution for ucode scripts using the system resolver. Implements query() for raw DNS record lookups (A, AAAA, MX, TXT, etc.) and getaddrinfo() for hostname-to-address resolution returning both IPv4 and IPv6 results in a structured array.

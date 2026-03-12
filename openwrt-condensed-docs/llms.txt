@@ -14,11 +14,11 @@
 - [ucode](./ucode/llms.txt): Provides runtime introspection and tracing utilities for ucode scripts. (~79937 tokens)
 
 ## Ecosystem
-- [luci-examples](./luci-examples/llms.txt): commands.js (~100272 tokens)
-- [openwrt-core](./openwrt-core/llms.txt): OpenWrt Buildroot: boot packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/boot --- apex Field Value --- --- Version 1.6.10-openwrt License GPL-2.0 Source URL https://github.com/linusw/apex.git > Source: https:... (~23140 tokens)
+- [luci-examples](./luci-examples/llms.txt): The commands.js module in the luci-examples application provides a web interface for configuring custom shell commands in OpenWrt. (~100272 tokens)
+- [openwrt-core](./openwrt-core/llms.txt): The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. (~23140 tokens)
 
 ## Manuals
-- [wiki](./wiki/llms.txt): 21.02: Major cosmetic changes This page intends to give an overview over major cosmetic changes since 19.07, focusing on those that will require adjustments/adaption downstream. (~200836 tokens)
+- [wiki](./wiki/llms.txt): The 21.02 release of OpenWrt introduces significant cosmetic changes, particularly in the naming conventions for devices and targets. (~200836 tokens)
 
 ## Complete Aggregation
 If your context window permits, you may fetch the flat URL index:

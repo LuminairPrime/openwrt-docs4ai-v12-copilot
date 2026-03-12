@@ -5,8 +5,15 @@ origin_type: wiki_page
 token_count: 2892
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-add-new-device.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The 'Adding new device support' module provides a comprehensive guide for developers looking to add support for new devices within the OpenWrt ecosystem. It outlines a general approach that includes listing device chips, ensuring access to the bootloader, and verifying hardware components such as flash partitioning and GPIOs. The document also details specific methods for testing GPIOs for LEDs and buttons, including example scripts for automation. Developers are encouraged to refer to related resources for device support policies and platform addition guidelines.
+ai_when_to_use: Use this module when you need to add support for a new device that is based on an already supported platform in OpenWrt.
+ai_related_topics:
+- add.new.platform
+- Device support policies / best practices
+- hw.hacking.first.steps
+- GPIOs
 ---
 # Adding new device support
 

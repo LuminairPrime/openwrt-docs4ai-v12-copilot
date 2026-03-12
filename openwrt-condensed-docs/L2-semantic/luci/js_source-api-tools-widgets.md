@@ -5,7 +5,7 @@ origin_type: js_source
 token_count: 126
 version: e08008c
 source_file: L1-raw/luci/js_source-api-tools-widgets.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js
 language: javascript
 ai_summary: Provides reusable LuCI view-level widget helpers shared across multiple LuCI packages. Implements bandwidth graph components, interface status badges, SSID/signal display helpers, and shared CSS-class-to-color mappings; widgets are instantiated in render() methods and updated live via polling or event callbacks rather than full page reloads.

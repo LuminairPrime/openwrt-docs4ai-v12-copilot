@@ -5,9 +5,13 @@ origin_type: example_app
 token_count: 292
 version: e08008c
 source_file: L1-raw/luci-examples/example_app-luci-app-example-root-usr-share-rpcd-ucode-example-uc.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 upstream_path: applications/luci-app-example/root/usr/share/rpcd/ucode/example.uc
 language: ucode
+ai_summary: 'The `example.uc` module provides a simple interface for accessing configuration data using the UCI (Unified Configuration Interface) in OpenWrt. It defines two methods: `get_sample1`, which retrieves the number of cats, dogs, and parakeets from the ''example'' configuration, and `get_sample2`, which returns predefined string and numeric values along with arrays of parakeets. This module leverages the `cursor` API to interact with UCI without directly parsing configuration files. It is designed to facilitate easy data retrieval for applications built on the LuCI framework.'
+ai_when_to_use: Use this module when you need to access and manipulate configuration data in OpenWrt applications, particularly within the LuCI web interface.
+ai_related_topics:
+- cursor
 ---
 # example.uc
 ```ucode

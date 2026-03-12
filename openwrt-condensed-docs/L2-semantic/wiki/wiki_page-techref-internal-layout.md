@@ -5,8 +5,19 @@ origin_type: wiki_page
 token_count: 732
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-internal-layout.md
-last_pipeline_run: '2026-03-12T08:36:03.790881+00:00'
+last_pipeline_run: '2026-03-12T09:09:53.122488+00:00'
 language: text
+ai_summary: The Internal Layout D-Link DIR-825 module provides detailed information about the hardware configuration of the D-Link DIR-825 router, which includes two physical network interfaces (`eth0` and `eth1`) and two wireless interfaces (`wlan0` and `wlan1`). It describes the internal connections, including a Gigabit Switch and WAN port for `eth0` and `eth1`, respectively. The module also outlines the default configuration for various interfaces, including loopback, LAN, and WAN, along with the switch configuration for VLANs. Additionally, it highlights the default settings for network interfaces and the potential for configuring wireless access.
+ai_when_to_use: This module is useful when setting up or troubleshooting the D-Link DIR-825 router in an OpenWrt environment, particularly for understanding its network interface layout and configuration options.
+ai_related_topics:
+- eth0
+- eth1
+- wlan0
+- wlan1
+- rtl8366s
+- config interface
+- config switch
+- config switch_vlan
 ---
 # Internal Layout D-Link DIR-825
 
