@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-externaldocumentation",
+  "original_url": "https://openwrt.org/docs/techref/externaldocumentation",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "5a68da17f75e21795affa957f84e0bef2c0d858e5391210eb77ef643a7b355c1",
+  "source_path": "/docs/techref/externaldocumentation",
+  "extraction_timestamp": "2026-03-09T21:34:10.789233+00:00",
+  "content_hash": "965bef36"
+}

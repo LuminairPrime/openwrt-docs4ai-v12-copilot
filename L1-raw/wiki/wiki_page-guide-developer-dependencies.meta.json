@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "guide-developer-dependencies",
+  "original_url": "https://openwrt.org/docs/guide-developer/dependencies",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "a5045ff90a2624c16eb803af8bc510f28d64c27faabee98a39ebc7b5f4220d0e",
+  "source_path": "/docs/guide-developer/dependencies",
+  "extraction_timestamp": "2026-03-09T21:32:57.081283+00:00",
+  "content_hash": "a6719cfc"
+}

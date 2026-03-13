@@ -1,0 +1,12 @@
+{
+  "extractor": "02b-scrape-ucode.py",
+  "origin_type": "c_source",
+  "module": "ucode",
+  "slug": "api-module-uci",
+  "original_url": null,
+  "language": "c",
+  "upstream_path": "lib/uci.c",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T18:00:01.749304+00:00",
+  "content_hash": "bbd44146"
+}

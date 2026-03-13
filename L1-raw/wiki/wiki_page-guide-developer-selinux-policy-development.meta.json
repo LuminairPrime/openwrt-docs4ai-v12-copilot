@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "guide-developer-selinux-policy-development",
+  "original_url": "https://openwrt.org/docs/guide-developer/selinux_policy_development",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "6e7d1817bbf9af4eb5b933798e9d472a9027c5f2b31eb404a86979ed011570e7",
+  "source_path": "/docs/guide-developer/selinux_policy_development",
+  "extraction_timestamp": "2026-03-09T21:33:47.476402+00:00",
+  "content_hash": "3b99a1b8"
+}

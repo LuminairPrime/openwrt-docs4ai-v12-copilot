@@ -1,0 +1,12 @@
+{
+  "extractor": "02d-scrape-core-packages.py",
+  "origin_type": "makefile_meta",
+  "module": "openwrt-core",
+  "slug": "category-boot",
+  "original_url": null,
+  "language": "makefile",
+  "upstream_path": "package/boot",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T17:59:45.579455+00:00",
+  "content_hash": "34052996"
+}

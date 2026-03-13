@@ -1,0 +1,12 @@
+{
+  "extractor": "02b-scrape-ucode.py",
+  "origin_type": "c_source",
+  "module": "ucode",
+  "slug": "api-module-math",
+  "original_url": null,
+  "language": "c",
+  "upstream_path": "lib/math.c",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T17:59:58.369340+00:00",
+  "content_hash": "63954ce1"
+}

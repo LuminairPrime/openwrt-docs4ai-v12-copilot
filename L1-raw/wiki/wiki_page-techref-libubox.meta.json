@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-libubox",
+  "original_url": "https://openwrt.org/docs/techref/libubox",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "cec393f62f38ca82539ae5e905de984308103fd2e709ce154d45a976dc517f41",
+  "source_path": "/docs/techref/libubox",
+  "extraction_timestamp": "2026-03-09T21:34:34.758992+00:00",
+  "content_hash": "cbf0209f"
+}

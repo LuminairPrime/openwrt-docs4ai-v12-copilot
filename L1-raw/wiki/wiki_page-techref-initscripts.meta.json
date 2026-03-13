@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-initscripts",
+  "original_url": "https://openwrt.org/docs/techref/initscripts",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "fallback-raw",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "f5363c6df501a188fd3a16bbd530e67f7e08675abde33668ea6fe1428818fb06",
+  "source_path": "/docs/techref/initscripts",
+  "extraction_timestamp": "2026-03-09T21:34:29.800693+00:00",
+  "content_hash": "418ec95f"
+}

@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-flash-layout",
+  "original_url": "https://openwrt.org/docs/techref/flash.layout",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "83184837e8995057c5308a2d551d82348c65700495b9581f8dd9b65246953899",
+  "source_path": "/docs/techref/flash.layout",
+  "extraction_timestamp": "2026-03-09T21:34:19.493932+00:00",
+  "content_hash": "886e7b57"
+}

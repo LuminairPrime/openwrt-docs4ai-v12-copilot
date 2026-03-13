@@ -1,0 +1,12 @@
+{
+  "extractor": "02e-scrape-example-packages.py",
+  "origin_type": "example_app",
+  "module": "luci-examples",
+  "slug": "luci-app-example-root-usr-share-rpcd-ucode-example-uc",
+  "original_url": null,
+  "language": "ucode",
+  "upstream_path": "applications/luci-app-example/root/usr/share/rpcd/ucode/example.uc",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T17:59:49.683988+00:00",
+  "content_hash": "0e887381"
+}

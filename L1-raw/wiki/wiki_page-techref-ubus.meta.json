@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-ubus",
+  "original_url": "https://openwrt.org/docs/techref/ubus",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "78e1bfadc32185142798cd8770265c608a7f99315901be623c9fe9b79d0ab487",
+  "source_path": "/docs/techref/ubus",
+  "extraction_timestamp": "2026-03-09T21:35:03.497263+00:00",
+  "content_hash": "0f5e4689"
+}

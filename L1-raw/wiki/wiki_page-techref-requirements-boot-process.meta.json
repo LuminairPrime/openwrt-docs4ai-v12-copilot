@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-requirements-boot-process",
+  "original_url": "https://openwrt.org/docs/techref/requirements.boot.process",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "8a55918043e3784ebf803141b7d5e3bbc3c48bfd5bb8c8c2f44358f122e6b192",
+  "source_path": "/docs/techref/requirements.boot.process",
+  "extraction_timestamp": "2026-03-09T21:34:55.095769+00:00",
+  "content_hash": "3836d4f9"
+}

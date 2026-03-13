@@ -1,0 +1,12 @@
+{
+  "extractor": "02b-scrape-ucode.py",
+  "origin_type": "c_source",
+  "module": "ucode",
+  "slug": "api-module-uloop",
+  "original_url": null,
+  "language": "c",
+  "upstream_path": "lib/uloop.c",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T18:00:02.229085+00:00",
+  "content_hash": "b0ffd84d"
+}

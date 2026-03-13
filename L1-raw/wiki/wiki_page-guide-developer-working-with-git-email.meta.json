@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "guide-developer-working-with-git-email",
+  "original_url": "https://openwrt.org/docs/guide-developer/working-with-git-email",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "dcad940e3150ba5bd36f7ce8e655ebb270d846c29416adc3bdf77779ad29c4b7",
+  "source_path": "/docs/guide-developer/working-with-git-email",
+  "extraction_timestamp": "2026-03-09T21:33:54.029706+00:00",
+  "content_hash": "2ed11160"
+}

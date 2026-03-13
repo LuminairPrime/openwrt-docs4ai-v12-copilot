@@ -1,0 +1,12 @@
+{
+  "extractor": "02c-scrape-jsdoc.py",
+  "origin_type": "js_source",
+  "module": "luci",
+  "slug": "api-fs",
+  "original_url": null,
+  "language": "javascript",
+  "upstream_path": "modules/luci-base/htdocs/luci-static/resources/fs.js",
+  "fetch_status": "success",
+  "extraction_timestamp": "2026-03-12T17:59:51.229470+00:00",
+  "content_hash": "441f3a48"
+}
