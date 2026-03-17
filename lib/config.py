@@ -26,10 +26,26 @@ L2_SEMANTIC_WORKDIR = os.path.join(WORKDIR, "L2-semantic")
 REPO_MANIFEST_PATH = os.path.join(WORKDIR, "repo-manifest.json")
 CROSS_LINK_REGISTRY = os.path.join(WORKDIR, "cross-link-registry.json")
 
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# V5a Release Tree Configuration
+ENABLE_RELEASE_TREE = os.environ.get("ENABLE_RELEASE_TREE", "false").lower() == "true"
+RELEASE_TREE_DIR = os.path.join(OUTDIR, "release-tree")
+SUPPORT_TREE_DIR = os.path.join(OUTDIR, "support-tree")
+
+# V5a Public Output Name Constants
+MODULE_MAP_FILENAME = "map.md"
+MODULE_BUNDLED_REF_FILENAME = "bundled-reference.md"
+MODULE_CHUNKED_REF_DIRNAME = "chunked-reference"
+MODULE_TYPES_DIRNAME = "types"
+
+# V5a Release Include Paths (relative to repo root)
+RELEASE_INCLUDE_DIR = os.path.join(_REPO_ROOT, "release-inputs", "release-include")
+PAGES_INCLUDE_DIR = os.path.join(_REPO_ROOT, "release-inputs", "pages-include")
+
 # AI Summary Data Store
 # Defaults to data/base/ and data/override/ relative to the repository root.
 # Can be overridden by environment variables for non-standard layouts.
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AI_DATA_BASE_DIR = os.environ.get(
     "AI_DATA_BASE_DIR",
     os.path.join(_REPO_ROOT, "data", "base"),
