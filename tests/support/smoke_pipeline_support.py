@@ -19,6 +19,7 @@ POST_EXTRACT_PIPELINE = [
     "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
     "openwrt-docs4ai-06-generate-llm-routing-indexes.py",
     "openwrt-docs4ai-07-generate-web-index.py",
+    "openwrt-docs4ai-05e-assemble-release-tree.py",
     "openwrt-docs4ai-08-validate-output.py",
 ]
 

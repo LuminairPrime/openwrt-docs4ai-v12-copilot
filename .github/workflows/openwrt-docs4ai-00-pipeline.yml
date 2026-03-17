@@ -585,6 +585,11 @@ jobs:
           _T=$(date +%s)
           python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
           echo "PROC_TIMER_07=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
+      - name: Assemble release tree (05e)
+        run: |
+          _T=$(date +%s)
+          python .github/scripts/openwrt-docs4ai-05e-assemble-release-tree.py
+          echo "PROC_TIMER_05E=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Validate published output (08)
         run: |
           _T=$(date +%s)
@@ -700,6 +705,7 @@ jobs:
               ("PROC_TIMER_05BCD", "05bcd-companions"),
               ("PROC_TIMER_06",    "06-llm-indexes"),
               ("PROC_TIMER_07",    "07-web-index"),
+              ("PROC_TIMER_05E",   "05e-release-tree"),
               ("PROC_TIMER_08",    "08-validate"),
           ]
           stage_timings: dict[str, int] = {}

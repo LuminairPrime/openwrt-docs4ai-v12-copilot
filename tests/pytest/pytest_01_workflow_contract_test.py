@@ -29,6 +29,7 @@ def test_smoke_selector_supports_stage_family_selector():
         "openwrt-docs4ai-05b-generate-agents-and-readme.py",
         "openwrt-docs4ai-05c-generate-ucode-ide-schemas.py",
         "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
+        "openwrt-docs4ai-05e-assemble-release-tree.py",
     ]
 
 
