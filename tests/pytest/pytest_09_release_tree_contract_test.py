@@ -258,3 +258,34 @@ def test_build_release_tree_index_html_reflects_release_layout(tmp_path: Path) -
     assert "./procd/map.md" in html
     assert "./procd/bundled-reference.md" in html
     assert "./procd/chunked-reference/topic.md" in html
+
+
+def test_release_include_overlay_copies_files_into_release_tree(tmp_path: Path) -> None:
+    release_tree = load_script_module(
+        "release_tree_include_overlay",
+        "openwrt-docs4ai-05e-assemble-release-tree.py",
+    )
+
+    release_root = tmp_path / "release-tree"
+    release_root.mkdir(parents=True)
+    release_root.joinpath("README.md").write_text("# generated\n", encoding="utf-8")
+
+    include_root = tmp_path / "release-include"
+    include_root.joinpath("nested").mkdir(parents=True)
+    include_root.joinpath("README.md").write_text("# overlaid\n", encoding="utf-8")
+    include_root.joinpath("nested", "marker.txt").write_text(
+        "overlay marker\n",
+        encoding="utf-8",
+    )
+
+    copied = release_tree.apply_release_include_overlay(
+        str(release_root),
+        str(include_root),
+    )
+
+    assert copied == ["README.md", "nested/marker.txt"]
+    assert release_root.joinpath("README.md").read_text(encoding="utf-8") == "# overlaid\n"
+    assert (
+        release_root.joinpath("nested", "marker.txt").read_text(encoding="utf-8")
+        == "overlay marker\n"
+    )

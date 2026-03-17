@@ -79,6 +79,14 @@ def read_text(path: str) -> str:
         return handle.read()
 
 
+def summarize_paths(paths: list[str], limit: int = 5) -> str:
+    """Return a short preview for one list of copied overlay paths."""
+    preview = paths[:limit]
+    if len(paths) > limit:
+        preview.append(f"... (+{len(paths) - limit} more)")
+    return ", ".join(preview)
+
+
 def module_legacy_paths(module: str) -> list[tuple[str, str]]:
     """Return module-local path rewrites for copied text content."""
     return [
@@ -563,6 +571,28 @@ def copy_optional_file(src: str, dst: str) -> bool:
     return True
 
 
+def apply_release_include_overlay(
+    release_tree_dir: str = RELEASE_TREE_DIR,
+    include_dir: str = config.RELEASE_INCLUDE_DIR,
+) -> list[str]:
+    """Copy the common release include overlay on top of release-tree/."""
+    if not os.path.isdir(include_dir):
+        return []
+
+    copied_paths: list[str] = []
+    for root, dirs, files in os.walk(include_dir):
+        dirs.sort()
+        files.sort()
+        for name in files:
+            src_path = os.path.join(root, name)
+            rel_path = os.path.relpath(src_path, include_dir)
+            dst_path = os.path.join(release_tree_dir, rel_path)
+            os.makedirs(os.path.dirname(dst_path), exist_ok=True)
+            shutil.copy2(src_path, dst_path)
+            copied_paths.append(rel_path.replace("\\", "/"))
+    return copied_paths
+
+
 def copy_module_types(module: str, src_dir: str, dst_dir: str) -> None:
     """Copy module IDE helper files into the V5a types/ folder."""
     src_types_dir = os.path.join(src_dir, config.MODULE_TYPES_DIRNAME)
@@ -719,6 +749,9 @@ def main() -> int:
 
     copy_root_release_files(modules)
     write_release_tree_index(modules)
+    overlay_paths = apply_release_include_overlay()
+    if overlay_paths:
+        log("OK", f"applied release-include overlay: {summarize_paths(overlay_paths)}")
     copy_support_tree()
     log("OK", f"assembled {len(modules)} modules into release-tree")
     return 0
