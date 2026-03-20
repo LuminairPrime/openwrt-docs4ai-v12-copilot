@@ -1,8 +1,8 @@
 # openwrt-docs4ai v12 Execution Map
 
-## Transition Note
+## Contract Note
 
-This document is being updated for the V5a release-tree contract. When `ENABLE_RELEASE_TREE=true`, late-stage scripts produce output into `release-tree/` instead of directly into `OUTDIR`. See [feature-flag-contract.md](../specs/v12/feature-flag-contract.md) and [release-tree-contract.md](release-tree-contract.md) for details.
+This document describes the active V5a release-tree contract. Late stages now always generate the publishable `release-tree/` subtree and the internal `support-tree/` subtree inside `OUTDIR`. See [release-tree-contract.md](release-tree-contract.md) for the durable public layout and [feature-flag-contract.md](feature-flag-contract.md) only for rollout history.
 
 ## Layer Locations
 
@@ -12,8 +12,8 @@ This document is being updated for the V5a release-tree contract. When `ENABLE_R
 - `L3`: `openwrt-condensed-docs/` root and per-module subdirectories
 - `L4`: `openwrt-condensed-docs/{module}/`
 - `L5`: `openwrt-condensed-docs/`
-- `release-tree/`: validated publishable output (V5a, when `ENABLE_RELEASE_TREE=true`)
-- `support-tree/`: ephemeral CI support artifacts (V5a)
+- `openwrt-condensed-docs/release-tree/`: validated publishable output subtree
+- `openwrt-condensed-docs/support-tree/`: internal CI support-artifact subtree
 
 ## Ordered Script Flow
 
@@ -23,13 +23,12 @@ This document is being updated for the V5a release-tree contract. When `ENABLE_R
 4. `03-normalize-semantic.py`
 5. `04-generate-ai-summaries.py` when AI enrichment is enabled; it performs its own AI-store preflight before enrichment
 6. `05a-assemble-references.py`
-7. `05e-assemble-release-tree.py` (V5a, when `ENABLE_RELEASE_TREE=true`) — assembles the release-tree from existing pipeline output; in Phase 4 this script is retired and its functionality is absorbed into the modified late stages
-8. `05b-generate-agents-and-readme.py`
-9. `05c-generate-ucode-ide-schemas.py`
-10. `05d-generate-api-drift-changelog.py`
-11. `06-generate-llm-routing-indexes.py`
-12. `07-generate-web-index.py`
-13. `08-validate-output.py`
+7. `05b-generate-agents-and-readme.py`
+8. `05c-generate-ucode-ide-schemas.py`
+9. `05d-generate-api-drift-changelog.py`
+10. `06-generate-llm-routing-indexes.py`
+11. `07-generate-web-index.py`
+12. `08-validate-output.py`
 
 Letter suffixes denote scripts that are parallelizable in deployment. Local smoke tests may still execute them sequentially.
 
@@ -48,10 +47,9 @@ This matrix defines placement rationale, mutability boundaries, dependencies, an
 | `02b`-`02h` | Write module L1 outputs under `WORKDIR`; no publish writes | L0 clone artifacts from `01`, toolchain deps | Hard fail (repo-backed matrix leg fails) | No deploy; published output unchanged |
 | `03` | Converts L1 to L2 and promotes staged intermediates inside `OUTDIR`; atomic within process job sandbox | L1 artifacts, metadata sidecars | Hard fail | No deploy; published output unchanged |
 | `04` | Optional in-place L2 enrichment in staged `OUTDIR`; no direct publish writes | `SKIP_AI`, cache availability, optional token | If `SKIP_AI=true`, skipped cleanly. If enabled and it fails, hard fail in `process` | No deploy; published output unchanged |
-| `05a`-`05d` | Deterministic generation of publish companions inside `OUTDIR` | Staged L2 and registry outputs | Hard fail | No deploy; published output unchanged |
-| `05e` (V5a) | Writes `release-tree/` and `support-tree/` from existing OUTDIR output; feature-flagged (`ENABLE_RELEASE_TREE`); retired at Phase 4+ when late stages write directly into `release-tree/` | Complete staged OUTDIR from `05a` through `07`; only runs when `ENABLE_RELEASE_TREE=true` | Hard fail in process (but only runs when flag is true) | No deploy if fails; existing OUTDIR output unchanged |
-| `06` | Builds routing/index artifacts inside `OUTDIR` | L2 metadata and reference outputs | Hard fail | No deploy; published output unchanged |
-| `07` | Generates `index.html` inside `OUTDIR` | Prior index inputs | Hard fail | No deploy; published output unchanged |
+| `05a`-`05d` | Deterministic generation of internal companions plus release-tree references and telemetry inside `OUTDIR` | Staged L2 and registry outputs | Hard fail | No deploy; published output unchanged |
+| `06` | Builds routing/index artifacts inside `OUTDIR` and `OUTDIR/release-tree/` | L2 metadata and reference outputs | Hard fail | No deploy; published output unchanged |
+| `07` | Generates `index.html`, applies release overlays, and materializes `support-tree/` inside `OUTDIR` | Prior index inputs and release include overlays | Hard fail | No deploy; published output unchanged |
 | `08` | Validation gate over full staged `OUTDIR`; no external writes | Complete staged corpus | Hard fail on hard checks | No deploy; published output unchanged |
 | `deploy` | `rsync -a --delete` from staging into `openwrt-condensed-docs/` and optional bot commit | Successful `process` job and `final-staging` artifact | Hard fail in deploy only | Only step that can change published output |
 
@@ -70,10 +68,9 @@ This matrix defines placement rationale, mutability boundaries, dependencies, an
 - `03` reads only L1 plus metadata and writes L2 plus a cross-link registry before promoting stable intermediates into `OUTDIR`.
 - `03` is also the correct place for bounded module-specific cleanup that should not mutate L1 raw retention; the current live example is wiki-only cleanup for residual DokuWiki and pandoc artifacts.
 - `04` mutates staged L2 files in place when enabled.
-- `05` consumes staged L2 files and emits skeletons plus monolithic references.
-- `05e` (V5a transition) reads from existing `OUTDIR` output and writes the V5a `release-tree/` layout with renamed files (`map.md`, `bundled-reference.md`, `chunked-reference/`); it also moves support-only artifacts into `support-tree/`. When `ENABLE_RELEASE_TREE=true` at Phase 4+, `05a` through `08` write directly into `release-tree/` and `05e` is retired.
-- `06*` scripts consume staged L2 metadata and generated references to emit maps, agent instructions, IDE schemas, and telemetry.
-- `07` consumes the map outputs and writes the HTML landing page.
+- `05` consumes staged L2 files and emits internal references, release-tree maps, bundled references, IDE schemas, and telemetry.
+- `06` consumes staged L2 metadata and generated references to emit routing indexes for both internal staging and the publish tree.
+- `07` consumes the map outputs, applies release overlays, writes the HTML landing pages, and copies support-only artifacts into `support-tree/`.
 - `08` validates the full `OUTDIR` tree and now exposes import-safe parsing helpers for direct unit coverage.
 
 ## Observability Baseline
@@ -119,7 +116,6 @@ Deeper model-selection and quality-scoring work remains deferred.
 - `WIKI_MAX_PAGES`
 - `MAX_AI_FILES`
 - `VALIDATE_MODE`
-- `ENABLE_RELEASE_TREE` (V5a; default `false`; when `true`, activates `05e-assemble-release-tree.py` and the release-tree validation path in `08`)
 
 ## Required Schema Facts
 

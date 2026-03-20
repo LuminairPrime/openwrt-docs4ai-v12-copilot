@@ -589,18 +589,15 @@ jobs:
           _T=$(date +%s)
           python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
           echo "PROC_TIMER_07=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
-      - name: Assemble release tree (05e)
-        run: |
-          _T=$(date +%s)
-          python .github/scripts/openwrt-docs4ai-05e-assemble-release-tree.py
-          echo "PROC_TIMER_05E=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Validate published output (08)
+        id: validate_output
         run: |
           _T=$(date +%s)
           python .github/scripts/openwrt-docs4ai-08-validate-output.py
           echo "PROC_TIMER_08=$(($(date +%s) - _T))" >> "$GITHUB_ENV"
       - name: Validate staging contract and build process summary
         id: process_contract
+        if: ${{ always() }}
         continue-on-error: true
         run: |
           python - <<'PY'
@@ -612,28 +609,43 @@ jobs:
 
           outdir = Path(os.environ["OUTDIR"])
           workdir = Path(os.environ["WORKDIR"])
+          validate_output_outcome = os.environ.get("VALIDATE_OUTPUT_OUTCOME", "unknown")
           summary_dir = workdir / "run-summary"
           summary_dir.mkdir(parents=True, exist_ok=True)
 
-          required_files = [
-              "AGENTS.md",
-              "README.md",
-              "llms.txt",
-              "llms-full.txt",
-              "index.html",
-              "repo-manifest.json",
-              "cross-link-registry.json",
-              "signature-inventory.json",
-              "CHANGES.md",
-              "changelog.json",
+          required_paths = [
+              Path("AGENTS.md"),
+              Path("README.md"),
+              Path("llms.txt"),
+              Path("llms-full.txt"),
+              Path("index.html"),
+              Path("repo-manifest.json"),
+              Path("cross-link-registry.json"),
+              Path("signature-inventory.json"),
+              Path("CHANGES.md"),
+              Path("changelog.json"),
+              Path("release-tree") / "AGENTS.md",
+              Path("release-tree") / "README.md",
+              Path("release-tree") / "llms.txt",
+              Path("release-tree") / "llms-full.txt",
+              Path("release-tree") / "index.html",
+              Path("support-tree") / "manifests" / "repo-manifest.json",
+              Path("support-tree") / "manifests" / "cross-link-registry.json",
+              Path("support-tree") / "telemetry" / "CHANGES.md",
+              Path("support-tree") / "telemetry" / "changelog.json",
+              Path("support-tree") / "telemetry" / "signature-inventory.json",
           ]
 
-          missing = [name for name in required_files if not (outdir / name).is_file()]
+          missing = [path.as_posix() for path in required_paths if not (outdir / path).is_file()]
 
           l1_md = len(list((outdir / "L1-raw").glob("**/*.md"))) if (outdir / "L1-raw").exists() else 0
           l1_meta = len(list((outdir / "L1-raw").glob("**/*.meta.json"))) if (outdir / "L1-raw").exists() else 0
           l2_md = len(list((outdir / "L2-semantic").glob("**/*.md"))) if (outdir / "L2-semantic").exists() else 0
-          module_refs = len(list(outdir.glob("*/**/*-complete-reference.md")))
+          release_tree = outdir / "release-tree"
+          support_tree = outdir / "support-tree"
+          module_refs = len(list(release_tree.glob("*/bundled-reference.md"))) if release_tree.exists() else 0
+          support_raw_md = len(list((support_tree / "raw").glob("**/*.md"))) if (support_tree / "raw").exists() else 0
+          support_semantic_md = len(list((support_tree / "semantic-pages").glob("**/*.md"))) if (support_tree / "semantic-pages").exists() else 0
 
           ai_log_path = summary_dir / "ai-stage.log"
           ai: dict[str, object] = {
@@ -686,18 +698,19 @@ jobs:
                       }
 
           payload = {
-              "contract_ok": not missing,
+              "contract_ok": (not missing) and validate_output_outcome == "success",
               "missing_required_files": missing,
+              "validate_output_outcome": validate_output_outcome,
               "counts": {
                   "l1_markdown": l1_md,
                   "l1_metadata": l1_meta,
                   "l2_markdown": l2_md,
-                  "module_complete_references": module_refs,
+                  "module_bundled_references": module_refs,
+                  "support_raw_markdown": support_raw_md,
+                  "support_semantic_markdown": support_semantic_md,
               },
               "ai": ai,
           }
-
-          (summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
           ai_timers = ai["timers"] if isinstance(ai.get("timers"), dict) else {}
           ai_counters = ai["counters"] if isinstance(ai.get("counters"), dict) else {}
@@ -709,7 +722,6 @@ jobs:
               ("PROC_TIMER_05BCD", "05bcd-companions"),
               ("PROC_TIMER_06",    "06-llm-indexes"),
               ("PROC_TIMER_07",    "07-web-index"),
-              ("PROC_TIMER_05E",   "05e-release-tree"),
               ("PROC_TIMER_08",    "08-validate"),
           ]
           stage_timings: dict[str, int] = {}
@@ -720,14 +732,19 @@ jobs:
 
           payload["stage_timings"] = stage_timings
 
+          (summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
           lines = [
               "# Process Summary",
               "",
               f"- contract_ok: {str(payload['contract_ok']).lower()}",
+              f"- validate_output_outcome: {validate_output_outcome}",
               f"- l1_markdown: {l1_md}",
               f"- l1_metadata: {l1_meta}",
               f"- l2_markdown: {l2_md}",
-              f"- module_complete_references: {module_refs}",
+              f"- module_bundled_references: {module_refs}",
+              f"- support_raw_markdown: {support_raw_md}",
+              f"- support_semantic_markdown: {support_semantic_md}",
               f"- ai_status: {ai.get('status', 'not-available')}",
               f"- ai_total_seconds: {ai_timers.get('total_seconds', 'n/a')}",
               f"- ai_api_calls: {ai_timers.get('api_calls', 'n/a')}",
@@ -760,6 +777,8 @@ jobs:
                   print(f"- {item}")
               sys.exit(1)
           PY
+          env:
+            VALIDATE_OUTPUT_OUTCOME: ${{ steps.validate_output.outcome }}
       - name: Upload process summary
         if: always()
         uses: actions/upload-artifact@v6
@@ -1173,6 +1192,9 @@ jobs:
           lines.append("")
           if process_summary:
               lines.append(f"- contract_ok: {str(process_summary.get('contract_ok', False)).lower()}")
+              lines.append(
+                f"- validate_output_outcome: {process_summary.get('validate_output_outcome', 'unknown')}"
+              )
               missing = process_summary.get("missing_required_files", [])
               lines.append(f"- missing_required_files: {', '.join(missing) if missing else 'none'}")
           else:

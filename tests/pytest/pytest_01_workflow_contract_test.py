@@ -1,4 +1,6 @@
+import ast
 import re
+import textwrap
 
 import pytest
 
@@ -29,7 +31,6 @@ def test_smoke_selector_supports_stage_family_selector():
         "openwrt-docs4ai-05b-generate-agents-and-readme.py",
         "openwrt-docs4ai-05c-generate-ucode-ide-schemas.py",
         "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
-        "openwrt-docs4ai-05e-assemble-release-tree.py",
     ]
 
 
@@ -139,3 +140,37 @@ def test_external_distribution_runs_after_source_pages_mirror():
     )
 
     assert source_pages_index < external_distribution_index
+
+
+def test_process_summary_depends_on_validate_output_outcome():
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    process_block = get_workflow_job_block(workflow_text, "process")
+
+    assert "- name: Validate published output (08)" in process_block
+    assert "id: validate_output" in process_block
+    assert "- name: Validate staging contract and build process summary" in process_block
+    assert "if: ${{ always() }}" in process_block
+    assert "VALIDATE_OUTPUT_OUTCOME: ${{ steps.validate_output.outcome }}" in process_block
+    assert 'validate_output_outcome = os.environ.get("VALIDATE_OUTPUT_OUTCOME", "unknown")' in process_block
+    assert '"contract_ok": (not missing) and validate_output_outcome == "success"' in process_block
+    assert 'payload["stage_timings"] = stage_timings' in process_block
+    assert '(summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")' in process_block
+    assert process_block.index('payload["stage_timings"] = stage_timings') < process_block.index(
+        '(summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")'
+    )
+
+    heredoc_match = re.search(
+        r"python - <<'PY'\n(?P<body>.*?)\n\s+PY",
+        process_block,
+        flags=re.DOTALL,
+    )
+    assert heredoc_match is not None
+    ast.parse(textwrap.dedent(heredoc_match.group("body")))
+
+
+def test_pipeline_summary_reports_validate_output_outcome():
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    pipeline_summary_block = get_workflow_job_block(workflow_text, "pipeline_summary")
+
+    assert "process_summary.get('validate_output_outcome', 'unknown')" in pipeline_summary_block
+    assert "- validate_output_outcome:" in pipeline_summary_block

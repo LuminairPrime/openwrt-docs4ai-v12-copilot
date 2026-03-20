@@ -15,6 +15,7 @@ from __future__ import annotations
 import datetime
 import html
 import os
+import shutil
 import sys
 from pathlib import Path
 from typing import Iterable
@@ -28,7 +29,8 @@ sys.stdout.reconfigure(line_buffering=True)
 OUTDIR = Path(config.OUTDIR)
 OUTPUT_PATH = OUTDIR / "index.html"
 RELEASE_TREE_DIR = Path(config.RELEASE_TREE_DIR)
-ENABLE_RELEASE_TREE = config.ENABLE_RELEASE_TREE
+SUPPORT_TREE_DIR = Path(config.SUPPORT_TREE_DIR)
+RELEASE_INCLUDE_DIR = Path(config.RELEASE_INCLUDE_DIR)
 TS = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M UTC")
 PUBLISH_PREFIX = "./openwrt-condensed-docs"
 ROOT_SECTION = "__root__"
@@ -188,7 +190,7 @@ def collect_sections(root: Path) -> list[tuple[str, list[str]]]:
         (path.name for path in root.iterdir() if path.is_dir()),
         key=section_sort_key,
     )
-    if ENABLE_RELEASE_TREE and root == OUTDIR:
+    if root == OUTDIR:
         excluded_dirs = {
             os.path.basename(config.RELEASE_TREE_DIR),
             os.path.basename(config.SUPPORT_TREE_DIR),
@@ -503,6 +505,97 @@ def build_release_tree_html(root: Path) -> str:
 """
 
 
+def reset_directory(path: Path) -> None:
+    """Recreate one generated support directory from scratch."""
+    if path.is_dir():
+        shutil.rmtree(path)
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def copy_tree(src: Path, dst: Path) -> None:
+    """Copy one directory tree while preserving metadata."""
+    shutil.copytree(src, dst, copy_function=shutil.copy2, dirs_exist_ok=True)
+
+
+def copy_optional_file(src: Path, dst: Path) -> bool:
+    """Copy one optional file and report whether it existed."""
+    if not src.is_file():
+        return False
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dst)
+    return True
+
+
+def summarize_paths(paths: list[str], limit: int = 5) -> str:
+    """Return a short preview for logged overlay paths."""
+    preview = paths[:limit]
+    if len(paths) > limit:
+        preview.append(f"... (+{len(paths) - limit} more)")
+    return ", ".join(preview)
+
+
+def apply_release_include_overlay(
+    release_tree_dir: Path | str = RELEASE_TREE_DIR,
+    include_dir: Path | str = RELEASE_INCLUDE_DIR,
+) -> list[str]:
+    """Copy the common release include overlay on top of release-tree/."""
+    release_root = Path(release_tree_dir)
+    include_root = Path(include_dir)
+    if not include_root.is_dir():
+        return []
+
+    copied_paths: list[str] = []
+    for src_path in sorted(path for path in include_root.rglob("*") if path.is_file()):
+        rel_path = src_path.relative_to(include_root).as_posix()
+        dst_path = release_root / rel_path
+        dst_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src_path, dst_path)
+        copied_paths.append(rel_path)
+    return copied_paths
+
+
+def finalize_release_tree(
+    release_tree_dir: Path | str = RELEASE_TREE_DIR,
+    include_dir: Path | str = RELEASE_INCLUDE_DIR,
+) -> list[str]:
+    """Apply overlays, regenerate the release index, and preserve any custom index override."""
+    release_root = Path(release_tree_dir)
+    include_root = Path(include_dir)
+
+    overlay_paths = apply_release_include_overlay(release_root, include_root)
+    release_html = build_release_tree_html(release_root)
+    index_path = release_root / "index.html"
+    index_path.write_text(release_html, encoding="utf-8", newline="\n")
+
+    # Allow an explicit overlay-provided index to replace the generated listing.
+    copy_optional_file(include_root / "index.html", index_path)
+    return overlay_paths
+
+
+def copy_support_tree(
+    outdir: Path = OUTDIR,
+    support_tree_dir: Path = SUPPORT_TREE_DIR,
+) -> None:
+    """Materialize support-tree from the staged internal outputs."""
+    reset_directory(support_tree_dir)
+
+    raw_root = outdir / "L1-raw"
+    semantic_root = outdir / "L2-semantic"
+    manifests_dir = support_tree_dir / "manifests"
+    telemetry_dir = support_tree_dir / "telemetry"
+
+    if raw_root.is_dir():
+        copy_tree(raw_root, support_tree_dir / "raw")
+    if semantic_root.is_dir():
+        copy_tree(semantic_root, support_tree_dir / "semantic-pages")
+
+    copy_optional_file(outdir / "cross-link-registry.json", manifests_dir / "cross-link-registry.json")
+    copy_optional_file(outdir / "repo-manifest.json", manifests_dir / "repo-manifest.json")
+    copy_optional_file(outdir / "CHANGES.md", telemetry_dir / "CHANGES.md")
+    copy_optional_file(outdir / "changelog.json", telemetry_dir / "changelog.json")
+    copy_optional_file(outdir / "signature-inventory.json", telemetry_dir / "signature-inventory.json")
+
+
 def render_section_nav(sections: list[tuple[str, list[str]]]) -> str:
     """Render a simple jump list for the long single-page index."""
     items = []
@@ -558,7 +651,7 @@ def build_html(root: Path) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>openwrt-condensed-docs publish tree</title>
+    <title>openwrt-condensed-docs staging tree</title>
   <style>
     :root {{
       color-scheme: light;
@@ -665,17 +758,17 @@ def build_html(root: Path) -> str:
 </head>
 <body>
   <main>
-    <h1>openwrt-condensed-docs publish tree</h1>
+        <h1>openwrt-condensed-docs staging tree</h1>
     <p>
-      This page is a filesystem-derived browse index for the published
-      openwrt-docs4ai product tree. The link text mirrors the packaged layout
+            This page is a filesystem-derived browse index for the staged
+            openwrt-docs4ai output tree. The link text mirrors the packaged layout
       under {html.escape(PUBLISH_PREFIX)} and each section maps to one
-      top-level area of the release folder.
+            top-level area of the internal staging folder.
     </p>
         <p>
-            The current publish snapshot contains {publish_file_count} files across
-            {len(sections)} top-level sections, including the intermediate L1 and L2
-            layers that are now part of the public mirror.
+                        The current staged snapshot contains {publish_file_count} files across
+                        {len(sections)} top-level sections, including the retained L1 and L2
+                        layers used for local inspection, validation, and diagnostics.
         </p>
         <nav class="section-nav" aria-label="Section navigation">
             <h2>Jump to section</h2>
@@ -705,15 +798,17 @@ def main() -> int:
     html_content = build_html(OUTDIR)
     OUTPUT_PATH.write_text(html_content, encoding="utf-8", newline="\n")
 
-    if ENABLE_RELEASE_TREE and RELEASE_TREE_DIR.is_dir():
-        release_html = build_release_tree_html(RELEASE_TREE_DIR)
-        (RELEASE_TREE_DIR / "index.html").write_text(
-            release_html,
-            encoding="utf-8",
-            newline="\n",
-        )
+    if not RELEASE_TREE_DIR.is_dir():
+        print(f"[07] FAIL: release-tree not found at {RELEASE_TREE_DIR}")
+        return 1
 
-    print("[07] OK: index.html generated successfully.")
+    overlay_paths = finalize_release_tree()
+    copy_support_tree()
+
+    if overlay_paths:
+        print(f"[07] OK: applied release-include overlay: {summarize_paths(overlay_paths)}")
+
+    print("[07] OK: generated index.html and finalized release/support trees.")
     return 0
 
 

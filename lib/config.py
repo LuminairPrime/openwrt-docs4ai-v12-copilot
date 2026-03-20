@@ -29,7 +29,6 @@ CROSS_LINK_REGISTRY = os.path.join(WORKDIR, "cross-link-registry.json")
 _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # V5a Release Tree Configuration
-ENABLE_RELEASE_TREE = os.environ.get("ENABLE_RELEASE_TREE", "true").lower() == "true"
 RELEASE_TREE_DIR = os.path.join(OUTDIR, "release-tree")
 SUPPORT_TREE_DIR = os.path.join(OUTDIR, "support-tree")
 

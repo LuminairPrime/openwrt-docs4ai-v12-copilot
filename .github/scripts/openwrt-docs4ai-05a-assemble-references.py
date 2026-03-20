@@ -36,9 +36,18 @@ except ImportError:
 OUTDIR = config.OUTDIR
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
 MAX_MONOLITH_TOKENS = 100_000
-ENABLE_RELEASE_TREE = config.ENABLE_RELEASE_TREE
 RELEASE_TREE_DIR = config.RELEASE_TREE_DIR
 RELEASE_PART_PREFIX = config.MODULE_BUNDLED_REF_FILENAME.removesuffix(".md") + ".part-"
+
+
+def legacy_part_filename(module: str, part_number: int) -> str:
+    """Return the internal sharded part filename for one module."""
+    return f"{module}-complete-reference.part-{part_number:02d}.md"
+
+
+def release_part_filename(part_number: int) -> str:
+    """Return the release-tree sharded part filename."""
+    return f"{RELEASE_PART_PREFIX}{part_number:02d}.md"
 
 
 def rewrite_relative_links(module: str, body_text: str) -> str:
@@ -183,7 +192,6 @@ def build_reference_layout(
     part_count = len(chunks)
     layout["parts"] = [
         {
-            "filename": f"{module}-complete-reference.part-{index:02d}.md",
             "part_number": index,
             "part_count": part_count,
             "section_count": len(chunk["sections"]),
@@ -269,10 +277,11 @@ def write_sharded_reference_index(
         )
         handle.write("## Reference Parts\n\n")
         for part in parts:
+            filename = legacy_part_filename(module, int(part["part_number"]))
             handle.write(
                 "- [{filename}](./{filename}): Part {part_number} of {part_count} "
                 "(~{token_count} tokens, {section_count} documents)\n".format(
-                    filename=part["filename"],
+                    filename=filename,
                     part_number=part["part_number"],
                     part_count=part["part_count"],
                     token_count=part["token_count"],
@@ -372,7 +381,7 @@ def write_release_sharded_reference_index(
         )
         handle.write("## Reference Parts\n\n")
         for part in parts:
-            filename = f"{RELEASE_PART_PREFIX}{int(part['part_number']):02d}.md"
+            filename = release_part_filename(int(part["part_number"]))
             handle.write(
                 "- [{filename}](./{filename}): Part {part_number} of {part_count} "
                 "(~{token_count} tokens, {section_count} documents)\n".format(
@@ -471,10 +480,9 @@ def main() -> int:
         print("[05a] FAIL: No modules found in L2 semantic directory.")
         return 1
 
-    if ENABLE_RELEASE_TREE:
-        if os.path.isdir(RELEASE_TREE_DIR):
-            shutil.rmtree(RELEASE_TREE_DIR)
-        os.makedirs(RELEASE_TREE_DIR, exist_ok=True)
+    if os.path.isdir(RELEASE_TREE_DIR):
+        shutil.rmtree(RELEASE_TREE_DIR)
+    os.makedirs(RELEASE_TREE_DIR, exist_ok=True)
 
     generated_at = datetime.datetime.now(datetime.UTC).isoformat()
     warn_count = 0
@@ -512,7 +520,10 @@ def main() -> int:
 
             for part in layout["parts"]:
                 write_sharded_reference_part(
-                    os.path.join(out_mod_dir, str(part["filename"])),
+                    os.path.join(
+                        out_mod_dir,
+                        legacy_part_filename(module, int(part["part_number"])),
+                    ),
                     module,
                     generated_at,
                     part,
@@ -543,51 +554,50 @@ def main() -> int:
         write_skeleton(l3_skeleton_path, module, generated_at, skeleton_lines)
         outputs_generated += 1
 
-        if ENABLE_RELEASE_TREE:
-            release_mod_dir = os.path.join(RELEASE_TREE_DIR, module)
-            os.makedirs(release_mod_dir, exist_ok=True)
+        release_mod_dir = os.path.join(RELEASE_TREE_DIR, module)
+        os.makedirs(release_mod_dir, exist_ok=True)
 
-            release_reference_path = os.path.join(
-                release_mod_dir,
-                config.MODULE_BUNDLED_REF_FILENAME,
+        release_reference_path = os.path.join(
+            release_mod_dir,
+            config.MODULE_BUNDLED_REF_FILENAME,
+        )
+        release_map_path = os.path.join(
+            release_mod_dir,
+            config.MODULE_MAP_FILENAME,
+        )
+
+        if layout["sharded"]:
+            write_release_sharded_reference_index(
+                release_reference_path,
+                module,
+                int(layout["total_token_count"]),
+                int(layout["section_count"]),
+                generated_at,
+                layout["parts"],
             )
-            release_map_path = os.path.join(
-                release_mod_dir,
-                config.MODULE_MAP_FILENAME,
+
+            for part in layout["parts"]:
+                write_release_sharded_reference_part(
+                    os.path.join(
+                        release_mod_dir,
+                        release_part_filename(int(part["part_number"])),
+                    ),
+                    module,
+                    generated_at,
+                    part,
+                )
+        else:
+            write_release_complete_reference(
+                release_reference_path,
+                module,
+                int(layout["total_token_count"]),
+                int(layout["section_count"]),
+                generated_at,
+                sections,
             )
 
-            if layout["sharded"]:
-                write_release_sharded_reference_index(
-                    release_reference_path,
-                    module,
-                    int(layout["total_token_count"]),
-                    int(layout["section_count"]),
-                    generated_at,
-                    layout["parts"],
-                )
-
-                for part in layout["parts"]:
-                    write_release_sharded_reference_part(
-                        os.path.join(
-                            release_mod_dir,
-                            f"{RELEASE_PART_PREFIX}{int(part['part_number']):02d}.md",
-                        ),
-                        module,
-                        generated_at,
-                        part,
-                    )
-            else:
-                write_release_complete_reference(
-                    release_reference_path,
-                    module,
-                    int(layout["total_token_count"]),
-                    int(layout["section_count"]),
-                    generated_at,
-                    sections,
-                )
-
-            write_release_map(release_map_path, module, generated_at, skeleton_lines)
-            copy_release_chunked_pages(md_files, release_mod_dir)
+        write_release_map(release_map_path, module, generated_at, skeleton_lines)
+        copy_release_chunked_pages(md_files, release_mod_dir)
 
         if layout["sharded"]:
             print(

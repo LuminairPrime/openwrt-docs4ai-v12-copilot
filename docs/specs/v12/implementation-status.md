@@ -127,20 +127,20 @@ A random slice audit of 10 generated files on 2026-03-09 found that the outputs 
 - L2 samples carried the required YAML frontmatter and preserved relative links into the generated corpus.
 - L2 cleanup for bounded wiki residue is now reflected in the committed corpus sanity snapshot as clean (`92` files, all tracked residue counters at `0`).
 
-### Next Priority
+### Current Priority
 
-The next active work item is the V5a public distribution and release-tree refactor. This refactor:
+The V5a public distribution milestone is complete. The active output contract now:
 
-- Introduces a `release-tree/` / `support-tree/` dual output model
-- Renames public-facing files (`map.md`, `bundled-reference.md`, `chunked-reference/`)
+- Uses the `release-tree/` / `support-tree/` dual output model
+- Publishes generic public filenames (`map.md`, `bundled-reference.md`, `chunked-reference/`)
 - Eliminates `openwrt-condensed-docs` from all public surfaces
-- Deploys to external GitHub organization repos (`openwrt-docs4ai.github.io`, `corpus`)
+- Deploys to the external GitHub organization repos (`openwrt-docs4ai.github.io`, `corpus`)
 
-Implementation follows a 7-phase rollback-safe plan controlled by the `ENABLE_RELEASE_TREE` feature flag. See:
+Current follow-on work should focus on regression hardening, operational monitoring, and deferred quality improvements rather than further contract migration. See:
 
-- [V5a plan](../plans/v12/public-distribution-mirror-plan-2026-03-15-V5a.md) for the full implementation specification
 - [release-tree-contract.md](release-tree-contract.md) for the durable public output contract
-- [feature-flag-contract.md](feature-flag-contract.md) for feature flag semantics
+- [V5a plan](../plans/v12/public-distribution-mirror-plan-2026-03-15-V5a.md) for rollout history and implementation detail
+- [feature-flag-contract.md](feature-flag-contract.md) for the retired feature-flag record
 
-The remaining dockerman soft warning and AI-summary architecture decisions remain deferred and are not blocked by V5a work.
-
+The remaining dockerman soft warning and AI-summary architecture decisions remain deferred and are not blocked by the live release-tree contract.
+<!-- End of active status -->

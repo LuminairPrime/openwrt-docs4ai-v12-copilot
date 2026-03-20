@@ -118,21 +118,13 @@ def summarize_paths(paths, limit=5):
     return ", ".join(preview)
 
 
-def is_release_tree_enabled():
-    return os.environ.get("ENABLE_RELEASE_TREE", str(config.ENABLE_RELEASE_TREE)).lower() == "true"
-
-
 def expected_publish_links(outdir):
     """Return the set of files that the HTML mirror index must expose."""
     links = set()
-    excluded_dirs = set()
-    if is_release_tree_enabled():
-        excluded_dirs.update(
-            {
-                os.path.basename(config.RELEASE_TREE_DIR),
-                os.path.basename(config.SUPPORT_TREE_DIR),
-            }
-        )
+    excluded_dirs = {
+        os.path.basename(config.RELEASE_TREE_DIR),
+        os.path.basename(config.SUPPORT_TREE_DIR),
+    }
 
     for root, _dirs, files in os.walk(outdir):
         if excluded_dirs:
@@ -158,7 +150,12 @@ def normalize_html_href(href):
     target = href.split("#", 1)[0].strip()
     if not target or target.startswith(("http://", "https://", "mailto:", "/")):
         return None
-    return os.path.normpath(unquote(target)).replace("\\", "/").lstrip("./")
+    normalized = os.path.normpath(unquote(target)).replace("\\", "/")
+    if normalized in {"", "."}:
+        return None
+    if normalized == ".." or normalized.startswith("../"):
+        return normalized
+    return normalized.lstrip("./")
 
 
 def validate_index_html_contract(outdir, hard_fail):
@@ -248,11 +245,68 @@ def expected_release_module_names(release_tree_dir):
     )
 
 
+def relative_file_set(root_dir):
+    if not os.path.isdir(root_dir):
+        return set()
+    return {
+        os.path.relpath(os.path.join(root, file_name), root_dir).replace("\\", "/")
+        for root, _dirs, files in os.walk(root_dir)
+        for file_name in files
+    }
+
+
+def validate_mirrored_tree(source_dir, mirror_dir, label, hard_fail):
+    if not os.path.isdir(source_dir):
+        hard_fail(f"missing staged source directory for support-tree mirror: {label}")
+        return
+
+    source_files = relative_file_set(source_dir)
+    mirror_files = relative_file_set(mirror_dir)
+
+    missing_files = sorted(source_files - mirror_files)
+    extra_files = sorted(mirror_files - source_files)
+    if missing_files:
+        hard_fail(
+            f"support-tree {label} missing mirrored files: {summarize_paths(missing_files)}"
+        )
+    if extra_files:
+        hard_fail(
+            f"support-tree {label} contains unexpected files: {summarize_paths(extra_files)}"
+        )
+
+    for rel_path in sorted(source_files & mirror_files):
+        source_path = os.path.join(source_dir, rel_path)
+        mirror_path = os.path.join(mirror_dir, rel_path)
+        with open(source_path, "rb") as source_handle:
+            source_bytes = source_handle.read()
+        with open(mirror_path, "rb") as mirror_handle:
+            mirror_bytes = mirror_handle.read()
+        if source_bytes != mirror_bytes:
+            hard_fail(f"support-tree {label} content mismatch: {rel_path}")
+
+
+def validate_mirrored_file(source_path, mirror_path, label, hard_fail):
+    if not os.path.isfile(source_path):
+        hard_fail(f"missing staged source file for support-tree mirror: {label}")
+        return
+    if not os.path.isfile(mirror_path):
+        hard_fail(f"support-tree missing mirrored file: {label}")
+        return
+
+    with open(source_path, "rb") as source_handle:
+        source_bytes = source_handle.read()
+    with open(mirror_path, "rb") as mirror_handle:
+        mirror_bytes = mirror_handle.read()
+    if source_bytes != mirror_bytes:
+        hard_fail(f"support-tree content mismatch: {label}")
+
+
 def validate_release_tree_contract(outdir, hard_fail, soft_warn):
     release_tree_name = os.path.basename(config.RELEASE_TREE_DIR)
+    support_tree_name = os.path.basename(config.SUPPORT_TREE_DIR)
     release_tree_dir = os.path.join(outdir, release_tree_name)
     if not os.path.isdir(release_tree_dir):
-        soft_warn(f"Release tree not present; skipping release-tree validation: {release_tree_name}")
+        hard_fail(f"Release tree not present: {release_tree_name}")
         return
 
     required_root_files = ["README.md", "AGENTS.md", "llms.txt", "llms-full.txt", "index.html"]
@@ -265,21 +319,42 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
     if os.path.isfile(root_llms_path) and os.path.getsize(root_llms_path) <= 512:
         hard_fail("release-tree root llms.txt is unexpectedly small")
 
+    expected_modules = expected_module_names(outdir)
     modules = expected_release_module_names(release_tree_dir)
     if len(modules) < 4:
         hard_fail(f"release-tree expected at least 4 module directories, found {len(modules)}")
+    if expected_modules and modules != expected_modules:
+        missing_modules = sorted(set(expected_modules) - set(modules))
+        extra_modules = sorted(set(modules) - set(expected_modules))
+        details = []
+        if missing_modules:
+            details.append(f"missing: {', '.join(missing_modules)}")
+        if extra_modules:
+            details.append(f"unexpected: {', '.join(extra_modules)}")
+        hard_fail(f"release-tree module set mismatch ({'; '.join(details)})")
 
     legacy_dir_hits = []
     legacy_file_hits = []
+    support_only_file_hits = []
+    support_only_files = {
+        "cross-link-registry.json",
+        "repo-manifest.json",
+        "CHANGES.md",
+        "changelog.json",
+        "signature-inventory.json",
+    }
     for root, dirs, files in os.walk(release_tree_dir):
         for dir_name in dirs:
-            if dir_name in {"L1-raw", "L2-semantic", "openwrt-condensed-docs"}:
+            if dir_name in {"L1-raw", "L2-semantic", "openwrt-condensed-docs", support_tree_name}:
                 rel = os.path.relpath(os.path.join(root, dir_name), release_tree_dir)
                 legacy_dir_hits.append(rel.replace("\\", "/"))
         for file_name in files:
             if file_name.endswith("-skeleton.md") or file_name.endswith("-complete-reference.md"):
                 rel = os.path.relpath(os.path.join(root, file_name), release_tree_dir)
                 legacy_file_hits.append(rel.replace("\\", "/"))
+            if file_name in support_only_files:
+                rel = os.path.relpath(os.path.join(root, file_name), release_tree_dir)
+                support_only_file_hits.append(rel.replace("\\", "/"))
 
     if legacy_dir_hits:
         hard_fail(
@@ -290,6 +365,11 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
         hard_fail(
             "release-tree contains legacy file names: "
             f"{summarize_paths(sorted(legacy_file_hits))}"
+        )
+    if support_only_file_hits:
+        hard_fail(
+            "release-tree contains support-only artifacts: "
+            f"{summarize_paths(sorted(support_only_file_hits))}"
         )
 
     for file_name in required_root_files:
@@ -352,6 +432,61 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
     )
     validate_release_agents_contract(release_tree_dir, hard_fail)
     validate_release_index_html_contract(release_tree_dir, hard_fail)
+
+
+def validate_support_tree_contract(outdir, hard_fail, soft_warn):
+    support_tree_name = os.path.basename(config.SUPPORT_TREE_DIR)
+    support_tree_dir = os.path.join(outdir, support_tree_name)
+    if not os.path.isdir(support_tree_dir):
+        hard_fail(f"Support tree not present: {support_tree_name}")
+        return
+
+    required_dirs = ["raw", "semantic-pages", "manifests", "telemetry"]
+    for dir_name in required_dirs:
+        path = os.path.join(support_tree_dir, dir_name)
+        if not os.path.isdir(path):
+            hard_fail(f"support-tree missing directory: {support_tree_name}/{dir_name}")
+
+    raw_dir = os.path.join(support_tree_dir, "raw")
+    staged_raw_dir = os.path.join(outdir, "L1-raw")
+    if os.path.isdir(raw_dir):
+        raw_docs = glob.glob(os.path.join(raw_dir, "**", "*.md"), recursive=True)
+        if not raw_docs:
+            hard_fail("support-tree raw/ contains no markdown files")
+    validate_mirrored_tree(staged_raw_dir, raw_dir, "raw/", hard_fail)
+
+    semantic_dir = os.path.join(support_tree_dir, "semantic-pages")
+    staged_semantic_dir = os.path.join(outdir, "L2-semantic")
+    if os.path.isdir(semantic_dir):
+        semantic_docs = glob.glob(os.path.join(semantic_dir, "**", "*.md"), recursive=True)
+        if not semantic_docs:
+            hard_fail("support-tree semantic-pages/ contains no markdown files")
+    validate_mirrored_tree(staged_semantic_dir, semantic_dir, "semantic-pages/", hard_fail)
+
+    required_manifest_files = ["cross-link-registry.json", "repo-manifest.json"]
+
+    for file_name in required_manifest_files:
+        path = os.path.join(support_tree_dir, "manifests", file_name)
+        if not os.path.isfile(path):
+            hard_fail(f"support-tree missing manifest file: {support_tree_name}/manifests/{file_name}")
+        validate_mirrored_file(
+            os.path.join(outdir, file_name),
+            path,
+            f"manifests/{file_name}",
+            hard_fail,
+        )
+
+    required_telemetry_files = ["CHANGES.md", "changelog.json", "signature-inventory.json"]
+    for file_name in required_telemetry_files:
+        support_path = os.path.join(support_tree_dir, "telemetry", file_name)
+        if not os.path.isfile(support_path):
+            hard_fail(f"support-tree missing telemetry file: {support_tree_name}/telemetry/{file_name}")
+        validate_mirrored_file(
+            os.path.join(outdir, file_name),
+            support_path,
+            f"telemetry/{file_name}",
+            hard_fail,
+        )
 
 
 def warn_on_placeholder_descriptions(entries, source_label, soft_warn):
@@ -773,7 +908,18 @@ def validate_outdir(outdir):
         soft_warnings.append(message)
         print(f"[08] WARN: {message}")
 
-    core_files = ["llms.txt", "llms-full.txt", "AGENTS.md", "README.md", "index.html"]
+    core_files = [
+        "llms.txt",
+        "llms-full.txt",
+        "AGENTS.md",
+        "README.md",
+        "index.html",
+        "repo-manifest.json",
+        "cross-link-registry.json",
+        "signature-inventory.json",
+        "CHANGES.md",
+        "changelog.json",
+    ]
     for file_name in core_files:
         if not os.path.isfile(os.path.join(outdir, file_name)):
             hard_fail(f"Missing core L3 file: {file_name}")
@@ -881,8 +1027,8 @@ def validate_outdir(outdir):
     validate_llms_full_contract(outdir, modules, hard_fail, soft_warn)
     validate_agents_contract(outdir, hard_fail)
     validate_index_html_contract(outdir, hard_fail)
-    if is_release_tree_enabled():
-        validate_release_tree_contract(outdir, hard_fail, soft_warn)
+    validate_support_tree_contract(outdir, hard_fail, soft_warn)
+    validate_release_tree_contract(outdir, hard_fail, soft_warn)
 
     js_binary = shutil.which("node")
     ucode_binary = shutil.which("ucode")

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repository Does
 
-**openwrt-docs4ai** is a documentation production pipeline — not an application runtime. It collects OpenWrt documentation from multiple upstream sources (wiki, git repos, APIs), normalizes it through a staged layer model (L0→L1→L2→L3/L4), and publishes compact outputs for humans, IDE tooling, and LLM workflows. GitHub Actions is the verified remote execution path; Windows is the primary local development environment. The project is actively transitioning to a V5a release-tree contract that separates publishable output from internal pipeline artifacts and deploys to external distribution targets.
+**openwrt-docs4ai** is a documentation production pipeline — not an application runtime. It collects OpenWrt documentation from multiple upstream sources (wiki, git repos, APIs), normalizes it through a staged layer model (L0→L1→L2→L3/L4), and publishes compact outputs for humans, IDE tooling, and LLM workflows. GitHub Actions is the verified remote execution path; Windows is the primary local development environment. The active output model is the V5a release-tree contract, which separates publishable output from internal pipeline artifacts and deploys to external distribution targets.
 
 ## Prerequisites
 
@@ -59,34 +59,31 @@ gh run view <run_id> --log-failed                       # only if artifacts don'
 ## Architecture: Layer Model
 
 | Layer | Location | Purpose | Lifetime |
-|-------|----------|---------|---------|
+| ----- | -------- | ------- | -------- |
 | L0 | `tmp/repo-*` | Upstream source clones | Ephemeral |
 | L1 | `L1-raw/{module}/` | Raw normalized markdown + `.meta.json` sidecars | Generated |
 | L2 | `L2-semantic/{module}/` | Semantic markdown + YAML frontmatter + cross-links | Generated |
-| L3/L4 | `openwrt-condensed-docs/{module}/` | Published references, skeletons, routing indexes | Published |
+| L3/L4 | `release-tree/{module}/` | Published references, maps, routing indexes, and IDE surfaces | Published |
 
-`openwrt-condensed-docs/` is the **stable output root** — never hand-edit it if a workflow run will overwrite it. `tmp/` is ephemeral scratch, never authoritative.
-
-Under V5a (`ENABLE_RELEASE_TREE=true`), L3/L4 output moves to `release-tree/{module}/` with generic filenames: `map.md` (was `*-skeleton.md`), `bundled-reference.md` (was `*-complete-reference.md`), `chunked-reference/` (was `L2-semantic/{module}/`).
+`openwrt-condensed-docs/` is the **stable internal output root** — never hand-edit it if a workflow run will overwrite it. Local and CI runs materialize the public contract under `openwrt-condensed-docs/release-tree/`, and external publication ships that subtree as the direct-root `release-tree/` layout. `tmp/` is ephemeral scratch, never authoritative.
 
 ## Architecture: Pipeline Stage Flow
 
 Scripts in `.github/scripts/` execute in numbered order. Letter suffixes (e.g., `05a`, `05b`) are siblings in the same stage family. A bare stage id (e.g., `04`) cannot coexist with lettered siblings.
 
 | Script | Stage | Role |
-|--------|-------|------|
+| ------ | ----- | ---- |
 | `01-clone-repos.py` | L0 | Shallow-clone ucode, luci, openwrt repos; emit `repo-manifest.json` |
 | `02a-scrape-wiki.py` | L1 | Wiki extraction (runs in parallel with `01` on CI) |
 | `02b` – `02h` | L1 | Source-specific extractors (clone-gated); each writes to `L1-raw/{module}/` |
 | `03-normalize-semantic.py` | L2 | Add YAML frontmatter, cross-links, token counts |
 | `04-generate-ai-summaries.py` | L2 | Optional AI enrichment; reads/writes `data/base/` AI store |
-| `05a-assemble-references.py` | L4 | Build complete-reference monoliths (auto-sharded at 100k tokens) + skeletons |
+| `05a-assemble-references.py` | L4 | Build internal references plus release-tree bundled references and maps |
 | `05b-generate-agents-and-readme.py` | L3 | Generate `AGENTS.md` and root `README.md` for the corpus |
 | `05c-generate-ucode-ide-schemas.py` | L3 | TypeScript `.d.ts` IDE schemas |
 | `05d-generate-api-drift-changelog.py` | L5 | API drift telemetry vs. signature baseline |
-| `05e-assemble-release-tree.py` | L3/L4 | V5a release-tree assembly (feature-flagged) |
 | `06-generate-llm-routing-indexes.py` | L3 | `llms.txt`, `llms-full.txt`, per-module `llms.txt` |
-| `07-generate-web-index.py` | L3 | `index.html` landing page |
+| `07-generate-web-index.py` | L3 | Root and release-tree `index.html`, release overlays, and support-tree materialization |
 | `08-validate-output.py` | — | Whole-output validation gate |
 
 Shared Python libraries live in `lib/` (`config.py`, `ai_store.py`, `ai_enrichment.py`, etc.). Non-numbered maintainer tools live in `tools/`.
@@ -96,9 +93,9 @@ Shared Python libraries live in `lib/` (`config.py`, `ai_store.py`, `ai_enrichme
 This repo has two distinct LLM-relevant surfaces — do not conflate them:
 
 - **Source repo** (`docs/`, `DEVELOPMENT.md`, `README.md`): Maintainer docs and implementation.
-- **Generated corpus** (`openwrt-condensed-docs/`): Published AI navigation surface consumed by downstream tools. Routing contracts defined in `docs/specs/v12/schema-definitions.md`.
+- **Generated corpus** (`openwrt-condensed-docs/release-tree/` locally, `release-tree/` externally): Published AI navigation surface consumed by downstream tools. Routing contracts defined in `docs/specs/v12/schema-definitions.md`.
 
-Under V5a, the generated corpus surface moves from `openwrt-condensed-docs/` to the external `release-tree/` layout. The `openwrt-condensed-docs` name becomes internal-only and never appears in any public path.
+The `openwrt-condensed-docs` name is internal-only and must never appear in any public path.
 
 A source-repo root `llms.txt` is intentionally out of scope. Do not create one.
 
@@ -117,14 +114,14 @@ Before editing numbered scripts or the workflow:
 - **New extractors:** write only to `WORKDIR/L1-raw/{module}/`, use shared helper for `.meta.json` sidecars, update tests and `docs/ARCHITECTURE.md`
 - **Dependencies:** Keep `requirements.txt` as a small direct list; do not pin by default
 - **Docs cross-links:** Use relative Markdown links, not inline code spans, for navigational references
-- **V5a feature flag:** `ENABLE_RELEASE_TREE` controls whether late stages produce the new release-tree layout. Default `false` preserves current behavior.
+- **Public contract:** `release-tree/` is the only publishable layout; `support-tree/` is internal-only support state.
 
 ## Known Deferred Items
 
 - `luci-app-dockerman` ucode validation warning (`REMOTE-008`): intentionally kept soft (truthful signal).
 - Mermaid template promotion: deferred until a concrete consumer exists.
 - `signature-inventory.json` module metadata: current `05d` fix suppresses false drift; richer schema is deferred.
-- V5a release-tree refactor: active implementation. See `docs/specs/v12/release-tree-contract.md` and `docs/specs/v12/feature-flag-contract.md`.
+- V5a release-tree rollout is complete. Use `docs/specs/v12/release-tree-contract.md` for the live contract and `docs/specs/v12/feature-flag-contract.md` only for rollout history.
 
 ## Key Reference Files
 
@@ -135,5 +132,5 @@ Before editing numbered scripts or the workflow:
 - `docs/specs/v12/ai-summary-operations-runbook.md` — AI store workflow
 - `tests/README.md` — test folder contract and runner/output mapping
 - `docs/specs/v12/release-tree-contract.md` — V5a public output contract
-- `docs/specs/v12/feature-flag-contract.md` — V5a feature flag semantics
+- `docs/specs/v12/feature-flag-contract.md` — retired rollout history for the removed feature flag
 - `docs/plans/v12/public-distribution-mirror-plan-2026-03-15-V5a.md` — V5a implementation plan

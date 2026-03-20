@@ -35,7 +35,6 @@ except ImportError:
 OUTDIR = config.OUTDIR
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
 RELEASE_TREE_DIR = config.RELEASE_TREE_DIR
-ENABLE_RELEASE_TREE = config.ENABLE_RELEASE_TREE
 RELEASE_PART_PREFIX = config.MODULE_BUNDLED_REF_FILENAME.removesuffix(".md") + ".part-"
 DESCRIPTION_FALLBACK = "Description unavailable."
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
@@ -590,8 +589,7 @@ def main():
                 + "\n"
             )
 
-    if ENABLE_RELEASE_TREE:
-        write_release_tree_routes(sorted(module_registry))
+    write_release_tree_routes(sorted(module_registry))
 
     print("[06] Complete: Generated llms.txt, llms-full.txt, and module-level indexes.")
     return 0

@@ -122,11 +122,53 @@ def build_release_tree(outdir: Path, validate, modules: list[str] | None = None)
     return release_tree
 
 
+def build_support_tree(outdir: Path, validate) -> Path:
+    l1_raw = outdir / "L1-raw" / "ucode"
+    l2_semantic = outdir / "L2-semantic" / "wiki"
+    l1_raw.mkdir(parents=True, exist_ok=True)
+    l2_semantic.mkdir(parents=True, exist_ok=True)
+
+    l1_raw.joinpath("c_source-api-fs.md").write_text("# raw\n", encoding="utf-8")
+    l1_raw.joinpath("c_source-api-fs.meta.json").write_text("{}\n", encoding="utf-8")
+    l2_semantic.joinpath("wiki_page-service-events.md").write_text(
+        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nversion: v12\n---\n",
+        encoding="utf-8",
+    )
+    outdir.joinpath("cross-link-registry.json").write_text("{}\n", encoding="utf-8")
+    outdir.joinpath("repo-manifest.json").write_text("{}\n", encoding="utf-8")
+    outdir.joinpath("CHANGES.md").write_text("# changes\n", encoding="utf-8")
+    outdir.joinpath("changelog.json").write_text("{}\n", encoding="utf-8")
+    outdir.joinpath("signature-inventory.json").write_text("{}\n", encoding="utf-8")
+
+    support_tree = outdir / Path(validate.config.SUPPORT_TREE_DIR).name
+    (support_tree / "raw" / "ucode").mkdir(parents=True, exist_ok=True)
+    (support_tree / "semantic-pages" / "wiki").mkdir(parents=True, exist_ok=True)
+    (support_tree / "manifests").mkdir(parents=True, exist_ok=True)
+    (support_tree / "telemetry").mkdir(parents=True, exist_ok=True)
+
+    (support_tree / "raw" / "ucode" / "c_source-api-fs.md").write_text(
+        "# raw\n",
+        encoding="utf-8",
+    )
+    (support_tree / "raw" / "ucode" / "c_source-api-fs.meta.json").write_text(
+        "{}\n",
+        encoding="utf-8",
+    )
+    (support_tree / "semantic-pages" / "wiki" / "wiki_page-service-events.md").write_text(
+        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nversion: v12\n---\n",
+        encoding="utf-8",
+    )
+    (support_tree / "manifests" / "cross-link-registry.json").write_text("{}\n", encoding="utf-8")
+    (support_tree / "manifests" / "repo-manifest.json").write_text("{}\n", encoding="utf-8")
+    (support_tree / "telemetry" / "CHANGES.md").write_text("# changes\n", encoding="utf-8")
+    (support_tree / "telemetry" / "changelog.json").write_text("{}\n", encoding="utf-8")
+    (support_tree / "telemetry" / "signature-inventory.json").write_text("{}\n", encoding="utf-8")
+    return support_tree
+
+
 def test_validate_release_tree_contract_accepts_minimal_release_tree(
     tmp_path: Path,
-    monkeypatch,
 ) -> None:
-    monkeypatch.setenv("ENABLE_RELEASE_TREE", "true")
     validate = load_script_module(
         "validator_release_tree_contract_ok",
         "openwrt-docs4ai-08-validate-output.py",
@@ -144,11 +186,46 @@ def test_validate_release_tree_contract_accepts_minimal_release_tree(
     assert hard_failures == []
 
 
+def test_validate_support_tree_contract_rejects_mirror_mismatch(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "validator_support_tree_contract_mismatch",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+    outdir = tmp_path / "out"
+    outdir.mkdir()
+
+    build_support_tree(outdir, validate)
+    (outdir / "L1-raw" / "ucode" / "extra.md").write_text("# extra\n", encoding="utf-8")
+
+    hard_failures: list[str] = []
+    validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
+
+    assert any("support-tree raw/ missing mirrored files" in failure for failure in hard_failures)
+
+
+def test_validate_support_tree_contract_rejects_manifest_content_mismatch(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "validator_support_tree_contract_manifest_mismatch",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+    outdir = tmp_path / "out"
+    outdir.mkdir()
+
+    support_tree = build_support_tree(outdir, validate)
+    (support_tree / "manifests" / "cross-link-registry.json").write_text(
+        '{"stale": true}\n',
+        encoding="utf-8",
+    )
+
+    hard_failures: list[str] = []
+    validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
+
+    assert any("support-tree content mismatch: manifests/cross-link-registry.json" in failure for failure in hard_failures)
+
+
 def test_validate_release_tree_contract_rejects_legacy_contract_leaks(
     tmp_path: Path,
-    monkeypatch,
 ) -> None:
-    monkeypatch.setenv("ENABLE_RELEASE_TREE", "true")
     validate = load_script_module(
         "validator_release_tree_contract_legacy",
         "openwrt-docs4ai-08-validate-output.py",
@@ -180,11 +257,48 @@ def test_validate_release_tree_contract_rejects_legacy_contract_leaks(
     assert any("chunked-reference is empty" in failure for failure in hard_failures)
 
 
+def test_validate_support_tree_contract_accepts_materialized_support_tree(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "validator_support_tree_contract_ok",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+    outdir = tmp_path / "out"
+    outdir.mkdir()
+
+    build_support_tree(outdir, validate)
+
+    hard_failures: list[str] = []
+    validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
+
+    assert hard_failures == []
+
+
+def test_validate_release_tree_contract_requires_module_set_match(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "validator_release_tree_contract_module_set",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    for module in MODULES:
+        module_dir = tmp_path / "L2-semantic" / module
+        module_dir.mkdir(parents=True, exist_ok=True)
+        module_dir.joinpath("topic.md").write_text("# topic\n", encoding="utf-8")
+
+    build_release_tree(tmp_path, validate, modules=["procd", "uci", "ucode", "bogus"])
+
+    hard_failures: list[str] = []
+    validate.validate_release_tree_contract(
+        str(tmp_path),
+        hard_failures.append,
+        lambda _message: None,
+    )
+
+    assert any("release-tree module set mismatch" in failure for failure in hard_failures)
+
+
 def test_validate_index_html_contract_ignores_release_and_support_trees(
     tmp_path: Path,
-    monkeypatch,
 ) -> None:
-    monkeypatch.setenv("ENABLE_RELEASE_TREE", "true")
     validate = load_script_module(
         "validator_release_tree_index_html_scope",
         "openwrt-docs4ai-08-validate-output.py",
@@ -225,63 +339,38 @@ def test_validate_index_html_contract_ignores_release_and_support_trees(
 
     assert hard_failures == []
 
-
-def test_release_tree_module_rewrite_updates_visible_router_labels() -> None:
-    release_tree = load_script_module(
-        "release_tree_module_rewrite_labels",
-        "openwrt-docs4ai-05e-assemble-release-tree.py",
-    )
-
-    content = "\n".join(
-        [
-            "# procd",
-            "- [procd-skeleton.md](./procd-skeleton.md)",
-            "- [procd-complete-reference.md](./procd-complete-reference.md)",
-            "- [procd.d.ts](./procd.d.ts)",
-        ]
-    )
-
-    updated = release_tree.rewrite_module_text(content, "procd")
-
-    assert "procd-skeleton.md" not in updated
-    assert "procd-complete-reference.md" not in updated
-    assert "[map.md](./map.md)" in updated
-    assert "[bundled-reference.md](./bundled-reference.md)" in updated
-    assert "[types/procd.d.ts](./types/procd.d.ts)" in updated
-
-
 def test_build_release_tree_index_html_reflects_release_layout(tmp_path: Path) -> None:
-    release_tree = load_script_module(
+    release_tree_index = load_script_module(
         "release_tree_index_html_builder",
-        "openwrt-docs4ai-05e-assemble-release-tree.py",
+        "openwrt-docs4ai-07-generate-web-index.py",
     )
 
     root = tmp_path / "release-tree"
-    (root / "procd" / release_tree.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
-    (root / "procd" / release_tree.config.MODULE_TYPES_DIRNAME).mkdir(parents=True)
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
+    (root / "procd" / release_tree_index.config.MODULE_TYPES_DIRNAME).mkdir(parents=True)
 
     for name in ["README.md", "llms.txt", "llms-full.txt", "AGENTS.md"]:
         (root / name).write_text(f"# {name}\n", encoding="utf-8")
 
     (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
-    (root / "procd" / release_tree.config.MODULE_MAP_FILENAME).write_text(
+    (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text(
         "# map\n",
         encoding="utf-8",
     )
-    (root / "procd" / release_tree.config.MODULE_BUNDLED_REF_FILENAME).write_text(
+    (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text(
         "# bundled\n",
         encoding="utf-8",
     )
-    (root / "procd" / release_tree.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
         "# topic\n",
         encoding="utf-8",
     )
-    (root / "procd" / release_tree.config.MODULE_TYPES_DIRNAME / "procd.d.ts").write_text(
+    (root / "procd" / release_tree_index.config.MODULE_TYPES_DIRNAME / "procd.d.ts").write_text(
         "export {};\n",
         encoding="utf-8",
     )
 
-    html = release_tree.build_release_tree_index_html(root, ["procd"])
+    html = release_tree_index.build_release_tree_html(root)
 
     assert "openwrt-condensed-docs" not in html
     assert "L1-raw" not in html
@@ -293,9 +382,9 @@ def test_build_release_tree_index_html_reflects_release_layout(tmp_path: Path) -
 
 
 def test_release_include_overlay_copies_files_into_release_tree(tmp_path: Path) -> None:
-    release_tree = load_script_module(
+    release_tree_index = load_script_module(
         "release_tree_include_overlay",
-        "openwrt-docs4ai-05e-assemble-release-tree.py",
+        "openwrt-docs4ai-07-generate-web-index.py",
     )
 
     release_root = tmp_path / "release-tree"
@@ -310,14 +399,107 @@ def test_release_include_overlay_copies_files_into_release_tree(tmp_path: Path) 
         encoding="utf-8",
     )
 
-    copied = release_tree.apply_release_include_overlay(
+    copied = release_tree_index.apply_release_include_overlay(
         str(release_root),
         str(include_root),
     )
 
-    assert copied == ["README.md", "nested/marker.txt"]
+    assert sorted(copied) == ["README.md", "nested/marker.txt"]
     assert release_root.joinpath("README.md").read_text(encoding="utf-8") == "# overlaid\n"
     assert (
         release_root.joinpath("nested", "marker.txt").read_text(encoding="utf-8")
         == "overlay marker\n"
     )
+
+
+def test_finalize_release_tree_indexes_additive_overlay_files(tmp_path: Path) -> None:
+    release_tree_index = load_script_module(
+        "release_tree_finalize_overlay_indexing",
+        "openwrt-docs4ai-07-generate-web-index.py",
+    )
+    validate = load_script_module(
+        "release_tree_finalize_overlay_indexing_validator",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    root = tmp_path / "release-tree"
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
+    for name in ["README.md", "llms.txt", "llms-full.txt", "AGENTS.md"]:
+        (root / name).write_text(f"# {name}\n", encoding="utf-8")
+    (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    root.joinpath("index.html").write_text("<html>stale</html>\n", encoding="utf-8")
+
+    include_root = tmp_path / "release-include"
+    include_root.joinpath("extras").mkdir(parents=True)
+    include_root.joinpath("extras", "marker.txt").write_text("overlay marker\n", encoding="utf-8")
+
+    copied = release_tree_index.finalize_release_tree(root, include_root)
+
+    hard_failures: list[str] = []
+    validate.validate_release_index_html_contract(str(root), hard_failures.append)
+
+    assert copied == ["extras/marker.txt"]
+    assert hard_failures == []
+    assert './extras/marker.txt' in root.joinpath("index.html").read_text(encoding="utf-8")
+
+
+def test_release_overlay_can_override_generated_release_index(tmp_path: Path) -> None:
+    release_tree_index = load_script_module(
+        "release_tree_overlay_precedence",
+        "openwrt-docs4ai-07-generate-web-index.py",
+    )
+
+    root = tmp_path / "release-tree"
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
+    for name in ["README.md", "llms.txt", "llms-full.txt", "AGENTS.md"]:
+        (root / name).write_text(f"# {name}\n", encoding="utf-8")
+    (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+
+    include_root = tmp_path / "release-include"
+    include_root.mkdir()
+    include_root.joinpath("index.html").write_text("<html>overlay index</html>\n", encoding="utf-8")
+
+    release_tree_index.finalize_release_tree(root, include_root)
+
+    assert (root / "index.html").read_text(encoding="utf-8") == "<html>overlay index</html>\n"
+
+
+def test_release_overlay_index_rejects_parent_directory_links(tmp_path: Path) -> None:
+    release_tree_index = load_script_module(
+        "release_tree_overlay_parent_escape",
+        "openwrt-docs4ai-07-generate-web-index.py",
+    )
+    validate = load_script_module(
+        "release_tree_overlay_parent_escape_validator",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    root = tmp_path / "release-tree"
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
+    for name in ["README.md", "llms.txt", "llms-full.txt", "AGENTS.md"]:
+        (root / name).write_text(f"# {name}\n", encoding="utf-8")
+    (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+
+    include_root = tmp_path / "release-include"
+    include_root.mkdir()
+    include_root.joinpath("index.html").write_text(
+        '<html><body><a href="../README.md">../README.md</a></body></html>\n',
+        encoding="utf-8",
+    )
+
+    release_tree_index.finalize_release_tree(root, include_root)
+
+    hard_failures: list[str] = []
+    validate.validate_release_index_html_contract(str(root), hard_failures.append)
+
+    assert any("contains hrefs outside the publish tree" in failure for failure in hard_failures)
+    assert any("../README.md" in failure for failure in hard_failures)

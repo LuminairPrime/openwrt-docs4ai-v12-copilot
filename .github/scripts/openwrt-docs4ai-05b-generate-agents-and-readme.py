@@ -24,7 +24,6 @@ OUTDIR = config.OUTDIR
 REGISTRY_PATH = os.path.join(OUTDIR, "cross-link-registry.json")
 L2_DIR = os.path.join(OUTDIR, "L2-semantic")
 RELEASE_TREE_DIR = config.RELEASE_TREE_DIR
-ENABLE_RELEASE_TREE = config.ENABLE_RELEASE_TREE
 TS = datetime.datetime.now(datetime.UTC).isoformat()
 
 print("[05b] Generating AGENTS.md and README.md")
@@ -186,12 +185,11 @@ with open(os.path.join(OUTDIR, "AGENTS.md"), "w", encoding="utf-8", newline="\n"
 with open(os.path.join(OUTDIR, "README.md"), "w", encoding="utf-8", newline="\n") as f:
     f.write(readme_content)
 
-if ENABLE_RELEASE_TREE:
-    os.makedirs(RELEASE_TREE_DIR, exist_ok=True)
-    with open(os.path.join(RELEASE_TREE_DIR, "AGENTS.md"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(release_agents_content)
+os.makedirs(RELEASE_TREE_DIR, exist_ok=True)
+with open(os.path.join(RELEASE_TREE_DIR, "AGENTS.md"), "w", encoding="utf-8", newline="\n") as f:
+    f.write(release_agents_content)
 
-    with open(os.path.join(RELEASE_TREE_DIR, "README.md"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(release_readme_content)
+with open(os.path.join(RELEASE_TREE_DIR, "README.md"), "w", encoding="utf-8", newline="\n") as f:
+    f.write(release_readme_content)
 
 print("[05b] Complete.")

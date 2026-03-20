@@ -16,7 +16,6 @@ ROUTING_PIPELINE = [
     "openwrt-docs4ai-05d-generate-api-drift-changelog.py",
     "openwrt-docs4ai-06-generate-llm-routing-indexes.py",
     "openwrt-docs4ai-07-generate-web-index.py",
-    "openwrt-docs4ai-05e-assemble-release-tree.py",
     "openwrt-docs4ai-08-validate-output.py",
 ]
 
@@ -39,7 +38,7 @@ def run_fixture_pipeline(tmp_path):
 
 def test_fixture_pipeline_generates_structured_llm_routing_outputs(tmp_path):
     outdir = run_fixture_pipeline(tmp_path)
-    publish_dir = outdir / "release-tree" if (outdir / "release-tree").is_dir() else outdir
+    publish_dir = outdir / "release-tree"
 
     assert_fixture_outputs(str(outdir), expect_ai=False)
 
@@ -61,7 +60,7 @@ def test_fixture_pipeline_generates_structured_llm_routing_outputs(tmp_path):
 
 def test_validator_rejects_module_indexes_missing_source_documents(tmp_path):
     outdir = run_fixture_pipeline(tmp_path)
-    publish_dir = outdir / "release-tree" if (outdir / "release-tree").is_dir() else outdir
+    publish_dir = outdir / "release-tree"
     broken_index = publish_dir / "ucode" / "llms.txt"
     broken_index.write_text(
         broken_index.read_text(encoding="utf-8").replace(

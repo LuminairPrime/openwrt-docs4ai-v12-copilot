@@ -1,76 +1,31 @@
-# ENABLE_RELEASE_TREE Feature Flag Contract
+# Retired ENABLE_RELEASE_TREE Feature Flag
 
 ## Purpose
 
-This document defines the `ENABLE_RELEASE_TREE` environment variable that controls the transition from the current output contract to the V5a release-tree contract. It is introduced in Phase 0 of the V5a refactor and removed in Phase 7 after live validation of the new contract.
+This document records the rollout-only `ENABLE_RELEASE_TREE` environment variable that controlled the V5a migration. The flag has been removed from the live codepath in Phase 7 after successful local validation, CI proof, and external publication through the GitHub App distribution flow.
 
-The authoritative implementation plan is `docs/plans/v12/public-distribution-mirror-plan-2026-03-15-V5a.md`.
+Use [release-tree-contract.md](release-tree-contract.md) for the active public contract. Use `docs/plans/v12/public-distribution-mirror-plan-2026-03-15-V5a.md` for the full rollout plan and implementation history.
 
----
+## Historical Summary
 
-## Flag Definition
-
-| Property | Value |
+| Property | Historical value |
 | --- | --- |
 | Name | `ENABLE_RELEASE_TREE` |
 | Type | Environment variable |
-| Values | `true` / `false` (string, case-insensitive) |
-| Default | `false` |
-| Scope | Late-stage pipeline scripts: `05a`, `05b`, `06`, `07`, `08`, and `05e-assemble-release-tree.py` |
-
-The default of `false` preserves the current output contract until the flag is explicitly activated.
-
----
-
-## Behavior When `false` (Default)
-
-- All pipeline stages produce output using the current contract.
-- Output goes to `OUTDIR` (`openwrt-condensed-docs/`) with current filenames.
-- Script `05e` is skipped entirely.
-- All existing tests validate the current contract.
-- No `release-tree/` or `support-tree/` directories are created.
-- This is the safe rollback state for any failed phase.
-
----
-
-## Behavior When `true`
-
-The behavior changes by phase.
-
-**Phase 1–3:** Script `05e` runs after existing stages and produces `release-tree/` alongside unchanged current output. Old output still exists under `OUTDIR/`.
-
-**Phase 4:** Late stages (`05a`, `05b`, `06`, `07`, `08`) write into `release-tree/` instead of `OUTDIR/`. Script `05e` is retired.
-
-**Phase 5:** Test suite switches to assert the new contract as primary. The flag default changes to `true`.
-
-**Phase 6:** Deploy workflow publishes from `release-tree/`.
-
----
-
-## Test Expectations Per Flag State
-
-**`false`:** All existing tests pass. Release-tree tests either do not exist yet or skip gracefully if `release-tree/` is absent.
-
-**`true` (Phase 1–3):** Existing tests still pass against `OUTDIR/`. New release-tree tests (`tests/pytest/pytest_09_release_tree_contract_test.py`) also pass against `release-tree/`.
-
-**`true` (Phase 4+):** Old-contract assertions are removed. Tests validate `release-tree/` as primary.
-
----
-
-## Flag Lifecycle
-
-| Event | Phase |
-| --- | --- |
+| Values | `true` / `false` |
 | Introduced | Phase 0 |
-| Default changes to `true` | Phase 5 |
+| Default changed to `true` | Phase 5 |
 | Removed | Phase 7 |
 
----
+## Historical Scope
 
-## Interaction With Other Variables
+Before removal, the flag controlled the late-stage publication path during the V5a rollout. Its scope included the release-tree-generating late stages and the transitional `05e` assembler that no longer exists in the live pipeline.
 
-**`OUTDIR`:** Unchanged. Early stages (`01` through `04`) always write to `OUTDIR`. The flag controls only where late stages direct their final output.
+## Historical Outcome
 
-**`WORKDIR`:** Unchanged. The scratch area under `tmp/` is unaffected by the flag.
+- The live pipeline now always generates `release-tree/` and `support-tree/`.
+- Validation now always requires the release-tree contract.
+- Tests now treat release-tree output as the primary publish surface.
+- External publication now deploys from the validated `release-tree/` subtree.
 
-**`VALIDATE_MODE`:** Unchanged. Validation severity is orthogonal to which contract is being checked. Both flag states respect `VALIDATE_MODE`.
+This file is retained only for rollout archaeology and should not be used as implementation guidance.

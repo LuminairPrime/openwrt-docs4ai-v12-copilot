@@ -65,11 +65,9 @@ def test_assemble_references_shards_oversized_modules() -> None:
 
     assert layout["sharded"] is True
     assert layout["total_token_count"] == 145_000
-    assert [part["filename"] for part in layout["parts"]] == [
-        "wiki-complete-reference.part-01.md",
-        "wiki-complete-reference.part-02.md",
-    ]
+    assert [part["part_number"] for part in layout["parts"]] == [1, 2]
     assert [part["token_count"] for part in layout["parts"]] == [60_000, 85_000]
+    assert assemble.release_part_filename(1) == "bundled-reference.part-01.md"
 
 
 def test_validate_known_dockerman_ucode_false_positive_is_exact() -> None:

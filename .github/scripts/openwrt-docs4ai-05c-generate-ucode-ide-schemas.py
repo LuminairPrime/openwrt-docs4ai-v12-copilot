@@ -21,6 +21,7 @@ sys.stdout.reconfigure(line_buffering=True)
 
 OUTDIR = config.OUTDIR
 REGISTRY_PATH = os.path.join(OUTDIR, "cross-link-registry.json")
+RELEASE_TREE_DIR = config.RELEASE_TREE_DIR
 
 print("[05c] Generating ucode.d.ts IDE schemas")
 
@@ -54,10 +55,10 @@ for sym, meta in ucode_symbols.items():
     else:
         mod_name = "global"
         func_name = sym
-    
+
     if mod_name not in modules:
         modules[mod_name] = []
-    
+
     modules[mod_name].append({
         "name": func_name,
         "sig": meta.get("signature", f"{func_name}()"),
@@ -69,11 +70,11 @@ def generate_ts_sig(f, is_global=False):
     """Normalize signature for simple TS: foo(a, [b]) -> foo(a: any, b?: any)"""
     sig = f['sig']
     prefix = "declare function " if is_global else "export function "
-    
+
     if "(" in sig and ")" in sig:
         params_str = sig.split("(", 1)[1].rsplit(")", 1)[0]
         ts_params = []
-        
+
         if params_str.strip():
             # Handle balanced splitting (BUG-016)
             params = []
@@ -90,7 +91,7 @@ def generate_ts_sig(f, is_global=False):
                         bracket_level -= 1
                     current.append(char)
             params.append("".join(current).strip())
-            
+
             for p in params:
                 # FIX BUG-016: Handle optional [param] notation
                 is_optional = False
@@ -98,11 +99,11 @@ def generate_ts_sig(f, is_global=False):
                 if p_name.startswith("[") and p_name.endswith("]"):
                     p_name = p_name[1:-1].strip()
                     is_optional = True
-                
+
                 # Cleanup name (no special chars)
                 p_name = re.sub(r"[^a-zA-Z0-9_]", "_", p_name)
                 ts_params.append(f"{p_name}{'?' if is_optional else ''}: any")
-        
+
         # FIX BUG-016: Append return type
         return f"{prefix}{f['name']}({', '.join(ts_params)}): {f['returns']};"
     else:
@@ -141,4 +142,11 @@ out_path = os.path.join(out_dir, "ucode.d.ts")
 with open(out_path, "w", encoding="utf-8", newline="\n") as f:
     f.write("\n".join(dts_lines))
 
-print(f"[05c] OK: {out_path} ({len(ucode_symbols)} symbols)")
+release_types_dir = os.path.join(RELEASE_TREE_DIR, "ucode", config.MODULE_TYPES_DIRNAME)
+os.makedirs(release_types_dir, exist_ok=True)
+release_out_path = os.path.join(release_types_dir, "ucode.d.ts")
+
+with open(release_out_path, "w", encoding="utf-8", newline="\n") as f:
+    f.write("\n".join(dts_lines))
+
+print(f"[05c] OK: {out_path}, {release_out_path} ({len(ucode_symbols)} symbols)")
