@@ -609,7 +609,7 @@ jobs:
 
           outdir = Path(os.environ["OUTDIR"])
           workdir = Path(os.environ["WORKDIR"])
-          validate_output_outcome = os.environ.get("VALIDATE_OUTPUT_OUTCOME", "unknown")
+          validate_output_outcome = "${{ steps.validate_output.outcome }}" or "unknown"
           summary_dir = workdir / "run-summary"
           summary_dir.mkdir(parents=True, exist_ok=True)
 
@@ -777,8 +777,6 @@ jobs:
                   print(f"- {item}")
               sys.exit(1)
           PY
-          env:
-            VALIDATE_OUTPUT_OUTCOME: ${{ steps.validate_output.outcome }}
       - name: Upload process summary
         if: always()
         uses: actions/upload-artifact@v6
