@@ -122,7 +122,7 @@ def build_release_tree(outdir: Path, validate, modules: list[str] | None = None)
     return release_tree
 
 
-def build_support_tree(outdir: Path, validate) -> Path:
+def seed_support_tree_sources(outdir: Path) -> None:
     l1_raw = outdir / "L1-raw" / "ucode"
     l2_semantic = outdir / "L2-semantic" / "wiki"
     l1_raw.mkdir(parents=True, exist_ok=True)
@@ -139,6 +139,10 @@ def build_support_tree(outdir: Path, validate) -> Path:
     outdir.joinpath("CHANGES.md").write_text("# changes\n", encoding="utf-8")
     outdir.joinpath("changelog.json").write_text("{}\n", encoding="utf-8")
     outdir.joinpath("signature-inventory.json").write_text("{}\n", encoding="utf-8")
+
+
+def build_support_tree(outdir: Path, validate) -> Path:
+    seed_support_tree_sources(outdir)
 
     support_tree = outdir / Path(validate.config.SUPPORT_TREE_DIR).name
     (support_tree / "raw" / "ucode").mkdir(parents=True, exist_ok=True)
@@ -271,6 +275,37 @@ def test_validate_support_tree_contract_accepts_materialized_support_tree(tmp_pa
     validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
 
     assert hard_failures == []
+
+
+def test_copy_support_tree_materializes_validator_compatible_support_tree(
+    tmp_path: Path,
+) -> None:
+    release_tree_index = load_script_module(
+        "support_tree_materializer",
+        "openwrt-docs4ai-07-generate-web-index.py",
+    )
+    validate = load_script_module(
+        "support_tree_materializer_validator",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+    outdir = tmp_path / "out"
+    outdir.mkdir()
+
+    seed_support_tree_sources(outdir)
+
+    support_tree = outdir / Path(validate.config.SUPPORT_TREE_DIR).name
+    release_tree_index.copy_support_tree(outdir=outdir, support_tree_dir=support_tree)
+
+    hard_failures: list[str] = []
+    validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
+
+    assert hard_failures == []
+    assert support_tree.joinpath("manifests", "cross-link-registry.json").read_text(
+        encoding="utf-8"
+    ) == "{}\n"
+    assert support_tree.joinpath("telemetry", "signature-inventory.json").read_text(
+        encoding="utf-8"
+    ) == "{}\n"
 
 
 def test_validate_release_tree_contract_requires_module_set_match(tmp_path: Path) -> None:
@@ -444,6 +479,39 @@ def test_finalize_release_tree_indexes_additive_overlay_files(tmp_path: Path) ->
     assert copied == ["extras/marker.txt"]
     assert hard_failures == []
     assert './extras/marker.txt' in root.joinpath("index.html").read_text(encoding="utf-8")
+
+
+def test_finalize_release_tree_rebuilds_stale_index_without_overlay(tmp_path: Path) -> None:
+    release_tree_index = load_script_module(
+        "release_tree_finalize_regeneration",
+        "openwrt-docs4ai-07-generate-web-index.py",
+    )
+    validate = load_script_module(
+        "release_tree_finalize_regeneration_validator",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    root = tmp_path / "release-tree"
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME).mkdir(parents=True)
+    for name in ["README.md", "llms.txt", "llms-full.txt", "AGENTS.md"]:
+        (root / name).write_text(f"# {name}\n", encoding="utf-8")
+    (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    stale_index = "<html>stale index</html>\n"
+    root.joinpath("index.html").write_text(stale_index, encoding="utf-8")
+
+    copied = release_tree_index.finalize_release_tree(root, tmp_path / "missing-overlay")
+
+    hard_failures: list[str] = []
+    validate.validate_release_index_html_contract(str(root), hard_failures.append)
+
+    rendered_index = root.joinpath("index.html").read_text(encoding="utf-8")
+    assert copied == []
+    assert hard_failures == []
+    assert rendered_index != stale_index
+    assert "./procd/map.md" in rendered_index
 
 
 def test_release_overlay_can_override_generated_release_index(tmp_path: Path) -> None:
