@@ -1,0 +1,29 @@
+# ucode module
+> Provides runtime introspection and tracing utilities for ucode scripts.
+> **Total Context:** ~80860 tokens
+
+## Recommended Entry Points
+
+- [map.md](./map.md): Structural map for ucode that prioritizes quick orientation and symbol discovery. (~5571 tokens, l3-skeleton)
+- [bundled-reference.md](./bundled-reference.md): Complete monolithic reference for ucode when a larger context window is available. (~81066 tokens, l4-monolith)
+
+## Tooling Surfaces
+
+- [types/ucode.d.ts](./types/ucode.d.ts): TypeScript declarations for IDE navigation and static analysis of ucode. (~3242 tokens, l3-ide-schema)
+
+## Source Documents
+
+- [c_source-api-module-debug.md](./chunked-reference/c_source-api-module-debug.md): Provides runtime introspection and tracing utilities for ucode scripts. (~3903 tokens, l2-source)
+- [c_source-api-module-digest.md](./chunked-reference/c_source-api-module-digest.md): Provides cryptographic hash and HMAC computation for ucode. (~1601 tokens, l2-source)
+- [c_source-api-module-fs.md](./chunked-reference/c_source-api-module-fs.md): ucode module: fs > **Live docs:** https://ucode.mein.io/module-fs.html --- Filesystem Access The fs module provides functions for interacting with the file system. (~11211 tokens, l2-source)
+- [c_source-api-module-io.md](./chunked-reference/c_source-api-module-io.md): Provides buffered I/O stream primitives for ucode. (~4058 tokens, l2-source)
+- [c_source-api-module-log.md](./chunked-reference/c_source-api-module-log.md): Provides syslog integration for ucode scripts via the POSIX syslog API. (~5098 tokens, l2-source)
+- [c_source-api-module-math.md](./chunked-reference/c_source-api-module-math.md): Provides standard mathematical functions for ucode scripts, mirroring the JavaScript Math object surface. (~2848 tokens, l2-source)
+- [c_source-api-module-nl80211.md](./chunked-reference/c_source-api-module-nl80211.md): Provides netlink 802.11 wireless configuration API bindings for ucode. (~3950 tokens, l2-source)
+- [c_source-api-module-resolv.md](./chunked-reference/c_source-api-module-resolv.md): Provides DNS name resolution for ucode scripts using the system resolver. (~2516 tokens, l2-source)
+- [c_source-api-module-rtnl.md](./chunked-reference/c_source-api-module-rtnl.md): Provides rtnetlink interface bindings for ucode to enumerate and monitor kernel network state. (~7614 tokens, l2-source)
+- [c_source-api-module-socket.md](./chunked-reference/c_source-api-module-socket.md): Provides low-level socket programming for ucode via POSIX socket API bindings. (~13517 tokens, l2-source)
+- [c_source-api-module-struct.md](./chunked-reference/c_source-api-module-struct.md): Provides binary data packing and unpacking for ucode using a Python struct-style format string syntax. (~7325 tokens, l2-source)
+- [c_source-api-module-uci.md](./chunked-reference/c_source-api-module-uci.md): Provides direct ucode bindings for OpenWrt libuci to read and write UCI configuration. (~7849 tokens, l2-source)
+- [c_source-api-module-uloop.md](./chunked-reference/c_source-api-module-uloop.md): Provides ucode bindings for the OpenWrt libubox uloop event loop. (~7457 tokens, l2-source)
+- [c_source-api-module-zlib.md](./chunked-reference/c_source-api-module-zlib.md): Provides zlib compression and decompression bindings for ucode. (~1913 tokens, l2-source)

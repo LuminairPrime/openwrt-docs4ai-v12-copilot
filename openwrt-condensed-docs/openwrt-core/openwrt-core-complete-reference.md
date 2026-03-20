@@ -1,15 +1,15 @@
 ---
 module: openwrt-core
-total_token_count: 23140
+total_token_count: 23147
 section_count: 7
 is_monolithic: true
-generated: '2026-03-12T22:39:38.602793+00:00'
+generated: '2026-03-20T01:28:16.926497+00:00'
 ---
 
 # openwrt-core Complete Reference
 
 > **Contains:** 7 documents concatenated
-> **Tokens:** ~23140 (cl100k_base)
+> **Tokens:** ~23147 (cl100k_base)
 
 ---
 
@@ -605,7 +605,7 @@ Alternative ath10k firmware for QCA9887 from Candela Technologies. Enables [IBSS
 
 | Field | Value |
 |---|---|
-| Version | 20251111 |
+| Version | 20260227 |
 | Source URL | @DEBIAN/pool/non-free-firmware/i/intel-microcode/ |
 
 
@@ -1676,9 +1676,9 @@ zlib is a lossless data-compression library. This package includes the shared li
 
 | Field | Value |
 |---|---|
-| Version | 1.3.1 |
+| Version | 1.3.2 |
 | License | Zlib |
-| Source URL | https://github.com/madler/zlib |
+| Source URL | https://github.com/madler/zlib/releases/download/v$(PKG_VERSION) |
 
 
 > Source: https://github.com/openwrt/openwrt/tree/master/package/libs/zlib

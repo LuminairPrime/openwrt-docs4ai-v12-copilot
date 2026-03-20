@@ -1,7 +1,7 @@
 # openwrt-core (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for openwrt-core.
-> **Generated:** 2026-03-12T22:39:38.602793+00:00
+> **Generated:** 2026-03-20T01:28:16.926497+00:00
 
 ---
 
@@ -106,8 +106,6 @@
 ## ubnt-ledbar
 ## ubootenv-nvram
 
-> **Summary:** The OpenWrt Buildroot: libs packages module provides a collection of libraries essential for various functionalities in OpenWrt. It includes libraries such as argp-standalone for argument parsing, elfutils for handling ELF files, and jansson for JSON data manipulation. Each library is maintained by different contributors and is available under various licenses, ensuring a wide range of capabilities for developers. The module facilitates the integration of these libraries into OpenWrt builds, enhancing the overall performance and feature set of the system.
-> **Use Case:** Use this module when you need to incorporate specific libraries into your OpenWrt build for enhanced functionality, such as JSON processing or advanced argument parsing.
 # OpenWrt Buildroot: libs packages
 ## argp-standalone
 ## elfutils

@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-brcm63xx-imagetag",
+  "original_url": "https://openwrt.org/docs/techref/brcm63xx.imagetag",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "fallback-raw",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "d848a1464745e640b02fbaf5152a3c3c535d20917360542a1a087e3122977712",
+  "source_path": "/docs/techref/brcm63xx.imagetag",
+  "extraction_timestamp": "2026-03-09T21:34:04.179991+00:00",
+  "content_hash": "7ca16308"
+}

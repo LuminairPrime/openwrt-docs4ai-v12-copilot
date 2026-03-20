@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "guide-developer-drivers",
+  "original_url": "https://openwrt.org/docs/guide-developer/drivers",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "8477b1672126131c5b92a2b3081043f09cdf3cb68b938a4bc15770d18fcd201b",
+  "source_path": "/docs/guide-developer/drivers",
+  "extraction_timestamp": "2026-03-09T21:33:00.385029+00:00",
+  "content_hash": "4dd454ab"
+}

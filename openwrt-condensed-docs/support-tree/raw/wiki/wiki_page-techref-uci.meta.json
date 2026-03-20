@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "techref-uci",
+  "original_url": "https://openwrt.org/docs/techref/uci",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "f1997f798937e477b22b7ee8a411fe0af9b439cddb4924c2e4eb997cafd5c9c3",
+  "source_path": "/docs/techref/uci",
+  "extraction_timestamp": "2026-03-09T21:35:05.268774+00:00",
+  "content_hash": "05b922b3"
+}

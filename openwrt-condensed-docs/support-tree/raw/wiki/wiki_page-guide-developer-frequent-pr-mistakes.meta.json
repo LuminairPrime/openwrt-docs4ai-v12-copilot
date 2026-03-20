@@ -1,0 +1,16 @@
+{
+  "extractor": "02a-scrape-wiki.py",
+  "origin_type": "wiki_page",
+  "module": "wiki",
+  "slug": "guide-developer-frequent-pr-mistakes",
+  "original_url": "https://openwrt.org/docs/guide-developer/frequent-pr-mistakes",
+  "language": "text",
+  "fetch_status": "success",
+  "conversion_mode": "pandoc",
+  "last_modified": "unknown",
+  "last_modified_http": null,
+  "raw_hash": "270d02ca228b47db303c3f9dcd5989f9823cb33c2a8367815266d7a67a3db3d9",
+  "source_path": "/docs/guide-developer/frequent-pr-mistakes",
+  "extraction_timestamp": "2026-03-09T21:33:06.995441+00:00",
+  "content_hash": "a2b00379"
+}

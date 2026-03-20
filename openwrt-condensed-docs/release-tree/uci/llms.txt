@@ -1,0 +1,12 @@
+# uci module
+> Defines the default UCI configuration schema for the OpenWrt qos-scripts traffic-shaping system.
+> **Total Context:** ~420 tokens
+
+## Recommended Entry Points
+
+- [map.md](./map.md): Structural map for uci that prioritizes quick orientation and symbol discovery. (~210 tokens, l3-skeleton)
+- [bundled-reference.md](./bundled-reference.md): Complete monolithic reference for uci when a larger context window is available. (~497 tokens, l4-monolith)
+
+## Source Documents
+
+- [uci_schema-schema-network-qos.md](./chunked-reference/uci_schema-schema-network-qos.md): Defines the default UCI configuration schema for the OpenWrt qos-scripts traffic-shaping system. (~420 tokens, l2-source)

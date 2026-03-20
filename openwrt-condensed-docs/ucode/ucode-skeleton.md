@@ -1,7 +1,7 @@
 # ucode (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for ucode.
-> **Generated:** 2026-03-12T22:39:38.602793+00:00
+> **Generated:** 2026-03-20T01:28:16.926497+00:00
 
 ---
 
@@ -43,8 +43,6 @@
 ### digest.sha384\_file(path) ⇒ `string`
 ### digest.sha512\_file(path) ⇒ `string`
 
-> **Summary:** Provides POSIX-style filesystem access for ucode scripts. Implements readfile(), writefile(), popen(), opendir(), stat(), rename(), unlink(), chmod(), realpath(), and readlink() for complete file and directory management. Supports atomic writes via temporary file patterns and direct subprocess output capture through popen() stream objects.
-> **Use Case:** Use for all ucode filesystem interactions on OpenWrt, particularly for reading UCI config fragments, writing status files atomically, and capturing command output without spawning a shell subprocess.
 # ucode module: fs
 ## Filesystem Access
 ### fs.error() ⇒ `string`
@@ -56,6 +54,7 @@
 ### fs.readlink(path) ⇒ `string`
 ### fs.stat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
 ### fs.lstat(path) ⇒ [`FileStatResult`](#module_fs.FileStatResult)
+### fs.statvfs(path) ⇒ [`StatVFSResult`](#module_fs.StatVFSResult)
 ### fs.mkdir(path) ⇒ `boolean`
 ### fs.rmdir(path) ⇒ `boolean`
 ### fs.symlink(target, path) ⇒ `boolean`
@@ -65,6 +64,7 @@
 ### fs.chmod(path, mode) ⇒ `boolean`
 ### fs.chown(path, [uid], [gid]) ⇒ `boolean`
 ### fs.rename(oldPath, newPath) ⇒ `boolean`
+### fs.glob(...pattern) ⇒ `Array.<string>`
 ### fs.dirname(path) ⇒ `string`
 ### fs.basename(path) ⇒ `string`
 ### fs.lsdir(path) ⇒ `Array.<string>`
@@ -103,6 +103,8 @@
 #### dir.close() ⇒ `boolean`
 #### dir.error() ⇒ `string`
 ### fs.FileStatResult : `Object`
+### fs.StatVFSResult : `Object`
+### fs.ST\_FLAGS
 
 > **Summary:** Provides buffered I/O stream primitives for ucode. Implements open() and fdopen() returning stream objects with read(), write(), readline(), flush(), seek(), tell(), and close() methods. Exposes io.stdin, io.stdout, and io.stderr as pre-opened streams, and pipe() for creating connected stream pairs for subprocess communication.
 > **Use Case:** Use for line-oriented reading of large files or when piped subprocess output needs to be consumed incrementally rather than loaded entirely into memory with fs.readfile(); also use io.stderr for error output in scripts run under procd.
