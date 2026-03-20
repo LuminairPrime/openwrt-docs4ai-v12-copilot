@@ -3,7 +3,7 @@ module: ucode
 total_token_count: 80860
 section_count: 14
 is_monolithic: true
-generated: '2026-03-20T04:25:32.535512+00:00'
+generated: '2026-03-20T04:40:19.476369+00:00'
 ---
 
 # ucode Bundled Reference

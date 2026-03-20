@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 2003
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-device-support-policies.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 language: text
 ai_summary: The Device support policies / best practices document outlines guidelines for developers submitting device support patches in OpenWrt. It emphasizes the importance of clear commit messages, including specifications and flashing instructions, and provides recommendations for structuring DTS files, such as using consistent naming conventions and proper licensing. Additional tips are offered for enhancing readability and organizing device properties, particularly regarding LED configurations. Following these guidelines can improve the submission experience for both developers and reviewers.
 ai_when_to_use: Use this document when preparing to submit device support patches to ensure compliance with OpenWrt's best practices and to facilitate a smoother review process.

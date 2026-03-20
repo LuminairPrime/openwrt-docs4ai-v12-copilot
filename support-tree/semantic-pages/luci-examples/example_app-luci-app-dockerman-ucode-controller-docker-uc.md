@@ -5,7 +5,7 @@ origin_type: example_app
 token_count: 3114
 version: 18e0538
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-ucode-controller-docker-uc.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 upstream_path: applications/luci-app-dockerman/ucode/controller/docker.uc
 language: ucode
 ai_summary: The `docker.uc` module provides a Docker HTTP streaming endpoint for handling file uploads and streaming responses in OpenWrt applications. It includes functions for managing chunked file transfers, building HTTP headers, parsing initial HTTP responses, and streaming response chunks from a socket. Additionally, it offers capabilities to send HTTP 200 OK responses and generate debug output when needed. This module is built against the Docker v1.47 API and is useful for integrating Docker functionalities into OpenWrt's Luci framework.

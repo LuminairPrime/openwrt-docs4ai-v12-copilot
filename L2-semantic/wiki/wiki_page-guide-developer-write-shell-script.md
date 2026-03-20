@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 1431
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-write-shell-script.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 language: text
 ai_summary: The OpenWrt operating system utilizes the Almquist shell (ash), which is part of the BusyBox suite, to provide a lightweight and efficient command-line interface for embedded devices. Unlike the more resource-intensive Bash shell used in many Linux distributions, ash is designed to minimize memory and storage usage, making it ideal for routers and similar hardware. While BusyBox offers a range of essential tools such as awk, grep, and sed, users should note that these implementations may be more limited than their full desktop counterparts. Scripts written using POSIX features of Bash are generally compatible with ash, allowing for effective scripting within OpenWrt's environment.
 ai_when_to_use: This module is particularly useful when developing shell scripts for OpenWrt devices, especially when memory and storage constraints are a concern.

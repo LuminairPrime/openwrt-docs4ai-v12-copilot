@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 1601
 version: 3d482fb
 source_file: L1-raw/ucode/c_source-api-module-digest.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 upstream_path: lib/digest.c
 language: c
 ai_summary: Provides cryptographic hash and HMAC computation for ucode. Implements new() returning a digest context with update() and final() methods, supporting MD5, SHA1, SHA256, SHA512, and HMAC variants. Enables incremental hashing of large data streams and one-shot hash computation for data integrity checking and API authentication tokens.

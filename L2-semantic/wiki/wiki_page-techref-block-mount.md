@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 2063
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-block-mount.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 language: text
 ai_summary: The Mounting Block Devices module in OpenWrt provides advanced details on how block devices are managed through the `block-mount` package. This package includes functionalities for mounting devices at boot via `/etc/init.d/fstab` and handling hotplug events with `block-hotplug`. Key scripts included are `block.sh`, `mount.sh`, and `fsck.sh`, which facilitate various mounting operations. The `block` executable allows users to run commands such as `block info`, `block mount`, and `block detect` for managing block devices effectively.
 ai_when_to_use: Use this module when you need to manage block device mounting in OpenWrt, especially for configuring devices to mount automatically on boot or when they are hotplugged.

@@ -7,6 +7,6 @@
   "language": "javascript",
   "upstream_path": "applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/container_new.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:22:27.163085+00:00",
+  "extraction_timestamp": "2026-03-20T04:37:09.274437+00:00",
   "content_hash": "b24802e9"
 }

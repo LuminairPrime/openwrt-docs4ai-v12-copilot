@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 408
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-external-toolchain.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 language: text
 ai_summary: The External Toolchain module allows developers to use an external toolchain to reduce build time when compiling OpenWrt from a cleaned-up source tree. This is particularly beneficial when integrating with automated build systems like Hudson or Tinderbox. To utilize this feature, developers must first build the toolchain by selecting 'Package the OpenWrt-based Toolchain' in the `make menuconfig` interface or by downloading a precompiled toolchain from the OpenWrt download page. After setting up the toolchain, developers can configure their buildroot and compile their firmware using standard OpenWrt build commands.
 ai_when_to_use: Use this module when you need to speed up the build process of OpenWrt, especially in automated environments.

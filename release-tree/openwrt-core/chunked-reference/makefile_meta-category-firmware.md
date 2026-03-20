@@ -5,7 +5,7 @@ origin_type: makefile_meta
 token_count: 1435
 version: a1f5273
 source_file: L1-raw/openwrt-core/makefile_meta-category-firmware.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 upstream_path: package/firmware
 language: makefile
 ---

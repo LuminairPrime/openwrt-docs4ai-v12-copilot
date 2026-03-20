@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 7614
 version: 3d482fb
 source_file: L1-raw/ucode/c_source-api-module-rtnl.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 upstream_path: lib/rtnl.c
 language: c
 ai_summary: Provides rtnetlink interface bindings for ucode to enumerate and monitor kernel network state. Implements request() to send RTM_GETLINK, RTM_GETROUTE, RTM_GETNEIGH, and RTM_GETADDR queries and receive structured attribute dictionaries from the kernel. Enables subscription to netlink multicast groups for real-time interface and route change notifications.

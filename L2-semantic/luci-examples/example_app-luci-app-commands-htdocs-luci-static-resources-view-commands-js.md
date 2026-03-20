@@ -5,7 +5,7 @@ origin_type: example_app
 token_count: 247
 version: 18e0538
 source_file: L1-raw/luci-examples/example_app-luci-app-commands-htdocs-luci-static-resources-view-commands-js.md
-last_pipeline_run: '2026-03-20T04:25:17.118665+00:00'
+last_pipeline_run: '2026-03-20T04:40:03.869041+00:00'
 upstream_path: applications/luci-app-commands/htdocs/luci-static/resources/view/commands.js
 language: javascript
 ai_summary: The `commands.js` module in the `luci-examples` application provides a web interface for configuring custom shell commands in OpenWrt. It allows users to create, modify, and delete commands, with options for adding descriptions, command lines, and custom arguments. Additionally, it includes a flag for public access, enabling commands to be executed without authentication. This module is built using JavaScript and leverages the LuCI framework for rendering forms and views.
