@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [openwrt-hotplug-skeleton.md](./openwrt-hotplug-skeleton.md): Structural map for openwrt-hotplug that prioritizes quick orientation and symbol discovery. (~497 tokens, l3-skeleton)
-- [openwrt-hotplug-complete-reference.md](./openwrt-hotplug-complete-reference.md): Complete monolithic reference for openwrt-hotplug when a larger context window is available. (~1499 tokens, l4-monolith)
+- [openwrt-hotplug-complete-reference.md](./openwrt-hotplug-complete-reference.md): Complete monolithic reference for openwrt-hotplug when a larger context window is available. (~1497 tokens, l4-monolith)
 
 ## Source Documents
 

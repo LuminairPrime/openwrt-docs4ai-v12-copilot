@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [ucode-skeleton.md](./ucode-skeleton.md): Structural map for ucode that prioritizes quick orientation and symbol discovery. (~5629 tokens, l3-skeleton)
-- [ucode-complete-reference.md](./ucode-complete-reference.md): Complete monolithic reference for ucode when a larger context window is available. (~80145 tokens, l4-monolith)
+- [ucode-complete-reference.md](./ucode-complete-reference.md): Complete monolithic reference for ucode when a larger context window is available. (~80143 tokens, l4-monolith)
 
 ## Tooling Surfaces
 

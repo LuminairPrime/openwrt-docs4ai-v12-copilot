@@ -1,9 +1,9 @@
 ---
-module: "openwrt-hotplug"
+module: openwrt-hotplug
 total_token_count: 1412
 section_count: 1
 is_monolithic: true
-generated: "2026-03-12T18:07:37.690177+00:00"
+generated: '2026-03-12T22:39:38.602793+00:00'
 ---
 
 # openwrt-hotplug Complete Reference
@@ -226,7 +226,5 @@ for ifc in $interfaces; do
 done
 ```
 
-
----
 
 ---

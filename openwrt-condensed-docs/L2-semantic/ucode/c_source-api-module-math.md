@@ -5,7 +5,7 @@ origin_type: c_source
 token_count: 2848
 version: 591d1f6
 source_file: L1-raw/ucode/c_source-api-module-math.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: lib/math.c
 language: c
 ai_summary: Provides standard mathematical functions for ucode scripts, mirroring the JavaScript Math object surface. Implements abs(), atan2(), ceil(), cos(), exp(), floor(), log(), max(), min(), pow(), round(), sin(), sqrt(), and tan() along with the constants math.PI and math.E for floating-point arithmetic.

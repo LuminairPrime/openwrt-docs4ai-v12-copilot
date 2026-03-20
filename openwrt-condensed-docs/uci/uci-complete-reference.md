@@ -1,9 +1,9 @@
 ---
-module: "uci"
+module: uci
 total_token_count: 420
 section_count: 1
 is_monolithic: true
-generated: "2026-03-12T18:07:37.690177+00:00"
+generated: '2026-03-12T22:39:38.602793+00:00'
 ---
 
 # uci Complete Reference
@@ -88,5 +88,3 @@ config class "Bulk"
 	option avgrate     1
 	option packetdelay 200
 ```
-
----

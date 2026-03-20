@@ -3,9 +3,9 @@ title: api.js
 module: luci-examples
 origin_type: example_app
 token_count: 5921
-version: 8fa4744
+version: 11ff260
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-dockerman-api-js.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/dockerman/api.js
 language: javascript
 ai_summary: The api.js module provides a JavaScript interface for interacting with Docker through the LuCI web interface in OpenWrt. It utilizes RPC calls to fetch network interface data and UCI configurations, allowing for the dynamic determination of local IP addresses and Docker host settings. Key functions include `callNetworkInterfaceDump` for retrieving network interface details and `call_docker` for making API calls to the Docker host. Additionally, it features a helper function `processLines` to handle NDJSON or line-delimited JSON data streams.

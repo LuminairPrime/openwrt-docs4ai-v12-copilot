@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 9839
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-flash-layout.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: The OpenWrt Flash Layout module provides an overview of the flash memory types used in embedded devices targeted by OpenWrt, specifically focusing on the distinctions between raw flash and FTL flash, as well as NOR and NAND flash types. It explains the implications of non-mechanical wear on flash memory, the differences in management between host-managed and self-managed flash, and the characteristics of NOR and NAND flash. The document also highlights the default file system setups for these flash types and their reliability considerations.
 ai_when_to_use: This module is useful when configuring or troubleshooting storage options in OpenWrt-based embedded devices, particularly when selecting the appropriate flash memory type for firmware and configuration storage.

@@ -5,7 +5,7 @@ origin_type: wiki_page
 token_count: 833
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-luci.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 language: text
 ai_summary: 'The ''Adding new elements to LuCI'' module provides a guide for developers to enhance the LuCI interface by adding new tabs and forms. It outlines two primary methods for integration: using CBI (Configuration Binding Interface) and templates for views. The tutorial details the creation of a new top-level tab, its associated sub-tabs, and the necessary Lua scripts and configuration files. Examples are provided for both the controller and the model, demonstrating how to structure the code and where to place the files within the LuCI directory hierarchy.'
 ai_when_to_use: This module is useful when developers want to customize the LuCI interface for specific applications or functionalities within OpenWrt. It is particularly applicable for creating user-friendly forms and navigation elements in the web interface.

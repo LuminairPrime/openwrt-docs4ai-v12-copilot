@@ -3,9 +3,9 @@ title: volumes.js
 module: luci-examples
 origin_type: example_app
 token_count: 2721
-version: 8fa4744
+version: 11ff260
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-volumes-js.md
-last_pipeline_run: '2026-03-12T18:07:24.356646+00:00'
+last_pipeline_run: '2026-03-12T22:39:22.932543+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/volumes.js
 language: javascript
 ai_summary: The `volumes.js` module is part of the Luci application for managing Docker containers in OpenWrt. It provides functionality to list, create, and prune Docker volumes through a user-friendly interface. The module utilizes promises to load volume and container data asynchronously, and it includes features for rendering this data in a structured format. Additionally, it allows users to perform actions such as creating new volumes and pruning unused ones directly from the UI.

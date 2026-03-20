@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [luci-skeleton.md](./luci-skeleton.md): Structural map for luci that prioritizes quick orientation and symbol discovery. (~3027 tokens, l3-skeleton)
-- [luci-complete-reference.md](./luci-complete-reference.md): Complete monolithic reference for luci when a larger context window is available. (~20418 tokens, l4-monolith)
+- [luci-complete-reference.md](./luci-complete-reference.md): Complete monolithic reference for luci when a larger context window is available. (~20416 tokens, l4-monolith)
 
 ## Source Documents
 
