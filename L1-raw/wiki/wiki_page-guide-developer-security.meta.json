@@ -9,8 +9,8 @@
   "conversion_mode": "pandoc",
   "last_modified": "unknown",
   "last_modified_http": null,
-  "raw_hash": "569ef509adb077ea57f9ca85810c2db4dc63da888561ef650c8d4a8e98cab9d1",
+  "raw_hash": "c9a736ae684a06fd192eb07267d9e7e88fa3a07fcc216266dc3e9107bb1133b1",
   "source_path": "/docs/guide-developer/security",
-  "extraction_timestamp": "2026-03-09T21:33:44.015271+00:00",
-  "content_hash": "57d68dbe"
+  "extraction_timestamp": "2026-03-23T22:12:13.439349+00:00",
+  "content_hash": "dd0f396e"
 }

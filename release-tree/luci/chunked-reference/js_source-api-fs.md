@@ -3,20 +3,11 @@ title: 'LuCI API: fs'
 module: luci
 origin_type: js_source
 token_count: 140
-version: 18e0538
+version: a57e5e1
 source_file: L1-raw/luci/js_source-api-fs.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: modules/luci-base/htdocs/luci-static/resources/fs.js
 language: javascript
-ai_summary: Provides the LuCI client-side filesystem API that proxies calls to the rpcd file plugin over HTTP. Implements stat(), list(), read(), write(), exec(), remove(), and lines(); all functions return Promises and pass arguments as JSON to the /ubus endpoint, so the calling LuCI view does not need to manage XHR directly.
-ai_when_to_use: Reference when a LuCI view needs to read a config file that is not in UCI format, execute a shell command and capture stdout/stderr, list directory contents, or write a blob to the filesystem from the browser without a separate CGI endpoint.
-ai_related_topics:
-- LuCI.fs.read
-- LuCI.fs.write
-- LuCI.fs.exec
-- LuCI.fs.stat
-- LuCI.fs.list
-- rpcd file plugin
 ---
 # LuCI API: fs
 

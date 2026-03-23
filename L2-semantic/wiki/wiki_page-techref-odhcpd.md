@@ -5,15 +5,8 @@ origin_type: wiki_page
 token_count: 2900
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-odhcpd.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: odhcpd is a daemon designed for managing DHCP, DHCPv6, Router Advertisements (RA), and Neighbor Discovery Protocol (NDP) in embedded systems, particularly for IPv6 home routers. It supports both stateless and stateful DHCPv4 and DHCPv6, as well as prefix delegation and dynamic reconfiguration. The module can operate in server or relay modes for both DHCPv6 and Router Discovery, enabling seamless IP management across routed interfaces. Configuration is handled via a UCI file located at `/etc/config/dhcp`.
-ai_when_to_use: Use odhcpd when you need to manage IP address assignments and routing information for IPv6 clients and routers in a network, especially in scenarios where prefix delegation is required.
-ai_related_topics:
-- Router Discovery (RD)
-- DHCPv6
-- DHCPv4
-- Neighbor Discovery Proxy (NDP)
 ---
 # odhcpd
 

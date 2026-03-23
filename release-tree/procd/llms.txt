@@ -1,12 +1,12 @@
 # procd module
-> Defines the procd init script Bash API for service registration and supervised process lifecycle control.
+> procd init.d API Reference > **Extracted from:** procd.sh block comments procd.sh
 > **Total Context:** ~352 tokens
 
 ## Recommended Entry Points
 
-- [map.md](./map.md): Structural map for procd that prioritizes quick orientation and symbol discovery. (~188 tokens, l3-skeleton)
+- [map.md](./map.md): Structural map for procd that prioritizes quick orientation and symbol discovery. (~59 tokens, l3-skeleton)
 - [bundled-reference.md](./bundled-reference.md): Complete monolithic reference for procd when a larger context window is available. (~429 tokens, l4-monolith)
 
 ## Source Documents
 
-- [header_api-procd-api.md](./chunked-reference/header_api-procd-api.md): Defines the procd init script Bash API for service registration and supervised process lifecycle control. (~352 tokens, l2-source)
+- [header_api-procd-api.md](./chunked-reference/header_api-procd-api.md): procd init.d API Reference > **Extracted from:** procd.sh block comments procd.sh (~352 tokens, l2-source)

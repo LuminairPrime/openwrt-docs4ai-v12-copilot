@@ -3,18 +3,11 @@ title: 'ucode module: zlib'
 module: ucode
 origin_type: c_source
 token_count: 1913
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-zlib.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/zlib.c
 language: c
-ai_summary: Provides zlib compression and decompression bindings for ucode. Implements compress() and uncompress() for raw deflate/inflate over in-memory byte strings, and deflate()/inflate() for streaming compression contexts. Supports gzip-format data via gzip_compress() and gzip_uncompress() for HTTP transfer-encoding and configuration snapshot handling.
-ai_when_to_use: Use when a ucode service must compress or decompress data for HTTP chunked transfer, configuration backup archives, or firmware payload inspection where gzip format is expected.
-ai_related_topics:
-- zlib.compress
-- zlib.uncompress
-- zlib.deflate
-- zlib.inflate
 ---
 # ucode module: zlib
 

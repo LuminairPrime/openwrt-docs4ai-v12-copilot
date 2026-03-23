@@ -3,23 +3,11 @@ title: 'OpenWrt Buildroot: utils packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 5864
-version: a1f5273
+version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-category-utils.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: package/utils
 language: makefile
-ai_summary: The OpenWrt Buildroot utils packages module provides a collection of utility tools and libraries for embedded Linux systems. Key components include Android Debug Bridge (adb) for device communication, audit libraries for security auditing, and various utilities for specific hardware like BCM27xx and BCM4908. Additionally, it includes essential tools like busybox for command-line operations and bzip2 for data compression. Each package is maintained by specific contributors and has its own versioning and licensing details.
-ai_when_to_use: Use this module when you need to integrate utility packages into your OpenWrt build for enhanced functionality or specific hardware support.
-ai_related_topics:
-- adb
-- audit
-- bcm27xx-utils
-- bcm4908img
-- bsdiff
-- busybox
-- bzip2
-- checkpolicy
-- cli
 ---
 # OpenWrt Buildroot: utils packages
 

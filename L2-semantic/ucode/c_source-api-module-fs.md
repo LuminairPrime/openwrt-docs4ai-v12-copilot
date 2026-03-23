@@ -3,9 +3,9 @@ title: 'ucode module: fs'
 module: ucode
 origin_type: c_source
 token_count: 11211
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-fs.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/fs.c
 language: c
 ---

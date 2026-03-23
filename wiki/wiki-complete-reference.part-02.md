@@ -1,18 +1,18 @@
 ---
 module: wiki
-total_token_count: 98016
+total_token_count: 98061
 section_count: 39
 is_monolithic: false
 is_sharded_part: true
 part_number: 2
 part_count: 3
-generated: '2026-03-20T05:00:42.100996+00:00'
+generated: '2026-03-23T22:14:37.218591+00:00'
 ---
 
 # wiki Complete Reference (Part 2 of 3)
 
 > **Contains:** 39 documents
-> **Tokens:** ~98016 (cl100k_base)
+> **Tokens:** ~98061 (cl100k_base)
 > **Index:** [./wiki-complete-reference.md](./wiki-complete-reference.md)
 
 ---
@@ -2903,6 +2903,17 @@ The goal of LLDP is to provide an inter-vendor compatible mechanism to deliver L
 An implementation of IEEE 802.1ab
 
 lldpd (Link Layer Discovery Protocol daemon) daemon providing an industry standard protocol designed to supplant proprietary Link-Layer protocols such as Extreme's EDP (Extreme Discovery Protocol) and CDP (Cisco Discovery Protocol).
+
+# Installation & Configuration
+
+## Installation
+
+OpenWRT uses the standard, lightweight lldpd package. Drop into your ER-X via SSH:
+
+``` bash
+opkg update
+opkg install lldpd
+```
 
 ## Configuration
 

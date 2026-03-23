@@ -7,6 +7,6 @@
   "language": "javascript",
   "upstream_path": "applications/luci-app-ddns/htdocs/luci-static/resources/view/status/include/70_ddns.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:57:13.300904+00:00",
+  "extraction_timestamp": "2026-03-23T22:11:23.573570+00:00",
   "content_hash": "c66decff"
 }

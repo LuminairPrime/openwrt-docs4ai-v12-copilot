@@ -2,17 +2,11 @@
 title: Security
 module: wiki
 origin_type: wiki_page
-token_count: 2146
+token_count: 2147
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-security.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: The Security module of OpenWrt outlines the processes, tools, and mechanisms utilized to ensure the security of the OpenWrt distribution and its official package feeds. It includes guidelines for vulnerability reporting, emphasizing confidentiality and the appropriate channels for communication, such as contacting <contact@openwrt.org> or the public mailing list <openwrt-adm@lists.openwrt.org>. Additionally, the module provides information on security advisories specifically for components maintained by OpenWrt, while noting that third-party components are not covered. The support status of various OpenWrt releases is also detailed, indicating their current status and projected end-of-life dates.
-ai_when_to_use: Use this module when you need to understand the security protocols and reporting mechanisms for OpenWrt. It is particularly relevant for developers and users who want to report vulnerabilities or stay informed about security advisories.
-ai_related_topics:
-- Vulnerability reporting
-- Security advisories
-- Support Status
 ---
 # Security
 
@@ -38,8 +32,8 @@ This table lists the support status of various OpenWrt releases:
 
 | Version           | Current status       | Initial Release    | EoL (Projected)   | Latest Release | Release Date      |
 |:------------------|:---------------------|:-------------------|:------------------|:---------------|:------------------|
-| @lightgreen:25.12 | Supported            | 2026, March 06     | (2027, March)     | 25.12.0        | 2026, March 06    |
-| @yellow:24.10     | Security Maintenance | 2025, February 06  | (2026, September) | 24.10.5        | 2025, December 19 |
+| @lightgreen:25.12 | Supported            | 2026, March 06     | (2027, March)     | 25.12.1        | 2026, March 18    |
+| @yellow:24.10     | Security Maintenance | 2025, February 06  | (2026, September) | 24.10.6        | 2026, March 18    |
 | @pink:23.05       | End of Life          | 2023, October 13   | 2025, August      | 23.05.6        | 2025, August 20   |
 | @pink:22.03       | End of Life          | 2022, September 06 | 2024, July        | 22.03.7        | 2024, July 25     |
 | @pink:21.02       | End of Life          | 2021, September 04 | 2023, May         | 21.02.7        | 2023, May 01      |

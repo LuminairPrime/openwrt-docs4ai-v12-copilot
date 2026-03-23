@@ -5,18 +5,8 @@ origin_type: wiki_page
 token_count: 405
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-ubus.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: Practical guide for using ubus from shell scripts, C code, and Lua/ucode. Covers the ubus CLI (ubus call, ubus listen, ubus wait_for), calling ubus from C (ubus_lookup_id, ubus_invoke, ubus_send_event), registering a new ubus object in a C daemon (ubus_add_object, ubus_method definitions), and the ACL permission file format for granting rpcd access to specific ubus paths.
-ai_when_to_use: Reference when calling an existing ubus service from a shell script (ubus call system board), writing a C daemon that needs to expose methods over ubus, or configuring rpcd ACL files to allow a LuCI JavaScript view to invoke a ubus path without root privileges.
-ai_related_topics:
-- ubus_invoke
-- ubus_add_object
-- ubus_method
-- ubus call
-- rpcd ACL
-- ubus_send_event
-- libubox
 ---
 # uBus IPC/RPC System
 

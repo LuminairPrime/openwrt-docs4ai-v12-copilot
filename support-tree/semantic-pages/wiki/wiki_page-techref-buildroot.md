@@ -1,22 +1,12 @@
 ---
-title: OpenWrt Buildroot – Technical Reference
+title: "OpenWrt Buildroot \u2013 Technical Reference"
 module: wiki
 origin_type: wiki_page
 token_count: 1012
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-buildroot.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: Explains the OpenWrt build system (buildroot), covering the directory layout (package/, target/, toolchain/, staging_dir/), the package Makefile structure (PKG_NAME, PKG_BUILD_DIR, Package/install, Build/Compile targets), the feeds system for third-party packages, the menuconfig workflow for selecting packages and target configs, and DL_DIR/TOPDIR conventions for reproducible builds.
-ai_when_to_use: Reference when creating a new OpenWrt package Makefile, adding a new package to a feed, configuring a cross-compilation toolchain for a specific target board, or troubleshooting why a package fails to compile in the buildroot environment.
-ai_related_topics:
-- PKG_BUILD_DIR
-- Package/install
-- Build/Compile
-- feeds.conf
-- scripts/feeds update
-- make menuconfig
-- TOPDIR
 ---
 # OpenWrt Buildroot – Technical Reference
 

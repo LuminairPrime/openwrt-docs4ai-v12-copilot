@@ -3,22 +3,11 @@ title: network.js
 module: luci-examples
 origin_type: example_app
 token_count: 1465
-version: 18e0538
+version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-network-js.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/network.js
 language: javascript
-ai_summary: The `network.js` module is a JavaScript component designed for the Docker manager in the LuCI interface of OpenWrt. It provides functionality to inspect Docker networks and list associated containers, leveraging the `dockerman.common` library. The module includes methods for loading network details, rendering the network overview, and displaying configuration options in a structured format. It features tabs for network information and configurations, allowing users to view and manage Docker network settings effectively.
-ai_when_to_use: Use this module when you need to manage and inspect Docker networks within the OpenWrt LuCI interface, particularly in applications that utilize Docker containers.
-ai_related_topics:
-- dm2.dv.extend
-- dm2.network_inspect
-- dm2.container_list
-- form.JSONMap
-- form.NamedSection
-- form.DummyValue
-- form.Flag
-- form.TableSection
 ---
 # network.js
 ```javascript
