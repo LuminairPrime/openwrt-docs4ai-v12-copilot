@@ -1,0 +1,8 @@
+{
+  "github.copilot.chat.codesearch.agent.enabled": false,
+  "github.copilot.chat.codesearch.enabled": false,
+  "github.copilot.chat.localWorkspaceRecording.enabled": false,
+  "github.copilot.chat.workspace.enableCodeSearch": false,
+  "github.copilot.chat.workspace.enableEmbeddingsSearch": false,
+  "github.copilot.chat.workspace.enableFullWorkspace": false
+}
