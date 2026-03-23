@@ -744,10 +744,18 @@ def pass_1_normalize_all(ts_now):
             l1_rel = os.path.relpath(md_path, WORKDIR).replace("\\", "/")
             y_meta = {
                 "title": title, "module": module, "origin_type": o_type,
-                "token_count": count_tokens(content), "version": commits.get(module, "unknown"),
+                "token_count": count_tokens(content),
                 "source_file": l1_rel, "last_pipeline_run": ts_now
             }
-            for k in ["upstream_path", "language", "description"]:
+            # Carry source_commit from L1 sidecar (git-backed modules only; wiki/cookbook omit it)
+            if meta.get("source_commit"):
+                y_meta["source_commit"] = meta["source_commit"]
+            # Carry optional provenance and routing fields from L1 sidecar
+            for k in ["source_url", "source_locator", "language", "description",
+                      "routing_summary", "routing_keywords", "routing_priority",
+                      "era_status", "audience_hint",
+                      "when_to_use", "related_modules", "verification_basis",
+                      "reviewed_by", "last_reviewed"]:
                 if meta.get(k):
                     y_meta[k] = meta[k]
 

@@ -17,9 +17,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
 sys.stdout.reconfigure(line_buffering=True)
 
+OPENWRT_COMMIT = os.environ.get("OPENWRT_COMMIT", "unknown")
 SKIP_BUILDROOT = os.environ.get("SKIP_BUILDROOT", "false").lower() == "true"
 
 if SKIP_BUILDROOT:
@@ -167,9 +169,10 @@ for cat_path in sorted(glob.glob(os.path.join(REPO, "package", "*"))):
         "origin_type": "makefile_meta",
         "module": "openwrt-core",
         "slug": slug,
-        "original_url": None,
+        "source_url": make_git_source_url(REPO_BASE_OPENWRT, OPENWRT_COMMIT, f"package/{category}"),
+        "source_locator": f"package/{category}",
+        "source_commit": OPENWRT_COMMIT,
         "language": "makefile",
-        "upstream_path": f"package/{category}",
         "fetch_status": "success",
         "extraction_timestamp": TS
     }
@@ -214,14 +217,10 @@ if mk_entries:
         "origin_type": "makefile_meta",
         "module": "openwrt-core",
         "slug": slug,
-        "original_url": None,
+        "source_url": make_git_source_url(REPO_BASE_OPENWRT, OPENWRT_COMMIT, "include/"),
+        "source_locator": "include/",
+        "source_commit": OPENWRT_COMMIT,
         "language": "makefile",
-        "upstream_path": "include/",
-        "fetch_status": "success",
-        "extraction_timestamp": TS
-    }
-
-    extractor.write_l1_markdown("openwrt-core", "makefile_meta", slug, "\n".join(content_lines), metadata)
     outputs_generated += 1
     print(f"[02d] OK: include-mk ({len(mk_entries)} documented)")
 

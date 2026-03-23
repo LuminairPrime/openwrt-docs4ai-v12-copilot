@@ -1,0 +1,34 @@
+# Source-intake exclusion policy
+# Each entry blocks a specific upstream file from being ingested into L1-raw.
+# This allows permanent, auditable removal of low-value or misleading content
+# without touching upstream sources.
+#
+# Fields:
+#   source:      Upstream source name (e.g. "wiki")
+#   match_type:  How to match — "slug" matches the L1 filename slug
+#   identifier:  The slug or other identifier to match
+#   reason:      Human-readable explanation for the exclusion
+#   added:       ISO date the entry was added
+#   added_by:    Who added the entry ("maintainer", CI login, etc.)
+
+exclusions:
+  - source: wiki
+    match_type: slug
+    identifier: "guide-developer-luci"
+    reason: "Deprecated Lua/CBI LuCI tutorial that misroutes modern AI generation toward obsolete APIs"
+    added: "2026-03-22"
+    added_by: "maintainer"
+
+  - source: wiki
+    match_type: slug
+    identifier: "techref-hotplug-legacy"
+    reason: "Historical Hotplug2 page superseded by procd; low-value for current routing corpus"
+    added: "2026-03-22"
+    added_by: "maintainer"
+
+  - source: wiki
+    match_type: slug
+    identifier: "guide-developer-20-xx-major-changes"
+    reason: "Release-transition page that disproportionately distorts wiki routing summaries"
+    added: "2026-03-22"
+    added_by: "maintainer"

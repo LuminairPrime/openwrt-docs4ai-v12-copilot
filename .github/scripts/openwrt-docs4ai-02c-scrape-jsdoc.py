@@ -19,7 +19,9 @@ import html
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_LUCI
 
+LUCI_COMMIT = os.environ.get("LUCI_COMMIT", "unknown")
 sys.stdout.reconfigure(line_buffering=True)
 JSDOC_TIMEOUT = int(os.environ.get("JSDOC_TIMEOUT", "120"))
 
@@ -129,9 +131,10 @@ def main():
             "origin_type": "js_source",
             "module": "luci",
             "slug": slug,
-            "original_url": None,
+            "source_url": make_git_source_url(REPO_BASE_LUCI, LUCI_COMMIT, relpath),
+            "source_locator": relpath,
+            "source_commit": LUCI_COMMIT,
             "language": "javascript",
-            "upstream_path": relpath,
             "fetch_status": "success",
             "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
         }
@@ -164,9 +167,10 @@ def main():
                     "origin_type": "js_source",
                     "module": "luci",
                     "slug": "api-all",
-                    "original_url": None,
+                    "source_url": make_git_source_url(REPO_BASE_LUCI, LUCI_COMMIT, target_rel),
+                    "source_locator": target_rel,
+                    "source_commit": LUCI_COMMIT,
                     "language": "javascript",
-                    "upstream_path": target_rel,
                     "fetch_status": "success",
                     "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
                 }

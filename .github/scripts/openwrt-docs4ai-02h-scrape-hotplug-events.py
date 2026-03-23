@@ -15,8 +15,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
 sys.stdout.reconfigure(line_buffering=True)
+
+OPENWRT_COMMIT = os.environ.get("OPENWRT_COMMIT", "unknown")
 
 print("[02h] Scrape hotplug.d events")
 
@@ -76,9 +79,10 @@ metadata = {
     "origin_type": "hotplug_event",
     "module": "openwrt-hotplug",
     "slug": slug,
-    "original_url": None,
+    "source_url": make_git_source_url(REPO_BASE_OPENWRT, OPENWRT_COMMIT, "package/**/etc/hotplug.d/*"),
+    "source_locator": "package/**/etc/hotplug.d/*",
+    "source_commit": OPENWRT_COMMIT,
     "language": "bash",
-    "upstream_path": "package/**/etc/hotplug.d/*",
     "fetch_status": "success",
     "extraction_timestamp": ts
 }

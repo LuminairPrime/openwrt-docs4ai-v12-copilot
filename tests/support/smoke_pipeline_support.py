@@ -32,6 +32,7 @@ FULL_PIPELINE = [
     "openwrt-docs4ai-02f-scrape-procd-api.py",
     "openwrt-docs4ai-02g-scrape-uci-schemas.py",
     "openwrt-docs4ai-02h-scrape-hotplug-events.py",
+    "openwrt-docs4ai-02i-ingest-cookbook.py",
     *POST_EXTRACT_PIPELINE,
 ]
 
@@ -79,6 +80,7 @@ FIXTURE_DOCS = [
             "language": "c",
             "description": "Configuration access APIs",
             "upstream_path": "package/system/uci.c",
+            "source_commit": "abc1234",
         },
     },
     {
@@ -91,6 +93,7 @@ FIXTURE_DOCS = [
             "language": "c",
             "description": "Init and service lifecycle helpers",
             "upstream_path": "procd/init.c",
+            "source_commit": "abc1234",
         },
     },
     {
@@ -103,6 +106,7 @@ FIXTURE_DOCS = [
             "language": "c",
             "description": "File system module for ucode",
             "upstream_path": "lib/fs.c",
+            "source_commit": "abc1234",
         },
     },
     {
@@ -115,6 +119,7 @@ FIXTURE_DOCS = [
             "language": "c",
             "description": "Event loop timers and callbacks",
             "upstream_path": "lib/uloop.c",
+            "source_commit": "abc1234",
         },
     },
     {

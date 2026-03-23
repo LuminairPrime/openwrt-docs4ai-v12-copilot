@@ -201,6 +201,115 @@ jobs:
           echo "Extractor contract failed for 02a-scrape-wiki.py with status=${{ steps.extract_contract.outputs.contract_status }}"
           exit 1
 
+  # ── Phase 2a+: Cookbook Ingestion (Parallel with initialize) ──
+  extract_cookbook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: 'pip'
+      - name: Install dependencies
+        run: pip install -r .github/scripts/requirements.txt
+      - name: Mark extractor start
+        run: echo "EXTRACT_STARTED_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Extract 02i-ingest-cookbook.py
+        id: extract_run
+        continue-on-error: true
+        run: python .github/scripts/openwrt-docs4ai-02i-ingest-cookbook.py
+      - name: Evaluate extractor output contract (02i)
+        if: always()
+        id: extract_contract
+        env:
+          SCRIPT_NAME: 02i-ingest-cookbook.py
+          MODULE_NAME: cookbook
+          EXTRACT_OUTCOME: ${{ steps.extract_run.outcome }}
+        run: |
+          set -euo pipefail
+          started_epoch="${EXTRACT_STARTED_EPOCH:-$(date +%s)}"
+          ended_epoch="$(date +%s)"
+          duration_seconds=$(( ended_epoch - started_epoch ))
+
+          module_dir="$WORKDIR/L1-raw/$MODULE_NAME"
+          md_count=0
+          meta_count=0
+          if [ -d "$module_dir" ]; then
+            md_count=$(find "$module_dir" -type f -name '*.md' | wc -l | awk '{print $1}')
+            meta_count=$(find "$module_dir" -type f -name '*.meta.json' | wc -l | awk '{print $1}')
+          fi
+
+          contract_status="ok"
+          contract_fail="false"
+          if [ "$EXTRACT_OUTCOME" != "success" ]; then
+            contract_status="extractor_failed"
+            contract_fail="true"
+          elif [ "$md_count" -gt 0 ]; then
+            contract_status="ok"
+          else
+            contract_status="unexpected_empty"
+            contract_fail="true"
+          fi
+
+          status_path="$WORKDIR/extract-status/${SCRIPT_NAME}.json"
+          mkdir -p "$WORKDIR/extract-status"
+
+          export CONTRACT_STATUS="$contract_status"
+          export CONTRACT_FAIL="$contract_fail"
+          export MD_COUNT="$md_count"
+          export META_COUNT="$meta_count"
+          export STARTED_EPOCH="$started_epoch"
+          export ENDED_EPOCH="$ended_epoch"
+          export DURATION_SECONDS="$duration_seconds"
+          export STATUS_PATH="$status_path"
+
+          python - <<'PY'
+          import json
+          import os
+
+          payload = {
+              "script": os.environ["SCRIPT_NAME"],
+              "module": os.environ["MODULE_NAME"],
+              "outcome": os.environ["EXTRACT_OUTCOME"],
+              "contract_status": os.environ["CONTRACT_STATUS"],
+              "contract_fail": os.environ["CONTRACT_FAIL"] == "true",
+              "expected_skip": False,
+              "skip_reason": None,
+              "md_count": int(os.environ["MD_COUNT"]),
+              "meta_count": int(os.environ["META_COUNT"]),
+              "started_epoch": int(os.environ["STARTED_EPOCH"]),
+              "ended_epoch": int(os.environ["ENDED_EPOCH"]),
+              "duration_seconds": int(os.environ["DURATION_SECONDS"]),
+          }
+
+          with open(os.environ["STATUS_PATH"], "w", encoding="utf-8") as handle:
+              json.dump(payload, handle, indent=2)
+          PY
+
+          echo "contract_status=$contract_status" >> "$GITHUB_OUTPUT"
+          echo "contract_fail=$contract_fail" >> "$GITHUB_OUTPUT"
+      - name: Upload L1 Artifacts (02i)
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: L1-02i-ingest-cookbook.py
+          path: ${{ env.WORKDIR }}/L1-raw/
+          retention-days: 1
+          if-no-files-found: ignore
+      - name: Upload extractor status (02i)
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: extract-status-02i-ingest-cookbook.py
+          path: ${{ env.WORKDIR }}/extract-status/02i-ingest-cookbook.py.json
+          retention-days: 7
+      - name: Enforce extractor output contract (02i)
+        if: steps.extract_contract.outputs.contract_fail == 'true'
+        run: |
+          echo "Extractor contract failed for 02i-ingest-cookbook.py with status=${{ steps.extract_contract.outputs.contract_status }}"
+          exit 1
+
   # ── Phase 2b: Repo-backed Extraction (Matrix) ─────────────
   extract:
     needs: initialize
@@ -362,7 +471,7 @@ jobs:
 
   # ── Phase 2c: Extract Summary (always) ────────────────
   extract_summary:
-    needs: [extract, extract_wiki]
+    needs: [extract, extract_wiki, extract_cookbook]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -385,6 +494,7 @@ jobs:
         env:
           EXTRACT_REPO_RESULT: ${{ needs.extract.result }}
           EXTRACT_WIKI_RESULT: ${{ needs.extract_wiki.result }}
+          EXTRACT_COOKBOOK_RESULT: ${{ needs.extract_cookbook.result }}
         run: |
           python - <<'PY'
           import json
@@ -426,6 +536,7 @@ jobs:
           summary_payload = {
               "extract_repo_result": os.environ.get("EXTRACT_REPO_RESULT", "unknown"),
               "extract_wiki_result": os.environ.get("EXTRACT_WIKI_RESULT", "unknown"),
+              "extract_cookbook_result": os.environ.get("EXTRACT_COOKBOOK_RESULT", "unknown"),
               "extractor_count": len(statuses),
               "contract_status_counts": dict(contract_counts),
               "contract_failures": len(contract_failures),
@@ -440,6 +551,7 @@ jobs:
           lines.append("")
           lines.append(f"- extract job result: {summary_payload['extract_repo_result']}")
           lines.append(f"- extract_wiki job result: {summary_payload['extract_wiki_result']}")
+          lines.append(f"- extract_cookbook job result: {summary_payload['extract_cookbook_result']}")
           lines.append(f"- extractor status manifests: {summary_payload['extractor_count']}")
           lines.append(f"- contract failures: {summary_payload['contract_failures']}")
           lines.append("")
@@ -1101,7 +1213,7 @@ jobs:
 
   # ── Final Summary: Always emit run-state artifact ───────
   pipeline_summary:
-    needs: [initialize, extract_wiki, extract, extract_summary, process, deploy]
+    needs: [initialize, extract_wiki, extract_cookbook, extract, extract_summary, process, deploy]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10

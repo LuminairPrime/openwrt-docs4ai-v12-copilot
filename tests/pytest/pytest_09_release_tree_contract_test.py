@@ -131,7 +131,7 @@ def seed_support_tree_sources(outdir: Path) -> None:
     l1_raw.joinpath("c_source-api-fs.md").write_text("# raw\n", encoding="utf-8")
     l1_raw.joinpath("c_source-api-fs.meta.json").write_text("{}\n", encoding="utf-8")
     l2_semantic.joinpath("wiki_page-service-events.md").write_text(
-        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nversion: v12\n---\n",
+        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nsource_commit: abc1234\n---\n",
         encoding="utf-8",
     )
     outdir.joinpath("cross-link-registry.json").write_text("{}\n", encoding="utf-8")
@@ -159,7 +159,7 @@ def build_support_tree(outdir: Path, validate) -> Path:
         encoding="utf-8",
     )
     (support_tree / "semantic-pages" / "wiki" / "wiki_page-service-events.md").write_text(
-        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nversion: v12\n---\n",
+        "---\ntitle: wiki\nmodule: wiki\norigin_type: wiki\ntoken_count: 1\nsource_commit: abc1234\n---\n",
         encoding="utf-8",
     )
     (support_tree / "manifests" / "cross-link-registry.json").write_text("{}\n", encoding="utf-8")
@@ -571,3 +571,145 @@ def test_release_overlay_index_rejects_parent_directory_links(tmp_path: Path) ->
 
     assert any("contains hrefs outside the publish tree" in failure for failure in hard_failures)
     assert any("../README.md" in failure for failure in hard_failures)
+
+
+def test_check_dead_links_reports_broken_relative_link(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "check_dead_links_broken",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    release_tree = tmp_path / "release-tree"
+    release_tree.mkdir(parents=True)
+    release_tree.joinpath("page.md").write_text(
+        "# Page\n\nSee [missing](./nonexistent.md).\n",
+        encoding="utf-8",
+    )
+
+    hard_failures: list[str] = []
+    validate.check_dead_links(str(release_tree), hard_failures.append)
+
+    assert any("Broken relative link" in f and "nonexistent.md" in f for f in hard_failures)
+
+
+def test_check_dead_links_passes_valid_relative_link(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "check_dead_links_valid",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    release_tree = tmp_path / "release-tree"
+    release_tree.mkdir(parents=True)
+    release_tree.joinpath("target.md").write_text("# Target\n", encoding="utf-8")
+    release_tree.joinpath("page.md").write_text(
+        "# Page\n\nSee [target](./target.md).\n",
+        encoding="utf-8",
+    )
+
+    hard_failures: list[str] = []
+    validate.check_dead_links(str(release_tree), hard_failures.append)
+
+    assert hard_failures == []
+
+
+def test_check_dead_links_skips_external_and_anchor_links(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "check_dead_links_skip_external",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    release_tree = tmp_path / "release-tree"
+    release_tree.mkdir(parents=True)
+    # External links and anchor-only links should not trigger failures
+    release_tree.joinpath("page.md").write_text(
+        "# Page\n\n"
+        "See [external](https://openwrt.org/docs/guide.md).\n"
+        "See [anchor](#section).\n",
+        encoding="utf-8",
+    )
+
+    hard_failures: list[str] = []
+    validate.check_dead_links(str(release_tree), hard_failures.append)
+
+    assert hard_failures == []
+
+
+def test_validate_release_tree_contract_rejects_broken_relative_link(tmp_path: Path) -> None:
+    validate = load_script_module(
+        "validator_release_tree_broken_link",
+        "openwrt-docs4ai-08-validate-output.py",
+    )
+
+    release_tree = build_release_tree(tmp_path, validate)
+    # Inject a broken link into the ucode map
+    (release_tree / "ucode" / validate.config.MODULE_MAP_FILENAME).write_text(
+        "# ucode Map\n\nSee [missing page](./chunked-reference/does-not-exist.md).\n",
+        encoding="utf-8",
+    )
+
+    hard_failures: list[str] = []
+    validate.validate_release_tree_contract(
+        str(tmp_path),
+        hard_failures.append,
+        lambda _message: None,
+    )
+
+    assert any("Broken relative link" in f and "does-not-exist.md" in f for f in hard_failures)
+
+
+# ---------------------------------------------------------------------------
+# A8 — Source exclusion tests (Phase 10)
+# ---------------------------------------------------------------------------
+
+def test_source_exclusions_should_exclude_returns_true_for_policy_entry() -> None:
+    """should_exclude returns True for a slug listed in config/source-exclusions.yml."""
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+    from lib import source_exclusions  # noqa: PLC0415
+    # Reload to pick up any reset from other tests
+    assert source_exclusions.should_exclude("wiki", "guide-developer-luci") is True
+    assert source_exclusions.should_exclude("wiki", "techref-hotplug-legacy") is True
+    assert source_exclusions.should_exclude("wiki", "guide-developer-20-xx-major-changes") is True
+
+
+def test_source_exclusions_should_exclude_returns_false_for_non_excluded_slug() -> None:
+    """should_exclude returns False for a slug that is not in the policy."""
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+    from lib import source_exclusions  # noqa: PLC0415
+    assert source_exclusions.should_exclude("wiki", "guide-developer-helloworld") is False
+    assert source_exclusions.should_exclude("wiki", "") is False
+
+
+def test_source_exclusions_get_exclusion_reason_returns_string_for_excluded() -> None:
+    """get_exclusion_reason returns a non-empty string for an excluded slug."""
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+    from lib import source_exclusions  # noqa: PLC0415
+    reason = source_exclusions.get_exclusion_reason("wiki", "guide-developer-luci")
+    assert reason is not None
+    assert len(reason) > 0
+
+
+def test_source_exclusions_get_exclusion_reason_returns_none_for_non_excluded() -> None:
+    """get_exclusion_reason returns None for a slug not in policy."""
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+    from lib import source_exclusions  # noqa: PLC0415
+    assert source_exclusions.get_exclusion_reason("wiki", "guide-user-beginners") is None
+
+
+def test_source_exclusions_get_all_exclusions_returns_three_entries() -> None:
+    """get_all_exclusions returns exactly the 3 seed entries."""
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+    from lib import source_exclusions  # noqa: PLC0415
+    entries = source_exclusions.get_all_exclusions()
+    assert len(entries) == 3
+    sources = {e["source"] for e in entries}
+    assert sources == {"wiki"}

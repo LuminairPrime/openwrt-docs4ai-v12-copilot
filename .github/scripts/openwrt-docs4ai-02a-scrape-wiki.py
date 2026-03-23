@@ -27,7 +27,7 @@ from urllib3.util.retry import Retry
 
 # Add project root to PYTHONPATH
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from lib import config, extractor
+from lib import config, extractor, source_exclusions
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -526,7 +526,7 @@ def write_page_output(slug, url, path, converted, last_modified, last_modified_h
         "origin_type": "wiki_page",
         "module": "wiki",
         "slug": slug,
-        "original_url": url,
+        "source_url": url,
         "language": "text",
         "fetch_status": "success",
         "conversion_mode": converted["mode"],
@@ -546,6 +546,7 @@ def build_stats():
         "skipped_old": 0,
         "skipped_unchanged": 0,
         "skipped_short": 0,
+        "skipped_excluded": 0,
         "reused_cached": 0,
         "failed": 0,
     }
@@ -569,6 +570,11 @@ def update_cache_entry(cache, url, path, last_modified, last_modified_http, raw_
 def process_page(session, path, cache, stats, cutoff):
     url = f"{BASE_URL}{path}"
     slug = path_to_filename(path)
+    reason = source_exclusions.get_exclusion_reason("wiki", slug)
+    if reason is not None:
+        stats["skipped_excluded"] += 1
+        log("INFO", f"Excluding wiki page {slug}: {reason}")
+        return "skipped_excluded"
     cache_entry = cache.get(url)
     existing_output = get_existing_output_info(slug)
     if existing_output and not existing_output["is_consistent"]:
@@ -796,6 +802,7 @@ def main():
         print(
             f"[02a] Complete: {stats['saved']} fetched, {stats['skipped_unchanged']} unchanged, "
             f"{stats['skipped_old']} too old, {stats['skipped_short']} too short, "
+            f"{stats['skipped_excluded']} excluded, "
             f"{stats['reused_cached']} reused-cache, {stats['failed']} failed."
         )
         if stats["saved"] == 0 and stats["skipped_unchanged"] == 0 and stats["reused_cached"] == 0:

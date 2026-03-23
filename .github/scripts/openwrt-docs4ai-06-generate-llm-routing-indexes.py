@@ -40,6 +40,7 @@ DESCRIPTION_FALLBACK = "Description unavailable."
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
 
 MODULE_CATEGORIES = {
+    "cookbook": "Guides",
     "procd": "Core Daemons",
     "uci": "Core Daemons",
     "openwrt-hotplug": "Core Daemons",
@@ -50,11 +51,23 @@ MODULE_CATEGORIES = {
     "wiki": "Manuals",
 }
 CATEGORY_ORDER = [
+    "Guides",
     "Core Daemons",
     "Scripting & Logic",
     "Ecosystem",
     "Manuals",
 ]
+MODULE_DESCRIPTIONS = {
+    "cookbook": "Task-oriented OpenWrt guides: era-appropriate patterns, common AI mistakes, architecture overview, and cross-component howtos.",
+    "procd": "OpenWrt process manager and init system: procd init scripts, service registration, and supervised process lifecycle.",
+    "uci": "Unified Configuration Interface: UCI CLI tool, API bindings, and default configuration schemas for OpenWrt packages.",
+    "openwrt-hotplug": "Hotplug event subsystem: netifd-injected environment variables and /etc/hotplug.d/ script interfaces.",
+    "ucode": "ucode scripting language: standard library, runtime modules (fs, ubus, uci, uloop, nl80211, rtnl), and C API.",
+    "luci": "LuCI web interface framework: JavaScript client API for forms, UCI bindings, RPC, DOM, and UI widgets.",
+    "openwrt-core": "OpenWrt buildroot core packages: early boot firmware, kernel module infrastructure, and base-files.",
+    "luci-examples": "LuCI community application examples: full plugin source code for Docker, statistics, DDNS, and more.",
+    "wiki": "OpenWrt project documentation: developer guides, architecture references, release notes, and hardware support.",
+}
 
 ENCODER = None
 if tiktoken is not None:
@@ -118,6 +131,7 @@ def first_sentence(text):
 
 def choose_short_description(frontmatter, body, fallback=DESCRIPTION_FALLBACK):
     for candidate in [
+        frontmatter.get("routing_summary"),
         frontmatter.get("ai_summary"),
         frontmatter.get("description"),
         body,
@@ -341,20 +355,21 @@ def main():
 
             tokens = int(frontmatter.get("token_count", 0) or 0)
             description = choose_short_description(frontmatter, body)
+            routing_priority = int(frontmatter.get("routing_priority", 0) or 0)
             rel_path = f"L2-semantic/{module}/{os.path.basename(fpath)}"
 
             module_tokens += tokens
             global_tokens += tokens
 
-            l2_entries.append(
-                build_catalog_entry(
-                    label=os.path.basename(fpath),
-                    rel_path=rel_path,
-                    description=description,
-                    tokens=tokens,
-                    kind="l2-source",
-                )
+            entry = build_catalog_entry(
+                label=os.path.basename(fpath),
+                rel_path=rel_path,
+                description=description,
+                tokens=tokens,
+                kind="l2-source",
             )
+            entry["routing_priority"] = routing_priority
+            l2_entries.append(entry)
 
         if not l2_entries:
             continue
@@ -417,6 +432,9 @@ def main():
                 )
             )
 
+        # Sort by routing_priority descending (higher value = more prominent); absent treated as 0
+        l2_entries.sort(key=lambda e: e.get("routing_priority", 0), reverse=True)
+
         source_section_entries = []
         for entry in l2_entries:
             source_section_entries.append(
@@ -430,9 +448,12 @@ def main():
             )
             full_catalog.append(entry)
 
-        module_description = next(
-            (entry["description"] for entry in l2_entries if entry["description"] != DESCRIPTION_FALLBACK),
-            DESCRIPTION_FALLBACK,
+        module_description = MODULE_DESCRIPTIONS.get(
+            module,
+            next(
+                (entry["description"] for entry in l2_entries if entry["description"] != DESCRIPTION_FALLBACK),
+                DESCRIPTION_FALLBACK,
+            ),
         )
 
         module_lines = [

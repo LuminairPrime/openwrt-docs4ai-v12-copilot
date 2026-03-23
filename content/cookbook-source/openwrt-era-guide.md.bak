@@ -1,0 +1,120 @@
+---
+title: OpenWrt Era Guide
+description: Reference for identifying which OpenWrt era (legacy, transitional, or current) a given pattern belongs to, so AI tools produce era-appropriate recommendations.
+module: cookbook
+origin_type: authored
+when_to_use: Use when you need to verify whether a pattern, API, or package script is current-era OpenWrt (23.x+) or belongs to a legacy/transitional era.
+related_modules: [procd, uci, wiki, openwrt-core]
+era_status: current
+verification_basis: Corpus review of procd, wiki, and openwrt-core modules; placeholder for external human research packet
+reviewed_by: placeholder
+last_reviewed: 2026-03-23
+---
+
+# OpenWrt Era Guide
+
+> **When to use:** Use when you need to determine whether a given build pattern, init script, or package API belongs to a legacy, transitional, or current OpenWrt era.
+> **Key components:** procd, UCI, package Makefiles, init.d scripts
+> **Era:** This page documents all eras; recommendations favor current (23.x+) practice.
+
+## Overview
+
+OpenWrt has evolved through several eras with meaningfully different patterns for service management, package scripting, and configuration access. AI tools trained on the broad web frequently conflate these eras, producing technically plausible but era-mismatched code.
+
+This guide records the boundary events and pattern markers that distinguish legacy OpenWrt from the current procd-based era. It exists so that cookbook content can make explicit era claims and so AI consumers can calibrate their pattern selection.
+
+The canonical era boundary is the introduction of procd as the primary init system, which displaced `sysvinit`-style scripts. A secondary boundary marks the stabilization of the UCI package Makefile pattern and the deprecation of hand-rolled `install`/`configure` hooks.
+
+## Era Reference Table
+
+| Era | Approximate versions | Init system | Config system | Package script model |
+|-----|---------------------|-------------|---------------|----------------------|
+| Legacy | <12.09 | sysvinit | nvram / uci early | install/configure hooks |
+| Transitional | 12.09–17.01 | sysvinit coexisting with early procd | uci | Mix of sysvinit and procd styles |
+| Current | 18.06+ (stable by 21.02) | procd | uci | UCIDefaults + procd service blocks |
+
+## Era Markers
+
+### Legacy markers (do not use)
+
+- `/etc/init.d/` scripts using `start()`/`stop()` without `USE_PROCD=1`
+- Direct `nvram` calls for configuration
+- `opkg` scripts using hand-coded `install` hooks without UCIDefaults
+
+### Transitional markers (use only for compatibility maintenance)
+
+- Mixed procd/sysvinit init scripts
+- UCI packages lacking UCIDefaults
+
+### Current markers (prefer these)
+
+- `/etc/init.d/` scripts with `USE_PROCD=1` and `procd_open_instance`/`procd_close_instance`
+- UCI-based configuration access via `uci get`/`uci set` or the ucode `uci` module
+- Package Makefiles using `$(eval $(call BuildPackage,...))` with UCIDefaults hooks
+
+## Complete Working Example
+
+```sh
+#!/bin/sh /etc/rc.common
+# Current-era procd service script
+
+USE_PROCD=1
+START=95
+STOP=05
+
+start_service() {
+    procd_open_instance
+    procd_set_param command /usr/sbin/myservice
+    procd_set_param respawn
+    procd_close_instance
+}
+```
+
+## Step-by-Step Explanation
+
+- `USE_PROCD=1` — signals to rc.common that this is a procd-managed service; enables procd_* helpers
+- `procd_open_instance` — begins a service instance definition
+- `procd_set_param command` — sets the binary to execute
+- `procd_set_param respawn` — enables automatic restart on failure
+- `procd_close_instance` — completes and registers the instance with procd
+
+## Anti-Patterns
+
+### WRONG: Legacy sysvinit style (no procd)
+
+```sh
+#!/bin/sh /etc/rc.common
+START=95
+start() {
+    /usr/sbin/myservice &
+}
+stop() {
+    killall myservice
+}
+```
+
+### CORRECT: Current procd style
+
+```sh
+#!/bin/sh /etc/rc.common
+USE_PROCD=1
+START=95
+start_service() {
+    procd_open_instance
+    procd_set_param command /usr/sbin/myservice
+    procd_close_instance
+}
+```
+
+## Related Topics
+
+- [OpenWrt Architecture Overview](./architecture-overview.md)
+- [Common AI Mistakes](./common-ai-mistakes.md)
+
+## Verification Notes
+
+- Pattern verified against: `openwrt-condensed-docs/L2-semantic/procd/` corpus files
+- Legacy init script pattern: observed in pre-barrier corpus references
+- Reviewed by: placeholder
+- Last reviewed: 2026-03-23
+- Known limitation: external human research packet (forum/commit evidence for era dates) is pending — see `era-guide-evidence-needed.md`

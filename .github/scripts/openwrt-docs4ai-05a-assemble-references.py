@@ -95,8 +95,13 @@ def append_skeleton_lines(
     body_text: str,
 ) -> None:
     """Append summary, headings, and short signatures for the module skeleton."""
-    if frontmatter.get("ai_summary"):
-        skeleton_lines.append(f"> **Summary:** {frontmatter['ai_summary']}")
+    summary = (
+        frontmatter.get("routing_summary")
+        or frontmatter.get("ai_summary")
+        or frontmatter.get("description")
+    )
+    if summary:
+        skeleton_lines.append(f"> **Summary:** {summary}")
     if frontmatter.get("ai_when_to_use"):
         skeleton_lines.append(f"> **Use Case:** {frontmatter['ai_when_to_use']}")
 
@@ -109,6 +114,44 @@ def append_skeleton_lines(
                 skeleton_lines.append(signature)
 
     skeleton_lines.append("")
+
+
+def build_provenance_block(frontmatter: dict[str, Any], pipeline_date: str) -> str:
+    """Build a visible markdown provenance header block from L2 frontmatter.
+
+    Never fabricates URLs. Omits Source line if no verifiable URL is present.
+    """
+    origin_type = frontmatter.get("origin_type", "")
+    source_url = frontmatter.get("source_url", "")
+    source_commit = frontmatter.get("source_commit", "")
+    source_locator = frontmatter.get("source_locator", "")
+    method_map = {
+        "wiki_page": "scraped",
+        "authored": "hand-authored",
+    }
+    method = method_map.get(origin_type, "normalized")
+
+    lines: list[str] = []
+    # Source line — only emit a verifiable URL, never fabricate
+    if source_url and source_url.startswith("http"):
+        lines.append(f"> **Source:** [{source_url}]({source_url})")
+    elif source_locator:
+        lines.append(f"> **Source:** `{source_locator}`")
+
+    kind_parts = [f"**Kind:** {origin_type}"] if origin_type else []
+    if source_commit:
+        kind_parts.append(f"**Commit:** {source_commit}")
+    kind_parts.append(f"**Method:** {method}")
+    if kind_parts:
+        lines.append("> " + " | ".join(kind_parts))
+
+    run_date = pipeline_date.split("T")[0] if "T" in pipeline_date else pipeline_date
+    raw_run = frontmatter.get("last_pipeline_run", "")
+    if raw_run:
+        run_date = str(raw_run)[:10]
+    lines.append(f"> **Normalized:** {run_date}")
+
+    return "\n".join(lines) + "\n"
 
 
 def load_l2_sections(
@@ -457,17 +500,32 @@ def write_skeleton(
         handle.write("\n")
 
 
-def copy_release_chunked_pages(md_files: list[str], out_mod_dir: str) -> None:
-    """Copy L2 semantic pages into the release-tree chunked-reference folder."""
+def copy_release_chunked_pages(md_files: list[str], out_mod_dir: str, generated_at: str) -> None:
+    """Copy L2 semantic pages into the release-tree chunked-reference folder with provenance headers."""
     chunked_dir = os.path.join(out_mod_dir, config.MODULE_CHUNKED_REF_DIRNAME)
     os.makedirs(chunked_dir, exist_ok=True)
 
     for fpath in md_files:
         with open(fpath, "r", encoding="utf-8") as handle:
             content = handle.read().strip()
+
+        fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
+        if fm_match:
+            try:
+                frontmatter = yaml.safe_load(fm_match.group(1)) or {}
+            except Exception:
+                frontmatter = {}
+            body = fm_match.group(2).strip()
+            provenance = build_provenance_block(frontmatter, generated_at)
+            fm_block = "---\n" + fm_match.group(1) + "\n---"
+            rewritten_body = rewrite_release_chunked_links(body)
+            output = fm_block + "\n\n" + provenance + "\n" + rewritten_body.rstrip() + "\n"
+        else:
+            output = rewrite_release_chunked_links(content).rstrip() + "\n"
+
         out_path = os.path.join(chunked_dir, os.path.basename(fpath))
         with open(out_path, "w", encoding="utf-8", newline="\n") as handle:
-            handle.write(rewrite_release_chunked_links(content).rstrip() + "\n")
+            handle.write(output)
 
 def main() -> int:
     """Assemble publishable L4 references and L3 skeletons from staged L2 files."""
@@ -597,7 +655,7 @@ def main() -> int:
             )
 
         write_release_map(release_map_path, module, generated_at, skeleton_lines)
-        copy_release_chunked_pages(md_files, release_mod_dir)
+        copy_release_chunked_pages(md_files, release_mod_dir, generated_at)
 
         if layout["sharded"]:
             print(

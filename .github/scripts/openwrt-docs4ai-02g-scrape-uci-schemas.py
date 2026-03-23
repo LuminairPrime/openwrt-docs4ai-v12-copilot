@@ -15,8 +15,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
 sys.stdout.reconfigure(line_buffering=True)
+
+OPENWRT_COMMIT = os.environ.get("OPENWRT_COMMIT", "unknown")
 
 print("[02g] Scrape UCI default configurations")
 
@@ -67,9 +70,10 @@ for schema_name, fpath in schema_files:
             "origin_type": "uci_schema",
             "module": "uci",
             "slug": slug,
-            "original_url": None,
+            "source_url": make_git_source_url(REPO_BASE_OPENWRT, OPENWRT_COMMIT, rel_path),
+            "source_locator": rel_path,
+            "source_commit": OPENWRT_COMMIT,
             "language": "uci",
-            "upstream_path": rel_path,
             "fetch_status": "success",
             "extraction_timestamp": ts
         }

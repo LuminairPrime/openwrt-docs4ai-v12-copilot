@@ -24,6 +24,7 @@ import yaml
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config
+from lib.source_provenance import GIT_BACKED_ORIGIN_TYPES
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -301,6 +302,23 @@ def validate_mirrored_file(source_path, mirror_path, label, hard_fail):
         hard_fail(f"support-tree content mismatch: {label}")
 
 
+def check_dead_links(release_tree_dir: str, hard_fail) -> None:
+    """Check all .md files in release-tree for broken relative internal links."""
+    release_tree_md = glob.glob(os.path.join(release_tree_dir, "**", "*.md"), recursive=True)
+    outdir = os.path.dirname(release_tree_dir)
+    for fpath in release_tree_md:
+        rel = os.path.relpath(fpath, outdir)
+        rel_dir = os.path.dirname(fpath)
+        with open(fpath, "r", encoding="utf-8") as handle:
+            content = handle.read()
+        for match in RELATIVE_MD_LINK_RE.finditer(content):
+            link = match.group(1)
+            target_file = link.split("#", 1)[0]
+            target_path = os.path.normpath(os.path.join(rel_dir, target_file))
+            if not os.path.isfile(target_path):
+                hard_fail(f"Broken relative link in {rel}: {link}")
+
+
 def validate_release_tree_contract(outdir, hard_fail, soft_warn):
     release_tree_name = os.path.basename(config.RELEASE_TREE_DIR)
     support_tree_name = os.path.basename(config.SUPPORT_TREE_DIR)
@@ -432,6 +450,7 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
     )
     validate_release_agents_contract(release_tree_dir, hard_fail)
     validate_release_index_html_contract(release_tree_dir, hard_fail)
+    check_dead_links(release_tree_dir, hard_fail)
 
 
 def validate_support_tree_contract(outdir, hard_fail, soft_warn):
@@ -854,6 +873,32 @@ def validate_release_llms_full_contract(
     )
 
 
+def report_source_exclusions(outdir):
+    """Print informational summary of source exclusion policy application (not a failure gate)."""
+    try:
+        sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+        from lib import source_exclusions
+        exclusions = source_exclusions.get_all_exclusions()
+    except Exception:
+        return
+    if not exclusions:
+        return
+    print(f"[08] Source exclusion policy: {len(exclusions)} entr{'y' if len(exclusions) == 1 else 'ies'} active")
+    for entry in exclusions:
+        source = entry.get("source", "?")
+        identifier = entry.get("identifier", "?")
+        reason = entry.get("reason", "")
+        l1_glob = os.path.join(outdir, "L1-raw", source)
+        present = any(
+            identifier in fname
+            for fname in (os.listdir(l1_glob) if os.path.isdir(l1_glob) else [])
+        )
+        status = "file present (stale L1 cache?)" if present else "not present in L1"
+        print(f"[08]   {source}/{identifier}: {status}")
+        if reason:
+            print(f"[08]     reason: {reason}")
+
+
 def validate_agents_contract(outdir, hard_fail):
     path = os.path.join(outdir, "AGENTS.md")
     if not os.path.isfile(path):
@@ -992,10 +1037,17 @@ def validate_outdir(outdir):
                     parts = content.split("---", 2)
                     if len(parts) >= 3:
                         yaml_data = yaml.safe_load(parts[1]) or {}
-                        required_fields = ["title", "module", "origin_type", "token_count", "version"]
+                        origin_type = yaml_data.get("origin_type", "")
+                        required_fields = ["title", "module", "origin_type", "token_count"]
+                        if origin_type in GIT_BACKED_ORIGIN_TYPES:
+                            required_fields.append("source_commit")
                         for field in required_fields:
                             if field not in yaml_data:
                                 hard_fail(f"L2 YAML missing required field '{field}': {rel}")
+                        _stale_fields = {"version", "upstream_path", "original_url"}
+                        for _stale in _stale_fields:
+                            if _stale in yaml_data:
+                                soft_warn(f"L2 YAML stale field '{_stale}' found in {rel} — use V6 provenance fields")
                 except Exception as exc:
                     hard_fail(f"Malformed YAML in L2: {rel} ({exc})")
 
@@ -1008,19 +1060,6 @@ def validate_outdir(outdir):
                     if pattern.search(wiki_scan_content):
                         soft_warn(f"Residual wiki HTML ({label}) leaked into L2: {rel}")
 
-    for fpath in all_md:
-        rel = os.path.relpath(fpath, outdir)
-        rel_dir = os.path.dirname(fpath)
-        with open(fpath, "r", encoding="utf-8") as handle:
-            content = handle.read()
-
-        for match in RELATIVE_MD_LINK_RE.finditer(content):
-            link = match.group(1)
-            target_file = link.split("#", 1)[0]
-            target_path = os.path.normpath(os.path.join(rel_dir, target_file))
-            if not os.path.isfile(target_path):
-                hard_fail(f"Broken relative link in {rel}: {link}")
-
     modules = expected_module_names(outdir)
     validate_root_llms_contract(outdir, modules, hard_fail, soft_warn)
     validate_module_llms_contract(outdir, modules, hard_fail, soft_warn)
@@ -1029,6 +1068,7 @@ def validate_outdir(outdir):
     validate_index_html_contract(outdir, hard_fail)
     validate_support_tree_contract(outdir, hard_fail, soft_warn)
     validate_release_tree_contract(outdir, hard_fail, soft_warn)
+    report_source_exclusions(outdir)
 
     js_binary = shutil.which("node")
     ucode_binary = shutil.which("ucode")

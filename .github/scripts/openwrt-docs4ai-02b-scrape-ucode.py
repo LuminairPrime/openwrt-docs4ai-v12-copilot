@@ -22,8 +22,9 @@ import html
 # Add project root to PYTHONPATH
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_UCODE
 
-sys.stdout.reconfigure(line_buffering=True)
+UCODE_COMMIT = os.environ.get("UCODE_COMMIT", "unknown")
 
 JSDOC_ANCHOR_RE = re.compile(r'^\s*<a name=["\'][^"\']+["\']></a>\s*$', re.MULTILINE)
 JSDOC_TOC_START_RE = re.compile(r'^\s*\* \[[^\]]+\]\(#module_[^)]+\)\s*$')
@@ -241,9 +242,10 @@ def main():
             "origin_type": "readme",
             "module": "ucode",
             "slug": slug,
-            "original_url": None,
+            "source_url": make_git_source_url(REPO_BASE_UCODE, UCODE_COMMIT, rel_src),
+            "source_locator": rel_src,
+            "source_commit": UCODE_COMMIT,
             "language": "text",
-            "upstream_path": rel_src,
             "fetch_status": "success",
             "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
         }
@@ -318,9 +320,10 @@ def main():
             "origin_type": origin_type,
             "module": "ucode",
             "slug": slug,
-            "original_url": None,
+            "source_url": make_git_source_url(REPO_BASE_UCODE, UCODE_COMMIT, rel_src_fwd),
+            "source_locator": rel_src_fwd,
+            "source_commit": UCODE_COMMIT,
             "language": language,
-            "upstream_path": rel_src_fwd,
             "fetch_status": "success",
             "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
         }

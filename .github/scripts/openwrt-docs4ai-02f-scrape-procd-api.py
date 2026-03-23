@@ -15,8 +15,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
 sys.stdout.reconfigure(line_buffering=True)
+
+OPENWRT_COMMIT = os.environ.get("OPENWRT_COMMIT", "unknown")
 
 print("[02f] Scrape procd init.d API documentation")
 
@@ -61,9 +64,10 @@ metadata = {
     "origin_type": "header_api",
     "module": "procd",
     "slug": slug,
-    "original_url": None,
+    "source_url": make_git_source_url(REPO_BASE_OPENWRT, OPENWRT_COMMIT, "package/system/procd/files/procd.sh"),
+    "source_locator": "package/system/procd/files/procd.sh",
+    "source_commit": OPENWRT_COMMIT,
     "language": "bash",
-    "upstream_path": "package/system/procd/files/procd.sh",
     "fetch_status": "success",
     "extraction_timestamp": ts
 }

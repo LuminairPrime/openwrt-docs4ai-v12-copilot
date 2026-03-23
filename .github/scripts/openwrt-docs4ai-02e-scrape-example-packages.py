@@ -16,11 +16,12 @@ import datetime
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from lib import config, extractor
+from lib.source_provenance import make_git_source_url, REPO_BASE_LUCI
 
 sys.stdout.reconfigure(line_buffering=True)
 
+LUCI_COMMIT = os.environ.get("LUCI_COMMIT", "unknown")
 # Removed SKIP_BUILDROOT gate (BUG-020)
-print("[02e] Extract curated LuCI application examples")
 
 SRC = os.path.join(config.WORKDIR, "repo-luci", "applications")
 TS = datetime.datetime.now(datetime.UTC).isoformat()
@@ -88,9 +89,10 @@ def main():
                     "origin_type": "example_app",
                     "module": "luci-examples",
                     "slug": slug,
-                    "original_url": None,
+                    "source_url": make_git_source_url(REPO_BASE_LUCI, LUCI_COMMIT, f"applications/{app}/{rel}"),
+                    "source_locator": f"applications/{app}/{rel}",
+                    "source_commit": LUCI_COMMIT,
                     "language": lang,
-                    "upstream_path": f"applications/{app}/{rel}",
                     "fetch_status": "success",
                     "extraction_timestamp": TS
                 }
