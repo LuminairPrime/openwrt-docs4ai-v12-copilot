@@ -5,17 +5,8 @@ origin_type: wiki_page
 token_count: 1043
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-rpcd.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. Explains the plugin architecture (/usr/lib/rpcd/*.so), ACL JSON files that grant LuCI views permission to call specific ubus paths, the session management API (rpcd-mod-session), the file plugin for proxied filesystem reads/writes, and how LuCI RPC calls are authenticated via the uhttpd session cookie.
-ai_when_to_use: Reference when a LuCI JavaScript view calls LuCI.rpc.declare() to invoke a ubus method, when writing an rpcd ACL file to grant a non-root package permission to call specific ubus paths, or when implementing a custom C rpcd plugin that exposes new ubus objects.
-ai_related_topics:
-- rpcd-mod-file
-- rpcd-mod-session
-- LuCI.rpc
-- ubus ACL
-- uhttpd
-- rpcd plugin API
 ---
 # rpcd: OpenWrt ubus RPC daemon for backend server
 

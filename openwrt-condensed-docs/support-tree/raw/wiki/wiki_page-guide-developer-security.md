@@ -22,8 +22,8 @@ This table lists the support status of various OpenWrt releases:
 
 | Version           | Current status       | Initial Release    | EoL (Projected)   | Latest Release | Release Date      |
 |:------------------|:---------------------|:-------------------|:------------------|:---------------|:------------------|
-| @lightgreen:25.12 | Supported            | 2026, March 06     | (2027, March)     | 25.12.0        | 2026, March 06    |
-| @yellow:24.10     | Security Maintenance | 2025, February 06  | (2026, September) | 24.10.5        | 2025, December 19 |
+| @lightgreen:25.12 | Supported            | 2026, March 06     | (2027, March)     | 25.12.1        | 2026, March 18    |
+| @yellow:24.10     | Security Maintenance | 2025, February 06  | (2026, September) | 24.10.6        | 2026, March 18    |
 | @pink:23.05       | End of Life          | 2023, October 13   | 2025, August      | 23.05.6        | 2025, August 20   |
 | @pink:22.03       | End of Life          | 2022, September 06 | 2024, July        | 22.03.7        | 2024, July 25     |
 | @pink:21.02       | End of Life          | 2021, September 04 | 2023, May         | 21.02.7        | 2023, May 01      |

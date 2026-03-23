@@ -9,8 +9,8 @@
   "conversion_mode": "pandoc",
   "last_modified": "unknown",
   "last_modified_http": null,
-  "raw_hash": "0778d8e76ad58e9ce2cc05bcb7994f34841fae25c38d7aa44fb8ef473202153b",
+  "raw_hash": "8386adf179bdea79f19f1b9f2f06ac64391ff2abb20c5c6bc332a38ad68c91c7",
   "source_path": "/docs/techref/lldpd",
-  "extraction_timestamp": "2026-03-09T21:34:36.388566+00:00",
-  "content_hash": "459cf168"
+  "extraction_timestamp": "2026-03-23T22:13:04.914295+00:00",
+  "content_hash": "1a687c39"
 }

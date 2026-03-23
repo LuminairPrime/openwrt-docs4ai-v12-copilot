@@ -3,20 +3,11 @@ title: 'ucode module: uci'
 module: ucode
 origin_type: c_source
 token_count: 7849
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-uci.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/uci.c
 language: c
-ai_summary: Provides direct ucode bindings for OpenWrt libuci to read and write UCI configuration. Exposes cursor() to create a UCI cursor with methods get(), set(), unset(), commit(), revert(), sections(), foreach(), delete(), and add() for complete UCI config management from ucode scripts. Supports transactional reads and staged writes with explicit commit.
-ai_when_to_use: Use when writing ucode-based services or rpcd handlers that need to read or modify OpenWrt system configuration without spawning a uci subprocess; cursor() provides a transactional session for safe concurrent config access.
-ai_related_topics:
-- uci.cursor
-- uci.get
-- uci.set
-- uci.commit
-- uci.sections
-- uci.foreach
 ---
 # ucode module: uci
 

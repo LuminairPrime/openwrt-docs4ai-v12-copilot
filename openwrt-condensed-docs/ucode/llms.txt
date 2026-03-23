@@ -1,10 +1,10 @@
 # ucode module
-> Provides runtime introspection and tracing utilities for ucode scripts.
+> ucode module: debug > **Live docs:** https://ucode.mein.io/module-debug.html --- Debugger Module This module provides runtime debug functionality for ucode scripts.
 > **Total Context:** ~80860 tokens
 
 ## Recommended Entry Points
 
-- [ucode-skeleton.md](./ucode-skeleton.md): Structural map for ucode that prioritizes quick orientation and symbol discovery. (~5571 tokens, l3-skeleton)
+- [ucode-skeleton.md](./ucode-skeleton.md): Structural map for ucode that prioritizes quick orientation and symbol discovery. (~4110 tokens, l3-skeleton)
 - [ucode-complete-reference.md](./ucode-complete-reference.md): Complete monolithic reference for ucode when a larger context window is available. (~81066 tokens, l4-monolith)
 
 ## Tooling Surfaces
@@ -13,17 +13,17 @@
 
 ## Source Documents
 
-- [c_source-api-module-debug.md](../L2-semantic/ucode/c_source-api-module-debug.md): Provides runtime introspection and tracing utilities for ucode scripts. (~3903 tokens, l2-source)
-- [c_source-api-module-digest.md](../L2-semantic/ucode/c_source-api-module-digest.md): Provides cryptographic hash and HMAC computation for ucode. (~1601 tokens, l2-source)
+- [c_source-api-module-debug.md](../L2-semantic/ucode/c_source-api-module-debug.md): ucode module: debug > **Live docs:** https://ucode.mein.io/module-debug.html --- Debugger Module This module provides runtime debug functionality for ucode scripts. (~3903 tokens, l2-source)
+- [c_source-api-module-digest.md](../L2-semantic/ucode/c_source-api-module-digest.md): ucode module: digest > **Live docs:** https://ucode.mein.io/module-digest.html --- Digest Functions The digest module bundles various digest functions. (~1601 tokens, l2-source)
 - [c_source-api-module-fs.md](../L2-semantic/ucode/c_source-api-module-fs.md): ucode module: fs > **Live docs:** https://ucode.mein.io/module-fs.html --- Filesystem Access The fs module provides functions for interacting with the file system. (~11211 tokens, l2-source)
-- [c_source-api-module-io.md](../L2-semantic/ucode/c_source-api-module-io.md): Provides buffered I/O stream primitives for ucode. (~4058 tokens, l2-source)
-- [c_source-api-module-log.md](../L2-semantic/ucode/c_source-api-module-log.md): Provides syslog integration for ucode scripts via the POSIX syslog API. (~5098 tokens, l2-source)
-- [c_source-api-module-math.md](../L2-semantic/ucode/c_source-api-module-math.md): Provides standard mathematical functions for ucode scripts, mirroring the JavaScript Math object surface. (~2848 tokens, l2-source)
-- [c_source-api-module-nl80211.md](../L2-semantic/ucode/c_source-api-module-nl80211.md): Provides netlink 802.11 wireless configuration API bindings for ucode. (~3950 tokens, l2-source)
-- [c_source-api-module-resolv.md](../L2-semantic/ucode/c_source-api-module-resolv.md): Provides DNS name resolution for ucode scripts using the system resolver. (~2516 tokens, l2-source)
-- [c_source-api-module-rtnl.md](../L2-semantic/ucode/c_source-api-module-rtnl.md): Provides rtnetlink interface bindings for ucode to enumerate and monitor kernel network state. (~7614 tokens, l2-source)
-- [c_source-api-module-socket.md](../L2-semantic/ucode/c_source-api-module-socket.md): Provides low-level socket programming for ucode via POSIX socket API bindings. (~13517 tokens, l2-source)
-- [c_source-api-module-struct.md](../L2-semantic/ucode/c_source-api-module-struct.md): Provides binary data packing and unpacking for ucode using a Python struct-style format string syntax. (~7325 tokens, l2-source)
-- [c_source-api-module-uci.md](../L2-semantic/ucode/c_source-api-module-uci.md): Provides direct ucode bindings for OpenWrt libuci to read and write UCI configuration. (~7849 tokens, l2-source)
-- [c_source-api-module-uloop.md](../L2-semantic/ucode/c_source-api-module-uloop.md): Provides ucode bindings for the OpenWrt libubox uloop event loop. (~7457 tokens, l2-source)
-- [c_source-api-module-zlib.md](../L2-semantic/ucode/c_source-api-module-zlib.md): Provides zlib compression and decompression bindings for ucode. (~1913 tokens, l2-source)
+- [c_source-api-module-io.md](../L2-semantic/ucode/c_source-api-module-io.md): ucode module: io > **Live docs:** https://ucode.mein.io/module-io.html --- I/O Operations The io module provides object-oriented access to UNIX file descriptors. (~4058 tokens, l2-source)
+- [c_source-api-module-log.md](../L2-semantic/ucode/c_source-api-module-log.md): ucode module: log > **Live docs:** https://ucode.mein.io/module-log.html --- System logging functions The log module provides bindings to the POSIX syslog functions openlog(), syslog() and closelog() as well as - when available - the Ope... (~5098 tokens, l2-source)
+- [c_source-api-module-math.md](../L2-semantic/ucode/c_source-api-module-math.md): ucode module: math > **Live docs:** https://ucode.mein.io/module-math.html --- Mathematical Functions The math module bundles various mathematical and trigonometrical functions. (~2848 tokens, l2-source)
+- [c_source-api-module-nl80211.md](../L2-semantic/ucode/c_source-api-module-nl80211.md): ucode module: nl80211 > **Live docs:** https://ucode.mein.io/module-nl80211.html --- Wireless Netlink The nl80211 module provides functions for interacting with the nl80211 netlink interface for wireless networking configuration and mana... (~3950 tokens, l2-source)
+- [c_source-api-module-resolv.md](../L2-semantic/ucode/c_source-api-module-resolv.md): ucode module: resolv > **Live docs:** https://ucode.mein.io/module-resolv.html --- DNS Resolution Module The resolv module provides DNS resolution functionality for ucode, allowing you to perform DNS queries for various record types and... (~2516 tokens, l2-source)
+- [c_source-api-module-rtnl.md](../L2-semantic/ucode/c_source-api-module-rtnl.md): ucode module: rtnl > **Live docs:** https://ucode.mein.io/module-rtnl.html --- Routing Netlink The rtnl module provides functions for interacting with the routing netlink interface. (~7614 tokens, l2-source)
+- [c_source-api-module-socket.md](../L2-semantic/ucode/c_source-api-module-socket.md): ucode module: socket > **Live docs:** https://ucode.mein.io/module-socket.html --- Socket Module The socket module provides functions for interacting with sockets. (~13517 tokens, l2-source)
+- [c_source-api-module-struct.md](../L2-semantic/ucode/c_source-api-module-struct.md): ucode module: struct > **Live docs:** https://ucode.mein.io/module-struct.html --- Handle Packed Binary Data The struct module provides routines for interpreting byte strings as packed binary data. (~7325 tokens, l2-source)
+- [c_source-api-module-uci.md](../L2-semantic/ucode/c_source-api-module-uci.md): ucode module: uci > **Live docs:** https://ucode.mein.io/module-uci.html --- OpenWrt UCI configuration The uci module provides access to the native OpenWrt libuci API for reading and manipulating UCI configuration files. (~7849 tokens, l2-source)
+- [c_source-api-module-uloop.md](../L2-semantic/ucode/c_source-api-module-uloop.md): ucode module: uloop > **Live docs:** https://ucode.mein.io/module-uloop.html --- OpenWrt uloop event loop The uloop binding provides functions for integrating with the OpenWrt uloop library. (~7457 tokens, l2-source)
+- [c_source-api-module-zlib.md](../L2-semantic/ucode/c_source-api-module-zlib.md): ucode module: zlib > **Live docs:** https://ucode.mein.io/module-zlib.html --- Zlib bindings The zlib module provides single-call and stream-oriented functions for interacting with zlib data. (~1913 tokens, l2-source)

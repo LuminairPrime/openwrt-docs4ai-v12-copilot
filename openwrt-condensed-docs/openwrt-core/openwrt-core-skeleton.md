@@ -1,12 +1,10 @@
 # openwrt-core (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for openwrt-core.
-> **Generated:** 2026-03-20T05:00:42.100996+00:00
+> **Generated:** 2026-03-23T22:14:37.218591+00:00
 
 ---
 
-> **Summary:** The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. It includes several trusted firmware implementations for different hardware platforms, such as bcm63xx, mediatek, microchipsw, mvebu, rockchip, stm32, and sunxi. Each package is maintained by specific individuals and is sourced from respective repositories. The module facilitates the integration of these boot packages into the OpenWrt build system, ensuring compatibility and functionality across supported devices.
-> **Use Case:** Use this module when building OpenWrt firmware for ARM devices that require specific boot firmware. It is particularly useful for developers targeting various hardware platforms needing trusted firmware.
 # OpenWrt Buildroot: boot packages
 ## apex
 ## arm-trusted-firmware-bcm63xx
@@ -73,8 +71,6 @@
 ## prism54-firmware
 ## wireless-regdb
 
-> **Summary:** The OpenWrt Buildroot kernel packages module provides a collection of kernel-related packages essential for various hardware functionalities. It includes drivers and firmware for specific devices, such as ath10k-ct for Qualcomm Atheros chipsets and bcm27xx-gpu-fw for Raspberry Pi GPU support. Other packages like button-hotplug and gpio-button-hotplug facilitate button handling and GPIO support, respectively. Each package is maintained by specific contributors and is available through designated source URLs.
-> **Use Case:** Use this module when building custom OpenWrt firmware that requires specific kernel drivers or firmware for hardware support. It is particularly useful for developers targeting embedded devices with unique hardware requirements.
 # OpenWrt Buildroot: kernel packages
 ## ath10k-ct
 ## bcm27xx-gpu-fw
@@ -155,8 +151,6 @@
 ## wolfssl
 ## zlib
 
-> **Summary:** The OpenWrt Buildroot system packages module provides a collection of essential packages for system management and functionality within the OpenWrt environment. Key packages include 'opkg', a lightweight package management system that handles installation and removal of packages, and 'ca-certificates', which ensures secure connections by providing trusted CA certificates. Other notable packages are 'fstools' for filesystem management, 'fwtool' for firmware upgrades, and 'mtd' for managing flash memory devices. Each package is maintained by specific developers and is available from designated source URLs.
-> **Use Case:** This module is particularly useful when building custom OpenWrt firmware images that require specific system functionalities or package management capabilities.
 # OpenWrt Buildroot: system packages
 ## apk
 ## ca-certificates
@@ -179,8 +173,6 @@
 ## usign
 ## zram-swap
 
-> **Summary:** The OpenWrt Buildroot utils packages module provides a collection of utility tools and libraries for embedded Linux systems. Key components include Android Debug Bridge (adb) for device communication, audit libraries for security auditing, and various utilities for specific hardware like BCM27xx and BCM4908. Additionally, it includes essential tools like busybox for command-line operations and bzip2 for data compression. Each package is maintained by specific contributors and has its own versioning and licensing details.
-> **Use Case:** Use this module when you need to integrate utility packages into your OpenWrt build for enhanced functionality or specific hardware support.
 # OpenWrt Buildroot: utils packages
 ## adb
 ## audit
@@ -240,8 +232,6 @@
 ## zyxel-bootconfig
 ## zyxel-bootconfig-ipq807x
 
-> **Summary:** The OpenWrt Buildroot includes a collection of Makefile fragments that are essential for the build system. These fragments, such as autotools.mk, debug.mk, and download.mk, provide various functionalities including package configuration, dependency management, and download handling. Each fragment is designed to streamline the build process for OpenWrt packages, ensuring that developers can efficiently compile and manage their software. The documentation for each file is available in the OpenWrt GitHub repository.
-> **Use Case:** Use these include files when developing or modifying packages for OpenWrt to leverage the predefined build system functionalities.
 # OpenWrt Buildroot: Build System Include Files
 ## autotools.mk
 # Documentation

@@ -1,22 +1,12 @@
 ---
-title: netifd (Network Interface Daemon) – Technical Reference
+title: "netifd (Network Interface Daemon) \u2013 Technical Reference"
 module: wiki
 origin_type: wiki_page
 token_count: 1929
 version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-netifd.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: Documents netifd, the OpenWrt network interface daemon responsible for managing network interfaces based on UCI config. Explains the interface/device/proto handler model, the /etc/config/network schema (interface, device, bridge, route, rule sections), protocol handler shell scripts in /lib/netifd/proto/, ifup/ifdown/ifupdate hotplug event flow, and the ubus network API exposed by netifd.
-ai_when_to_use: Reference when diagnosing why an interface fails to come up, implementing a custom protocol handler (proto script in /lib/netifd/proto/), writing hotplug scripts that react to ifup/ifdown events, or calling netifd ubus methods like network.interface.status or network.interface.up.
-ai_related_topics:
-- netifd ubus API
-- proto_run_command
-- proto_export_env
-- hotplug.iface
-- network.interface.status
-- UCI network config
-- bridge
 ---
 # netifd (Network Interface Daemon) – Technical Reference
 

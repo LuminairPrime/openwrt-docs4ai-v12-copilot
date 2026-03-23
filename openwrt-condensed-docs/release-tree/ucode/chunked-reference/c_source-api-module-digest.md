@@ -3,19 +3,11 @@ title: 'ucode module: digest'
 module: ucode
 origin_type: c_source
 token_count: 1601
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-digest.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/digest.c
 language: c
-ai_summary: Provides cryptographic hash and HMAC computation for ucode. Implements new() returning a digest context with update() and final() methods, supporting MD5, SHA1, SHA256, SHA512, and HMAC variants. Enables incremental hashing of large data streams and one-shot hash computation for data integrity checking and API authentication tokens.
-ai_when_to_use: Use when computing checksums for config change detection, generating HMAC tokens for API authentication in ucode rpcd handlers, or verifying package integrity in custom ucode-based package management scripts.
-ai_related_topics:
-- digest.new
-- digest.update
-- digest.final
-- digest.md5
-- digest.sha256
 ---
 # ucode module: digest
 

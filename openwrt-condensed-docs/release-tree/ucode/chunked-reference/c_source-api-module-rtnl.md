@@ -3,19 +3,11 @@ title: 'ucode module: rtnl'
 module: ucode
 origin_type: c_source
 token_count: 7614
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-rtnl.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/rtnl.c
 language: c
-ai_summary: Provides rtnetlink interface bindings for ucode to enumerate and monitor kernel network state. Implements request() to send RTM_GETLINK, RTM_GETROUTE, RTM_GETNEIGH, and RTM_GETADDR queries and receive structured attribute dictionaries from the kernel. Enables subscription to netlink multicast groups for real-time interface and route change notifications.
-ai_when_to_use: Use when a ucode service needs kernel-level network interface state, live route table changes, or ARP/NDP neighbor tables without invoking the ip command or spawning subprocesses.
-ai_related_topics:
-- rtnl.request
-- rtnl.error
-- RTM_GETLINK
-- RTM_GETROUTE
-- RTM_GETNEIGH
 ---
 # ucode module: rtnl
 

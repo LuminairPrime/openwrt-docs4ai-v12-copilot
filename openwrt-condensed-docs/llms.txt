@@ -1,24 +1,24 @@
 # openwrt-docs4ai - LLM Routing Index
 > For a flat file listing, see [llms-full.txt](./llms-full.txt)
 
-> **Version:** openwrt/openwrt@a1f5273, openwrt/luci@18e0538, jow-/ucode@3d482fb
-> **Total Context Available:** ~427022 tokens
+> **Version:** openwrt/openwrt@41d6584, openwrt/luci@a57e5e1, jow-/ucode@763d8c3
+> **Total Context Available:** ~427068 tokens
 
 ## Core Daemons
-- [openwrt-hotplug](./openwrt-hotplug/llms.txt): Documents the standard hotplug event environment variables injected by OpenWrt's netifd and network subsystems into scripts in /etc/hotplug.d/. (~1412 tokens)
-- [procd](./procd/llms.txt): Defines the procd init script Bash API for service registration and supervised process lifecycle control. (~352 tokens)
-- [uci](./uci/llms.txt): Defines the default UCI configuration schema for the OpenWrt qos-scripts traffic-shaping system. (~420 tokens)
+- [openwrt-hotplug](./openwrt-hotplug/llms.txt): OpenWrt Core Hotplug Events > **Extracted from:** default etc/hotplug.d/ scripts across the OpenWrt repository > **Note for LLMs:** Developers building apps use these scripts as templates. (~1412 tokens)
+- [procd](./procd/llms.txt): procd init.d API Reference > **Extracted from:** procd.sh block comments procd.sh (~352 tokens)
+- [uci](./uci/llms.txt): UCI Default Schema: qos > **Source:** package/network/config/qos-scripts/files/etc/config/qos qos (~420 tokens)
 
 ## Scripting & Logic
-- [luci](./luci/llms.txt): Implements the CBI declarative form framework for LuCI. (~19723 tokens)
-- [ucode](./ucode/llms.txt): Provides runtime introspection and tracing utilities for ucode scripts. (~80860 tokens)
+- [luci](./luci/llms.txt): LuCI API: cbi > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.cbi.html --- cbi CBI (Configuration Bindings Interface) helper utilities and DOM helpers. (~19723 tokens)
+- [ucode](./ucode/llms.txt): ucode module: debug > **Live docs:** https://ucode.mein.io/module-debug.html --- Debugger Module This module provides runtime debug functionality for ucode scripts. (~80860 tokens)
 
 ## Ecosystem
-- [luci-examples](./luci-examples/llms.txt): The commands.js module in the luci-examples application provides a web interface for configuring custom shell commands in OpenWrt. (~100272 tokens)
-- [openwrt-core](./openwrt-core/llms.txt): The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. (~23147 tokens)
+- [luci-examples](./luci-examples/llms.txt): commands.js (~100272 tokens)
+- [openwrt-core](./openwrt-core/llms.txt): OpenWrt Buildroot: boot packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/boot --- apex Field Value --- --- Version 1.6.10-openwrt License GPL-2.0 Source URL https://github.com/linusw/apex.git > Source: https:... (~23147 tokens)
 
 ## Manuals
-- [wiki](./wiki/llms.txt): The 21.02 release of OpenWrt introduces significant cosmetic changes, particularly in the naming conventions for devices and targets. (~200836 tokens)
+- [wiki](./wiki/llms.txt): 21.02: Major cosmetic changes This page intends to give an overview over major cosmetic changes since 19.07, focusing on those that will require adjustments/adaption downstream. (~200882 tokens)
 
 ## Complete Aggregation
 If your context window permits, you may fetch the flat URL index:

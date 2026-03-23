@@ -5,14 +5,8 @@ origin_type: wiki_page
 token_count: 174
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-working-with-git-email.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: The 'Sending patches by git send-email' module provides guidance on how to properly send patches to the OpenWrt development mailing list using the 'git send-email' command. It emphasizes the importance of adhering to the format specified on the patchwork site to ensure that patches are processed correctly. Additionally, it warns against using standard email clients due to potential formatting issues that could arise. The recommended command for sending a patch includes specifying the sender's email and the recipient mailing list.
-ai_when_to_use: Use this module when you need to submit patches to the OpenWrt development mailing list to ensure they are correctly formatted and processed.
-ai_related_topics:
-- git send-email
-- openwrt-devel
-- patchwork
 ---
 # Sending patches by git send-email
 

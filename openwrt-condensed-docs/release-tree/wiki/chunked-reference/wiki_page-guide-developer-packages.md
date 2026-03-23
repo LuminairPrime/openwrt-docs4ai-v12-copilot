@@ -5,18 +5,8 @@ origin_type: wiki_page
 token_count: 11047
 version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-packages.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 language: text
-ai_summary: Step-by-step guide for creating a new OpenWrt package from scratch. Covers directory layout under package/mypackage/, the minimal Makefile skeleton (include $(TOPDIR)/rules.mk, Package/define, Build/Compile, Package/install), adding dependencies via DEPENDS:=, using PKG_INSTALL=1 vs. custom Build/Compile, creating conffiles, installing init scripts, and submitting packages to the upstream feed.
-ai_when_to_use: 'Reference when porting a new open-source application to OpenWrt or creating a first-party package: follow the Makefile skeleton to define metadata, set the correct PKG_RELEASE, and use $(INSTALL_BIN)/$(INSTALL_CONF) macros in Package/install to place files in the correct image paths.'
-ai_related_topics:
-- Package/define
-- Build/Compile
-- Package/install
-- DEPENDS
-- PKG_INSTALL
-- conffiles
-- feeds
 ---
 # Creating packages
 

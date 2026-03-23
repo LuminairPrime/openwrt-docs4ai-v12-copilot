@@ -3,18 +3,11 @@ title: 'ucode module: nl80211'
 module: ucode
 origin_type: c_source
 token_count: 3950
-version: 3d482fb
+version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-nl80211.md
-last_pipeline_run: '2026-03-20T05:00:26.684670+00:00'
+last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
 upstream_path: lib/nl80211.c
 language: c
-ai_summary: Provides netlink 802.11 wireless configuration API bindings for ucode. Implements request() to send and receive nl80211 commands including NL80211_CMD_GET_INTERFACE, NL80211_CMD_GET_STATION, NL80211_CMD_TRIGGER_SCAN, and regulatory domain queries. Returns structured attribute dictionaries parsed from kernel nl80211 netlink messages.
-ai_when_to_use: Use in ucode-based wireless management handlers that need direct kernel-level 802.11 interface control, station enumeration, or scan triggering beyond what iwinfo or standard UCI wireless config expose.
-ai_related_topics:
-- nl80211.request
-- NL80211_CMD_GET_INTERFACE
-- NL80211_CMD_GET_STATION
-- NL80211_CMD_TRIGGER_SCAN
 ---
 # ucode module: nl80211
 
