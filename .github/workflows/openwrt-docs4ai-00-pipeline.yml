@@ -1,4 +1,4 @@
-name: openwrt-docs4ai pipeline (v12)
+name: openwrt-docs4ai-pipeline
 
 on:
   schedule:
