@@ -43,7 +43,7 @@ The `--run-ai` path is cache-backed for local verification, so it can validate t
 
 For real AI-summary generation, use `python tools/manage_ai_store.py --option review` or the detailed scratch-first workflow in [docs/guides/runbook-ai-summary-operations.md](docs/guides/runbook-ai-summary-operations.md). Do not treat `--run-ai` as proof of live API generation or permanent AI-store promotion.
 
-For one-off terminal invocations, either activate `.venv` once before testing or call the workspace interpreter directly via `C:/Users/MC/Documents/AirSentinel/openwrt-docs4ai-v12-copilot/.venv/Scripts/python.exe`. Do not assume the system `python` on `PATH` is the repo interpreter.
+For one-off terminal invocations, either activate `.venv` once before testing or call the workspace interpreter directly via `C:/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/.venv/Scripts/python.exe`. Do not assume the system `python` on `PATH` is the repo interpreter.
 
 ## Validation Runners
 

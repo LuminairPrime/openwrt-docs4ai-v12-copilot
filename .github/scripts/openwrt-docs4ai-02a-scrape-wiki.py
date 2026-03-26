@@ -45,8 +45,8 @@ RAW_FETCH_TIMEOUT = 20
 INDEX_FETCH_TIMEOUT = 30
 PANDOC_TIMEOUT = 30
 USER_AGENT = (
-    "openwrt-docs4ai-v12-copilot/1.0 "
-    "(+https://github.com/LuminairPrime/openwrt-docs4ai-v12-copilot)"
+    "openwrt-docs4ai-pipeline/1.0 "
+    "(+https://github.com/LuminairPrime/openwrt-docs4ai-pipeline)"
 )
 BASE_HOST = (urlparse(BASE_URL).hostname or "").lower()
 
