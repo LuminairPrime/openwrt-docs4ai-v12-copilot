@@ -3,10 +3,11 @@
   "origin_type": "uci_schema",
   "module": "uci",
   "slug": "schema-network-qos",
-  "original_url": null,
+  "source_url": "https://github.com/openwrt/openwrt/blob/unknown/package/network/config/qos-scripts/files/etc/config/qos",
+  "source_locator": "package/network/config/qos-scripts/files/etc/config/qos",
+  "source_commit": "unknown",
   "language": "uci",
-  "upstream_path": "package/network/config/qos-scripts/files/etc/config/qos",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:21.012074+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:29.896150+00:00",
   "content_hash": "4527bfe5"
 }

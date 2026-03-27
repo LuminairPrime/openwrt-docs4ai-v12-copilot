@@ -3,12 +3,36 @@ title: 'OpenWrt Buildroot: Build System Include Files'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 2083
-version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-include-mk.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: include/
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/include/
+source_locator: include/
 language: makefile
+ai_summary: The OpenWrt Buildroot includes a collection of Makefile fragments that are essential for the build system. These fragments, such as autotools.mk, debug.mk, and download.mk, provide various functionalities including package configuration, dependency management, and download handling. Each fragment is designed to streamline the build process for OpenWrt packages, ensuring that developers can efficiently compile and manage their software. The documentation for each file is available in the OpenWrt GitHub repository.
+ai_when_to_use: Use these include files when developing or modifying packages for OpenWrt to leverage the predefined build system functionalities.
+ai_related_topics:
+- autotools.mk
+- debug.mk
+- depends.mk
+- download.mk
+- feeds.mk
+- hardening.mk
+- host-build.mk
+- image.mk
+- kernel-build.mk
+- kernel-defaults.mk
+- kernel.mk
+- meson.mk
+- netfilter.mk
+- nls.mk
+- openssl-module.mk
 ---
+
+> **Source:** [https://github.com/openwrt/openwrt/blob/unknown/include/](https://github.com/openwrt/openwrt/blob/unknown/include/)
+> **Kind:** makefile_meta | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # OpenWrt Buildroot: Build System Include Files
 
 > **Source:** https://github.com/openwrt/openwrt/tree/master/include

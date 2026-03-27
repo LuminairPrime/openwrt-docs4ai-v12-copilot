@@ -3,11 +3,21 @@ title: form.js
 module: luci-examples
 origin_type: example_app
 token_count: 476
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-example-htdocs-luci-static-resources-view-example-form-js.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-example/htdocs/luci-static/resources/view/example/form.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-example/htdocs/luci-static/resources/view/example/form.js
+source_locator: applications/luci-app-example/htdocs/luci-static/resources/view/example/form.js
 language: javascript
+ai_summary: The `form.js` module is a JavaScript file used in the LuCI framework for creating a user interface form that interacts with UCI configuration files in OpenWrt. It defines a form structure that includes multiple sections and various input types, such as text fields, flags, and dynamic lists. The form is mapped to a configuration file named 'example' located at `/etc/config/example`, allowing users to read and write configuration settings. Each section can contain different types of options, including a password input and a select dropdown with predefined values.
+ai_when_to_use: Use this module when you need to create a custom configuration form in a LuCI application that interacts with UCI settings in OpenWrt.
+ai_related_topics:
+- form.Map
+- form.TypedSection
+- form.Value
+- form.Flag
+- form.ListValue
+- form.DynamicList
 ---
 # form.js
 ```javascript

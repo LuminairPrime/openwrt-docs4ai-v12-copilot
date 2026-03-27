@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-init-detail-cc",
-  "original_url": "https://openwrt.org/docs/techref/init.detail.cc",
+  "source_url": "https://openwrt.org/docs/techref/init.detail.cc",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "64958ad57f440b1b81e21cbfdfb6f1e749c0eec3875f6f6a4abcb51839f812b8",
   "source_path": "/docs/techref/init.detail.cc",
-  "extraction_timestamp": "2026-03-09T21:34:28.137080+00:00",
+  "extraction_timestamp": "2026-03-26T08:35:55.173301+00:00",
   "content_hash": "93c04718"
 }

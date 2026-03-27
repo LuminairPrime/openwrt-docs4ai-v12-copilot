@@ -4,15 +4,15 @@
 
 ## Recommended Entry Points
 
-- [openwrt-core-skeleton.md](./openwrt-core-skeleton.md): Structural map for openwrt-core that prioritizes quick orientation and symbol discovery. (~1561 tokens, l3-skeleton)
+- [openwrt-core-skeleton.md](./openwrt-core-skeleton.md): Structural map for openwrt-core that prioritizes quick orientation and symbol discovery. (~2231 tokens, l3-skeleton)
 - [openwrt-core-complete-reference.md](./openwrt-core-complete-reference.md): Complete monolithic reference for openwrt-core when a larger context window is available. (~24828 tokens, l4-monolith)
 
 ## Source Documents
 
-- [makefile_meta-category-boot.md](../L2-semantic/openwrt-core/makefile_meta-category-boot.md): OpenWrt Buildroot: boot packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/boot --- apex Field Value --- --- Version 1.6.10-openwrt License GPL-2.0 Source URL https://github.com/linusw/apex.git > Source: https:... (~3710 tokens, l2-source)
+- [makefile_meta-category-boot.md](../L2-semantic/openwrt-core/makefile_meta-category-boot.md): The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. (~3710 tokens, l2-source)
 - [makefile_meta-category-firmware.md](../L2-semantic/openwrt-core/makefile_meta-category-firmware.md): OpenWrt Buildroot: firmware packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/firmware --- ath10k-ct-firmware Alternative ath10k firmware for QCA9887 from Candela Technologies. (~1435 tokens, l2-source)
-- [makefile_meta-category-kernel.md](../L2-semantic/openwrt-core/makefile_meta-category-kernel.md): OpenWrt Buildroot: kernel packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/kernel --- ath10k-ct Field Value --- --- License GPLv2 Maintainer Ben Greear Source URL https://github.com/greearb/ath10k-ct.git > So... (~2744 tokens, l2-source)
+- [makefile_meta-category-kernel.md](../L2-semantic/openwrt-core/makefile_meta-category-kernel.md): The OpenWrt Buildroot kernel packages module provides a collection of kernel-related packages essential for various hardware functionalities. (~2744 tokens, l2-source)
 - [makefile_meta-category-libs.md](../L2-semantic/openwrt-core/makefile_meta-category-libs.md): OpenWrt Buildroot: libs packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/libs --- argp-standalone GNU libc hierarchial argument parsing library broken out from glibc. (~5280 tokens, l2-source)
-- [makefile_meta-category-system.md](../L2-semantic/openwrt-core/makefile_meta-category-system.md): OpenWrt Buildroot: system packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/system --- apk Field Value --- --- Version 3.0.5 License GPL-2.0-only Maintainer Paul Spooren Source URL https://gitlab.alpinelinux.o... (~2031 tokens, l2-source)
-- [makefile_meta-category-utils.md](../L2-semantic/openwrt-core/makefile_meta-category-utils.md): OpenWrt Buildroot: utils packages > **Source:** https://github.com/openwrt/openwrt/tree/master/package/utils --- adb Android Debug Bridge (adb) is a versatile command line tool that lets you communicate with an emulator instance or conne... (~5864 tokens, l2-source)
-- [makefile_meta-include-mk.md](../L2-semantic/openwrt-core/makefile_meta-include-mk.md): OpenWrt Buildroot: Build System Include Files > **Source:** https://github.com/openwrt/openwrt/tree/master/include Core build system Makefile fragments. (~2083 tokens, l2-source)
+- [makefile_meta-category-system.md](../L2-semantic/openwrt-core/makefile_meta-category-system.md): The OpenWrt Buildroot system packages module provides a collection of essential packages for system management and functionality within the OpenWrt environment. (~2031 tokens, l2-source)
+- [makefile_meta-category-utils.md](../L2-semantic/openwrt-core/makefile_meta-category-utils.md): The OpenWrt Buildroot utils packages module provides a collection of utility tools and libraries for embedded Linux systems. (~5864 tokens, l2-source)
+- [makefile_meta-include-mk.md](../L2-semantic/openwrt-core/makefile_meta-include-mk.md): The OpenWrt Buildroot includes a collection of Makefile fragments that are essential for the build system. (~2083 tokens, l2-source)

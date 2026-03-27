@@ -3,12 +3,27 @@ title: 'LuCI API: firewall'
 module: luci
 origin_type: js_source
 token_count: 262
-version: a57e5e1
 source_file: L1-raw/luci/js_source-api-firewall.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: modules/luci-base/htdocs/luci-static/resources/firewall.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/firewall.js
+source_locator: modules/luci-base/htdocs/luci-static/resources/firewall.js
 language: javascript
+ai_summary: Implements the LuCI firewall abstraction over the nftables/iptables UCI config. Provides Firewall, Zone, Rule, Redirect, and Forwarding classes; Firewall.getZones() returns zone objects with getNetworks(), getSrcRules(), getDestRules(); Rule and Redirect mirror UCI firewall sections and expose getOptions(), setOption(), and remove() for in-memory editing before save.
+ai_when_to_use: Reference when building a LuCI view that reads or modifies firewall zones, inter-zone forwarding rules, DNAT redirects, or custom iptables rules; use Firewall.getZoneByNetwork() to look up the zone for a given network interface name.
+ai_related_topics:
+- LuCI.firewall.Firewall
+- LuCI.firewall.Zone
+- LuCI.firewall.Rule
+- LuCI.firewall.Redirect
+- LuCI.firewall.getZones
+- LuCI.uci
 ---
+
+> **Source:** [https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/firewall.js](https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/firewall.js)
+> **Kind:** js_source | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # LuCI API: firewall
 
 > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.firewall.html

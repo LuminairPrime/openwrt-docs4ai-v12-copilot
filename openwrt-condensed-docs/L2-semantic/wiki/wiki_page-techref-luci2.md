@@ -3,10 +3,18 @@ title: LuCI2 (OpenWrt web user interface)
 module: wiki
 origin_type: wiki_page
 token_count: 1821
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-luci2.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/luci2
 language: text
+ai_summary: LuCI2 is an experimental web user interface for OpenWrt, designed to replace the older Lua-based LuCI. It utilizes static HTML and JavaScript XHR for client-side rendering, significantly reducing resource consumption on devices with limited CPU and RAM. Communication with OpenWrt subsystems is handled through `ubus`, and a custom `rpcd` plugin extends `ubus` namespaces for additional functionality. The menu and views are dynamically generated, allowing for a flexible and user-specific interface.
+ai_when_to_use: Use LuCI2 when developing or testing web interfaces on OpenWrt devices, especially when resource efficiency is a concern. It is suitable for environments where the traditional LuCI interface may be too demanding.
+ai_related_topics:
+- ubus
+- uhttpd-mod-ubus
+- rpcd
+- luci.model.uci
+- nixio.fs
 ---
 # LuCI2 (OpenWrt web user interface)
 

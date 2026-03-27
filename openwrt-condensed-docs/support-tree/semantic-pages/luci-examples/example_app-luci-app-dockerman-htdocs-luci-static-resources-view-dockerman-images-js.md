@@ -3,11 +3,20 @@ title: images.js
 module: luci-examples
 origin_type: example_app
 token_count: 6386
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-images-js.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/images.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/images.js
+source_locator: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/images.js
 language: javascript
+ai_summary: The `images.js` module is part of the Luci Docker Manager application for OpenWrt, providing functionalities to manage Docker images through a web interface. It allows users to load and display available Docker images and containers, pull new images from a registry, and calculate the total size of images. Key functions include `load()`, which retrieves image and container lists, and `render()`, which constructs the user interface for displaying images and their details. The module also includes features for managing image tags and handling user interactions for pulling images.
+ai_when_to_use: Use this module when you need to manage Docker images within the OpenWrt Luci interface, particularly for pulling images from a Docker registry or viewing existing images and their sizes.
+ai_related_topics:
+- dm2.image_list
+- dm2.container_list
+- form.JSONMap
+- form.TableSection
+- ui.addTimeLimitedNotification
 ---
 # images.js
 ```javascript

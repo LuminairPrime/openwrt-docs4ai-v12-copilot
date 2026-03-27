@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-mac-address",
-  "original_url": "https://openwrt.org/docs/guide-developer/mac.address",
+  "source_url": "https://openwrt.org/docs/guide-developer/mac.address",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "f0a5a0d9bce226183bc980941798b151e83acc6b173ee7d2596ee208ed640478",
   "source_path": "/docs/guide-developer/mac.address",
-  "extraction_timestamp": "2026-03-09T21:33:20.186653+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:48.926736+00:00",
   "content_hash": "696856df"
 }

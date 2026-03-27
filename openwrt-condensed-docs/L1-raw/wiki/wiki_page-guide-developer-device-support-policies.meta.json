@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-device-support-policies",
-  "original_url": "https://openwrt.org/docs/guide-developer/device-support-policies",
+  "source_url": "https://openwrt.org/docs/guide-developer/device-support-policies",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "0c495e6ce58442407ca762acf76cf42a2e8dac3078771a34f2bf871583282638",
   "source_path": "/docs/guide-developer/device-support-policies",
-  "extraction_timestamp": "2026-03-09T21:32:58.744144+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:28.967601+00:00",
   "content_hash": "5fdaafa0"
 }

@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-wireless-modes",
-  "original_url": "https://openwrt.org/docs/techref/wireless.modes",
+  "source_url": "https://openwrt.org/docs/techref/wireless.modes",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "65cbfe7a4e002c89ef123ce69377f12a26e9c9544e1059415a97e33436a30586",
   "source_path": "/docs/techref/wireless.modes",
-  "extraction_timestamp": "2026-03-09T21:35:10.344829+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:37.333387+00:00",
   "content_hash": "c3417871"
 }

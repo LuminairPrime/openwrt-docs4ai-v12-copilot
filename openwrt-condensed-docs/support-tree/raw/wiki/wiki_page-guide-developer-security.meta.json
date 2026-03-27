@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-security",
-  "original_url": "https://openwrt.org/docs/guide-developer/security",
+  "source_url": "https://openwrt.org/docs/guide-developer/security",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "c9a736ae684a06fd192eb07267d9e7e88fa3a07fcc216266dc3e9107bb1133b1",
   "source_path": "/docs/guide-developer/security",
-  "extraction_timestamp": "2026-03-23T22:12:13.439349+00:00",
+  "extraction_timestamp": "2026-03-26T08:35:12.736577+00:00",
   "content_hash": "dd0f396e"
 }

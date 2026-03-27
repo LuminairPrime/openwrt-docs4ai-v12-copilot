@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-sysupgrade",
-  "original_url": "https://openwrt.org/docs/techref/sysupgrade",
+  "source_url": "https://openwrt.org/docs/techref/sysupgrade",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "ac0273a4244fe486f52a6ace25b86a09e2888370446107713581797a7824f890",
   "source_path": "/docs/techref/sysupgrade",
-  "extraction_timestamp": "2026-03-09T21:35:00.094073+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:27.157877+00:00",
   "content_hash": "d96bbde8"
 }

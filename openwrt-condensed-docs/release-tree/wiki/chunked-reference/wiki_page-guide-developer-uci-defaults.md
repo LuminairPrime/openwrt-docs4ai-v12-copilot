@@ -3,11 +3,22 @@ title: UCI defaults
 module: wiki
 origin_type: wiki_page
 token_count: 1137
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-uci-defaults.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/uci-defaults
 language: text
+ai_summary: The UCI defaults module in OpenWrt allows for the preconfiguration of system settings using the Unified Configuration Interface (UCI) during the initial boot of a device. By placing scripts in the `/etc/uci-defaults` directory, these scripts are executed automatically by the boot service, with successful scripts being deleted after execution. This module supports the integration of custom settings through batch scripts that can be included in firmware builds, ensuring that configurations are applied after flashing. Additionally, it is recommended to implement checks in scripts to prevent overwriting existing configurations.
+ai_when_to_use: Use UCI defaults when you want to set initial configuration values for a device upon its first boot or after an upgrade. This is particularly useful for automating the setup of network parameters and other essential settings.
+ai_related_topics:
+- uci
+- uci-defaults
+- batch
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/uci-defaults](https://openwrt.org/docs/guide-developer/uci-defaults)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # UCI defaults
 
 See also: [The UCI system](/docs/guide-user/base-system/uci)

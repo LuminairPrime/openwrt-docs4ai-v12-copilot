@@ -3,10 +3,18 @@ title: Abstract
 module: wiki
 origin_type: wiki_page
 token_count: 12192
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-preinit-mount.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/preinit_mount
 language: text
+ai_summary: The OpenWrt preinit and root mount system is responsible for the initial boot sequence and firstboot scripts that prepare the system for multiuser operation. It details the boot process from the moment the bootloader loads the kernel, through the execution of the `/etc/preinit` script, to the initialization of the root filesystem. The document outlines how various scripts are executed during this phase, including those for failsafe and external root filesystem configurations. Additionally, it provides an overview of available preinit scripts and their configurations.
+ai_when_to_use: This module is useful when configuring the boot sequence of OpenWrt devices, especially for custom setups involving external storage or enhanced failsafe mechanisms.
+ai_related_topics:
+- preinit
+- firstboot
+- failsafe
+- rootfs
+- init
 ---
 # Abstract
 

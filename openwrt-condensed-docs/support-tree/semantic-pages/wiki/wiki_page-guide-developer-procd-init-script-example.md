@@ -3,9 +3,9 @@ title: Create a sample procd init script
 module: wiki
 origin_type: wiki_page
 token_count: 2384
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-procd-init-script-example.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/procd-init-script-example
 language: text
 ---
 # Create a sample procd init script
@@ -77,7 +77,7 @@ start_service() {
 }
 ```
 
-First, it includes the common ‘run commands’ file /etc/rc.common needed for a service. This file defines several functions that can be used to manage the service lifecycle, it supports old style init scripts as well as procd scripts. In order to tell that we want to use the new style we then set the USE_PROCD flag.
+First, it includes the common ‘run commands’ file /etc/rc.common needed for a service. This file defines several functions that can be used to manage the service lifecycle, it supports old style init scripts as well as procd scripts. In order to tell that we want to use the new style we then set the [USE_PROCD](../cookbook/procd-service-lifecycle.md) flag.
 
 The START option basically tell the system when the service should start and stop during startup and shutdown of OpenWrt.
 
@@ -216,7 +216,7 @@ Note that in the service script the arguments are quoted, which allows us to use
 Apart from the loading and passing of config to our script we also added
 
     ...
-    procd_set_param file /etc/config/myservice
+    [procd_set_param](../cookbook/procd-service-lifecycle.md) file /etc/config/myservice
     ...
 
 With that line in place we are able to restart the service whenever only our configuration has changed.
@@ -229,7 +229,7 @@ There are a couple of more options that can be configured in a procd scripts ‘
 
 - **respawn**
   respawn your service automatically when it terminates for some reason.
-  `procd_set_param respawn \
+  `[procd_set_param](../cookbook/procd-service-lifecycle.md) respawn \
         ${respawn_threshold:-3600} \
         ${respawn_timeout:-5} ${respawn_retry:-5}`
   In this example we respawn if process terminates sooner than respawn_threshold, it is considered crashed and after 5 retries the service is stopped. However, if it terminates later than respawn_threshold, it would be respawned indefinitely.
@@ -263,6 +263,6 @@ There are a couple of more options that can be configured in a procd scripts ‘
   `
 - **user**
   To change the user that runs the service you can use
-  \<code\> procd_set_param user nobody \</code\>
+  \<code\> [procd_set_param](../cookbook/procd-service-lifecycle.md) user nobody \</code\>
   Default OpenWrt only has a ‘root’ user or ‘nobody’ as the process owner.
   You can add users with the usual linux way, see [Create a non-privileged user in OpenWrt](/docs/guide-user/security/secure.access#create_a_non-privileged_user_in_openwrt) or if you are creating an actual package you can use [buildpackage defines](/docs/guide-developer/packages#buildpackage_defines) to make OpenWrt generate the user when the package is installed.

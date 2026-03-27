@@ -3,12 +3,24 @@ title: events.js
 module: luci-examples
 origin_type: example_app
 token_count: 2942
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-events-js.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js
+source_locator: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js
 language: javascript
+ai_summary: The `events.js` module is part of the Luci Docker Manager application for OpenWrt, designed to handle Docker events and display them in a user-friendly interface. It supports fetching event data in both `application/x-ndjson` and `application/json-seq` formats, allowing for flexible content negotiation. The module includes functions to load events, render event lists, and apply filters based on event types and timestamps. Additionally, it provides a structured way to interact with Docker events through a graphical interface, enhancing usability for managing Docker containers.
+ai_when_to_use: Use the `events.js` module when you need to display and filter Docker events in the Luci web interface of OpenWrt. It is particularly useful for users managing Docker containers who require real-time insights into container activities.
+ai_related_topics:
+- dm2.docker_events
+- dm2.Types
+- E
 ---
+
+> **Source:** [https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js](https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/events.js)
+> **Kind:** example_app | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # events.js
 ```javascript
 'use strict';

@@ -28,6 +28,6 @@
 - Do not assume a separate source-repo root `llms.txt` exists for the implementation tree.
 
 ## Current Context
-- **Module Count:** 8
-- **Total Token Count:** ~427022
-- **Indexed Symbols:** 401
+- **Module Count:** 9
+- **Total Token Count:** ~439660
+- **Indexed Symbols:** 414

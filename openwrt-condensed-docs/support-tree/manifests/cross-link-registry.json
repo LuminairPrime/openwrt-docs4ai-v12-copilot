@@ -1,5 +1,5 @@
 {
-  "pipeline_date": "2026-03-23T22:14:22.429226+00:00",
+  "pipeline_date": "2026-03-27T07:16:36.403470+00:00",
   "symbols": {
     "autotools.mk": {
       "signature": "autotools.mk()",
@@ -955,6 +955,132 @@
       "parameters": [],
       "deprecated": false
     },
+    "WRONG": {
+      "signature": "WRONG()",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "CORRECT": {
+      "signature": "CORRECT()",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "USE_PROCD": {
+      "signature": "USE_PROCD()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_open_service": {
+      "signature": "procd_open_service()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_open_instance": {
+      "signature": "procd_open_instance()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_set_param": {
+      "signature": "procd_set_param()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "service_triggers": {
+      "signature": "service_triggers()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.get": {
+      "signature": "uci.get(config, section, option)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.get_first": {
+      "signature": "uci.get_first(config, type, option)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.foreach": {
+      "signature": "uci.foreach(config, type, callback)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.set": {
+      "signature": "uci.set(config, section, option, value)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.commit": {
+      "signature": "uci.commit(config)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.unload": {
+      "signature": "uci.unload(config)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "INSTALL_BIN": {
+      "signature": "INSTALL_BIN()",
+      "file": "L1-raw/cookbook/minimal-openwrt-package-makefile.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/minimal-openwrt-package-makefile.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
     "GPIO": {
       "signature": "GPIO()",
       "file": "L1-raw/wiki/wiki_page-guide-developer-add-new-device.md",
@@ -1140,15 +1266,6 @@
       "file": "L1-raw/wiki/wiki_page-techref-externaldocumentation.md",
       "module": "wiki",
       "relative_target": "../wiki/wiki_page-techref-externaldocumentation.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "DEVICE_TITLE": {
-      "signature": "DEVICE_TITLE()",
-      "file": "L1-raw/wiki/wiki_page-guide-developer-20-xx-major-changes.md",
-      "module": "wiki",
-      "relative_target": "../wiki/wiki_page-guide-developer-20-xx-major-changes.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false

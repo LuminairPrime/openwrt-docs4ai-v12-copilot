@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-rtnl",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/rtnl.c",
+  "source_locator": "lib/rtnl.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/rtnl.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:57:25.109663+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:48.411904+00:00",
   "content_hash": "d2eb115f"
 }

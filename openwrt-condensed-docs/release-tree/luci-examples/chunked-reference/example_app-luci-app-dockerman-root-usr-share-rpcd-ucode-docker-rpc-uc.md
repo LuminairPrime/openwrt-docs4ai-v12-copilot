@@ -3,12 +3,26 @@ title: docker_rpc.uc
 module: luci-examples
 origin_type: example_app
 token_count: 5819
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-root-usr-share-rpcd-ucode-docker-rpc-uc.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc
+source_locator: applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc
 language: ucode
+ai_summary: The `docker_rpc.uc` module provides an interface for interacting with Docker's API using ucode in OpenWrt. It includes functions for handling HTTP requests, reading chunked responses, and managing Docker socket connections. Key functions include `call_docker`, which facilitates API calls to Docker, and `get_api_ver`, which retrieves the current API version from the configuration. The module is designed to work with Docker's v1.47 API and supports both local and remote socket connections.
+ai_when_to_use: Use this module when you need to integrate Docker functionality into your OpenWrt applications, particularly for managing containers and images through the Docker API.
+ai_related_topics:
+- call_docker
+- get_api_ver
+- chunked_body_reader
+- read_http_headers
+- coerce_values_to_string
 ---
+
+> **Source:** [https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc](https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc)
+> **Kind:** example_app | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # docker_rpc.uc
 ```ucode
 #!/usr/bin/env ucode

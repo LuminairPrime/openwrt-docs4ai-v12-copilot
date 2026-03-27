@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-hw-hacking-first-steps",
-  "original_url": "https://openwrt.org/docs/guide-developer/hw.hacking.first.steps",
+  "source_url": "https://openwrt.org/docs/guide-developer/hw.hacking.first.steps",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "6b357dc814bca77b94fa47204426d6016b15e991eb92d0f90b3883a39a48e065",
   "source_path": "/docs/guide-developer/hw.hacking.first.steps",
-  "extraction_timestamp": "2026-03-09T21:33:10.289928+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:40.701843+00:00",
   "content_hash": "0e834d5b"
 }

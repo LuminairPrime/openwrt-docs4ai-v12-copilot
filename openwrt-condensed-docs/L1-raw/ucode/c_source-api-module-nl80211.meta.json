@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-nl80211",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/nl80211.c",
+  "source_locator": "lib/nl80211.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/nl80211.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:57:24.217478+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:47.377255+00:00",
   "content_hash": "7b53430b"
 }

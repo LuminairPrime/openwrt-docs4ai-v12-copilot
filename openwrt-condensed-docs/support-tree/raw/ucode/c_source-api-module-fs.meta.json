@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-fs",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/fs.c",
+  "source_locator": "lib/fs.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/fs.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:39.170756+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:45.575349+00:00",
   "content_hash": "b4ae01da"
 }

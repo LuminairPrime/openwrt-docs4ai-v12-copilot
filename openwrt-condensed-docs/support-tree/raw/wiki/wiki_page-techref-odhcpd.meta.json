@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-odhcpd",
-  "original_url": "https://openwrt.org/docs/techref/odhcpd",
+  "source_url": "https://openwrt.org/docs/techref/odhcpd",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "3ece644dfc5851ccc712a23d44af415fd9a9adcb2730d01021298825df9a5ae1",
   "source_path": "/docs/techref/odhcpd",
-  "extraction_timestamp": "2026-03-09T21:34:48.081849+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:15.035046+00:00",
   "content_hash": "d935560d"
 }

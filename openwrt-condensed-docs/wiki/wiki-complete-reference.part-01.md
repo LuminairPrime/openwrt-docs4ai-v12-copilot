@@ -1,198 +1,19 @@
 ---
 module: wiki
-total_token_count: 97963
+total_token_count: 99226
 section_count: 49
 is_monolithic: false
 is_sharded_part: true
 part_number: 1
-part_count: 3
-generated: '2026-03-23T22:14:37.218591+00:00'
+part_count: 2
+generated: '2026-03-27T07:16:53.127109+00:00'
 ---
 
-# wiki Complete Reference (Part 1 of 3)
+# wiki Complete Reference (Part 1 of 2)
 
 > **Contains:** 49 documents
-> **Tokens:** ~97963 (cl100k_base)
+> **Tokens:** ~99226 (cl100k_base)
 > **Index:** [./wiki-complete-reference.md](./wiki-complete-reference.md)
-
----
-
-# 21.02: Major cosmetic changes
-
-This page intends to give an overview over major cosmetic changes since 19.07, focusing on those that will require adjustments/adaption downstream.
-
-The idea is to give a broad overview like a Table of Contents, without too much details on the specific issues.
-
-Note that this page is not even close to being complete.
-
-## Device/target renames
-
-Recently, most obvious through the transition from ar71xx to ath79, we tried to make device/image names more systematic by applying a vendor_model-variant scheme.
-
-This has already been used in 19.07 in some cases (ath79, ipq40xx, ipq806x, mpc85xx, new ramips devices, ...).
-
-After 19.07 had been released, the attempt was made to apply this more widely, and use the momentum to also achieve a more unified and systematic naming scheme for the different locations where the "device name" is used in its variations:
-
-- device name in image/Makefile (will be used for image name)
-- DEVICE_TITLE in image/Makefile
-- DTS file name (soc_vendor_model or soc-vendor-model)
-- DTS model name
-- DTS compatible
-- board_name (which should be derived from compatible instead of setting board names manually)
-- SUPPORTED_DEVICES
-
-The following subchapters will provide details on which changes have been applied to which targets so far.
-
-### arc770
-
-Manual board names (/tmp/sysinfo/board_name) have been replaced by compatible (vendor,model-variant)
-
-So, all local scripts using the board name need to be updated.
-
-<https://github.com/openwrt/openwrt/commit/0a5d74fa68bce598302236ca0f3eb2db2bc1592d>
-
-### archs38
-
-Manual board names (/tmp/sysinfo/board_name) have been replaced by compatible (vendor,model-variant)
-
-So, all local scripts using the board name need to be updated.
-
-<https://github.com/openwrt/openwrt/commit/3c190ef112979793cd0e2148c53c6208a642a463>
-
-### ath79/ar71xx
-
-In 21.02, ar71xx will finally be dropped. As already relevant in 19.07, ath79 introduces vendor_model-variant scheme for image names. It also drops the board_names used in ar71xx, so the compatible (from DTS) will be used as board name instead (being equivalent to vendor,model-variant, and unique for a specific device). While creating the new and shiny target, we again took the opportunity to use more systematic names on devices, using less abbreviations and staying closer to the device name. This will it result in several changed names compared to ar71xx additional to just adding the vendor to the name.
-
-For downstream, (at least) the following will require adjustment:
-
-- CONFIG_TARGET_DEVICE\_\* variables
-- image names (e.g. if copied)
-- board names (/tmp/sysinfo/board_name) if used for anything on device
-
-Note that ath79 might also include several changes after 19.07.
-
-### bcm27xx/brcm2708
-
-The whole target has been renamed from "brcm2708" to "bcm27xx". This will affect all cases where target variables are used, i.e. CONFIG_TARGET\_\* or TARGET\_\* dependencies. Despite, image names will change. The same rename applies to packages brcm2708-userland and brcm2708-gpu-fw.
-
-This can be easily addressed downstream by just grepping for "brcm2708".
-
-### bcm47xx/brcm47xx
-
-The whole target has been renamed from "brcm47xx" to "bcm47xx". This will affect all cases where target variables are used, i.e. CONFIG_TARGET\_\* or TARGET\_\* dependencies. Despite, image names will change.
-
-This can be easily addressed downstream by just grepping for "brcm47xx".
-
-### bcm63xx/brcm63xx
-
-The whole target has been renamed from "brcm63xx" to "bcm63xx". This will affect all cases where target variables are used, i.e. CONFIG_TARGET\_\* or TARGET\_\* dependencies. Despite, image names will change.
-
-This can be easily addressed downstream by just grepping for "brcm63xx".
-
-Despite, this target has also been subject to an ath79-like unification of device names:
-
-- device/image names and compatible have been adjusted to match device names (using vendor_model-variant scheme)
-- DTS files have been renamed with soc-vendor-model scheme
-- manual board names (/tmp/sysinfo/board_name) have been replaced by compatible (vendor,model-variant)
-
-Patches:
-
-- <https://github.com/openwrt/openwrt/commit/e4ba8c82947efd39b014496de32ee73e1bec9c71>
-- <https://github.com/openwrt/openwrt/commit/0a3350d908ec466206f58b9e6b300c49e4fb3b13>
-- <https://github.com/openwrt/openwrt/commit/d0e8e6db6b22b893da2f3a2cbe84adb753cb3303>
-
-### imx6
-
-Manual board names (/tmp/sysinfo/board_name) have been replaced by compatible (vendor,model-variant)
-
-So, all local scripts using the board name need to be updated.
-
-<https://github.com/openwrt/openwrt/commit/8126e572dd4f531c5f105b7197bc119b2b1ebb07>
-
-### layerscape
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/0f3c3a5fb2738b25c62eb0ff8ef7d0654c0b9300>
-
-### mediatek
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/49d66e0468c14d8a05bd6c33056708d2051437cb>
-
-### mpc85xx
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/118749271b311413307f0b6be91786d7ac368f8b>
-
-### octeon
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/1e3bfbafd37ccb32d0ed6618f4886e1dec6643d2>
-
-### ramips
-
-In ramips, the situation in 19.07 can be described as a mix of ar71xx and ath79. After 19.07, the target was updated and the same naming logic as for ath79 was applied. Thus, for this target effectively the same comments as for ath79/ar71xx apply.
-
-### samsung
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/6e70e4a071b233da83486414e65d15756ede63d2>
-
-### sunxi
-
-Device nodes and thus image names have been changed to apply to vendor_model scheme.
-
-This will affect CONFIG_TARGET_DEVICE\_\* variables and image names.
-
-<https://github.com/openwrt/openwrt/commit/a4cdb537b17ede9785ddbaef5ed9d69f3ab89052>
-
-## DEVICE_TITLE split and tidy-up
-
-To make device names more systematic, the DEVICE_TITLE make variable (primarily used for display in make menuconfig) was split into DEVICE_VENDOR, DEVICE_MODEL and DEVICE_VARIANT *for all targets.* DEVICE_TITLE is still available as (simplified)
-
-    DEVICE_TITLE := $(DEVICE_VENDOR) $(DEVICE_MODEL) $(DEVICE_VARIANT)
-
-During this update process, we took the opportunity to make names more systematic. Thus, several DEVICE_TITLEs will have changed effectively.
-
-Despite, a new syntax to specify alternate device names has been introduced (ALT0 to ALT3):
-
-    DEVICE_ALT0_VENDOR
-    DEVICE_ALT0_MODEL
-    DEVICE_ALT0_VARIANT
-
-As for DEVICE_TITLE, those will not affect image names.
-
-## Label MAC address
-
-Many devices supported by OpenWrt bear one or many MAC addresses on them, which allow to identify those devices in large network. This fact has been exploited by downstream communities, which implemented those addresses locally. OpenWrt has now added a mechanism to store and retrieve those addresses:
-
-Developer reference: <https://openwrt.org/docs/guide-developer/mac.address#label_mac_address>
-
-Use:
-
-    . /lib/functions/system.sh
-    label_mac_addr=$(get_mac_label)
-
-The label MAC address has to be provided in OpenWrt on a per-device basis. While a lot of devices has already been covered, there also is still a lot of devices to take care of.
-
-## Support of Ed25519 SSH keys
-
-With the commit [d0f295837a03f7f52000ae6d395827bdde7996a4](commit>d0f295837a03f7f52000ae6d395827bdde7996a4) it is now possible to use Ed25519 SSH keys on regular (aka not tiny) devices. These keys are much shorter than RSA keys while being equally secure. For embedded devices this should speed up the login process as the keys are much faster processed.
 
 ---
 
@@ -3778,82 +3599,6 @@ Here we could place links to light-build libraries you could link against:
 
 ---
 
-# Adding new elements to LuCI
-
-This is a sample to show how to add a new element to the LuCI interface
-
-[NOTE](../L2-semantic/wiki/wiki_page-techref-luci2.md): Some of the information provided in this Wiki might be redundant from <https://github.com/openwrt/luci/wiki/ModulesHowTo>
-
-As the examples show in the LuCI wiki, here are 2 ways to do this:
-
-1.  CBI
-2.  View (Template)
-
-## Adding a new top level tab
-
-First we are going to add a new tab to the top navigation. Normally one can see: Freifunk \| Status \| System \| Services \| Network, etc
-
-One can do this by adding a file to the controller directory in your `<luci-path>/applications/luci-myapplication/luasrc/controller/myapp`
-
-**\<luci-path\>** is the path of your LuCI source files
-
-**luci-myapplication** is a new directory created for these examples. The name of the directory has to start with *luci-* so that it is recognized by `make menuconfig` and show up as a module to be compiled.
-
-**controller** is the default directory for any UI control (i.e. new tab)
-
-**myapp** is also a custom directory for this particular application
-
-We will call this file `new_tab.lua`
-
-The content is as follows:
-
-``` lua
-module("luci.controller.myapp.new_tab", package.seeall)  --notice that new_tab is the name of the file new_tab.lua
- function index()
-     entry({"admin", "new_tab"}, firstchild(), "New tab", 60).dependent=false  --this adds the top level tab and defaults to the first sub-tab (tab_from_cbi), also it is set to position 30
-     entry({"admin", "new_tab", "tab_from_cbi"}, cbi("myapp-mymodule/cbi_tab"), "CBI Tab", 1)  --this adds the first sub-tab that is located in <luci-path>/luci-myapplication/model/cbi/myapp-mymodule and the file is called cbi_tab.lua, also set to first position
-     entry({"admin", "new_tab", "tab_from_view"}, template("myapp-mymodule/view_tab"), "View Tab", 2)  --this adds the second sub-tab that is located in <luci-path>/luci-myapplication/view/myapp-mymodule and the file is called view_tab.htm, also set to the second position
-end
-```
-
-------------------------------------------------------------------------
-
-## Adding the cbi_tab code
-
-As specified above, we need to create a file called `cbi_tab.lua` in `<luci-path>/luci-myapplication/model/cbi/myapp-mymodule`
-
-We will include the following code:
-
-``` lua
-m = Map("cbi_file", translate("First Tab Form"), translate("Please fill out the form below")) -- cbi_file is the config file in /etc/config
-d = m:section(TypedSection, "info", "Part A of the form")  -- info is the section called info in cbi_file
-a = d:option(Value, "name", "Name"); a.optional=false; a.rmempty = false;  -- name is the option in the cbi_file
-return m
-```
-
-------------------------------------------------------------------------
-
-## Adding the cbi_file
-
-From the code above, we know we need a config file that has the appropriate sections and options. In our case, we will create the file *cbi_file* in `/etc/config` which looks like this:
-
-    config 'info' 'A'
-        option 'name' 'OpenWRT'
-
-------------------------------------------------------------------------
-
-## Adding the view_tab code
-
-The *view_tab.htm* file needs to go in `<luci-path>/applications/luci-myapplication/luasrc/view/myapp-mymodule/`
-
-Here are the contents of the file:
-
-    <%+header%>
-    <h1><%:Hello World%></h1>
-    <%+footer%>
-
----
-
 # Device Support: MAC address setup
 
 ## Retrieve addresses from stock firmware
@@ -4069,7 +3814,7 @@ The [umdns](/packages/pkgdata/umdns) package provides a compact implementation o
 
 ### Configuration
 
-**I NEED HELP NAILING DOWN THE DEFAULT, AND THE CORRECT DESCRIPTION OF ALL THE FOLLOWING LINES**
+**I NEED HELP NAILING DOWN THE DEFAULT, AND THE [CORRECT](../L2-semantic/cookbook/uci-read-write-from-ucode.md) DESCRIPTION OF ALL THE FOLLOWING LINES**
 
 **Hostname:** `umdns` advertises the hostname that is present in `/etc/config/system`.
 
@@ -4197,7 +3942,7 @@ Here we can see that ssh is being advertised locally.
 
 If you want to advertise your own service, your service needs to be a [procd](/docs/guide-developer/procd) managed service. You can use the `procd_add_mdns` call to provide a basic definition.
 
-    procd_open_instance
+    [procd_open_instance](../L2-semantic/cookbook/procd-service-lifecycle.md)
     ....
     procd_add_mdns <service> <proto> <port> [<textkey=textvalue> ... ]
     ...
@@ -5143,7 +4888,7 @@ Versionless symlinks are usually not needed for libraries using the `SONAME` att
 
 `$(INSTALL_DATA)` and `$(INSTALL_BIN)` will currently copy the file contents instead of the symlink itself, so prefer `$(CP)` when copying the library symlinks. Consider the example above, if you run
 
-    $(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/libbar.so.* $(1)/usr/lib/
+    $([INSTALL_BIN](../L2-semantic/cookbook/minimal-openwrt-package-makefile.md)) $(PKG_INSTALL_DIR)/usr/lib/libbar.so.* $(1)/usr/lib/
 
 it will result in two copies of the library in regular files:
 
@@ -6055,7 +5800,7 @@ endef
 
 ## File installation macros
 
-INSTALL_DIR, INSTALL_BIN, INSTALL_DATA are used for creating a directory, copying an executable, or copying a data file. +x is set on the target file for INSTALL_BIN, independent of its mode on the host.
+INSTALL_DIR, [INSTALL_BIN](../L2-semantic/cookbook/minimal-openwrt-package-makefile.md), INSTALL_DATA are used for creating a directory, copying an executable, or copying a data file. +x is set on the target file for [INSTALL_BIN](../L2-semantic/cookbook/minimal-openwrt-package-makefile.md), independent of its mode on the host.
 
 From the big document:
 
@@ -6065,7 +5810,7 @@ A set of commands to copy files out of the compiled source and into the ipkg whi
 
     INSTALL_DIR
     install -d -m0755
-    INSTALL_BIN
+    [INSTALL_BIN](../L2-semantic/cookbook/minimal-openwrt-package-makefile.md)
     install -m0755
     INSTALL_DATA
     install -m0644
@@ -6204,7 +5949,7 @@ start_service() {
 }
 ```
 
-First, it includes the common ‘run commands’ file /etc/rc.common needed for a service. This file defines several functions that can be used to manage the service lifecycle, it supports old style init scripts as well as procd scripts. In order to tell that we want to use the new style we then set the USE_PROCD flag.
+First, it includes the common ‘run commands’ file /etc/rc.common needed for a service. This file defines several functions that can be used to manage the service lifecycle, it supports old style init scripts as well as procd scripts. In order to tell that we want to use the new style we then set the [USE_PROCD](../L2-semantic/cookbook/procd-service-lifecycle.md) flag.
 
 The START option basically tell the system when the service should start and stop during startup and shutdown of OpenWrt.
 
@@ -6343,7 +6088,7 @@ Note that in the service script the arguments are quoted, which allows us to use
 Apart from the loading and passing of config to our script we also added
 
     ...
-    procd_set_param file /etc/config/myservice
+    [procd_set_param](../L2-semantic/cookbook/procd-service-lifecycle.md) file /etc/config/myservice
     ...
 
 With that line in place we are able to restart the service whenever only our configuration has changed.
@@ -6356,7 +6101,7 @@ There are a couple of more options that can be configured in a procd scripts ‘
 
 - **respawn**
   respawn your service automatically when it terminates for some reason.
-  `procd_set_param respawn \
+  `[procd_set_param](../L2-semantic/cookbook/procd-service-lifecycle.md) respawn \
         ${respawn_threshold:-3600} \
         ${respawn_timeout:-5} ${respawn_retry:-5}`
   In this example we respawn if process terminates sooner than respawn_threshold, it is considered crashed and after 5 retries the service is stopped. However, if it terminates later than respawn_threshold, it would be respawned indefinitely.
@@ -6390,7 +6135,7 @@ There are a couple of more options that can be configured in a procd scripts ‘
   `
 - **user**
   To change the user that runs the service you can use
-  \<code\> procd_set_param user nobody \</code\>
+  \<code\> [procd_set_param](../L2-semantic/cookbook/procd-service-lifecycle.md) user nobody \</code\>
   Default OpenWrt only has a ‘root’ user or ‘nobody’ as the process owner.
   You can add users with the usual linux way, see [Create a non-privileged user in OpenWrt](/docs/guide-user/security/secure.access#create_a_non-privileged_user_in_openwrt) or if you are creating an actual package you can use [buildpackage defines](/docs/guide-developer/packages#buildpackage_defines) to make OpenWrt generate the user when the package is installed.
 
@@ -6681,7 +6426,7 @@ The following table contains a listing of the possible values to `procd_set_para
 |-----------------|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `env`           | Key-Value-List | Sets a number of environment variables in `key=value` notation exported to the spawned process.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `data`          | Key-Value-List | Sets arbitrary user data in `key=value` notation to the ubus service state. This is mainly used to store additional meta data with spawned services, such as [mDNS](../L2-semantic/wiki/wiki_page-guide-developer-mdns.md) announcements or firewall rules which may be picked up by other services.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `limits`        | Key-Value-List | Set ulimit values in `key=value` notation for the spawned process. The following limit names are recognized by *procd*: `as` (`RLIMIT_AS`), `core` (`RLIMIT_CORE`), `cpu` (`RLIMIT_CPU`), `data` (`RLIMIT_DATA`), `fsize` (`RLIMIT_FSIZE`), `memlock` (`RLIMIT_MEMLOCK`), `nofile` (`RLIMIT_NOFILE`), `nproc` (`RLIMIT_NPROC`), `rss` (`RLIMIT_RSS`), `stack` (`RLIMIT_STACK`), `nice` (`RLIMIT_NICE`), `rtprio` (`RLIMIT_RTPRIO`), `msgqueue` (`RLIMIT_MSGQUEUE`), `sigpending` (`RLIMIT_SIGPENDING`) **Two numeric values, separated by blank space, are expected for RLIMIT: the first value represents the soft limit and the other the hard limit; e.g.: procd_set_param limits nofile="10000 20000"; the "unlimited" value can be used in cases where "ulimit -{parameter} unlimited" works, for example for the "core" parameter.**                                                                                               |
+| `limits`        | Key-Value-List | Set ulimit values in `key=value` notation for the spawned process. The following limit names are recognized by *procd*: `as` (`RLIMIT_AS`), `core` (`RLIMIT_CORE`), `cpu` (`RLIMIT_CPU`), `data` (`RLIMIT_DATA`), `fsize` (`RLIMIT_FSIZE`), `memlock` (`RLIMIT_MEMLOCK`), `nofile` (`RLIMIT_NOFILE`), `nproc` (`RLIMIT_NPROC`), `rss` (`RLIMIT_RSS`), `stack` (`RLIMIT_STACK`), `nice` (`RLIMIT_NICE`), `rtprio` (`RLIMIT_RTPRIO`), `msgqueue` (`RLIMIT_MSGQUEUE`), `sigpending` (`RLIMIT_SIGPENDING`) **Two numeric values, separated by blank space, are expected for RLIMIT: the first value represents the soft limit and the other the hard limit; e.g.: [procd_set_param](../L2-semantic/cookbook/procd-service-lifecycle.md) limits nofile="10000 20000"; the "unlimited" value can be used in cases where "ulimit -{parameter} unlimited" works, for example for the "core" parameter.**                                                                                               |
 | `command`       | List           | Sets the command vector (`argv`) used to execute the process.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `netdev`        | List           | Passes a list of Linux network device names to *procd* to be monitored for changes. Upon starting a service, the interface index of each network device name is resolved and stored as part of *procd*'s in-memory service state. When a service reload request is processed and the interface index of any of the associated network devices changed or if the list itself changed, the running service state is invalidated and *procd* will restart the associated process or deliver a UNIX signal to it, depending on how the service was set up.                                                                                                                                                                                                                                                                                                                                                                                   |
 | `file`          | List           | Passes a list of file names to *procd* to be monitored for changes. Upon starting a service, the content of each passed file is checksummed and stored as part of *procd*'s in-memory service state. When a service reload request is processed and the checksum of one of the associated files changed, or the list of files itself changed, the running service state is invalidated and *procd* will restart the associated process or deliver a UNIX signal to it, depending on how the service was set up.                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -7811,3 +7556,198 @@ network configuration	[NetworkManager](https://en.wikipedia.org/wiki/NetworkMana
 
 - [PulseAudio does not depend on GLib](https://www.freedesktop.org/wiki/Software/PulseAudio/FAQ/#index2h3) and does not seem to depends on D-Bus neither: [LFS](http://www.linuxfromscratch.org/blfs/view/svn/multimedia/pulseaudio.html)
 - [FOSDEM2013: Can Linux network configuration suck less?](https://archive.fosdem.org/2013/schedule/event/dist_network/)
+
+---
+
+# Mounting Block Devices
+
+This pages discuses the advanced details and underlying operation. For general usage, see [fstab](/docs/guide-user/storage/fstab).
+
+## Overview
+
+The mounting of block devices is handled by the `block-mount` source package, which contains the `block-mount` and `block-hotplug` packages. `block-mount` contains the code that does the actual mounting, and the mounting via `/etc/init.d/fstab` (i.e. on boot rather than when device is hotplugged), and `block-hotplug` takes care of mounting devices when the device is recognized by the system (.e.g. when modules are loaded and the partition detected).
+
+## block-mount (binary package)
+
+~~The `block-mount` binary package (i.e. the one you actually install, rather than the source package containing `block-mount` and `block-hotplug`), contains three library scripts (in addition to `/etc/init.d/fstab` and the sample config file `/etc/config/fstab`). These three scripts are: `block.sh`, `mount.sh`, and `fsck.sh`. ~~
+
+|                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|-------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![48px-outdated.svg.png](/meta/icons/tango/48px-outdated.svg.png) | As of [r26314](https://dev.openwrt.org/changeset/26314/trunk) `block-extroot` and `block-hotplug` have been merged with `block-mount`. That means that once you install `block-mount` the scripts for [extroot](/docs/guide-user/additional-software/extroot_configuration) mounting and hotplug mounting are installed. With [r36988](https://dev.openwrt.org/changeset/36988) the original package `block-mount` was removed. Technically, the new package `ubox` replaced its functionality. For [Fstab configuration](/docs/guide-user/storage/fstab), the new block-mount package now contains the executable `block` which facilitates this. You can run `block <info|mount|umount|detect>`. See [Fstab configuration](/docs/guide-user/storage/fstab). |
+
+With the new block mount mechanism you can run `block info` to get the same output that blkid delivered (however it only returns info for filesystems it supports). You can do "block mount" to mount all devices (same as what `/etc/init.d/fstab restart` used to do. If you run "`block detect`" you will get a sample uci file for the currently attached block devices. That way you can do "`block detect | uci import fstab`" to store it
+
+:!: block info cannot detect btrfs (added [r43868](https://dev.openwrt.org/changeset/43868/trunk)), xfs , jfs, ntfs, exfat, and some other FS. Use manual scripting to mount them.
+
+:!: For ntfs mount [read here](https://forum.openwrt.org/t/block-mount-ntfs-not-a-tty/64350)
+
+    root@OpenWrt:~# blkid
+    /dev/sda1: TYPE="ext2"
+    /dev/sda2: UUID="890c87d4-e276-4fb0-a34a-296db408d792" TYPE="ext4"
+    /dev/sdb1: LABEL="OPENWRT-BTRFS" UUID="2412e056-a1d8-4710-bf0e-d54b8ff0662f" UUID_SUB="edd04b0f-ccf6-4978-9d76-1fa17921fe58" TYPE="btrfs"
+    root@OpenWrt:~# block info
+    /dev/sda1: VERSION="1.0" TYPE="ext2"
+    /dev/sda2: UUID="890c87d4-e276-4fb0-a34a-296db408d792" VERSION="1.0" TYPE="ext4"
+
+### The new block-mount in Barrier Breaker
+
+#### Usage: block \<info\|mount\|umount\|detect\>
+
+- **info** -\> get the same output that blkid delivered (including mtdblock)
+
+      /dev/mtdblock2: UUID="0906f1b4-51688c99-666b11b5-71d70575" VERSION="4.0" TYPE="squashfs"
+      /dev/mtdblock3: TYPE="jffs2"
+      /dev/sda1: UUID="e81a771e-249f-4f9e-ab30-b2fb73789744" LABEL="overlay" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
+      /dev/sda2: UUID="090b67fa-afbb-4771-8efd-7a515c742c18" LABEL="swap" VERSION="2" TYPE="swap"
+      /dev/sda5: UUID="91f1-f7ed" LABEL="TRANSPORT" VERSION="FAT32" TYPE="vfat"
+      /dev/sda6: UUID="b01791a5-647a-4ab0-9adf-5b626ee5407c" LABEL="daten" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
+      /dev/sda7: UUID="9f822714-fb75-40c3-9382-f1df42343229" LABEL="rest" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
+
+- **mount** -\> mount all devices listed in fstab
+- **umount** -\> unmount all devices listed in fstab
+- **detect** -\> get a sample uci file for the currently attached block devices
+
+    config 'global'
+        option  anon_swap   '0'
+        option  anon_mount  '0'
+        option  auto_swap   '1'
+        option  auto_mount  '1'
+        option  delay_root  '5'
+        option  check_fs    '0'
+
+    config 'mount'
+        option  target  '/mnt/sda1'
+        option  uuid    'e81a771e-249f-4f9e-ab30-b2fb73789744'
+        option  enabled '0'
+
+    config 'swap'
+        option  uuid    '090b67fa-afbb-4771-8efd-7a515c742c18'
+        option  enabled '0'
+
+    config 'mount'
+        option  target  '/mnt/sda5'
+        option  uuid    '91f1-f7ed'
+        option  enabled '0'
+
+    config 'mount'
+        option  target  '/mnt/sda6'
+        option  uuid    'b01791a5-647a-4ab0-9adf-5b626ee5407c'
+        option  enabled '0'
+
+    config 'mount'
+        option  target  '/mnt/sda7'
+        option  uuid    '9f822714-fb75-40c3-9382-f1df42343229'
+        option  enabled '0'
+        option  options 'lazytime,noatime,background_gc=off,gc_merge'
+
+you can do "`block detect | uci import fstab`" to store it as a sample config file (already with UUID ;-) )
+
+### working/not working in Barrier Breaker as of 2015/01/30
+
+|       | info          | detect        | on boot       | on plug       | mount/umount[^1] | needs         | and                                                              |
+|-------|---------------|---------------|---------------|---------------|------------------|---------------|------------------------------------------------------------------|
+| ext4  | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔    | kmod-fs-ext4  | libext2fs, :?: kmod-fs-autofs4                                   |
+| swap  | @lightgreen:✔ | @lightgreen:✔ | ?             | ?             | ?                | ???           | swap-utils                                                       |
+| vfat  | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔    | kmod-fs-vfat  | kmod-nls-base, kmod-nls-cp437, kmod-nls-iso8859-1, kmod-nls-utf8 |
+| btrfs | @red:✘[^2]    | @red:✘        | @red:✘        | @red:✘        | @red:✘           | kmod-fs-btrfs | btrfs-progs                                                      |
+
+## block-hotplug (binary package)
+
+Block hotplug consists of three scripts, `10-swap`, `20-fsck`, and `40-mount`. When a block devices is added these scripts are executed in the order listed. So, first the device is checked for being a `swap` section, or to attempt to mount as swap, if it is not a defined section for swap or mount (this is known as `anon_swap` or anonymous swap). Then `20-fsck` checks if the device is listed as `enabled_fsck` and if so, attempts to check/repair the filesystem, and, finally, we check if the device should be mounted, either named, or anonymously (i.e. not listed in any section).
+
+[^1]: with the mount command instead of block mount/block umount
+
+[^2]: use btrfs-show to get the UUID
+
+---
+
+# The Bootloader
+
+The [Bootloader](https://en.wikipedia.org/wiki/Bootloader) is a piece of software that is executed every time the hardware device is powered up. It is executable machine code and thus [ARCH](/docs/techref/hardware/cpu#the_isa_instruction_set_architecture)-specific. It's quite heavily device-specific because its main task is to initialize all the low-level hardware details. The bootloader can be contained on a separate [EEPROM](https://en.wikipedia.org/wiki/EEPROM) (very seldom) or directly on flash storage (most common).
+
+ Being a piece of software, the bootloader is considered part of the firmware, but **the bootloader is not part of OpenWrt!**
+Only on seldom occasions a change of the *bootloader settings* or the *bootloader code* is necessary to allow for booting/installing OpenWrt
+There are a number of bootloaders under diverse [software license](https://en.wikipedia.org/wiki/software license)s
+
+## Main Function
+
+The bootloader's main function is to initialize the hardware, pass an abstraction of the initialized hardware, a hardware description, to and execute the Kernel. (A very nice technical example can be seen [here](https://web.archive.org/web/20111219072809/http://www.wehavemorefun.de/fritzbox/index.php/ADAM2) or see a suggestion until finding a better example: [here](https://www.moritz.systems/blog/before-the-bsd-kernel-starts-part-one-on-amd64/) and [here](https://0xax.gitbooks.io/linux-insides/content/Booting/linux-bootstrap-1.html)) After that the bootloader is done and not needed in memory any longer. Most bootloaders offer [\#additional functions](#additional functions).
+
+### Why this is necessary?
+
+It's not. A bootloader is not required to boot Linux. The use of one (or several) bootloaders in a row to chainload (or [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping (computing))) a Kernel is not a categorical necessity, it is merely a very crafty method to start an operating system. The main advantage for OpenWrt is, that the existence of a bootloader offers users and developers additional possibilities to [debrick](/docs/guide-user/troubleshooting/generic.debrick) a device.
+
+## Features
+
+### Limitations
+
+Some bootloader or implementation of universal bootloaders come with certain limitation implemented by the OEM, such as:
+
+- a willfully designed kernel/firmware size limitation
+- make the bootloader expect a certain exotic firmware format
+- inability of the bootloader to execute the [ELF](https://en.wikipedia.org/wiki/Executable and Linkable Format) binary format
+- the need of some obscure "magic value" to be present and correct
+- you name it
+
+The reasons are variable, from simple ineptitude of the creators to the willful sabotage of the users' attempts to run [free software](https://en.wikipedia.org/wiki/free software) on their own property.
+
+### Additional Functions
+
+The bootloader can be more or less sophisticated, and offer none to many additional functions. In many situations additional functions would give the user a huge advantage, so most bootloaders offer them, such as:
+
+- Flash new firmware, see [generic.flashing](/docs/guide-user/installation/generic.flashing)
+- The bootloader can possibly validate data on the flash-storage, and e.g. should the firmware fail to pass a CRC, the bootloader would presume the firmware is corrupt and wait for a new firmware to be uploaded over the network. Of course, this also means, that every time you change something on the flash, you have to update this CRC-value...
+- this could also be triggered by setting a boot_wait variable or by a command executed in the serial console
+- a [CLI](https://en.wikipedia.org/wiki/Command-line interface) (aka *serial console*), which usually can be accessed over the [serial port](/docs/techref/hardware/port.serial) **only**. There are several ways to access the *serial console* port on your target system, such as using a terminal server, but the most common way is to attach it to a serial port on your host. Additionally, you will need a terminal emulation program on your host system, such as `cu` or `kermit`.
+  - once the bootloader has fulfilled its main function - chainload the Kernel - it does not run any longer, so to play with it, you have to login to it before it loads the Kernel and you may also have to prevent it from loading the Kernel, i.e. to stop the boot process.
+- boot from USB
+  - Like the Kernel requires the module `kmod-fs-ext4` to read/write to a EXT3 filesystem, so a bootloader requires such a module to do the same. [GRUB2](https://en.wikipedia.org/wiki/GRUB2) has this functionality implemented, so with it, you can very comfortably configure your boot options and also update and maintain your OS. The lightweight bootloaders we use with OpenWrt, usually do not have this functionality. But see [flash.layout](/docs/techref/flash.layout) for further reference. One exception is the U-Boot implementation of the [dockstar](/toh/seagate/dockstar). It can not only initialize the USB (like all the rest of the hardware) but additionally utilize the USB and also understand the EXT2 filesystem. Thus, the dockstar can be booted directly from an ext2-formated harddisc/usb-stick connected to any of it's USB-ports.
+- [net booting](/inbox/howto/netboot) functionality via [BOOTP](https://en.wikipedia.org/wiki/Bootstrap Protocol) or [PXE](https://en.wikipedia.org/wiki/Preboot Execution Environment) or DHCP or NFS or [TFTP](https://en.wikipedia.org/wiki/Trivial File Transfer Protocol)
+
+## Boot Procedure
+
+-\> **[boot process](process.boot)** should give a more detailed description of whole boot procedure. The bootloader is the beginning.
+
+## Individual Bootloaders
+
+[Comparison of boot loaders](https://en.wikipedia.org/wiki/Comparison of boot loaders)
+
+|                                                                                                                                            |
+|--------------------------------------------------------------------------------------------------------------------------------------------|
+| *Please use `templates` to create and maintain these articles. ATM they are quite unmaintained and without a structure and almost useless* |
+
+### PC
+
+An embedded bootloader fulfills the same functionality as the [BIOS](https://en.wikipedia.org/wiki/BIOS) plus [GNU GRUB](https://en.wikipedia.org/wiki/GNU GRUB) together on a PC.
+
+- [BIOS](https://en.wikipedia.org/wiki/BIOS) proprietary the BIOS of your PC *is* nothing else but a bootloader!
+- [UEFI](https://en.wikipedia.org/wiki/Extensible Firmware Interface) proprietary successor want-to-be of the BIOS
+- [coreboot](https://en.wikipedia.org/wiki/coreboot) GPLv2 successor of the BIOS, alternative to [UEFI](../L2-semantic/wiki/wiki_page-guide-developer-uefi-bootable-image.md) based on the Linux kernel;
+  support for x86, x86-64 and ARM. There is no MIPS support.
+  Coreboot does only "a little bit of hardware initialization"
+- [GNU GRUB](https://en.wikipedia.org/wiki/GNU GRUB) GPLv2
+
+### Embedded Devices
+
+- **[Das U-Boot](/docs/techref/bootloader/uboot)** GPLv2 arguably the richest, most flexible, and most actively developed FOSS bootloader available
+- [pepe2k-u-boot_mod](/docs/techref/bootloader/pepe2k) GPLv2 U-Boot 1.1.4 modification for routers <https://github.com/pepe2k/u-boot_mod>
+- [RedBoot](/docs/techref/bootloader/redboot) mod GPL
+- [CFE](/docs/techref/bootloader/cfe) BSD like by Broadcom; the orange color means, the OEM is not obliged to deliver the source code
+- [Adam2](/docs/techref/bootloader/adam2) proprietary for AR7/UR8
+  - [pspboot](/docs/techref/bootloader/pspboot) proprietary the only slightly compatible successor of Adam2.
+- [brnboot](/docs/techref/bootloader/brnboot) unknown sometimes called AMAZON Loader.
+- [bootbase](/docs/techref/bootloader/bootbase) unknown used by the ZyXEL Prestige 660HW-xx and Prestige 660M-xx devices (and probably other ZyXEL products). <http://www.ixo.de/info/zyxel_uclinux/>
+- [jboot](/docs/techref/bootloader/jboot) unknown
+- [myloader](/docs/techref/bootloader/myloader) unknown
+- [pp_boot](/docs/techref/bootloader/pp_boot) unknown
+- [yamon](/docs/techref/bootloader/yamon) unknown by [Imagination Technology](https://en.wikipedia.org/wiki/Imagination Technology); the Linux kernel can only be booted when it is in SREC format.
+- [Breed](/docs/techref/bootloader/Breed) - Breed booatloader
+- [bl-mt798x](/docs/techref/bootloader/bl-mt798x) - ATF and u-boot for mt798x-based routers
+
+- VxWorks' own bootloader - most Atheros devices (There is a description of the basic workings on the [Netgear WGT624](/oldwiki/OpenWrtDocs/Hardware/Netgear/WGT624) page.)
+- NetBoot - the standard loader in DWL7100AP allows to boot firmware image via network from [TFTP](../L2-semantic/wiki/wiki_page-guide-developer-adding-new-device.md) server direct to RAM
+- ThreadX - D-Link uses OS called ThreadX on lowend 1MiB Flash storage & 8MiB RAM models. They have custom boot loader that doesn't output anything sensible to serial port but does have recovery mode so you can upload firmware using browser.
+
+## Bootloader Pages
+
+![bootloader; hidejump;sort=name;display={title};](/pagequery>* @docs/techref/bootloader; hidejump;sort=name;display={title};)
