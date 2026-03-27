@@ -194,16 +194,28 @@ def test_pandoc_not_installed_in_extract_matrix():
             )
 
 
-def test_jsdoc_npm_install_is_conditional_on_02c_and_02b():
-    import yaml
-    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    wf = yaml.safe_load(workflow_text)
-    extract_steps = wf.get("jobs", {}).get("extract", {}).get("steps", [])
-    npm_steps = [s for s in extract_steps if s.get("run") and "jsdoc-to-markdown" in s.get("run", "")]
-    assert npm_steps, "No npm install step for jsdoc-to-markdown found in extract job"
+def test_jsdoc_npm_install_is_gated_to_02c_only():
+    workflow = load_workflow_yaml()
+    extract_steps = workflow["jobs"]["extract"]["steps"]
+    npm_steps = [s for s in extract_steps if "jsdoc-to-markdown" in s.get("run", "")]
+    assert npm_steps, "No jsdoc-to-markdown install step found in extract job"
     for step in npm_steps:
         condition = step.get("if", "")
-        assert "02c-scrape-jsdoc.py" in condition and "02b-scrape-ucode.py" in condition, (
-            f"jsdoc-to-markdown install step is not gated on matrix.script == '02c...' and '02b...'. "
-            f"Got: if: {condition!r}"
+        assert "02c-scrape-jsdoc.py" in condition, (
+            f"jsdoc-to-markdown install not gated to 02c. Got: if: {condition!r}"
+        )
+        assert "02b-scrape-ucode.py" not in condition, (
+            f"jsdoc-to-markdown install should not be gated on 02b. Got: if: {condition!r}"
+        )
+
+
+def test_jsdoc_npm_install_is_version_pinned():
+    workflow = load_workflow_yaml()
+    extract_steps = workflow["jobs"]["extract"]["steps"]
+    npm_steps = [s for s in extract_steps if "jsdoc-to-markdown" in s.get("run", "")]
+    assert npm_steps, "No jsdoc-to-markdown install step found in extract job"
+    for step in npm_steps:
+        run_text = step["run"]
+        assert "@" in run_text, (
+            f"jsdoc-to-markdown is not version-pinned. Got: {run_text!r}"
         )

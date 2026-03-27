@@ -31,7 +31,7 @@ This document summarizes what each pipeline script reads, what it writes, and wh
 | --- | --- | --- | --- | --- | --- | --- |
 | `01-clone-repos.py` | L0 acquisition | upstream git repositories | `WORKDIR/repo-*`, `repo-manifest.json` | none | none | none |
 | `02a-scrape-wiki.py` | L1 extraction | OpenWrt wiki HTTP | `WORKDIR/L1-raw/wiki/` | none | `pandoc` (apt/system) | none |
-| `02b-scrape-ucode.py` | L1 extraction | `WORKDIR/repo-ucode/` | `WORKDIR/L1-raw/ucode/` | `01` | `jsdoc-to-markdown` (npm global) | none |
+| `02b-scrape-ucode.py` | L1 extraction | `WORKDIR/repo-ucode/` | `WORKDIR/L1-raw/ucode/` | `01` | none | none |
 | `02c-scrape-jsdoc.py` | L1 extraction | `WORKDIR/repo-luci/` | `WORKDIR/L1-raw/luci/` | `01` | `jsdoc-to-markdown` (npm global) | none |
 | `02d-scrape-core-packages.py` | L1 extraction | `WORKDIR/repo-openwrt/` | `WORKDIR/L1-raw/openwrt-core/` | `01` | none | none |
 | `02e-scrape-example-packages.py` | L1 extraction | `WORKDIR/repo-luci/` | `WORKDIR/L1-raw/luci-examples/` | `01` | none | none |

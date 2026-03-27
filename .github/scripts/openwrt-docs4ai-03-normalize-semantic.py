@@ -707,8 +707,6 @@ def pass_1_normalize_all(ts_now):
     cross_link_registry = {"pipeline_date": ts_now, "symbols": {}}
     l2_files = []
 
-    commits = resolve_pipeline_commits()
-
     for root, _, files in os.walk(L1_DIR):
         for f in files:
             if not f.endswith(".md"):

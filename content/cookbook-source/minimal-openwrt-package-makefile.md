@@ -249,7 +249,7 @@ endef
 - [procd Service Lifecycle](./procd-service-lifecycle.md) — how to write the init script installed by Package/install
 - [Architecture Overview](./architecture-overview.md) — where packages fit in the build and runtime stack
 - [OpenWrt Era Guide](./openwrt-era-guide.md) — PKG_HASH vs PKG_MD5SUM era distinction
-- [Wiki: Creating packages](../../wiki/wiki_page-guide-developer-packages.md) — full reference for all Makefile variables
+- [Wiki: Creating packages](../../wiki/chunked-reference/wiki_page-guide-developer-packages.md) — full reference for all Makefile variables
 
 ## Verification Notes
 

@@ -432,9 +432,9 @@ class TestRewriteRelativeLinks:
 
     def test_dot_dot_is_not_treated_as_module_name(self):
         assemble = load_script_module("assemble_05a_3", "openwrt-docs4ai-05a-assemble-references.py")
-        result = assemble.rewrite_relative_links("cookbook", "[see](../../luci-examples/file.md)")
-        assert "L2-semantic/../" not in result
-        assert "../../../" not in result
+        link = "[see](../../luci-examples/file.md)"
+        result = assemble.rewrite_relative_links("cookbook", link)
+        assert result == link, f"Expected unchanged pass-through, got: {result}"
 
 
 class TestRewriteReleaseRelativeLinks:
@@ -453,8 +453,9 @@ class TestRewriteReleaseRelativeLinks:
 
     def test_dot_dot_is_not_injected_into_rewritten_path(self):
         assemble = load_script_module("assemble_05a_6", "openwrt-docs4ai-05a-assemble-references.py")
-        result = assemble.rewrite_release_relative_links("[see](../../luci-examples/file.md)")
-        assert "../../../" not in result
+        link = "[see](../../luci-examples/file.md)"
+        result = assemble.rewrite_release_relative_links(link)
+        assert result == link, f"Expected unchanged pass-through, got: {result}"
 
 
 class TestRewriteReleaseChunkedLinks:
@@ -473,5 +474,28 @@ class TestRewriteReleaseChunkedLinks:
 
     def test_dot_dot_is_not_injected_into_rewritten_path(self):
         assemble = load_script_module("assemble_05a_9", "openwrt-docs4ai-05a-assemble-references.py")
-        result = assemble.rewrite_release_chunked_links("[see](../../luci-examples/file.md)")
-        assert "../../../" not in result
+        link = "[see](../../luci-examples/file.md)"
+        result = assemble.rewrite_release_chunked_links(link)
+        assert result == link, f"Expected unchanged pass-through, got: {result}"
+
+
+class TestCookbookCrossModuleLinkContract:
+    """The exact link shapes used in cookbook source files must be handled correctly."""
+
+    def test_authored_chunked_reference_link_passes_through_rewrite_relative(self):
+        assemble = load_script_module("assemble_05a_cb1", "openwrt-docs4ai-05a-assemble-references.py")
+        link = "[ucode UCI](../../ucode/chunked-reference/c_source-api-module-uci.md)"
+        result = assemble.rewrite_relative_links("cookbook", link)
+        assert result == link
+
+    def test_authored_chunked_reference_link_passes_through_release_relative(self):
+        assemble = load_script_module("assemble_05a_cb2", "openwrt-docs4ai-05a-assemble-references.py")
+        link = "[ucode UCI](../../ucode/chunked-reference/c_source-api-module-uci.md)"
+        result = assemble.rewrite_release_relative_links(link)
+        assert result == link
+
+    def test_authored_chunked_reference_link_passes_through_release_chunked(self):
+        assemble = load_script_module("assemble_05a_cb3", "openwrt-docs4ai-05a-assemble-references.py")
+        link = "[ucode UCI](../../ucode/chunked-reference/c_source-api-module-uci.md)"
+        result = assemble.rewrite_release_chunked_links(link)
+        assert result == link

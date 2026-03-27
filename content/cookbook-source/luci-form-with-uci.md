@@ -310,7 +310,7 @@ return view.extend({
 - [UCI Read/Write from ucode](./uci-read-write-from-ucode.md) — the cursor API used in the rpcd backend
 - [Architecture Overview](./architecture-overview.md) — full ACL format and placement, rpcd permission model
 - [Common AI Mistakes](./common-ai-mistakes.md) — Lua CBI vs JavaScript form anti-pattern
-- [luci-app-example form.js](../../luci-examples/example_app-luci-app-example-htdocs-luci-static-resources-view-example-form-js.md) — real-world reference implementation from LuCI upstream
+- [luci-app-example form.js](../../luci-examples/chunked-reference/example_app-luci-app-example-htdocs-luci-static-resources-view-example-form-js.md) — real-world reference implementation from LuCI upstream
 
 ## Verification Notes
 

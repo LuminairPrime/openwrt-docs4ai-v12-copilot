@@ -236,8 +236,6 @@ def test_copy_release_chunked_pages_no_fabricated_url_when_source_absent(tmp_pat
 
 def test_l2_files_do_not_contain_provenance_block(tmp_path: Path) -> None:
     """L2 source files must not contain the visible provenance block (it is only in release output)."""
-    import glob
-    import os
 
     # Find some actual L2 files in the live corpus
     project_root = Path(__file__).resolve().parents[2]

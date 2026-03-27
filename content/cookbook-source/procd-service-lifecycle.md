@@ -197,7 +197,7 @@ Drop privileges by setting `user` and `group` parameters. These are applied befo
 
 ## Related Topics
 
-- [procd API Reference](../../procd/header_api-procd-api.md) — full parameter list for `procd_set_param`
+- [procd API Reference](../../procd/chunked-reference/header_api-procd-api.md) — full parameter list for `procd_set_param`
 - [OpenWrt Era Guide](./openwrt-era-guide.md) — init system era context (sysvinit vs procd)
 - [UCI Read/Write from ucode](./uci-read-write-from-ucode.md) — companion guide for config access from ucode plugins
 - [Architecture Overview](./architecture-overview.md) — where procd fits in the full component stack

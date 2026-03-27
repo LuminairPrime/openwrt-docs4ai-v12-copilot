@@ -348,9 +348,9 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: pip install -r .github/scripts/requirements.txt
-      - name: Install jsdoc-to-markdown (02b/02c only)
-        if: matrix.script == '02c-scrape-jsdoc.py' || matrix.script == '02b-scrape-ucode.py'
-        run: npm install -g jsdoc-to-markdown
+      - name: Install jsdoc-to-markdown (02c only)
+        if: matrix.script == '02c-scrape-jsdoc.py'
+        run: npm install -g jsdoc-to-markdown@9.1.1
       - name: Mark extractor start
         run: echo "EXTRACT_STARTED_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
       - name: Download L0

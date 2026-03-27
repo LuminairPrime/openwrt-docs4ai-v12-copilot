@@ -240,7 +240,7 @@ See [Architecture Overview](./architecture-overview.md) §ACL for the ACL file p
 
 ## Related Topics
 
-- [ucode UCI module reference](../../ucode/c_source-api-module-uci.md) — full cursor API with all method signatures
+- [ucode UCI module reference](../../ucode/chunked-reference/c_source-api-module-uci.md) — full cursor API with all method signatures
 - [LuCI Form with UCI](./luci-form-with-uci.md) — how the browser form save triggers a ucode plugin that calls this pattern
 - [Architecture Overview](./architecture-overview.md) — where the ucode/rpcd/UCI layer fits in the full stack
 - [procd Service Lifecycle](./procd-service-lifecycle.md) — `service_triggers` / `procd_add_reload_trigger` for UCI-driven service reload
