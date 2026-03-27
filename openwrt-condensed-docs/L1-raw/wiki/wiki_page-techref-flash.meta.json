@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-flash",
-  "original_url": "https://openwrt.org/docs/techref/flash",
+  "source_url": "https://openwrt.org/docs/techref/flash",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "e8e2879db294de4e86a881b8d94b017cee837807ba2d7baad7e65a429da8ad7b",
   "source_path": "/docs/techref/flash",
-  "extraction_timestamp": "2026-03-09T21:34:17.632120+00:00",
+  "extraction_timestamp": "2026-03-26T08:35:46.345148+00:00",
   "content_hash": "ca6638d1"
 }

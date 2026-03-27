@@ -4,9 +4,9 @@
 
 ## Recommended Entry Points
 
-- [map.md](./map.md): Structural map for openwrt-hotplug that prioritizes quick orientation and symbol discovery. (~355 tokens, l3-skeleton)
+- [map.md](./map.md): Structural map for openwrt-hotplug that prioritizes quick orientation and symbol discovery. (~497 tokens, l3-skeleton)
 - [bundled-reference.md](./bundled-reference.md): Complete monolithic reference for openwrt-hotplug when a larger context window is available. (~1497 tokens, l4-monolith)
 
 ## Source Documents
 
-- [hotplug_event-netifd-hotplug-events.md](./chunked-reference/hotplug_event-netifd-hotplug-events.md): OpenWrt Core Hotplug Events > **Extracted from:** default etc/hotplug.d/ scripts across the OpenWrt repository > **Note for LLMs:** Developers building apps use these scripts as templates. (~1412 tokens, l2-source)
+- [hotplug_event-netifd-hotplug-events.md](./chunked-reference/hotplug_event-netifd-hotplug-events.md): Documents the standard hotplug event environment variables injected by OpenWrt's netifd and network subsystems into scripts in /etc/hotplug.d/. (~1412 tokens, l2-source)

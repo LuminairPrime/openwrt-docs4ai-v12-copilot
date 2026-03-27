@@ -3,11 +3,24 @@ title: Hardware Hacking First Steps
 module: wiki
 origin_type: wiki_page
 token_count: 1492
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-hw-hacking-first-steps.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/hw.hacking.first.steps
 language: text
+ai_summary: The 'Hardware Hacking First Steps' module provides guidance for users looking to install OpenWrt on unsupported routers. It outlines essential steps such as gaining access to the device via Unix shell, bootloader console, or JTAG port, and emphasizes the importance of gathering hardware information to identify compatible drivers. Users are encouraged to research available GNU/Linux drivers and learn programming languages like C for further development. The module also references various resources for deeper understanding and assistance in hardware hacking.
+ai_when_to_use: This module is useful when attempting to install OpenWrt on a router that is not officially supported, guiding users through the initial steps of hardware hacking.
+ai_related_topics:
+- unix shell
+- bootloader console
+- JTAG Port
+- bootloader
+- VLYNQ
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/hw.hacking.first.steps](https://openwrt.org/docs/guide-developer/hw.hacking.first.steps)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Hardware Hacking First Steps
 
 You bought yourself a new router, and it's nice. You can connect a hard disc to it and then it shares its content over samba. It even can do torrent. Wow. But then you stumbled over OpenWrt and its 2000 packages you can install just like that. Never mind all the other FOSS software you could compile for it. And you started crying and decided: you **neeeed** OpenWrt on your router. And if your router is already supported, dandy, flash it on and have fun. But if your router is not (yet) supported? Well, then do this:

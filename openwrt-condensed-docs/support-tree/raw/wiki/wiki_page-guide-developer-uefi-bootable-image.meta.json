@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-uefi-bootable-image",
-  "original_url": "https://openwrt.org/docs/guide-developer/uefi-bootable-image",
+  "source_url": "https://openwrt.org/docs/guide-developer/uefi-bootable-image",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "656547ea24fb6ddb75b759b2436106cae69884c625b0869d4907c9b42c95cac1",
   "source_path": "/docs/guide-developer/uefi-bootable-image",
-  "extraction_timestamp": "2026-03-09T21:33:52.409253+00:00",
+  "extraction_timestamp": "2026-03-26T08:35:21.119000+00:00",
   "content_hash": "07e74e3e"
 }

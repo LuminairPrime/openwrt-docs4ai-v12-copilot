@@ -3,11 +3,25 @@ title: 'rpcd: OpenWrt ubus RPC daemon for backend server'
 module: wiki
 origin_type: wiki_page
 token_count: 1043
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-rpcd.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/rpcd
 language: text
+ai_summary: Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. Explains the plugin architecture (/usr/lib/rpcd/*.so), ACL JSON files that grant LuCI views permission to call specific ubus paths, the session management API (rpcd-mod-session), the file plugin for proxied filesystem reads/writes, and how LuCI RPC calls are authenticated via the uhttpd session cookie.
+ai_when_to_use: Reference when a LuCI JavaScript view calls LuCI.rpc.declare() to invoke a ubus method, when writing an rpcd ACL file to grant a non-root package permission to call specific ubus paths, or when implementing a custom C rpcd plugin that exposes new ubus objects.
+ai_related_topics:
+- rpcd-mod-file
+- rpcd-mod-session
+- LuCI.rpc
+- ubus ACL
+- uhttpd
+- rpcd plugin API
 ---
+
+> **Source:** [https://openwrt.org/docs/techref/rpcd](https://openwrt.org/docs/techref/rpcd)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # rpcd: OpenWrt ubus RPC daemon for backend server
 
 In OpenWrt we commonly use [ubus](/docs/techref/ubus) for all kinds of communication. It can provide info from various software as well as request various actions. Nevertheless, not every part of OpenWrt has a daemon that can register itself using `ubus`. For an example `uci` and `opkg` are command-line tools without any background process running all the time.

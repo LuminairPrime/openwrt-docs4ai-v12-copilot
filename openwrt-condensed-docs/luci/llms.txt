@@ -4,18 +4,18 @@
 
 ## Recommended Entry Points
 
-- [luci-skeleton.md](./luci-skeleton.md): Structural map for luci that prioritizes quick orientation and symbol discovery. (~1770 tokens, l3-skeleton)
+- [luci-skeleton.md](./luci-skeleton.md): Structural map for luci that prioritizes quick orientation and symbol discovery. (~3027 tokens, l3-skeleton)
 - [luci-complete-reference.md](./luci-complete-reference.md): Complete monolithic reference for luci when a larger context window is available. (~20416 tokens, l4-monolith)
 
 ## Source Documents
 
-- [js_source-api-cbi.md](../L2-semantic/luci/js_source-api-cbi.md): LuCI API: cbi > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.cbi.html --- cbi CBI (Configuration Bindings Interface) helper utilities and DOM helpers. (~3075 tokens, l2-source)
-- [js_source-api-firewall.md](../L2-semantic/luci/js_source-api-firewall.md): LuCI API: firewall > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.firewall.html --- initFirewallState() ⇒ Promise Load the firewall configuration. (~262 tokens, l2-source)
-- [js_source-api-form.md](../L2-semantic/luci/js_source-api-form.md): LuCI API: form > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.form.html --- isEqual(x, y) ⇒ boolean Determines equality of two provided parameters. (~143 tokens, l2-source)
-- [js_source-api-fs.md](../L2-semantic/luci/js_source-api-fs.md): LuCI API: fs > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.fs.html --- handleRpcReply(expect, rc) ⇒ number Handle an RPC reply. (~140 tokens, l2-source)
-- [js_source-api-luci.md](../L2-semantic/luci/js_source-api-luci.md): LuCI API: luci > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.html --- LuCI **Kind**: global class **Properties** Name Type Description --- --- --- env object The environment settings to use for the LuCI runtime. (~14614 tokens, l2-source)
-- [js_source-api-protocol-static.md](../L2-semantic/luci/js_source-api-protocol-static.md): LuCI API: static > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.static.html --- isCIDR(value) ⇒ boolean Determine whether a provided value is a CIDR format IP string. (~217 tokens, l2-source)
-- [js_source-api-tools-prng.md](../L2-semantic/luci/js_source-api-tools-prng.md): LuCI API: prng > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.prng.html --- mul(a, b) ⇒ Array. (~982 tokens, l2-source)
-- [js_source-api-tools-widgets.md](../L2-semantic/luci/js_source-api-tools-widgets.md): LuCI API: widgets > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.widgets.html --- getUsers() ⇒ Array. (~126 tokens, l2-source)
-- [js_source-api-uci.md](../L2-semantic/luci/js_source-api-uci.md): LuCI API: uci > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.uci.html --- isEmpty(object, ignore) ⇒ boolean Determine whether an object is empty. (~95 tokens, l2-source)
-- [js_source-api-ui.md](../L2-semantic/luci/js_source-api-ui.md): LuCI API: ui > **Live docs:** https://openwrt.github.io/luci/jsapi/LuCI.ui.html --- scrubMenu(node) ⇒ Node Erase the menu node **Kind**: global function Param Type --- --- node Node (~69 tokens, l2-source)
+- [js_source-api-cbi.md](../L2-semantic/luci/js_source-api-cbi.md): Implements the CBI declarative form framework for LuCI. (~3075 tokens, l2-source)
+- [js_source-api-firewall.md](../L2-semantic/luci/js_source-api-firewall.md): Implements the LuCI firewall abstraction over the nftables/iptables UCI config. (~262 tokens, l2-source)
+- [js_source-api-form.md](../L2-semantic/luci/js_source-api-form.md): Provides the first-class LuCI form rendering framework used by modern views. (~143 tokens, l2-source)
+- [js_source-api-fs.md](../L2-semantic/luci/js_source-api-fs.md): Provides the LuCI client-side filesystem API that proxies calls to the rpcd file plugin over HTTP. (~140 tokens, l2-source)
+- [js_source-api-luci.md](../L2-semantic/luci/js_source-api-luci.md): Defines the core LuCI JavaScript framework and application runtime. (~14614 tokens, l2-source)
+- [js_source-api-protocol-static.md](../L2-semantic/luci/js_source-api-protocol-static.md): Implements the LuCI protocol handler for static IP interfaces. (~217 tokens, l2-source)
+- [js_source-api-tools-prng.md](../L2-semantic/luci/js_source-api-tools-prng.md): Provides a lightweight pseudo-random number generator utility for the LuCI frontend. (~982 tokens, l2-source)
+- [js_source-api-tools-widgets.md](../L2-semantic/luci/js_source-api-tools-widgets.md): Provides reusable LuCI view-level widget helpers shared across multiple LuCI packages. (~126 tokens, l2-source)
+- [js_source-api-uci.md](../L2-semantic/luci/js_source-api-uci.md): Provides the LuCI JavaScript UCI binding that defers all reads and writes to batched rpcd calls. (~95 tokens, l2-source)
+- [js_source-api-ui.md](../L2-semantic/luci/js_source-api-ui.md): Provides the LuCI client-side UI widget and notification layer. (~69 tokens, l2-source)

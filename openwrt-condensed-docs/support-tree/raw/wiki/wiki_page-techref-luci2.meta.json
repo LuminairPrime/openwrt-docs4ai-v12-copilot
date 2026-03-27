@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-luci2",
-  "original_url": "https://openwrt.org/docs/techref/luci2",
+  "source_url": "https://openwrt.org/docs/techref/luci2",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "d07deb493c8ecef4b241b28fe0517c752a170debeb76bf2f397353d82126f7e0",
   "source_path": "/docs/techref/luci2",
-  "extraction_timestamp": "2026-03-09T21:34:39.712668+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:06.701718+00:00",
   "content_hash": "2bda7b9d"
 }

@@ -3,10 +3,11 @@
   "origin_type": "header_api",
   "module": "procd",
   "slug": "procd-api",
-  "original_url": null,
+  "source_url": "https://github.com/openwrt/openwrt/blob/unknown/package/system/procd/files/procd.sh",
+  "source_locator": "package/system/procd/files/procd.sh",
+  "source_commit": "unknown",
   "language": "bash",
-  "upstream_path": "package/system/procd/files/procd.sh",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:25.021854+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:25.930304+00:00",
   "content_hash": "ab597ed1"
 }

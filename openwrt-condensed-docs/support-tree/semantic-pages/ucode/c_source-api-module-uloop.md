@@ -3,11 +3,21 @@ title: 'ucode module: uloop'
 module: ucode
 origin_type: c_source
 token_count: 7457
-version: 763d8c3
 source_file: L1-raw/ucode/c_source-api-module-uloop.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: lib/uloop.c
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/uloop.c
+source_locator: lib/uloop.c
 language: c
+ai_summary: Provides ucode bindings for the OpenWrt libubox uloop event loop. Implements asynchronous programming primitives including timer(), interval(), handle(), process(), signal(), task(), and run() for single-threaded event-driven applications. Supports file descriptor watching, child process lifecycle management, and UNIX signal handling within ucode scripts.
+ai_when_to_use: Use in any ucode script that must perform non-blocking I/O, schedule periodic timers, or manage child processes — the standard approach for background daemons and hotplug handlers in OpenWrt.
+ai_related_topics:
+- uloop.init
+- uloop.run
+- uloop.timer
+- uloop.handle
+- uloop.process
+- uloop.signal
 ---
 # ucode module: uloop
 

@@ -3,11 +3,16 @@ title: OpenWrt packages
 module: wiki
 origin_type: wiki_page
 token_count: 5457
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-package-policies.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/package-policies
 language: text
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/package-policies](https://openwrt.org/docs/guide-developer/package-policies)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # OpenWrt packages
 
 The OpenWrt system is maintained and distributed as a collection of *packages*.
@@ -280,7 +285,7 @@ Versionless symlinks are usually not needed for libraries using the `SONAME` att
 
 `$(INSTALL_DATA)` and `$(INSTALL_BIN)` will currently copy the file contents instead of the symlink itself, so prefer `$(CP)` when copying the library symlinks. Consider the example above, if you run
 
-    $(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/libbar.so.* $(1)/usr/lib/
+    $([INSTALL_BIN](../../cookbook/chunked-reference/minimal-openwrt-package-makefile.md)) $(PKG_INSTALL_DIR)/usr/lib/libbar.so.* $(1)/usr/lib/
 
 it will result in two copies of the library in regular files:
 

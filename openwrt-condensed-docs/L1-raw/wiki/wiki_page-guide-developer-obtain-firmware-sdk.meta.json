@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-obtain-firmware-sdk",
-  "original_url": "https://openwrt.org/docs/guide-developer/obtain.firmware.sdk",
+  "source_url": "https://openwrt.org/docs/guide-developer/obtain.firmware.sdk",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "2364924c8f2dd0636a643ee406a718337920140cec03738007682272acb3a79f",
   "source_path": "/docs/guide-developer/obtain.firmware.sdk",
-  "extraction_timestamp": "2026-03-09T21:33:28.514228+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:57.231045+00:00",
   "content_hash": "10670225"
 }

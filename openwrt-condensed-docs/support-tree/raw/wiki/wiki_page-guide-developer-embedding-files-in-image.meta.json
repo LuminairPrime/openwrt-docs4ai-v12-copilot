@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-embedding-files-in-image",
-  "original_url": "https://openwrt.org/docs/guide-developer/embedding-files-in-image",
+  "source_url": "https://openwrt.org/docs/guide-developer/embedding-files-in-image",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "1f50c2dee290c85b57b3b1e1aa3c9461cf92b54bdd007f8ffac1c95f98b3a59b",
   "source_path": "/docs/guide-developer/embedding-files-in-image",
-  "extraction_timestamp": "2026-03-09T21:33:02.038600+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:32.478993+00:00",
   "content_hash": "7ff6dd13"
 }

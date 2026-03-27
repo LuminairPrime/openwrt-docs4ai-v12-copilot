@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-process-boot",
-  "original_url": "https://openwrt.org/docs/techref/process.boot",
+  "source_url": "https://openwrt.org/docs/techref/process.boot",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "0cc064d37877a75821304e841f333daa37368c050c5c53836f913ca42541cfb8",
   "source_path": "/docs/techref/process.boot",
-  "extraction_timestamp": "2026-03-09T21:34:53.435381+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:20.376007+00:00",
   "content_hash": "6dc9da8d"
 }

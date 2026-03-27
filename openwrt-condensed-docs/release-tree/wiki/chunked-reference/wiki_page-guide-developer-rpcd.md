@@ -3,11 +3,20 @@ title: RPC daemon
 module: wiki
 origin_type: wiki_page
 token_count: 274
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-rpcd.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/rpcd
 language: text
+ai_summary: The RPC daemon (`rpcd`) in OpenWrt serves as a lightweight solution for enabling communication between various software components that do not have their own persistent daemons. It utilizes the `ubus` system for information exchange and action requests, allowing for efficient management without the overhead of multiple independent daemons. `rpcd` supports plugins through a simple API, loading shared library files and invoking their initialization functions. Default plugins include `session` and `uci`, while additional plugins can be developed and integrated from other projects.
+ai_when_to_use: Use `rpcd` when you need to facilitate communication for command-line tools like `uci` and `opkg` that do not run as background processes. It is particularly useful for integrating additional functionalities through plugins.
+ai_related_topics:
+- ubus
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/rpcd](https://openwrt.org/docs/guide-developer/rpcd)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # RPC daemon
 
 In OpenWrt we commonly use [ubus](/docs/techref/ubus) for all kinds of communication. It can provide info from various software as well as request various actions. Nevertheless, not every part of OpenWrt has a daemon that can register itself using `ubus`. For an example `uci` and `opkg` are command-line tools without any background process running all the time.

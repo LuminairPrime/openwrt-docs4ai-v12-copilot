@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-defining-firmware-partitions",
-  "original_url": "https://openwrt.org/docs/guide-developer/defining-firmware-partitions",
+  "source_url": "https://openwrt.org/docs/guide-developer/defining-firmware-partitions",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "01fa9be1629301d72856a7c8614fbcb58c0a3df06d588fcc876fd52136d10d75",
   "source_path": "/docs/guide-developer/defining-firmware-partitions",
-  "extraction_timestamp": "2026-03-09T21:32:55.419633+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:25.648192+00:00",
   "content_hash": "7754a9f4"
 }

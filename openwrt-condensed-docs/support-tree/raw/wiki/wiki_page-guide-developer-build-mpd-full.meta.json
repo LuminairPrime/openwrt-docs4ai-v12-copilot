@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-build-mpd-full",
-  "original_url": "https://openwrt.org/docs/guide-developer/build.mpd-full",
+  "source_url": "https://openwrt.org/docs/guide-developer/build.mpd-full",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "e6095887cbff798c4e244a9dfccce8c4d6a920fc2fda59b84285f8269d09ab0b",
   "source_path": "/docs/guide-developer/build.mpd-full",
-  "extraction_timestamp": "2026-03-09T21:32:40.542021+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:10.603924+00:00",
   "content_hash": "00429128"
 }

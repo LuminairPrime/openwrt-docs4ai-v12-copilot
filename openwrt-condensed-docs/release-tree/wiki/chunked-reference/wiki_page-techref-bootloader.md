@@ -3,11 +3,26 @@ title: The Bootloader
 module: wiki
 origin_type: wiki_page
 token_count: 2139
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-bootloader.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/bootloader
 language: text
+ai_summary: The Bootloader is a critical piece of software executed upon powering up a hardware device, responsible for initializing low-level hardware details and passing a hardware description to the Kernel. It is typically stored on flash storage and is device-specific, though it is not part of OpenWrt itself. While not strictly necessary for booting Linux, bootloaders provide additional functionalities such as firmware flashing and device recovery options. Limitations may exist based on OEM designs, affecting kernel size and firmware formats.
+ai_when_to_use: Use the bootloader when you need to initialize hardware or perform tasks like flashing new firmware or recovering a device in OpenWrt.
+ai_related_topics:
+- ARCH
+- EEPROM
+- additional functions
+- debrick
+- generic.flashing
+- CLI
+- serial port
 ---
+
+> **Source:** [https://openwrt.org/docs/techref/bootloader](https://openwrt.org/docs/techref/bootloader)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # The Bootloader
 
 The [Bootloader](https://en.wikipedia.org/wiki/Bootloader) is a piece of software that is executed every time the hardware device is powered up. It is executable machine code and thus [ARCH](/docs/techref/hardware/cpu#the_isa_instruction_set_architecture)-specific. It's quite heavily device-specific because its main task is to initialize all the low-level hardware details. The bootloader can be contained on a separate [EEPROM](https://en.wikipedia.org/wiki/EEPROM) (very seldom) or directly on flash storage (most common).

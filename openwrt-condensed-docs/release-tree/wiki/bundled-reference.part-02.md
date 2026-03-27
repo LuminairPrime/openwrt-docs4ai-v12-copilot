@@ -1,214 +1,19 @@
 ---
 module: wiki
-total_token_count: 98061
-section_count: 39
+total_token_count: 95396
+section_count: 40
 is_monolithic: false
 is_sharded_part: true
 part_number: 2
-part_count: 3
-generated: '2026-03-23T22:14:37.218591+00:00'
+part_count: 2
+generated: '2026-03-27T07:16:53.127109+00:00'
 ---
 
-# wiki Bundled Reference (Part 2 of 3)
+# wiki Bundled Reference (Part 2 of 2)
 
-> **Contains:** 39 documents
-> **Tokens:** ~98061 (cl100k_base)
+> **Contains:** 40 documents
+> **Tokens:** ~95396 (cl100k_base)
 > **Index:** [./bundled-reference.md](./bundled-reference.md)
-
----
-
-# Mounting Block Devices
-
-This pages discuses the advanced details and underlying operation. For general usage, see [fstab](/docs/guide-user/storage/fstab).
-
-## Overview
-
-The mounting of block devices is handled by the `block-mount` source package, which contains the `block-mount` and `block-hotplug` packages. `block-mount` contains the code that does the actual mounting, and the mounting via `/etc/init.d/fstab` (i.e. on boot rather than when device is hotplugged), and `block-hotplug` takes care of mounting devices when the device is recognized by the system (.e.g. when modules are loaded and the partition detected).
-
-## block-mount (binary package)
-
-~~The `block-mount` binary package (i.e. the one you actually install, rather than the source package containing `block-mount` and `block-hotplug`), contains three library scripts (in addition to `/etc/init.d/fstab` and the sample config file `/etc/config/fstab`). These three scripts are: `block.sh`, `mount.sh`, and `fsck.sh`. ~~
-
-|                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|-------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![48px-outdated.svg.png](/meta/icons/tango/48px-outdated.svg.png) | As of [r26314](https://dev.openwrt.org/changeset/26314/trunk) `block-extroot` and `block-hotplug` have been merged with `block-mount`. That means that once you install `block-mount` the scripts for [extroot](/docs/guide-user/additional-software/extroot_configuration) mounting and hotplug mounting are installed. With [r36988](https://dev.openwrt.org/changeset/36988) the original package `block-mount` was removed. Technically, the new package `ubox` replaced its functionality. For [Fstab configuration](/docs/guide-user/storage/fstab), the new block-mount package now contains the executable `block` which facilitates this. You can run `block <info|mount|umount|detect>`. See [Fstab configuration](/docs/guide-user/storage/fstab). |
-
-With the new block mount mechanism you can run `block info` to get the same output that blkid delivered (however it only returns info for filesystems it supports). You can do "block mount" to mount all devices (same as what `/etc/init.d/fstab restart` used to do. If you run "`block detect`" you will get a sample uci file for the currently attached block devices. That way you can do "`block detect | uci import fstab`" to store it
-
-:!: block info cannot detect btrfs (added [r43868](https://dev.openwrt.org/changeset/43868/trunk)), xfs , jfs, ntfs, exfat, and some other FS. Use manual scripting to mount them.
-
-:!: For ntfs mount [read here](https://forum.openwrt.org/t/block-mount-ntfs-not-a-tty/64350)
-
-    root@OpenWrt:~# blkid
-    /dev/sda1: TYPE="ext2"
-    /dev/sda2: UUID="890c87d4-e276-4fb0-a34a-296db408d792" TYPE="ext4"
-    /dev/sdb1: LABEL="OPENWRT-BTRFS" UUID="2412e056-a1d8-4710-bf0e-d54b8ff0662f" UUID_SUB="edd04b0f-ccf6-4978-9d76-1fa17921fe58" TYPE="btrfs"
-    root@OpenWrt:~# block info
-    /dev/sda1: VERSION="1.0" TYPE="ext2"
-    /dev/sda2: UUID="890c87d4-e276-4fb0-a34a-296db408d792" VERSION="1.0" TYPE="ext4"
-
-### The new block-mount in Barrier Breaker
-
-#### Usage: block \<info\|mount\|umount\|detect\>
-
-- **info** -\> get the same output that blkid delivered (including mtdblock)
-
-      /dev/mtdblock2: UUID="0906f1b4-51688c99-666b11b5-71d70575" VERSION="4.0" TYPE="squashfs"
-      /dev/mtdblock3: TYPE="jffs2"
-      /dev/sda1: UUID="e81a771e-249f-4f9e-ab30-b2fb73789744" LABEL="overlay" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
-      /dev/sda2: UUID="090b67fa-afbb-4771-8efd-7a515c742c18" LABEL="swap" VERSION="2" TYPE="swap"
-      /dev/sda5: UUID="91f1-f7ed" LABEL="TRANSPORT" VERSION="FAT32" TYPE="vfat"
-      /dev/sda6: UUID="b01791a5-647a-4ab0-9adf-5b626ee5407c" LABEL="daten" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
-      /dev/sda7: UUID="9f822714-fb75-40c3-9382-f1df42343229" LABEL="rest" NAME="EXT_JOURNAL" VERSION="1.0" TYPE="ext4"
-
-- **mount** -\> mount all devices listed in fstab
-- **umount** -\> unmount all devices listed in fstab
-- **detect** -\> get a sample uci file for the currently attached block devices
-
-    config 'global'
-        option  anon_swap   '0'
-        option  anon_mount  '0'
-        option  auto_swap   '1'
-        option  auto_mount  '1'
-        option  delay_root  '5'
-        option  check_fs    '0'
-
-    config 'mount'
-        option  target  '/mnt/sda1'
-        option  uuid    'e81a771e-249f-4f9e-ab30-b2fb73789744'
-        option  enabled '0'
-
-    config 'swap'
-        option  uuid    '090b67fa-afbb-4771-8efd-7a515c742c18'
-        option  enabled '0'
-
-    config 'mount'
-        option  target  '/mnt/sda5'
-        option  uuid    '91f1-f7ed'
-        option  enabled '0'
-
-    config 'mount'
-        option  target  '/mnt/sda6'
-        option  uuid    'b01791a5-647a-4ab0-9adf-5b626ee5407c'
-        option  enabled '0'
-
-    config 'mount'
-        option  target  '/mnt/sda7'
-        option  uuid    '9f822714-fb75-40c3-9382-f1df42343229'
-        option  enabled '0'
-        option  options 'lazytime,noatime,background_gc=off,gc_merge'
-
-you can do "`block detect | uci import fstab`" to store it as a sample config file (already with UUID ;-) )
-
-### working/not working in Barrier Breaker as of 2015/01/30
-
-|       | info          | detect        | on boot       | on plug       | mount/umount[^1] | needs         | and                                                              |
-|-------|---------------|---------------|---------------|---------------|------------------|---------------|------------------------------------------------------------------|
-| ext4  | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔    | kmod-fs-ext4  | libext2fs, :?: kmod-fs-autofs4                                   |
-| swap  | @lightgreen:✔ | @lightgreen:✔ | ?             | ?             | ?                | ???           | swap-utils                                                       |
-| vfat  | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔ | @lightgreen:✔    | kmod-fs-vfat  | kmod-nls-base, kmod-nls-cp437, kmod-nls-iso8859-1, kmod-nls-utf8 |
-| btrfs | @red:✘[^2]    | @red:✘        | @red:✘        | @red:✘        | @red:✘           | kmod-fs-btrfs | btrfs-progs                                                      |
-
-## block-hotplug (binary package)
-
-Block hotplug consists of three scripts, `10-swap`, `20-fsck`, and `40-mount`. When a block devices is added these scripts are executed in the order listed. So, first the device is checked for being a `swap` section, or to attempt to mount as swap, if it is not a defined section for swap or mount (this is known as `anon_swap` or anonymous swap). Then `20-fsck` checks if the device is listed as `enabled_fsck` and if so, attempts to check/repair the filesystem, and, finally, we check if the device should be mounted, either named, or anonymously (i.e. not listed in any section).
-
-[^1]: with the mount command instead of block mount/block umount
-
-[^2]: use btrfs-show to get the UUID
-
----
-
-# The Bootloader
-
-The [Bootloader](https://en.wikipedia.org/wiki/Bootloader) is a piece of software that is executed every time the hardware device is powered up. It is executable machine code and thus [ARCH](/docs/techref/hardware/cpu#the_isa_instruction_set_architecture)-specific. It's quite heavily device-specific because its main task is to initialize all the low-level hardware details. The bootloader can be contained on a separate [EEPROM](https://en.wikipedia.org/wiki/EEPROM) (very seldom) or directly on flash storage (most common).
-
- Being a piece of software, the bootloader is considered part of the firmware, but **the bootloader is not part of OpenWrt!**
-Only on seldom occasions a change of the *bootloader settings* or the *bootloader code* is necessary to allow for booting/installing OpenWrt
-There are a number of bootloaders under diverse [software license](https://en.wikipedia.org/wiki/software license)s
-
-## Main Function
-
-The bootloader's main function is to initialize the hardware, pass an abstraction of the initialized hardware, a hardware description, to and execute the Kernel. (A very nice technical example can be seen [here](https://web.archive.org/web/20111219072809/http://www.wehavemorefun.de/fritzbox/index.php/ADAM2) or see a suggestion until finding a better example: [here](https://www.moritz.systems/blog/before-the-bsd-kernel-starts-part-one-on-amd64/) and [here](https://0xax.gitbooks.io/linux-insides/content/Booting/linux-bootstrap-1.html)) After that the bootloader is done and not needed in memory any longer. Most bootloaders offer [\#additional functions](#additional functions).
-
-### Why this is necessary?
-
-It's not. A bootloader is not required to boot Linux. The use of one (or several) bootloaders in a row to chainload (or [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping (computing))) a Kernel is not a categorical necessity, it is merely a very crafty method to start an operating system. The main advantage for OpenWrt is, that the existence of a bootloader offers users and developers additional possibilities to [debrick](/docs/guide-user/troubleshooting/generic.debrick) a device.
-
-## Features
-
-### Limitations
-
-Some bootloader or implementation of universal bootloaders come with certain limitation implemented by the OEM, such as:
-
-- a willfully designed kernel/firmware size limitation
-- make the bootloader expect a certain exotic firmware format
-- inability of the bootloader to execute the [ELF](https://en.wikipedia.org/wiki/Executable and Linkable Format) binary format
-- the need of some obscure "magic value" to be present and correct
-- you name it
-
-The reasons are variable, from simple ineptitude of the creators to the willful sabotage of the users' attempts to run [free software](https://en.wikipedia.org/wiki/free software) on their own property.
-
-### Additional Functions
-
-The bootloader can be more or less sophisticated, and offer none to many additional functions. In many situations additional functions would give the user a huge advantage, so most bootloaders offer them, such as:
-
-- Flash new firmware, see [generic.flashing](/docs/guide-user/installation/generic.flashing)
-- The bootloader can possibly validate data on the flash-storage, and e.g. should the firmware fail to pass a CRC, the bootloader would presume the firmware is corrupt and wait for a new firmware to be uploaded over the network. Of course, this also means, that every time you change something on the flash, you have to update this CRC-value...
-- this could also be triggered by setting a boot_wait variable or by a command executed in the serial console
-- a [CLI](https://en.wikipedia.org/wiki/Command-line interface) (aka *serial console*), which usually can be accessed over the [serial port](/docs/techref/hardware/port.serial) **only**. There are several ways to access the *serial console* port on your target system, such as using a terminal server, but the most common way is to attach it to a serial port on your host. Additionally, you will need a terminal emulation program on your host system, such as `cu` or `kermit`.
-  - once the bootloader has fulfilled its main function - chainload the Kernel - it does not run any longer, so to play with it, you have to login to it before it loads the Kernel and you may also have to prevent it from loading the Kernel, i.e. to stop the boot process.
-- boot from USB
-  - Like the Kernel requires the module `kmod-fs-ext4` to read/write to a EXT3 filesystem, so a bootloader requires such a module to do the same. [GRUB2](https://en.wikipedia.org/wiki/GRUB2) has this functionality implemented, so with it, you can very comfortably configure your boot options and also update and maintain your OS. The lightweight bootloaders we use with OpenWrt, usually do not have this functionality. But see [flash.layout](/docs/techref/flash.layout) for further reference. One exception is the U-Boot implementation of the [dockstar](/toh/seagate/dockstar). It can not only initialize the USB (like all the rest of the hardware) but additionally utilize the USB and also understand the EXT2 filesystem. Thus, the dockstar can be booted directly from an ext2-formated harddisc/usb-stick connected to any of it's USB-ports.
-- [net booting](/inbox/howto/netboot) functionality via [BOOTP](https://en.wikipedia.org/wiki/Bootstrap Protocol) or [PXE](https://en.wikipedia.org/wiki/Preboot Execution Environment) or DHCP or NFS or [TFTP](https://en.wikipedia.org/wiki/Trivial File Transfer Protocol)
-
-## Boot Procedure
-
--\> **[boot process](process.boot)** should give a more detailed description of whole boot procedure. The bootloader is the beginning.
-
-## Individual Bootloaders
-
-[Comparison of boot loaders](https://en.wikipedia.org/wiki/Comparison of boot loaders)
-
-|                                                                                                                                            |
-|--------------------------------------------------------------------------------------------------------------------------------------------|
-| *Please use `templates` to create and maintain these articles. ATM they are quite unmaintained and without a structure and almost useless* |
-
-### PC
-
-An embedded bootloader fulfills the same functionality as the [BIOS](https://en.wikipedia.org/wiki/BIOS) plus [GNU GRUB](https://en.wikipedia.org/wiki/GNU GRUB) together on a PC.
-
-- [BIOS](https://en.wikipedia.org/wiki/BIOS) proprietary the BIOS of your PC *is* nothing else but a bootloader!
-- [UEFI](https://en.wikipedia.org/wiki/Extensible Firmware Interface) proprietary successor want-to-be of the BIOS
-- [coreboot](https://en.wikipedia.org/wiki/coreboot) GPLv2 successor of the BIOS, alternative to [UEFI](../wiki/chunked-reference/wiki_page-guide-developer-uefi-bootable-image.md) based on the Linux kernel;
-  support for x86, x86-64 and ARM. There is no MIPS support.
-  Coreboot does only "a little bit of hardware initialization"
-- [GNU GRUB](https://en.wikipedia.org/wiki/GNU GRUB) GPLv2
-
-### Embedded Devices
-
-- **[Das U-Boot](/docs/techref/bootloader/uboot)** GPLv2 arguably the richest, most flexible, and most actively developed FOSS bootloader available
-- [pepe2k-u-boot_mod](/docs/techref/bootloader/pepe2k) GPLv2 U-Boot 1.1.4 modification for routers <https://github.com/pepe2k/u-boot_mod>
-- [RedBoot](/docs/techref/bootloader/redboot) mod GPL
-- [CFE](/docs/techref/bootloader/cfe) BSD like by Broadcom; the orange color means, the OEM is not obliged to deliver the source code
-- [Adam2](/docs/techref/bootloader/adam2) proprietary for AR7/UR8
-  - [pspboot](/docs/techref/bootloader/pspboot) proprietary the only slightly compatible successor of Adam2.
-- [brnboot](/docs/techref/bootloader/brnboot) unknown sometimes called AMAZON Loader.
-- [bootbase](/docs/techref/bootloader/bootbase) unknown used by the ZyXEL Prestige 660HW-xx and Prestige 660M-xx devices (and probably other ZyXEL products). <http://www.ixo.de/info/zyxel_uclinux/>
-- [jboot](/docs/techref/bootloader/jboot) unknown
-- [myloader](/docs/techref/bootloader/myloader) unknown
-- [pp_boot](/docs/techref/bootloader/pp_boot) unknown
-- [yamon](/docs/techref/bootloader/yamon) unknown by [Imagination Technology](https://en.wikipedia.org/wiki/Imagination Technology); the Linux kernel can only be booted when it is in SREC format.
-- [Breed](/docs/techref/bootloader/Breed) - Breed booatloader
-- [bl-mt798x](/docs/techref/bootloader/bl-mt798x) - ATF and u-boot for mt798x-based routers
-
-- VxWorks' own bootloader - most Atheros devices (There is a description of the basic workings on the [Netgear WGT624](/oldwiki/OpenWrtDocs/Hardware/Netgear/WGT624) page.)
-- NetBoot - the standard loader in DWL7100AP allows to boot firmware image via network from [TFTP](../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) server direct to RAM
-- ThreadX - D-Link uses OS called ThreadX on lowend 1MiB Flash storage & 8MiB RAM models. They have custom boot loader that doesn't output anything sensible to serial port but does have recovery mode so you can upload firmware using browser.
-
-## Bootloader Pages
-
-![bootloader; hidejump;sort=name;display={title};](/pagequery>* @docs/techref/bootloader; hidejump;sort=name;display={title};)
 
 ---
 
@@ -707,28 +512,28 @@ This can be used to estimate which OpenWrt version is running on a router if you
 
 # DFS
 
-[Dynamic_frequency_selection](https://en.wikipedia.org/wiki/Dynamic_frequency_selection) plays a role in 5GHz frequencies that are shared with weather radar. It is related to [802.11h](https://en.wikipedia.org/wiki/IEEE_802.11h).
+[Dynamic_frequency_selection](https://en.wikipedia.org/wiki/Dynamic_frequency_selection) plays a role in 5GHz frequencies that are shared with [Terminal_Doppler_Weather_Radar](https://en.wikipedia.org/wiki/Terminal_Doppler_Weather_Radar). It is related to [802.11h](https://en.wikipedia.org/wiki/IEEE_802.11h).
 
-DFS support is used during ACS/"survey" in hostapd to find and select free WLAN channels.
+DFS support is used during ACS/"survey" in [hostapd](/docs/guide-user/network/wifi/wireless-tool/wireless.utilities#hostapd) to find and select free WLAN channels.
 
-Many countries regulate operation of the 5GHz spectrum - see [List_of_WLAN_channels](https://en.wikipedia.org/wiki/List_of_WLAN_channels).
+Many countries regulate operation of the 5GHz spectrum - see [List_of_WLAN_channels](https://en.wikipedia.org/wiki/List_of_WLAN_channels) & [DFS/TPC channel information](https://en.wikipedia.org/wiki/List_of_WLAN_channels#DFS_and_TPC).
 
 :!: Due to fast development, changing hardware, regulatory changes and compliance issues there can be interoperability issues.
 
-:!: OpenWrt uses open source drivers with varying quality and upstream support. Sometimes they can be abandoned by the manufactorer, or no longer support some 5GHz operation due to regulatory changes.
+:!: OpenWrt uses open source drivers with varying quality and upstream support. Sometimes they may be abandoned by the manufacturer, or no longer support some 5GHz operation due to regulatory changes.
 
-:!: OEM proprietary drivers can sometimes offer DFS when OpenWrt does not.
+:!: OEM proprietary drivers can sometimes offer DFS channel where OpenWrt opensource drivers cannot.
 
 :!: There are different DFS schemes: DFS-FCC (USA), DFS-ETSI (Europe), DFS-JP (Japan).
 
-:!: Try to use the non DFS channels if you have old hardware/clients.
+:!: Try to use the non DFS channels if you have older wifi hardware/wifi clients.
 
 ## DFS support
 
 - ath9k: DFS-ETSI, DFS-FCC (source: [linux-wireless](http://marc.info/?l=linux-wireless&m=144524581929146)), probably DFS-JP (git commits)
 - ath10k: DFS-FCC (source: [linux-wireless](http://marc.info/?l=linux-wireless&m=144524581929146)), probably DFS-ETSI
 - ath11k: DFS-FCC (source: [linux-wireless](https://marc.info/?l=linux-wireless&m=170227574420539)), probably DFS-ETSI
-- mt76: DFS-ETSI, DFS-FCC, DFS-JP. As of 2021-02-22, DFS is unsupported on the MT7613 radio however, despite the hardware supporting it.
+- mt76: DFS-ETSI, DFS-FCC, DFS-JP. As of 2021-02-22, DFS is unsupported [on MT7613 radio](/unsupported/dfs) however, despite the hardware supporting it.
 - mwlwifi (source:[linux-wireless](http://marc.info/?l=linux-wireless&m=146707822404863&w=2)), but support is problematic on some hardware and won't be fixed ([GitHub issue \#75](https://github.com/kaloz/mwlwifi/issues/75))
 - mwifiex (source: git log: "DFS support in AP mode",[kernel.org](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=cf075eac9ca94ec54b5ae0c0ec798839f962be55))
 
@@ -1777,274 +1582,6 @@ FIXME (which bin header?)
     +---------------------------------------------------------------+
 
 source: [openwrt/tools/firmware-utils/src/mktplinkfw.c](http://git.openwrt.org/?p=openwrt.git;a=blob;f=tools/firmware-utils/src/mktplinkfw.c;h=a6aab598a1ffa677e64307ee4234479d45de9140;hb=HEAD#l78)
-
----
-
-# Hotplug -- Legacy
-
-![historic&noheader&nofooter&noeditbtn](/page>meta/infobox/historic&noheader&nofooter&noeditbtn)
-
-> [!WARNING]
-> See the [Hotplug article](/docs/guide-user/base-system/hotplug) for information on the current approach.
->
-> The "hotplug2" daemon was removed in 2013 ([r36987](https://dev.openwrt.org/changeset/36987)) and replaced with [procd](/docs/techref/procd).
-
-Hotplug2 was a trivial replacement of some of the UDev functionality in a tiny pack, intended for Linux early userspace: Init RAM FS and InitRD. Hotplug executes scripts located in the respective hotplug directory: `/etc/hotplug.d/` on certain events, like when an interface goes up or down or when a button gets pressed. It can be very useful with [PPPoE](https://en.wikipedia.org/wiki/Point-to-Point Protocol over Ethernet)-connection or in an unstable network. Hotplug has been available since OpenWrt 'Kamikaze' 7.06 and was removed in 2013, prior to the release of "Attitude Adjustment".
-
-- <https://dev.openwrt.org/browser/trunk/package/hotplug2?rev=36446>
-
-|                                                                   |                                                                                                                                           |
-|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| ![48px-outdated.svg.png](/meta/icons/tango/48px-outdated.svg.png) | Example: See [r37336: procd: make old button hotplug rules work until all packages are migrated](https://dev.openwrt.org/changeset/37336) |
-
-It is also used by [hardware.button](/docs/guide-user/hardware/hardware.button)
-
-#### What is hotplug?
-
-Best answer to this question is found on [Chris Lumens's website](http://www.bangmoney.org/presentations/hotplug/).
-
-#### How it works
-
-Every time an interface goes up or down, all scripts in the `/etc/hotplug.d/iface/` directory are executed, in alphabetical order. According to an informal convention a numeric prefix is added to each script name to set the correct order of running. That's why the scripts there are named like this: `/etc/hotplug.d/iface/<nn>-<scriptname>` e.g.: 10-routes, 20-firewall
-
-Kernel module: `button-hotplug`
-
-## Configuration
-
-Modify `/etc/hotplug2.rules` to enable Hotplug execute your script(s) in `/etc/hotplug.d/<type>`. `<type>` is a kind of hotplug device; such as usb. In /etc/hotplug2.rules, remove '^' before `<type>` which can be net, input, button, usb etc.
-
-    $include /etc/hotplug2-common.rules
-
-    SUBSYSTEM ~~ (^net$|^input$|^button$|^usb$|^ieee1394$|^block$|^atm$|^zaptel$|^tty$) {
-        exec /sbin/hotplug-call %SUBSYSTEM%
-    }
-
-    DEVICENAME == watchdog {
-        exec /sbin/watchdog -t 5 /dev/watchdog
-        next-event
-    }
-
-Simply place your script(s) into the respective hotplug subdirectory. Script looks like this:
-
-There are three main environment variables that are passed to each iface hotplug-script:
-
-| Variable name | Description                                                                      |
-|---------------|----------------------------------------------------------------------------------|
-| ACTION        | Either "ifup" or "ifdown"                                                        |
-| INTERFACE     | Name of the interface which went up or down (e.g. "wan" or "ppp0")               |
-| DEVICE        | Physical device name which interface went up or down (e.g. "eth0.1" or "br-lan") |
-
-## Examples
-
-Save the example script at `/etc/hotplug.d/iface/99-my-action`.
-
-\| ''#!/bin/sh
-
-\[ "\$ACTION" = ifup \] && {
-
-    logger -t button-hotplug Device: $DEVICE / Action: $ACTION
-
-}'' \|
-
-Every time an interface goes up then the if/fi statement will be executed.
-
--\> [hardware.button](/docs/guide-user/hardware/hardware.button) makes ample use of hotplug.
-
-Niii has posted this quick example for a USB WiFi device hotplug event to trigger an init.d network restart wlan0 script.
-
-For determine RTL8188SU_PRODID variable, use "lsusb -v":
-
-    idVendor           0x0bda Realtek Semiconductor Corp.
-    idProduct          0x8171 RTL8188SU 802.11n WLAN Adapter
-    bcdDevice            2.00
-
-**/etc/hotplug.d/usb/20-rtl8188su**
-
-\| ''#!/bin/sh
-
-BINARY="/sbin/wifi up" RTL8188SU_PRODID="bda/8171/200"
-
-if \[ "\${PRODUCT}" = "\${RTL8188SU_PRODID}" \]; then
-
-      if [ "${ACTION}" = "add" ]; then
-          ${BINARY}
-      fi
-
-fi'' \|
-
-**`/etc/hotplug.d/usb/20-cp210x`**
-
-An other script to create a symlink instead of renaming the device.
-I test if DEVICE_NAME is empty because when I plug usb device I retrieve two add event, and the first come before created device, so symlink fails.
-
-\| ''#!/bin/sh
-
-CP210_PRODID="10c4/ea60/100" SYMLINK="my_link"
-
-if \[ "\${PRODUCT}" = "\${CP210_PRODID}" \];
-
-     then if [ "${ACTION}" = "add" ];
-        then
-           DEVICE_NAME=$(ls /sys/$DEVPATH | grep tty)
-           if [ -z ${DEVICE_NAME} ];
-              then logger -t Hotplug Warning DEVICE_NAME is empty
-              exit
-           fi
-           logger -t Hotplug Device name of cp210 is $DEVICE_NAME
-           ln -s /dev/$DEVICE_NAME /dev/${SYMLINK}
-           logger -t Hotplug Symlink from /dev/$DEVICE_NAME to /dev/${SYMLINK} created
-     fi
-
-fi
-
-if \[ "\${PRODUCT}" = "\${CP210_PRODID}" \];
-
-     then if [ "${ACTION}" = "remove" ];
-           then
-           rm /dev/${SYMLINK}
-           logger -t Hotplug Symlink /dev/${SYMLINK} removed
-     fi
-
-fi'' \|
-
-Script that detects if plugged usb device is bluetooth or not.
-
-\| ''#!/bin/sh BT_PRODID="a12/1/" BT_PRODID_HOT=\`echo \$PRODUCT \| cut -c 1-6\`
-
-\#logger -t HOTPLUG "PRODUCT ID is" \$BT_PRODID_HOT
-
-if \[ "\$BT_PRODID_HOT" = "\$BT_PRODID" \]; then
-
-      if [ "$ACTION" = "add" ]; then
-          logger -t HOTPLUG "bluetooth device has been plugged in!"
-          if [ "$BSBTID_NEW" = "$BSBTID_OLD" ]; then
-              logger -t HOTPLUG "bluetooth device hasn't changed"
-          else
-              logger -t HOTPLUG "bluetooth device has changed"
-          fi
-      fi
-      if [ "$ACTION" = "remove" ]; then
-          logger -t HOTPLUG "bluetooth device has been removed!"
-      fi
-
-else
-
-      logger -t HOTPLUG "USB device is not bluetooth"
-
-fi'' \|
-
-Auto start mjpg-streamer when an usb camera is plugged in. Firstly, remove '^' before 'input' in `/etc/hotplug2.rules` to enable Hotplug execute script(s) in `/etc/hotplug.d/input`. Secondly, add `/etc/hotplug.d/input/30-mjpg-streamer`
-
-    case "$ACTION" in
-        add)
-                # start process
-            /etc/init.d/mjpg-streamer start
-                ;;
-        remove)
-                # stop process
-            /etc/init.d/mjpg-streamer stop
-                ;;
-    esac
-
-## Coldplug
-
-If you had notice the udev and eudev were removed in the openwrt 18.0.\* release, don't be afraid because you still can make the things works.
-**Using hotplug scripts as coldplug**
-You just need to pay atention at the ACTION env var, at the boot are executed 'bind' actions.
-So, just add this option to hotplug run accordinly. In my case I used this:
-
-Take a look into file `/etc/hotplug.d/usb/22-symlinks`
-
-    #!/bin/sh
-    # Description: Action executed on boot (bind) and with the system on the fly
-    if [ "$ACTION" = 'bind' ] ; then
-      case "${PRODUCT}" in
-        1bc7*) # Telit HE910 3g modules product id prefix
-          DEVICE_NAME=$(ls /sys/$DEVPATH | grep tty)
-          DEVICE_TTY=$(ls /sys/$DEVPATH/tty/)
-          # Module Telit HE910-* connected to minipciexpress slot MAIN
-          if [ ${DEVICENAME} = '1-1.3:1.0' ] ; then
-            ln -s /dev/$DEVICE_TTY /dev/ttyMODULO1_DIAL
-            logger -t Hotplug Symlink from /dev/$DEVICE_TTY to /dev/ttyMODULO1_DIAL created
-          elif [ ${DEVICENAME} = '1-1.3:1.6' ] ; then
-            ln -s /dev/$DEVICE_TTY /dev/ttyMODULO1_DATA
-            logger -t Hotplug Symlink from /dev/$DEVICE_TTY to /dev/ttyMODULO1_DATA created
-          # Module Telit HE910-* connected to minipciexpress slot SECONDARY
-          elif [ ${DEVICENAME} = '1-1.2:1.0' ] ; then
-            ln -s /dev/$DEVICE_TTY /dev/ttyMODULO2_DIAL
-            logger -t Hotplug Symlink from /dev/$DEVICE_TTY to /dev/ttyMODULO2_DIAL created
-          elif [ ${DEVICENAME} = '1-1.2:1.6' ] ; then
-            ln -s /dev/$DEVICE_TTY /dev/ttyMODULO2_DATA
-            logger -t Hotplug Symlink from /dev/$DEVICE_TTY to /dev/ttyMODULO2_DATA created
-          fi
-        ;;
-      esac
-    fi
-    # Action to remove the symlinks
-    if [ "$ACTION" = 'remove' ]  ; then
-      case "${PRODUCT}" in
-        1bc7*)  # Telit HE910 3g modules product id prefix
-         # Module Telit HE910-* connected to minipciexpress slot MAIN
-          if [ ${DEVICENAME} = '1-1.3:1.0' ] ; then
-            rm /dev/ttyMODULO1_DIAL
-            logger -t Hotplug Symlink /dev/ttyMODULO1_DIAL removed
-          elif [ ${DEVICENAME} = '1-1.3:1.6' ] ; then
-            rm /dev/ttyMODULO1_DATA
-            logger -t Hotplug Symlink /dev/ttyMODULO1_DATA removed
-          # Module Telit HE910-* connected to minipciexpress slot SECONDARY
-          elif [ ${DEVICENAME} = '1-1.2:1.0' ] ; then
-            rm /dev/ttyMODULO2_DIAL
-            logger -t Hotplug Symlink /dev/ttyMODULO2_DIAL removed
-          elif [ ${DEVICENAME} = '1-1.2:1.6' ] ; then
-            rm /dev/ttyMODULO2_DATA
-            logger -t Hotplug Symlink /dev/ttyMODULO2_DATA removed
-          fi
-        ;;
-      esac
-    fi
-
-### Logs generated by Coldplug script below
-
-    root@OpenWrt:~#logread | grep Hotplug
-    Fri Sep 21 15:31:00 2018 user.notice Hotplug: Symlink from /dev/ttyACM0 to /dev/ttyMODULO2_DIAL created
-    Fri Sep 21 15:31:06 2018 user.notice Hotplug: Symlink from /dev/ttyACM3 to /dev/ttyMODULO2_DATA created
-    Fri Sep 21 15:31:39 2018 user.notice Hotplug: Symlink from /dev/ttyACM6 to /dev/ttyMODULO1_DIAL created
-    Fri Sep 21 15:31:46 2018 user.notice Hotplug: Symlink from /dev/ttyACM9 to /dev/ttyMODULO1_DATA created
-    Fri Sep 21 15:32:03 2018 user.notice Hotplug: Symlink /dev/ttyMODULO1_DIAL removed
-    Fri Sep 21 15:32:10 2018 user.notice Hotplug: Symlink /dev/ttyMODULO1_DATA removed
-    Fri Sep 21 15:33:17 2018 user.notice Hotplug: Symlink /dev/ttyMODULO2_DIAL removed
-    Fri Sep 21 15:33:24 2018 user.notice Hotplug: Symlink /dev/ttyMODULO2_DATA removed
-    root@OpenWrt:~#
-
-## Troubleshoot
-
-If you wish to troubleshoot hotplug of some type of device this can be done via simple debug script. For example to troubleshoot adding and removing of any type of usb devices, simply create this **/etc/hotplug.d/usb/10-usb_debug** script with all variables:
-
-    #!/bin/sh
-    logger -t DEBUG "hotplug usb: action='$ACTION' devicename='$DEVICENAME' devname='$DEVNAME' devpath='$DEVPATH' product='$PRODUCT' type='$TYPE' interface='$INTERFACE'"
-
-or this one with only essential ones used:
-
-    #!/bin/sh
-    logger -t DEBUG "hotplug usb: action='$ACTION' product='$PRODUCT' type='$TYPE' interface='$INTERFACE'"
-
-So with debuging enabled here is how it looks like when you plug two different usb bluetooth dongles:
-
-    action='add' product='a12/1/1915' type='224/1/1' interface=''
-    action='add' product='a12/1/1915' type='224/1/1' interface='224/1/1'
-    action='add' product='a12/1/1915' type='224/1/1' interface='224/1/1'
-    action='add' product='a12/1/1915' type='224/1/1' interface='254/1/0'
-    action='remove' product='a12/1/1915' type='224/1/1' interface='224/1/1'
-    action='remove' product='a12/1/1915' type='224/1/1' interface='224/1/1'
-    action='remove' product='a12/1/1915' type='224/1/1' interface='254/1/0'
-    action='remove' product='a12/1/1915' type='224/1/1' interface=''
-    action='add' product='a12/1/134' type='224/1/1' interface=''
-    action='add' product='a12/1/134' type='224/1/1' interface='224/1/1'
-    action='add' product='a12/1/134' type='224/1/1' interface='224/1/1'
-
-So my using some (maybe flawed) logic we can deduce that match bluetooth is possible if we use product='a12/1\*'
-
-## Notes
 
 ---
 
@@ -3316,8 +2853,8 @@ This patches the mtd source to include the "-static" option when building the bi
   - Add your favorite options together to obtain the `<mask>`.
 
       * In order for the output to be seen you'll need to modify /etc/init.d/network to add:
-        * procd_set_param stdout 1
-        * procd_set_param stderr 1
+        * [procd_set_param](../cookbook/chunked-reference/procd-service-lifecycle.md) stdout 1
+        * [procd_set_param](../cookbook/chunked-reference/procd-service-lifecycle.md) stderr 1
       * to start_service so that procd doesn't send netifd hotplug script output to /dev/null.
 
 ### Help with the development of netifd
@@ -6210,3 +5747,487 @@ If you got any problem related to libmicroxml when building EasyCwmp in OpenWRT,
 
       cd /path/to/openwrt/package/
       wget http://easycwmp.org/download/libmicroxml.tar.gz
+
+---
+
+# unetd
+
+unetd is a WireGuard based VPN daemon that simplifies creating and managing fully-meshed VPN connections between OpenWrt routers.
+
+Source: [project/unetd.git](commit>project/unetd.git)
+
+## Features
+
+      * Splits network setup into network config (shared across all participating nodes) and local config (limited mostly to local private key, public signing device key, optionally tunnel device names)
+      * Supports automatic replication of peer IP addresses
+      * Supports automatic replication of network config updates
+        * network config data is secure and protected by a Ed25519 signature
+        * network config data replication is encrypted and only available to members of the network, even during bootstrap
+      * Fully meshed (all nodes connect to each other directly unless configured otherwise)
+      * Supports automatic VXLAN setup with multiple peers
+        * automatically installs eBPF program to deal with MTU limitations and avoid fragmentation
+      * Automatic setup of routes / IP addresses based on network config data
+      * Supports direct connection through double-NAT, as long as the network has one node with a public IP address
+      * Simple CLI for creating and updating networks between OpenWrt hosts with very few commands
+      * Builds and runs on regular Linux distributions as well, and also macOS (with some limitations)
+      * Automatically assigns an IPv6 address for each host, which is generated from the host public key
+      * writes a host file containing entries for all configured hosts
+        * can be used with dnsmasq for local lookup
+        * configurable domain suffix
+      * allows creating freeform service definitions, which allows services to query member IP addresses using ubus
+      * Supports peer discovery via BitTorrent 'Mainline' DHT, which works even through double-NAT
+
+## Building
+
+### OpenWrt
+
+TBC
+
+### Linux
+
+The following build dependencies are required:
+
+      * cmake, pkg-config
+      * libelf-dev, zlib1g-dev, libjson-c-dev
+
+To build:
+
+    git clone https://git.openwrt.org/project/unetd.git
+    cd unetd
+    ./build.sh
+
+## Example setup
+
+#### Preparation
+
+This set of example commands assumes two OpenWRT routers with the IP addresses `192.168.1.13` and `192.168.1.15` which have **not** been configured for unetd yet, each has `unetd`, `unet-cli` and `unet-tool` installed. `vxlan` (and its implied `kmod-vxlan`) are also installed. The assumption here is that the local host, here say `192.168.1.2` has these installed, and also forms a unet node.
+
+Note: `unetd` is not yet capable of installing these prerequisites above via `opkg`.
+
+#### Example
+
+This creates a new JSON file `test.json` locally and also generates a signing key in `test.json.key` locally (if it doesn't exist already):
+
+    # unet-cli test.json create
+
+Result:
+
+    test.json:
+    {
+        "config": {
+            "port": 51830,
+            "keepalive": 10,
+            "peer-exchange-port": 51831
+        },
+        "hosts": {
+        },
+        "services": {
+        }
+    }
+
+This creates a VXLAN tunnel definition in `test.json` and predicates hosts that are to be members of it via the `ap` group:
+
+    # unet-cli test.json add-service l2-tunnel type=vxlan members=@ap
+
+Result:
+
+    test.json:
+    {
+        ...
+        "services": {
+            "l2-tunnel": {
+                "config": {
+                },
+                "members": [
+                    "@ap"
+                ],
+                "type": "vxlan"
+            }
+        }
+    }
+
+This connects to 192.168.1.13 over SSH, and on 192.168.1.13, generates an unetd interface named `unet`, along with new host keys, puts in the signing key and also tells it to create the `vx0` VXLAN device connected to the `l2-tunnel` service description we created in the last command, storing its public key in the local `test.json`, along with its endpoint address `192.168.1.13`:
+
+    # unet-cli test.json add-ssh-host ap1 root@192.168.1.13 endpoint=192.168.1.13 tunnels=vx0:l2-tunnel groups=ap
+
+Note: you will authenticate via SSH, either user:pass or key based, if that was set up in advance.
+
+Result:
+
+    test.json:
+    {
+        ...
+        "hosts": {
+            "ap1": {
+                "key": "....=",
+                "endpoint": "192.168.1.13",
+                "groups": [
+                    "ap"
+                ]
+            }
+        },
+        ...
+    }
+
+This does the same for the other host:
+
+    # unet-cli test.json add-ssh-host ap2 root@192.168.1.15 endpoint=192.168.1.15 tunnels=vx0:l2-tunnel groups=ap
+
+Result:
+
+    test.json:
+    {
+        ...
+        "hosts": {
+            ...
+            "ap2": {
+                "key": "...=",
+                "endpoint": "192.168.178.1",
+                "groups": [
+                    "ap"
+                ]
+            }
+        },
+        ...
+    }
+
+This signs the network data and uploads it to unetd running on 192.168.1.13:
+
+    # unet-cli test.json sign upload=192.168.1.13
+
+By now, uploading the data to one of the two hosts is enough, because once it (192.168.1.13) has processed the update, it (192.168.1.13) will find the endpoint address of the other host (192.168.1.15) and sync the network data with it automatically. After that last command, the unetd network should be up on both sides, and the VXLAN tunnel created as well.
+
+## Configuration
+
+### UCI network interface
+
+Configuration of a `interface` section in /etc/config/network for unetd.
+
+| Name       | Type    | Required | Description                                                                                                          |
+|------------|---------|----------|----------------------------------------------------------------------------------------------------------------------|
+| `proto`    | string  | required | Needs to be `unet`                                                                                                   |
+| `device`   | string  | required | Name of the tunnel device                                                                                            |
+| `key`      | string  | required | Local wireguard key                                                                                                  |
+| `auth_key` | string  | required | Key used to sign network config                                                                                      |
+| `tunnels`  | list    |          | List of tunnel devices mapped to VXLAN service definitions in the network config (format: `<device>=<servicename>`). |
+| `connect`  | list    |          | List of external unetd host IP addresses to download network config updates from                                     |
+| `domain`   | string  |          | Domain suffix for hosts in the generated hosts file                                                                  |
+| `dht`      | boolean |          | Enable DHT peer discovery for this network                                                                           |
+
+The `connect` option only needs to be used for bootstrapping the setup in case you're not uploading the network data to the node directly. Once unetd has a working peer connection, it will always replicate updates over the tunnel.
+
+### Network config data
+
+Network config is written as a JSON file.
+
+##### Example:
+
+    {
+            "config": {
+                    "port": 51830,
+                    "keepalive": 10,
+                    "peer-exchange-port": 51831,
+                    "stun-servers": [
+                            "stun.l.google.com:19302",
+                            "stun1.l.google.com:19302"
+                    ]
+            },
+            "hosts": {
+                    "ap1": {
+                            "key": "yB3V0Wz37qheZoZiG0KNFAqfuI2TetO4sfXgqO/Gd0c=",
+                            "endpoint": "192.168.1.13",
+                            "groups": [
+                                    "ap"
+                            ]
+                    },
+                    "ap2": {
+                            "key": "aGNcyMLrN+C4WW0nJBUGwqw8ifIleUVefv/9vh+d1Fw=",
+                            "endpoint": "192.168.1.15",
+                            "groups": [
+                                    "ap"
+                            ]
+                    }
+            },
+            "services": {
+                    "l2-tunnel": {
+                            "config": {
+                            },
+                            "members": [
+                                    "@ap"
+                            ],
+                            "type": "vxlan"
+                    }
+            }
+    }
+
+##### Config properties:
+
+| Name                 | Type             | Description                                                                |
+|:---------------------|:-----------------|:---------------------------------------------------------------------------|
+| `port`               | int              | Wireguard tunnel port (can be overriden for individual hosts)              |
+| `keepalive`          | int              | Interval (in seconds) for keepalive and forcing peer reconnection attempts |
+| `peer-exchange-port` | int              | Port for exchanging peer messages on the WireGuard tunnel (0: disabled)    |
+| `stun-servers`       | array of strings | List of STUN servers written as hostname:port strings                      |
+
+##### Host properties:
+
+| Name                 | Type             | Description                                                                                                              |
+|:---------------------|:-----------------|:-------------------------------------------------------------------------------------------------------------------------|
+| `key`                | string           | Wireguard public key                                                                                                     |
+| `groups`             | array of strings | Names of groups that the host is a member of                                                                             |
+| `ipaddr`             | array of strings | Local IP addresses of the host (IPv4 or IPv6)                                                                            |
+| `subnet`             | array of strings | Subnets routed by the host (IPv4 or IPv6) (format: `<addr>/<mask>`)                                                      |
+| `port`               | int              | Wireguard tunnel port (overrides `config` property)                                                                      |
+| `peer-exchange-port` | int              | Host specific port for exchanging peer messages on the WireGuard tunnel (0: disabled)                                    |
+| `endpoint`           | string           | Public endpoint address (format: `<addr>` for IPv4, `[<addr>]` for IPv6 with optional `:<port>` suffix)                  |
+| `gateway`            | string           | Name of another host to use as gateway (can be used for avoiding direct connections with all other peers from this host) |
+
+##### Service properties
+
+| Name      | Type             | Description                                                 |
+|:----------|:-----------------|:------------------------------------------------------------|
+| `type`    | string           | Service type                                                |
+| `config`  | object           | Service type specific config options                        |
+| `members` | array of strings | Members assigned to this service (use `@<name>` for groups) |
+
+### CLI usage
+
+    Usage: unet-cli [<flags>] <file> <command> [<args>] [<option>=<value> ...]
+
+         Commands:
+          - create:                                 Create a new network file
+          - set-config:                             Change network config parameters
+          - add-host <name>:                        Add a host
+          - add-ssh-host <name> <host>:             Add a remote OpenWrt host via SSH
+                                                    (<host> can contain SSH options as well)
+          - set-host <name>:                        Change host settings
+          - set-ssh-host <name> <host>:             Update local and remote host settings
+          - add-service <name>:                     Add a service
+          - set-service <name>:                     Change service settings
+          - sign                                    Sign network data
+
+         Flags:
+          -p:                                       Print modified JSON instead of updating file
+
+         Options:
+          - config options (create, set-config):
+            port=<val>                              set tunnel port (default: 51830)
+            pex_port=<val>                          set peer-exchange port (default: 51831, 0: disabled)
+            keepalive=<val>                         set keepalive interval (seconds, 0: off, default: 10)
+            stun=[+|-]<host:port>[,<host:port>...]  set/add/remove STUN servers
+          - host options (add-host, add-ssh-host, set-host):
+            key=<val>                               set host public key (required for add-host)
+            port=<val>                              set host tunnel port number
+            pex_port=<val>                          set host peer-exchange port (default: network pex_port, 0: disabled)
+            groups=[+|-]<val>[,<val>...]            set/add/remove groups that the host is a member of
+            ipaddr=[+|-]<val>[,<val>...]            set/add/remove host ip addresses
+            subnet=[+|-]<val>[,<val>...]            set/add/remove host announced subnets
+            endpoint=<val>                          set host endpoint address
+            gateway=<name>                          set host gateway (using name of other host)
+         - ssh host options (add-ssh-host, set-ssh-host)
+            auth_key=<key>                          use <key> as public auth key on the remote host
+            priv_key=<key>                          use <key> as private host key on the remote host (default: generate a new key)
+            interface=<name>                        use <name> as interface in /etc/config/network on the remote host
+            domain=<name>                           use <name> as hosts file domain on the remote host (default: unet)
+            connect=<val>[,<val>...]                set IP addresses that the host will contact for network updates
+            tunnels=<ifname>:<service>[,...]        set active tunnel devices
+         - service options (add-service, set-service):
+            type=<val>                              set service type (required for add-service)
+            members=[+|-]<val>[,<val>...]           set/add/remove service member hosts/groups
+         - vxlan service options (add-service, set-service):
+            id=<val>                                set VXLAN ID
+            port=<val>                              set VXLAN port
+            mtu=<val>                               set VXLAN device MTU
+            forward_ports=[+|-]<val>[,<val>...]     set members allowed to receive broadcast/multicast/unknown-unicast
+         - sign options:
+            upload=<ip>[,<ip>...]                   upload signed file to hosts
+
+### DHT support
+
+For DHT peer discovery, the unet-dht package needs to be installed, and dht enabled in the interface on the nodes. For NAT support, you also need to configure at least one working STUN server in the network data. While peers can find each other through DHT directly, STUN is needed for figuring out the external wireguard port and establishing a network connection over it. Please note that DHT based discovery needs some time for peers to actually discover each other, sometimes 1-3 minutes.
+
+---
+
+# Wireless Modes
+
+FIXME This needs to indicate the UCI values for `option mode` to have any value
+
+# Wireless Modes
+
+For setting up the wireless modes see [Documentation](/docs/start)
+
+    iw list
+
+has a section with `Supported interface modes`
+
+## AP
+
+AP ... Access Point Also called "master" mode.
+
+## AP/vlan
+
+Dynamic VLAN tagging support in hostapd. see Kernel: [hostapd](https://wireless.wiki.kernel.org/en/users/documentation/hostapd#dynamic_vlan_tagging) see [ML](http://comments.gmane.org/gmane.linux.kernel.wireless.general/58064)
+
+## IBSS (Ad-Hoc)
+
+## MESH POINT (802.11s)
+
+see [80211s](/docs/guide-user/network/wifi/mesh/80211s)
+
+## MONITOR
+
+radiotap headers package survey and injection
+
+## OCB
+
+Outside Context of a BSS
+
+## P2P Client
+
+P2P (Peer-to-peer) client
+
+## P2P-GO
+
+P2P (Peer-to-peer) Group Owner
+
+## Station (Client)
+
+Alternative name: managed mode Mode when connected to an AP.
+
+## WDS
+
+4address/4-address mode see: [IEEE 4-address](http://www.ieee802.org/1/files/public/802_architecture_group/802-11/4-address-format.doc)
+
+## Links
+
+     * Mode list taken from [[http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/nl80211.h|include/uapi/linux/nl80211.h]]
+     * linux-wireless mailing list
+
+---
+
+# Wireless Standards
+
+This article lists common standards and basic features that are relevant to OpenWrt.
+
+## 802.11a
+
+Old standard that operates in 5GHz [frequency band](https://en.wikipedia.org/wiki/Frequency_band)
+
+[IEEE_802.11a-1999](https://en.wikipedia.org/wiki/IEEE_802.11a-1999)
+
+## 802.11b
+
+[IEEE_802.11b-1999](https://en.wikipedia.org/wiki/IEEE_802.11b-1999) Operates in 2.4GHz Band Old standard.
+
+## 802.11g
+
+[](https://en.wikipedia.org/wiki/IEEE_802.11g-2003) Operates in 2.4GHz Band Old standard.
+
+## 802.11n
+
+[IEEE_802.11n-2009](https://en.wikipedia.org/wiki/IEEE_802.11n-2009)
+
+## 802.11ac
+
+[IEEE_802.11ac](https://en.wikipedia.org/wiki/IEEE_802.11ac) Also called "Wifi 5"
+
+## 802.11ad
+
+[IEEE_802.11ad](https://en.wikipedia.org/wiki/IEEE_802.11ad) Not very common in OpenWrt.
+
+## 802.11ax
+
+[IEEE_802.11ax](https://en.wikipedia.org/wiki/IEEE_802.11ax)
+
+Also called "Wifi 6"
+
+### Features in Drivers
+
+Each hardware has certain features that can be queried in OpenWrt by using `iw phy <phy interface> info `
+
+Mismatching features result in compatibility problems and possibly reduced data transfer rates.
+
+example:
+
+    RX LDPC
+    HT20/HT40
+    SM Power Save disabled
+    RX HT20 SGI
+    RX HT40 SGI
+    TX STBC
+    RX STBC 1-stream
+    Max AMSDU length: 3839 bytes
+    DSSS/CCK HT40
+
+#### MIMO multiple-input and multiple-output
+
+Technology that uses multiple antennas to increase data transfer rates. see also MCS tables
+
+[STBC](https://en.wikipedia.org/wiki/Space%E2%80%93time_block_code) is part of MIMO.
+
+[MU-MIMO](https://en.wikipedia.org/wiki/Multi-user_MIMO)
+
+#### HT, VHT, HE
+
+Required for higher throughput - 802.11n, 802.11ac, 802.11ax standards. HT ... 802.11n , VHT ... 802.11ac, HE ... 802.11ax
+
+HT20 : 20 MHz wide channels HT40: 40 MHz VHT80 : 80 MHz VHT160: 160MHz
+
+see also MCS table
+
+#### MCS Modulation and Coding Scheme
+
+often visualized as a table. The MCS Index is a value that the hardware supports and uses when communicating.
+
+:!: Low data rates mean the higher indexes are not used. Reasons might be configuration or interference.
+
+#### RSDB DBDC
+
+Acronym for Radio Simultan Dual Band, Dual Band Dual Concurrent
+
+Use two frequency bands at the same time by one endpoint.
+
+Supported by: mt76 and potentially brcmfmac ([BCM4359](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/net/wireless/broadcom?id=d4aef159394d5940bd7158ab789969dab82f7c76) )
+
+Normally radios operate in Single Band Single Concurrent (SBSC) (OpenWrt: 802.11an, 802.11bgn) or are capable of Dual Band Single Concurrent (DBSC): having 2 frequency bands selectable (OpenWrt: 802.11abgn capable).
+
+#### WOW Wake On Wlan
+
+[Wake-on-LAN](https://en.wikipedia.org/wiki/Wake-on-LAN)
+
+## Links
+
+[some MCS Tables](https://www.semfionetworks.com/blog/mcs-table-updated-with-80211ax-data-rates)
+
+---
+
+# Xenomai - real-time framework inside OpenWrt
+
+![cleanup&noheader&nofooter&noeditbtn](/page>meta/infobox/cleanup&noheader&nofooter&noeditbtn) ![wip&noheader&nofooter&noeditbtn](/page>meta/infobox/wip&noheader&nofooter&noeditbtn)
+
+# Xenomai - real-time framework inside OpenWrt
+
+This techref describe a work in progress finalize to support Xenomai (<http://www.xenomai.org/>) real-time framework inside OpenWrt.
+
+:!: This article describe a WIP activity. Don't rely on it. :!:
+
+Thanks to Adeos, Xenomai will receive the interrupts first and decide to handle them or not. If not, they will then be transfered to the regular Linux kernel. Also, Xenomai provides a framework to develop applications which can be easily moved between the Real Time Xenomai environment and the regular Linux system. Moreover, Xeno provides a set of APIs (called "skins") that emulate traditional RTOSes such as VxWorks and pSOS and implement other APIs such as POSIX. Thus, porting third party real time applications to Xenomai is a fairly simple process.[^1]
+
+An example of usage is available on xenomai.org website.
+
+## Pre-condition
+
+Xenomai framework run only on some architecture and generally isn't needed for your purpose; the 2.5.3 version can be used for arm\|x86\|powerpc and only for a specific linux kernel version. Here follows a table that can help you to choise the couple xenomai versione/kernel version per arch.
+
+|                 |         |               |
+|:----------------|:--------|--------------:|
+| Xenomai version | Arch    | linux version |
+| 2.5.3           | arm     |        2.6.33 |
+| 2.5.3           | powerpc |        2.6.34 |
+| 2.5.3           | x86     |    2.6.34-rc5 |
+
+## Status
+
+Xenomai is intended to be used only for specific purpose and OpenWrt community generally don't support it directly.
+
+[^1]: from <http://www.armadeus.com/wiki/index.php?title=Xenomai>

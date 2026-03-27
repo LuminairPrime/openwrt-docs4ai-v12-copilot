@@ -1,10 +1,12 @@
 # openwrt-hotplug Navigation Map
 
 > **Contains:** Headers and function signatures for openwrt-hotplug.
-> **Generated:** 2026-03-23T22:14:37.218591+00:00
+> **Generated:** 2026-03-27T07:16:53.127109+00:00
 
 ---
 
+> **Summary:** Documents the standard hotplug event environment variables injected by OpenWrt's netifd and network subsystems into scripts in /etc/hotplug.d/. Covers iface subsystem events (ifup, ifdown, ifupdate) with $INTERFACE, $DEVICE, and $ACTION variables; net subsystem events for physical interface changes; and hotplug script patterns using uci_toggle_state for persistent state tracking.
+> **Use Case:** Reference when writing hotplug.d scripts that react to network interface state changes, USB device insertion, or any OpenWrt system event that needs to execute logic in response to $ACTION, $INTERFACE, or $DEVICE being set by the kernel and netifd.
 # OpenWrt Core Hotplug Events
 ## Event Category: `iface` — File: `network/config/netifd/files/etc/hotplug.d/iface/00-netstate`
 # Shell Script

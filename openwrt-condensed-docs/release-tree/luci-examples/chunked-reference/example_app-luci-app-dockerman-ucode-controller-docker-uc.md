@@ -3,12 +3,28 @@ title: docker.uc
 module: luci-examples
 origin_type: example_app
 token_count: 3114
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-ucode-controller-docker-uc.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-dockerman/ucode/controller/docker.uc
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/ucode/controller/docker.uc
+source_locator: applications/luci-app-dockerman/ucode/controller/docker.uc
 language: ucode
+ai_summary: The `docker.uc` module provides a Docker HTTP streaming endpoint for handling file uploads and streaming responses in OpenWrt applications. It includes functions for managing chunked file transfers, building HTTP headers, parsing initial HTTP responses, and streaming response chunks from a socket. Additionally, it offers capabilities to send HTTP 200 OK responses and generate debug output when needed. This module is built against the Docker v1.47 API and is useful for integrating Docker functionalities into OpenWrt's Luci framework.
+ai_when_to_use: Use the `docker.uc` module when you need to implement Docker container management features within an OpenWrt web interface. It is particularly useful for applications that require file uploads or streaming data from Docker containers.
+ai_related_topics:
+- handle_file_upload
+- build_headers
+- initial_response_parser
+- stream_response_chunks
+- send_initial_200_response
+- debug
+- error_response
 ---
+
+> **Source:** [https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/ucode/controller/docker.uc](https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/ucode/controller/docker.uc)
+> **Kind:** example_app | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # docker.uc
 ```ucode
 // Docker HTTP streaming endpoint

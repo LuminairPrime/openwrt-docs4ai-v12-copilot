@@ -3,12 +3,18 @@ title: 'OpenWrt Buildroot: firmware packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 1435
-version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-category-firmware.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/firmware
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/firmware
+source_locator: package/firmware
 language: makefile
 ---
+
+> **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/firmware](https://github.com/openwrt/openwrt/blob/unknown/package/firmware)
+> **Kind:** makefile_meta | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # OpenWrt Buildroot: firmware packages
 
 > **Source:** https://github.com/openwrt/openwrt/tree/master/package/firmware

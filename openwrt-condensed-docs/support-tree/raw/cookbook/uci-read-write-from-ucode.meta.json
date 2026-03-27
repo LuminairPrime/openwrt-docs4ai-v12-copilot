@@ -1,0 +1,18 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "uci-read-write-from-ucode",
+  "source_locator": "content/cookbook-source/uci-read-write-from-ucode.md",
+  "title": "UCI Read/Write from ucode",
+  "description": "Concrete guide to reading and writing UCI configuration from a ucode script or rpcd plugin, covering cursor lifecycle, get/set/commit, section iteration, and error handling.",
+  "when_to_use": "Use when writing a ucode script or rpcd plugin that needs to read or write OpenWrt configuration. UCI is the correct storage mechanism for persistent, user-editable config on OpenWrt -- do not read /etc/config files directly or write config with shell heredocs.",
+  "related_modules": [
+    "ucode",
+    "uci",
+    "luci-examples"
+  ],
+  "era_status": "current",
+  "verification_basis": "Corpus review of ucode/c_source-api-module-uci.md; cursor() API verified from ucode module docs; uci.get/set/commit signatures confirmed; luci-examples/example_app-luci-app-example-root-usr-share-rpcd-ucode-example-uc.md for real-world cursor pattern",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-23"
+}

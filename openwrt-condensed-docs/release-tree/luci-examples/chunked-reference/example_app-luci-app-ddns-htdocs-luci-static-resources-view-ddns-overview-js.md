@@ -3,12 +3,29 @@ title: overview.js
 module: luci-examples
 origin_type: example_app
 token_count: 11218
-version: a57e5e1
 source_file: L1-raw/luci-examples/example_app-luci-app-ddns-htdocs-luci-static-resources-view-ddns-overview-js.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js
+source_locator: applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js
 language: javascript
+ai_summary: The overview.js module is part of the luci-examples application in OpenWrt, designed to manage Dynamic DNS (DDNS) services. It provides functionality to retrieve service logs, check DDNS status, and manage service lists from various sources. Key functions include callGetLogServices, callDDnsGetStatus, and callGenServiceList, which facilitate interaction with DDNS services and their configurations. The module also handles WAN interface detection and service support validation based on user-defined settings.
+ai_when_to_use: Use this module when you need to manage and monitor Dynamic DNS services in an OpenWrt environment, particularly for applications requiring real-time updates and service status checks.
+ai_related_topics:
+- callGetLogServices
+- callInitAction
+- callDDnsGetStatus
+- callDDnsGetEnv
+- callDDnsGetServicesStatus
+- callGenServiceList
+- callGetWanInterface
+- handleCheckService
 ---
+
+> **Source:** [https://github.com/openwrt/luci/blob/unknown/applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js](https://github.com/openwrt/luci/blob/unknown/applications/luci-app-ddns/htdocs/luci-static/resources/view/ddns/overview.js)
+> **Kind:** example_app | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # overview.js
 ```javascript
 'use strict';

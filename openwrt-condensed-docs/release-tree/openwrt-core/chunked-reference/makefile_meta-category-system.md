@@ -3,12 +3,31 @@ title: 'OpenWrt Buildroot: system packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 2031
-version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-category-system.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/system
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/system
+source_locator: package/system
 language: makefile
+ai_summary: The OpenWrt Buildroot system packages module provides a collection of essential packages for system management and functionality within the OpenWrt environment. Key packages include 'opkg', a lightweight package management system that handles installation and removal of packages, and 'ca-certificates', which ensures secure connections by providing trusted CA certificates. Other notable packages are 'fstools' for filesystem management, 'fwtool' for firmware upgrades, and 'mtd' for managing flash memory devices. Each package is maintained by specific developers and is available from designated source URLs.
+ai_when_to_use: This module is particularly useful when building custom OpenWrt firmware images that require specific system functionalities or package management capabilities.
+ai_related_topics:
+- apk
+- ca-certificates
+- fstools
+- fwtool
+- iucode-tool
+- mtd
+- openwrt-keyring
+- opkg
+- procd
+- refpolicy
 ---
+
+> **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/system](https://github.com/openwrt/openwrt/blob/unknown/package/system)
+> **Kind:** makefile_meta | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # OpenWrt Buildroot: system packages
 
 > **Source:** https://github.com/openwrt/openwrt/tree/master/package/system

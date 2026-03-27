@@ -3,11 +3,25 @@ title: BusyBox
 module: wiki
 origin_type: wiki_page
 token_count: 676
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-busybox.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/busybox
 language: text
+ai_summary: BusyBox is a crucial component in OpenWrt that consolidates various system utilities into a single binary, providing lightweight alternatives to many standard Unix tools. It includes essential commands such as `ash`, `cp`, `ls`, `echo`, and `ping`, which are compiled as 'applets' within `/bin/busybox`. This allows for a more efficient use of system resources on embedded devices. Additionally, BusyBox helps identify the OpenWrt version through the Vendor-Class option in DHCP requests, which includes the BusyBox version number.
+ai_when_to_use: Use BusyBox when you need lightweight command-line utilities in OpenWrt or when diagnosing the OpenWrt version via DHCP requests.
+ai_related_topics:
+- ash
+- cp
+- ls
+- echo
+- ping
+- udhcp
 ---
+
+> **Source:** [https://openwrt.org/docs/techref/busybox](https://openwrt.org/docs/techref/busybox)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # BusyBox
 
 [BusyBox](https://en.wikipedia.org/wiki/BusyBox) is used for several system utilities in OpenWrt like `ash` shell, `cp`, `ls`, `echo`, `ping` and many others. It provides tiny replacements with fewer options for most of the utilities from [GNU Core Utilities](https://en.wikipedia.org/wiki/GNU Core Utilities), [GNU Inetutils](https://www.gnu.org/software/inetutils/) and other essential tools like `gzip`.

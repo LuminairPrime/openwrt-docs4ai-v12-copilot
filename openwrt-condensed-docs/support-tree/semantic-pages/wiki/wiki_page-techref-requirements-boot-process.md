@@ -3,10 +3,14 @@ title: Boot/Init Requirements
 module: wiki
 origin_type: wiki_page
 token_count: 1562
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-requirements-boot-process.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/requirements.boot.process
 language: text
+ai_summary: The Boot/Init Requirements document outlines the necessary functions and goals for initscripts in the new OpenWrt init system. It describes the boot process, which includes the kernel bootstrap, preinit, and init stages, emphasizing the importance of preinit in preparing the system for the init stage. Key goals include minimizing preinit functionality, ensuring failsafe access, and supporting configurable root filesystem mounts. The document also highlights the need for compatibility with /opt deployments and the proper handling of file descriptors during the transition to the target root filesystem.
+ai_when_to_use: This document is useful for developers working on the OpenWrt boot process, particularly those involved in creating or modifying initscripts for system initialization. It provides guidance on managing race conditions and maintaining system functionality during boot.
+ai_related_topics:
+- procd
 ---
 # Boot/Init Requirements
 

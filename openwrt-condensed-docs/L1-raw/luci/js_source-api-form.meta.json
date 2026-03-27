@@ -3,10 +3,11 @@
   "origin_type": "js_source",
   "module": "luci",
   "slug": "api-form",
-  "original_url": null,
+  "source_url": "https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/form.js",
+  "source_locator": "modules/luci-base/htdocs/luci-static/resources/form.js",
+  "source_commit": "unknown",
   "language": "javascript",
-  "upstream_path": "modules/luci-base/htdocs/luci-static/resources/form.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:57:13.265531+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:33.135853+00:00",
   "content_hash": "6d6e9148"
 }

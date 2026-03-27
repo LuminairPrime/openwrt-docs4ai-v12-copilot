@@ -1,22 +1,21 @@
 ---
 module: wiki
-total_token_count: 200882
-section_count: 92
+total_token_count: 194622
+section_count: 89
 is_monolithic: false
 is_sharded_index: true
-part_count: 3
-generated: '2026-03-23T22:14:37.218591+00:00'
+part_count: 2
+generated: '2026-03-27T07:16:53.127109+00:00'
 ---
 
 # wiki Bundled Reference
 
-> **Contains:** 92 documents across 3 sharded parts
-> **Tokens:** ~200882 (cl100k_base)
+> **Contains:** 89 documents across 2 sharded parts
+> **Tokens:** ~194622 (cl100k_base)
 > **Sharding Rule:** The module exceeded the 100000 token budget, so use one of the smaller parts below for deep context.
 
 ## Reference Parts
 
-- [bundled-reference.part-01.md](./bundled-reference.part-01.md): Part 1 of 3 (~97963 tokens, 49 documents)
-- [bundled-reference.part-02.md](./bundled-reference.part-02.md): Part 2 of 3 (~98061 tokens, 39 documents)
-- [bundled-reference.part-03.md](./bundled-reference.part-03.md): Part 3 of 3 (~4858 tokens, 4 documents)
+- [bundled-reference.part-01.md](./bundled-reference.part-01.md): Part 1 of 2 (~99226 tokens, 49 documents)
+- [bundled-reference.part-02.md](./bundled-reference.part-02.md): Part 2 of 2 (~95396 tokens, 40 documents)
 

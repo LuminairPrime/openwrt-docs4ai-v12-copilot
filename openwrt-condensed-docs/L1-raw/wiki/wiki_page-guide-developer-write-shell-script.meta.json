@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-write-shell-script",
-  "original_url": "https://openwrt.org/docs/guide-developer/write-shell-script",
+  "source_url": "https://openwrt.org/docs/guide-developer/write-shell-script",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "ab75dbec1c0ed7fe392785593414c01186fcbad430add1a1d43c52e5fb4d8466",
   "source_path": "/docs/guide-developer/write-shell-script",
-  "extraction_timestamp": "2026-03-09T21:33:57.409961+00:00",
+  "extraction_timestamp": "2026-03-26T08:35:26.154659+00:00",
   "content_hash": "41f9b160"
 }

@@ -3,11 +3,23 @@ title: 'Device Support: MAC address setup'
 module: wiki
 origin_type: wiki_page
 token_count: 2057
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-mac-address.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/mac.address
 language: text
+ai_summary: 'The ''Device Support: MAC address setup'' module provides guidance on retrieving and setting MAC addresses for devices running OpenWrt. It outlines methods for extracting MAC addresses from stock firmware and flash locations, including using commands like ''hexdump'' and ''get_mac_binary''. The module also discusses how to merge data from stock firmware with research findings to create a comprehensive list of MAC addresses, and it highlights the importance of using the correct location for each interface. Additionally, it covers the automatic retrieval of MAC addresses by drivers and the use of label MAC addresses for device identification.'
+ai_when_to_use: This module is useful when configuring MAC addresses for network interfaces on OpenWrt-supported devices, particularly when transitioning from stock firmware. It is applicable during the device support development process.
+ai_related_topics:
+- get_mac_binary
+- mtd_get_mac_binary
+- mtd_mac_address
+- 02_network
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/mac.address](https://openwrt.org/docs/guide-developer/mac.address)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Device Support: MAC address setup
 
 ## Retrieve addresses from stock firmware
