@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-creating-a-meson-based-package",
-  "original_url": "https://openwrt.org/docs/guide-developer/creating_a_meson_based_package",
+  "source_url": "https://openwrt.org/docs/guide-developer/creating_a_meson_based_package",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "1b032dcade9fd786de540c40b67bc7617880440f5639712eb795b08cb3bfe819",
   "source_path": "/docs/guide-developer/creating_a_meson_based_package",
-  "extraction_timestamp": "2026-03-09T21:32:52.104776+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:22.353187+00:00",
   "content_hash": "41115c09"
 }

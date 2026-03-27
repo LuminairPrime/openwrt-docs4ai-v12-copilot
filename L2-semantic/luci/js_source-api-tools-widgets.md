@@ -3,11 +3,20 @@ title: 'LuCI API: widgets'
 module: luci
 origin_type: js_source
 token_count: 126
-version: a57e5e1
 source_file: L1-raw/luci/js_source-api-tools-widgets.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/tools/widgets.js
+source_locator: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js
 language: javascript
+ai_summary: Provides reusable LuCI view-level widget helpers shared across multiple LuCI packages. Implements bandwidth graph components, interface status badges, SSID/signal display helpers, and shared CSS-class-to-color mappings; widgets are instantiated in render() methods and updated live via polling or event callbacks rather than full page reloads.
+ai_when_to_use: Reference when building a LuCI view that needs a pre-built interface status indicator, an animated traffic graph, or a generic signal-strength display; use these helpers to match the visual conventions of the default OpenWrt LuCI theme.
+ai_related_topics:
+- LuCI.tools.widgets
+- LuCI.ui
+- LuCI.network
+- renderBadge
+- updateIfaceStatus
 ---
 # LuCI API: widgets
 

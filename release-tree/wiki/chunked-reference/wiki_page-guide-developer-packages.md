@@ -3,11 +3,26 @@ title: Creating packages
 module: wiki
 origin_type: wiki_page
 token_count: 11047
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-packages.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/packages
 language: text
+ai_summary: Step-by-step guide for creating a new OpenWrt package from scratch. Covers directory layout under package/mypackage/, the minimal Makefile skeleton (include $(TOPDIR)/rules.mk, Package/define, Build/Compile, Package/install), adding dependencies via DEPENDS:=, using PKG_INSTALL=1 vs. custom Build/Compile, creating conffiles, installing init scripts, and submitting packages to the upstream feed.
+ai_when_to_use: 'Reference when porting a new open-source application to OpenWrt or creating a first-party package: follow the Makefile skeleton to define metadata, set the correct PKG_RELEASE, and use $(INSTALL_BIN)/$(INSTALL_CONF) macros in Package/install to place files in the correct image paths.'
+ai_related_topics:
+- Package/define
+- Build/Compile
+- Package/install
+- DEPENDS
+- PKG_INSTALL
+- conffiles
+- feeds
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/packages](https://openwrt.org/docs/guide-developer/packages)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Creating packages
 
 **See also -\> [Package Policy Guide](package-policies)**, which contains a wealth of extra technical information not covered here.
@@ -808,7 +823,7 @@ endef
 
 ## File installation macros
 
-INSTALL_DIR, INSTALL_BIN, INSTALL_DATA are used for creating a directory, copying an executable, or copying a data file. +x is set on the target file for INSTALL_BIN, independent of its mode on the host.
+INSTALL_DIR, [INSTALL_BIN](../../cookbook/chunked-reference/minimal-openwrt-package-makefile.md), INSTALL_DATA are used for creating a directory, copying an executable, or copying a data file. +x is set on the target file for [INSTALL_BIN](../../cookbook/chunked-reference/minimal-openwrt-package-makefile.md), independent of its mode on the host.
 
 From the big document:
 
@@ -818,7 +833,7 @@ A set of commands to copy files out of the compiled source and into the ipkg whi
 
     INSTALL_DIR
     install -d -m0755
-    INSTALL_BIN
+    [INSTALL_BIN](../../cookbook/chunked-reference/minimal-openwrt-package-makefile.md)
     install -m0755
     INSTALL_DATA
     install -m0644

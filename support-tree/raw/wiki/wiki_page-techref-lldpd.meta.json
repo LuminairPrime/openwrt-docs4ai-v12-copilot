@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-lldpd",
-  "original_url": "https://openwrt.org/docs/techref/lldpd",
+  "source_url": "https://openwrt.org/docs/techref/lldpd",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "8386adf179bdea79f19f1b9f2f06ac64391ff2abb20c5c6bc332a38ad68c91c7",
   "source_path": "/docs/techref/lldpd",
-  "extraction_timestamp": "2026-03-23T22:13:04.914295+00:00",
+  "extraction_timestamp": "2026-03-26T08:36:03.397669+00:00",
   "content_hash": "1a687c39"
 }

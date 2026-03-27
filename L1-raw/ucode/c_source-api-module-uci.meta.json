@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-uci",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/uci.c",
+  "source_locator": "lib/uci.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/uci.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:43.976599+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:50.280396+00:00",
   "content_hash": "bbd44146"
 }

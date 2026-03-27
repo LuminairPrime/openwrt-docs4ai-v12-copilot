@@ -3,12 +3,18 @@ title: 'OpenWrt Buildroot: libs packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 5280
-version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-category-libs.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/libs
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/libs
+source_locator: package/libs
 language: makefile
 ---
+
+> **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/libs](https://github.com/openwrt/openwrt/blob/unknown/package/libs)
+> **Kind:** makefile_meta | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # OpenWrt Buildroot: libs packages
 
 > **Source:** https://github.com/openwrt/openwrt/tree/master/package/libs

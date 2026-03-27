@@ -3,11 +3,24 @@ title: Building OpenWrt Kernel for Debian System
 module: wiki
 origin_type: wiki_page
 token_count: 540
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-building-kernels-for-debian-binaries.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/building_kernels_for_debian_binaries
 language: text
+ai_summary: This document provides guidance on building OpenWrt kernels for use with the Debian operating system, highlighting key compatibility issues and configuration settings. It discusses the implications of using soft-FPU instructions in OpenWrt versus hard FPU instructions in Debian, and how to enable FPU emulation in the kernel. Additionally, it covers the requirements for udev and SELinux support, as well as the potential discrepancies in kernel configuration options. Finally, it suggests enabling IKConfig to save the kernel configuration within the kernel itself for easier reference.
+ai_when_to_use: Use this guide when you need to compile an OpenWrt kernel that is compatible with Debian, especially when addressing issues related to FPU instructions, udev, and SELinux support.
+ai_related_topics:
+- CONFIG_MIPS_FPU_EMULATOR
+- CONFIG_DEVTMPFS
+- CONFIG_KERNEL_DEVTMPFS
+- CONFIG_IKCONFIG
+- CONFIG_IKCONFIG_PROC
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/building_kernels_for_debian_binaries](https://openwrt.org/docs/guide-developer/building_kernels_for_debian_binaries)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Building OpenWrt Kernel for Debian System
 
 For now this page serves to keep some notes about using OpenWrt kernels with Debian distribution.

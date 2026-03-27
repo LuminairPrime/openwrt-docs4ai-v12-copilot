@@ -3,11 +3,23 @@ title: Create a Cmake package in OpenWrt
 module: wiki
 origin_type: wiki_page
 token_count: 631
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-creating-a-cmake-package-in-openwrt.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt
 language: text
+ai_summary: This document provides a guide for creating a CMake package in OpenWrt, highlighting the differences from the Meson package creation process. It includes a basic `CMakeLists.txt` example for a simple 'Hello, World' application and details the structure of the corresponding `Makefile`. Key sections cover how to pass CMake options and how to build the package using OpenWrt's build system. The guide concludes with instructions on enabling the package through the configuration menu and locating the built package files.
+ai_when_to_use: Use this guide when you need to create a CMake-based package for OpenWrt, especially when transitioning from Meson-based packages.
+ai_related_topics:
+- CMakeLists.txt
+- Makefile
+- CMAKE_OPTIONS
+- BuildPackage
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt](https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Create a Cmake package in OpenWrt
 
 In the [Meson tutorial](/docs/guide-developer/creating_a_meson_based_package), we learned how to create a Meson package with a detailed guide. Since Cmake and Meson have similar roots, this tutorial will only focus on their differences.

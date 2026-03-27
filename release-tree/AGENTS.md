@@ -21,7 +21,16 @@
 4. **Tooling Surfaces:** Treat generated `types/*.d.ts` files as published helper surfaces, not incidental by-products.
 5. **No Hallucination:** DO NOT invent APIs, parameters, or configuration rules that do not appear in the published module files.
 
+## Era Awareness
+OpenWrt underwent a major modernization in 2019–2020. Many wiki pages and code examples reference
+legacy patterns (Lua CBI, swconfig, ash scripting). Prefer current patterns (JavaScript views,
+DSA, ucode). See `cookbook/chunked-reference/openwrt-era-guide.md` for details.
+
+## Per-Module Instructions
+Some modules include their own `AGENTS.md` with module-specific guidance.
+Check `[module]/AGENTS.md` before beginning work on a specific subsystem.
+
 ## Current Context
-- **Module Count:** 8
-- **Total Token Count:** ~427068
-- **Indexed Symbols:** 401
+- **Module Count:** 9
+- **Total Token Count:** ~439660
+- **Indexed Symbols:** 414

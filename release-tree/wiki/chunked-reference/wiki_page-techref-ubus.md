@@ -3,11 +3,26 @@ title: ubus (OpenWrt micro bus architecture)
 module: wiki
 origin_type: wiki_page
 token_count: 6656
-version: N/A
 source_file: L1-raw/wiki/wiki_page-techref-ubus.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/techref/ubus
 language: text
+ai_summary: Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. Covers ubus object and method registration, the ubusd broker, ubus_context lifecycle, blob_buf message encoding, ubus_lookup, ubus_invoke, ubus_register_event_handler, and the acl JSON permission system.
+ai_when_to_use: Reference when implementing a new daemon that needs to expose RPC methods to other processes or to LuCI via rpcd, or when a script needs to call an existing ubus service using the ubus CLI or the ubus ucode/Lua binding.
+ai_related_topics:
+- ubusd
+- ubus_context
+- blob_buf
+- ubus_invoke
+- ubus_register_event_handler
+- rpcd
+- libubox
 ---
+
+> **Source:** [https://openwrt.org/docs/techref/ubus](https://openwrt.org/docs/techref/ubus)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # ubus (OpenWrt micro bus architecture)
 
 See also: [What is UBUS?](https://hackmd.io/@rYMqzC-9Rxy0Isn3zClURg/H1BY98bRw)

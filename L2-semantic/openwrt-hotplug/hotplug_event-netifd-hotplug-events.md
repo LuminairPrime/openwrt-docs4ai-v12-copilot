@@ -3,11 +3,21 @@ title: OpenWrt Core Hotplug Events
 module: openwrt-hotplug
 origin_type: hotplug_event
 token_count: 1412
-version: 41d6584
 source_file: L1-raw/openwrt-hotplug/hotplug_event-netifd-hotplug-events.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/**/etc/hotplug.d/*
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/**/etc/hotplug.d/*
+source_locator: package/**/etc/hotplug.d/*
 language: bash
+ai_summary: Documents the standard hotplug event environment variables injected by OpenWrt's netifd and network subsystems into scripts in /etc/hotplug.d/. Covers iface subsystem events (ifup, ifdown, ifupdate) with $INTERFACE, $DEVICE, and $ACTION variables; net subsystem events for physical interface changes; and hotplug script patterns using uci_toggle_state for persistent state tracking.
+ai_when_to_use: Reference when writing hotplug.d scripts that react to network interface state changes, USB device insertion, or any OpenWrt system event that needs to execute logic in response to $ACTION, $INTERFACE, or $DEVICE being set by the kernel and netifd.
+ai_related_topics:
+- $ACTION
+- $INTERFACE
+- $DEVICE
+- uci_toggle_state
+- hotplug.iface
+- hotplug.net
 ---
 # OpenWrt Core Hotplug Events
 

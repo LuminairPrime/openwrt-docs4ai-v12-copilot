@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-resolv",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/resolv.c",
+  "source_locator": "lib/resolv.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/resolv.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-20T04:57:24.597078+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:47.847704+00:00",
   "content_hash": "9fd5482d"
 }

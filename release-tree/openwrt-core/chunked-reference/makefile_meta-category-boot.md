@@ -3,12 +3,29 @@ title: 'OpenWrt Buildroot: boot packages'
 module: openwrt-core
 origin_type: makefile_meta
 token_count: 3710
-version: 41d6584
 source_file: L1-raw/openwrt-core/makefile_meta-category-boot.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/boot
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/boot
+source_locator: package/boot
 language: makefile
+ai_summary: The OpenWrt Buildroot boot packages module provides essential firmware components required for the boot process of various ARM-based devices. It includes several trusted firmware implementations for different hardware platforms, such as bcm63xx, mediatek, microchipsw, mvebu, rockchip, stm32, and sunxi. Each package is maintained by specific individuals and is sourced from respective repositories. The module facilitates the integration of these boot packages into the OpenWrt build system, ensuring compatibility and functionality across supported devices.
+ai_when_to_use: Use this module when building OpenWrt firmware for ARM devices that require specific boot firmware. It is particularly useful for developers targeting various hardware platforms needing trusted firmware.
+ai_related_topics:
+- apex
+- arm-trusted-firmware-bcm63xx
+- arm-trusted-firmware-mediatek
+- arm-trusted-firmware-microchipsw
+- arm-trusted-firmware-mvebu
+- arm-trusted-firmware-rockchip
+- arm-trusted-firmware-stm32
+- arm-trusted-firmware-sunxi
 ---
+
+> **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/boot](https://github.com/openwrt/openwrt/blob/unknown/package/boot)
+> **Kind:** makefile_meta | **Commit:** unknown | **Method:** normalized
+> **Normalized:** 2026-03-27
+
 # OpenWrt Buildroot: boot packages
 
 > **Source:** https://github.com/openwrt/openwrt/tree/master/package/boot

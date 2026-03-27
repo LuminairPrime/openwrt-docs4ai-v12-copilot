@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-mdns",
-  "original_url": "https://openwrt.org/docs/guide-developer/mdns",
+  "source_url": "https://openwrt.org/docs/guide-developer/mdns",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "9cfbddccbf29fffae61f75e89622967048c8f36029e6a5ad0c1ef846e87bc051",
   "source_path": "/docs/guide-developer/mdns",
-  "extraction_timestamp": "2026-03-09T21:33:21.849425+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:50.584985+00:00",
   "content_hash": "ee4cb1f9"
 }

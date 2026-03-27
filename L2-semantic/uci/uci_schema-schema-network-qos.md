@@ -3,11 +3,19 @@ title: 'UCI Default Schema: qos'
 module: uci
 origin_type: uci_schema
 token_count: 420
-version: 41d6584
 source_file: L1-raw/uci/uci_schema-schema-network-qos.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
-upstream_path: package/network/config/qos-scripts/files/etc/config/qos
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_commit: unknown
+source_url: https://github.com/openwrt/openwrt/blob/unknown/package/network/config/qos-scripts/files/etc/config/qos
+source_locator: package/network/config/qos-scripts/files/etc/config/qos
 language: uci
+ai_summary: Defines the default UCI configuration schema for the OpenWrt qos-scripts traffic-shaping system. Specifies interface sections with classgroup, enabled, upload (kbit/s), and download (kbit/s) options, and classify sections mapping port ranges, protocols, and address patterns to priority classes (Priority, Express, Normal, Bulk) used by the HFS+ queue discipline.
+ai_when_to_use: Reference when configuring per-interface bandwidth limits and traffic prioritization rules to ensure UCI key names, section types, and option values match what the qos-scripts daemon expects.
+ai_related_topics:
+- qos.interface
+- qos.classify
+- qos.classgroup
+- qos.default
 ---
 # UCI Default Schema: qos
 

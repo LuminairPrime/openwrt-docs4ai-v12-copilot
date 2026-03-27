@@ -1,0 +1,20 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "architecture-overview",
+  "source_locator": "content/cookbook-source/architecture-overview.md",
+  "title": "OpenWrt Architecture Overview",
+  "description": "Structural overview of OpenWrt component relationships, data flow, ACL/permission boundaries, and build-time vs runtime distinctions for AI tools and developers building on the platform.",
+  "when_to_use": "Use before writing any cross-component OpenWrt code that involves service management, configuration storage, web UI, or scripting to ensure the components are wired correctly.",
+  "related_modules": [
+    "procd",
+    "uci",
+    "ucode",
+    "luci",
+    "openwrt-core"
+  ],
+  "era_status": "current",
+  "verification_basis": "Corpus review of procd, ucode, luci, and uci modules; upstream repo structure; rpcd ACL documentation in luci corpus",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-23"
+}

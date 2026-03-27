@@ -3,7 +3,7 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "guide-developer-creating-a-cmake-package-in-openwrt",
-  "original_url": "https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt",
+  "source_url": "https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
@@ -11,6 +11,6 @@
   "last_modified_http": null,
   "raw_hash": "3f1e9e5eee9e9d715b5db76804499e431a2fd2edc57b8e852b8b9379b6edb1d1",
   "source_path": "/docs/guide-developer/creating-a-cmake-package-in-openwrt",
-  "extraction_timestamp": "2026-03-09T21:32:50.452868+00:00",
+  "extraction_timestamp": "2026-03-26T08:34:20.705600+00:00",
   "content_hash": "b3233789"
 }

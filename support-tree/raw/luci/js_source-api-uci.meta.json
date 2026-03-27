@@ -3,10 +3,11 @@
   "origin_type": "js_source",
   "module": "luci",
   "slug": "api-uci",
-  "original_url": null,
+  "source_url": "https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/uci.js",
+  "source_locator": "modules/luci-base/htdocs/luci-static/resources/uci.js",
+  "source_commit": "unknown",
   "language": "javascript",
-  "upstream_path": "modules/luci-base/htdocs/luci-static/resources/uci.js",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:32.441881+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:38.829929+00:00",
   "content_hash": "6214aba4"
 }

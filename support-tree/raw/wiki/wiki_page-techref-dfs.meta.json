@@ -3,14 +3,14 @@
   "origin_type": "wiki_page",
   "module": "wiki",
   "slug": "techref-dfs",
-  "original_url": "https://openwrt.org/docs/techref/dfs",
+  "source_url": "https://openwrt.org/docs/techref/dfs",
   "language": "text",
   "fetch_status": "success",
   "conversion_mode": "pandoc",
   "last_modified": "unknown",
   "last_modified_http": null,
-  "raw_hash": "2c843d3073e362ccc928d6c1d5dd9475a8d6725d4b3f198d4a2cf8bb5eca8edc",
+  "raw_hash": "764d532fa33dfc1f213e07942d1ce87bd64e4f32ca6d76189ee044b6f8aa915c",
   "source_path": "/docs/techref/dfs",
-  "extraction_timestamp": "2026-03-09T21:34:09.136698+00:00",
-  "content_hash": "4bf61fde"
+  "extraction_timestamp": "2026-03-26T08:35:37.884631+00:00",
+  "content_hash": "2cc936a7"
 }

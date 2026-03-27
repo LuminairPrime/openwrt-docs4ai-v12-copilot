@@ -1,0 +1,18 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "procd-service-lifecycle",
+  "source_locator": "content/cookbook-source/procd-service-lifecycle.md",
+  "title": "procd Service Lifecycle",
+  "description": "Complete guide to writing a procd-managed init script for an OpenWrt service, covering the full lifecycle from start to reload to stop with supervised respawn.",
+  "when_to_use": "Use when writing a new /etc/init.d/ script that must integrate with the OpenWrt procd process supervisor for automatic respawn, controlled signal handling, and UCI-trigger-based reload.",
+  "related_modules": [
+    "procd",
+    "uci",
+    "wiki"
+  ],
+  "era_status": "current",
+  "verification_basis": "Corpus review of procd module (header_api-procd-api.md); wiki procd-init-scripts and procd-init-script-example pages; upstream procd.sh source via corpus",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-23"
+}

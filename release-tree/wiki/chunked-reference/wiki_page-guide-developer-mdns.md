@@ -3,11 +3,16 @@ title: umdns for Local Device Discovery
 module: wiki
 origin_type: wiki_page
 token_count: 2298
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-mdns.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/mdns
 language: text
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/mdns](https://openwrt.org/docs/guide-developer/mdns)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # umdns for Local Device Discovery
 
 The [umdns](/packages/pkgdata/umdns) package creates a local DNS name for your router. When `umdns` is installed, the router and all its services are available using the name *hostname.local* instead of requiring the router's IP address.
@@ -20,7 +25,7 @@ The [umdns](/packages/pkgdata/umdns) package provides a compact implementation o
 
 ### Configuration
 
-**I NEED HELP NAILING DOWN THE DEFAULT, AND THE CORRECT DESCRIPTION OF ALL THE FOLLOWING LINES**
+**I NEED HELP NAILING DOWN THE DEFAULT, AND THE [CORRECT](../../cookbook/chunked-reference/uci-read-write-from-ucode.md) DESCRIPTION OF ALL THE FOLLOWING LINES**
 
 **Hostname:** `umdns` advertises the hostname that is present in `/etc/config/system`.
 
@@ -148,7 +153,7 @@ Here we can see that ssh is being advertised locally.
 
 If you want to advertise your own service, your service needs to be a [procd](/docs/guide-developer/procd) managed service. You can use the `procd_add_mdns` call to provide a basic definition.
 
-    procd_open_instance
+    [procd_open_instance](../../cookbook/chunked-reference/procd-service-lifecycle.md)
     ....
     procd_add_mdns <service> <proto> <port> [<textkey=textvalue> ... ]
     ...

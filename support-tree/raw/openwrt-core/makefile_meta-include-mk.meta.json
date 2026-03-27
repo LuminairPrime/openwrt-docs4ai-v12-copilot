@@ -3,10 +3,9 @@
   "origin_type": "makefile_meta",
   "module": "openwrt-core",
   "slug": "include-mk",
-  "original_url": null,
+  "source_url": "https://github.com/openwrt/openwrt/blob/unknown/include/",
+  "source_locator": "include/",
+  "source_commit": "unknown",
   "language": "makefile",
-  "upstream_path": "include/",
-  "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:29.908962+00:00",
   "content_hash": "53cd7a66"
 }

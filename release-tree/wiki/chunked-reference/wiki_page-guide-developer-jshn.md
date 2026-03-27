@@ -3,11 +3,34 @@ title: 'jshn: a JSON parsing and generation library in for shell scripts'
 module: wiki
 origin_type: wiki_page
 token_count: 3692
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-jshn.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/jshn
 language: text
+ai_summary: The `jshn` module is a JSON parsing and generation library designed for use in shell scripts within OpenWrt. It provides functions to initialize JSON structures, add various data types (like integers, strings, booleans, arrays, and objects), and parse JSON data from variables or files. Key functions include `json_init`, `json_add_int`, `json_load`, and `json_get_var`, which facilitate the creation and manipulation of JSON data in shell scripts. This library is particularly useful for developers needing to handle JSON in environments lacking native JSON support.
+ai_when_to_use: Use `jshn` when you need to parse or generate JSON data in OpenWrt shell scripts, especially when working with APIs or configuration files that utilize JSON format.
+ai_related_topics:
+- json_init
+- json_add_int
+- json_add_string
+- json_add_boolean
+- json_add_array
+- json_add_object
+- json_load
+- json_get_var
+- json_get_vars
+- json_select
+- json_close_object
+- json_close_array
+- json_dump
+- json_load_file
+- json_is_a
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/jshn](https://openwrt.org/docs/guide-developer/jshn)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # jshn: a JSON parsing and generation library in for shell scripts
 
 `jshn` (JSON SHell Notation), a small utility and shell library for parsing and generating [JSON](https://en.wikipedia.org/wiki/JSON) data.

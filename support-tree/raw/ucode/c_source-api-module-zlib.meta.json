@@ -3,10 +3,11 @@
   "origin_type": "c_source",
   "module": "ucode",
   "slug": "api-module-zlib",
-  "original_url": null,
+  "source_url": "https://github.com/nicowillis/ucode/blob/unknown/lib/zlib.c",
+  "source_locator": "lib/zlib.c",
+  "source_commit": "unknown",
   "language": "c",
-  "upstream_path": "lib/zlib.c",
   "fetch_status": "success",
-  "extraction_timestamp": "2026-03-23T22:11:44.916748+00:00",
+  "extraction_timestamp": "2026-03-27T07:13:51.193860+00:00",
   "content_hash": "400bb94a"
 }

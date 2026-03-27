@@ -3,10 +3,19 @@ title: Network scripts
 module: wiki
 origin_type: wiki_page
 token_count: 3764
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-network-scripting.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/network-scripting
 language: text
+ai_summary: 'The Network scripts module in OpenWrt provides a framework for implementing protocol handlers that enable various network configurations through the netifd daemon. Each protocol handler is a shell script located in `/lib/netifd/proto/` and must define at least two functions: `proto_protocolname_init_config` for parameter validation and monitoring, and `proto_protocolname_setup` for executing the protocol-specific setup logic. The handlers are invoked with configuration parameters in JSON format, allowing for dynamic updates to network interfaces. Changes to the protocol handlers require a restart of the netifd daemon to take effect.'
+ai_when_to_use: Use this module when you need to implement custom network protocols such as PPPoE or 3G in OpenWrt, allowing for dynamic configuration and management of network interfaces.
+ai_related_topics:
+- proto_protocolname_init_config
+- proto_protocolname_setup
+- add_protocol
+- proto_config_add_string
+- proto_config_add_int
+- proto_config_add_boolean
 ---
 # Network scripts
 

@@ -3,11 +3,16 @@ title: Security
 module: wiki
 origin_type: wiki_page
 token_count: 2147
-version: N/A
 source_file: L1-raw/wiki/wiki_page-guide-developer-security.md
-last_pipeline_run: '2026-03-23T22:14:22.429226+00:00'
+last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+source_url: https://openwrt.org/docs/guide-developer/security
 language: text
 ---
+
+> **Source:** [https://openwrt.org/docs/guide-developer/security](https://openwrt.org/docs/guide-developer/security)
+> **Kind:** wiki_page | **Method:** scraped
+> **Normalized:** 2026-03-27
+
 # Security
 
 See [Security old](/docs/guide-developer/security/old) for the old page.
