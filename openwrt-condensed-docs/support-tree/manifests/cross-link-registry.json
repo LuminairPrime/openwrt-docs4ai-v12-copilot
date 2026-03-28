@@ -1,254 +1,146 @@
 {
-  "pipeline_date": "2026-03-28T05:18:40.352496+00:00",
+  "pipeline_date": "2026-03-27T20:02:39.961617+00:00",
   "symbols": {
-    "WRONG": {
-      "signature": "WRONG()",
-      "file": "L1-raw/cookbook/ucode-rpcd-service-pattern.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/ucode-rpcd-service-pattern.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "CORRECT": {
-      "signature": "CORRECT()",
-      "file": "L1-raw/cookbook/ucode-rpcd-service-pattern.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/ucode-rpcd-service-pattern.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "INSTALL_BIN": {
-      "signature": "INSTALL_BIN()",
-      "file": "L1-raw/cookbook/minimal-openwrt-package-makefile.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/minimal-openwrt-package-makefile.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "USE_PROCD": {
-      "signature": "USE_PROCD()",
-      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/procd-service-lifecycle.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "procd_open_service": {
-      "signature": "procd_open_service()",
-      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/procd-service-lifecycle.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "procd_open_instance": {
-      "signature": "procd_open_instance()",
-      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/procd-service-lifecycle.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "procd_set_param": {
-      "signature": "procd_set_param()",
-      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/procd-service-lifecycle.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "service_triggers": {
-      "signature": "service_triggers()",
-      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/procd-service-lifecycle.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.get": {
-      "signature": "uci.get(config, section, option)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.get_first": {
-      "signature": "uci.get_first(config, type, option)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.foreach": {
-      "signature": "uci.foreach(config, type, callback)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.set": {
-      "signature": "uci.set(config, section, option, value)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.commit": {
-      "signature": "uci.commit(config)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "uci.unload": {
-      "signature": "uci.unload(config)",
-      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
-      "module": "cookbook",
-      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "debug.memdump": {
-      "signature": "debug.memdump(file)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "struct.pack": {
+      "signature": "struct.pack(format, ...values)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.traceback": {
-      "signature": "debug.traceback([level]) \u21d2 [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "struct.unpack": {
+      "signature": "struct.unpack(format, input, [offset])",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.sourcepos": {
-      "signature": "debug.sourcepos() \u21d2 [`SourcePosition`](#module_debug.SourcePosition)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "struct.new": {
+      "signature": "struct.new(format) \u21d2 [`instance`](#module_struct.instance)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.getinfo": {
-      "signature": "debug.getinfo(value) \u21d2 [`ValueInformation`](#module_debug.ValueInformation)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "struct.buffer": {
+      "signature": "struct.buffer()",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.getlocal": {
-      "signature": "debug.getlocal([level], variable) \u21d2 [`LocalInfo`](#module_debug.LocalInfo)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "struct.instance": {
+      "signature": "struct.instance()",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.setlocal": {
-      "signature": "debug.setlocal([level], variable, [value]) \u21d2 [`LocalInfo`](#module_debug.LocalInfo)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "instance.pack": {
+      "signature": "instance.pack(...values)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.getupval": {
-      "signature": "debug.getupval(target, variable) \u21d2 [`UpvalInfo`](#module_debug.UpvalInfo)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "instance.unpack": {
+      "signature": "instance.unpack(input, [offset])",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.setupval": {
-      "signature": "debug.setupval(target, variable, value) \u21d2 [`UpvalInfo`](#module_debug.UpvalInfo)",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.pos": {
+      "signature": "buffer.pos([position]) \u21d2 `number` \\| [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.StackTraceEntry": {
-      "signature": "debug.StackTraceEntry()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.length": {
+      "signature": "buffer.length([length]) \u21d2 `number` \\| [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.SourcePosition": {
-      "signature": "debug.SourcePosition()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.start": {
+      "signature": "buffer.start() \u21d2 [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.UpvalRef": {
-      "signature": "debug.UpvalRef()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.end": {
+      "signature": "buffer.end() \u21d2 [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.ValueInformation": {
-      "signature": "debug.ValueInformation()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.put": {
+      "signature": "buffer.put(format, ...values) \u21d2 [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.LocalInfo": {
-      "signature": "debug.LocalInfo()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.get": {
+      "signature": "buffer.get(format)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "debug.UpvalInfo": {
-      "signature": "debug.UpvalInfo()",
-      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+    "buffer.slice": {
+      "signature": "buffer.slice([start], [end])",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "buffer.set": {
+      "signature": "buffer.set([value], [start], [end]) \u21d2 [`buffer`](#module_struct.buffer)",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "buffer.pull": {
+      "signature": "buffer.pull()",
+      "file": "L1-raw/ucode/c_source-api-module-struct.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
@@ -312,6 +204,465 @@
       "file": "L1-raw/ucode/c_source-api-module-digest.md",
       "module": "ucode",
       "relative_target": "../ucode/c_source-api-module-digest.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.error": {
+      "signature": "socket.error([numeric])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.strerror": {
+      "signature": "socket.strerror(code)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.sockaddr": {
+      "signature": "socket.sockaddr(address) \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.nameinfo": {
+      "signature": "socket.nameinfo(address, [flags])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.addrinfo": {
+      "signature": "socket.addrinfo(hostname, [service], [hints]) \u21d2 [`Array.<AddressInfo>`](#module_socket.AddressInfo)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.poll": {
+      "signature": "socket.poll(timeout, ...sockets) \u21d2 [`Array.<PollSpec>`](#module_socket.PollSpec)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.connect": {
+      "signature": "socket.connect(address, port)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.listen": {
+      "signature": "socket.listen([backlog])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.create": {
+      "signature": "socket.create([domain], [type], [protocol]) \u21d2 [`socket`](#module_socket.socket)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.open": {
+      "signature": "socket.open([fd]) \u21d2 [`socket`](#module_socket.socket)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.pair": {
+      "signature": "socket.pair([type])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.socket": {
+      "signature": "socket.socket()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.setopt": {
+      "signature": "socket.setopt(level, option, value)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.getopt": {
+      "signature": "socket.getopt(level, option)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.fileno": {
+      "signature": "socket.fileno()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.send": {
+      "signature": "socket.send(data, [flags], [address])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.recv": {
+      "signature": "socket.recv([length], [flags], [address])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.sendmsg": {
+      "signature": "socket.sendmsg([data], [ancillaryData], [address], [flags])",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.recvmsg": {
+      "signature": "socket.recvmsg([sizes], [ancillarySize], [flags]) \u21d2 [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.bind": {
+      "signature": "socket.bind(address)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.accept": {
+      "signature": "socket.accept([address], [flags]) \u21d2 [`socket`](#module_socket.socket)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.shutdown": {
+      "signature": "socket.shutdown(how)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.peercred": {
+      "signature": "socket.peercred() \u21d2 [`PeerCredentials`](#module_socket.socket.PeerCredentials)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.peername": {
+      "signature": "socket.peername() \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.sockname": {
+      "signature": "socket.sockname() \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.close": {
+      "signature": "socket.close()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.SocketAddress": {
+      "signature": "socket.SocketAddress()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.ControlMessage": {
+      "signature": "socket.ControlMessage()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.ReceivedMessage": {
+      "signature": "socket.ReceivedMessage()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.PeerCredentials": {
+      "signature": "socket.PeerCredentials()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.AddressInfo": {
+      "signature": "socket.AddressInfo()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "socket.PollSpec": {
+      "signature": "socket.PollSpec()",
+      "file": "L1-raw/ucode/c_source-api-module-socket.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-socket.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.openlog": {
+      "signature": "log.openlog([ident], [options], [facility])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.syslog": {
+      "signature": "log.syslog(priority, format, [...args])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.closelog": {
+      "signature": "log.closelog()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.ulog": {
+      "signature": "log.ulog()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.INFO": {
+      "signature": "log.INFO(format, [...args])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.NOTE": {
+      "signature": "log.NOTE(format, [...args])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.WARN": {
+      "signature": "log.WARN(format, [...args])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.ERR": {
+      "signature": "log.ERR(format, [...args])",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.LogOption": {
+      "signature": "log.LogOption()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.LogFacility": {
+      "signature": "log.LogFacility()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.LogPriority": {
+      "signature": "log.LogPriority()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "log.UlogChannel": {
+      "signature": "log.UlogChannel()",
+      "file": "L1-raw/ucode/c_source-api-module-log.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-log.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "resolv.query": {
+      "signature": "resolv.query(names, [options])",
+      "file": "L1-raw/ucode/c_source-api-module-resolv.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-resolv.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "resolv.error": {
+      "signature": "resolv.error()",
+      "file": "L1-raw/ucode/c_source-api-module-resolv.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-resolv.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "rtnl.error": {
+      "signature": "rtnl.error()",
+      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-rtnl.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "rtnl.request": {
+      "signature": "rtnl.request(cmd, flags, payload)",
+      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-rtnl.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "rtnl.listener": {
+      "signature": "rtnl.listener()",
+      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-rtnl.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "listener.set": {
+      "signature": "listener.set()",
+      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-rtnl.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "listener.close": {
+      "signature": "listener.close()",
+      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-rtnl.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
@@ -397,6 +748,15 @@
       "parameters": [],
       "deprecated": false
     },
+    "fs.statvfs": {
+      "signature": "fs.statvfs(path) \u21d2 [`StatVFSResult`](#module_fs.StatVFSResult)",
+      "file": "L1-raw/ucode/c_source-api-module-fs.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
     "fs.mkdir": {
       "signature": "fs.mkdir(path)",
       "file": "L1-raw/ucode/c_source-api-module-fs.md",
@@ -471,6 +831,15 @@
     },
     "fs.rename": {
       "signature": "fs.rename(oldPath, newPath)",
+      "file": "L1-raw/ucode/c_source-api-module-fs.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "fs.glob": {
+      "signature": "fs.glob(...pattern)",
       "file": "L1-raw/ucode/c_source-api-module-fs.md",
       "module": "ucode",
       "relative_target": "../ucode/c_source-api-module-fs.md",
@@ -820,6 +1189,24 @@
       "parameters": [],
       "deprecated": false
     },
+    "fs.StatVFSResult": {
+      "signature": "fs.StatVFSResult()",
+      "file": "L1-raw/ucode/c_source-api-module-fs.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "fs.ST": {
+      "signature": "fs.ST()",
+      "file": "L1-raw/ucode/c_source-api-module-fs.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
     "io.error": {
       "signature": "io.error()",
       "file": "L1-raw/ucode/c_source-api-module-io.md",
@@ -1027,110 +1414,101 @@
       "parameters": [],
       "deprecated": false
     },
-    "log.openlog": {
-      "signature": "log.openlog([ident], [options], [facility])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "zlib.deflate": {
+      "signature": "zlib.deflate()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.syslog": {
-      "signature": "log.syslog(priority, format, [...args])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "zlib.inflate": {
+      "signature": "zlib.inflate()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.closelog": {
-      "signature": "log.closelog()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "zlib.deflater": {
+      "signature": "zlib.deflater([gzip], [level]) \u21d2 [`deflate`](#module_zlib.deflate)",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.ulog": {
-      "signature": "log.ulog()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "zlib.inflater": {
+      "signature": "zlib.inflater() \u21d2 [`inflate`](#module_zlib.inflate)",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.INFO": {
-      "signature": "log.INFO(format, [...args])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "deflate.write": {
+      "signature": "deflate.write(src, [flush])",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.NOTE": {
-      "signature": "log.NOTE(format, [...args])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "deflate.read": {
+      "signature": "deflate.read()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.WARN": {
-      "signature": "log.WARN(format, [...args])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "deflate.error": {
+      "signature": "deflate.error()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.ERR": {
-      "signature": "log.ERR(format, [...args])",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "inflate.write": {
+      "signature": "inflate.write(src, [flush])",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.LogOption": {
-      "signature": "log.LogOption()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "inflate.read": {
+      "signature": "inflate.read()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.LogFacility": {
-      "signature": "log.LogFacility()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "inflate.error": {
+      "signature": "inflate.error()",
+      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-zlib.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "log.LogPriority": {
-      "signature": "log.LogPriority()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
+    "nl80211.listener": {
+      "signature": "nl80211.listener()",
+      "file": "L1-raw/ucode/c_source-api-module-nl80211.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "log.UlogChannel": {
-      "signature": "log.UlogChannel()",
-      "file": "L1-raw/ucode/c_source-api-module-log.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-log.md",
+      "relative_target": "../ucode/c_source-api-module-nl80211.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
@@ -1230,510 +1608,6 @@
       "file": "L1-raw/ucode/c_source-api-module-math.md",
       "module": "ucode",
       "relative_target": "../ucode/c_source-api-module-math.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "nl80211.listener": {
-      "signature": "nl80211.listener()",
-      "file": "L1-raw/ucode/c_source-api-module-nl80211.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-nl80211.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "resolv.query": {
-      "signature": "resolv.query(names, [options])",
-      "file": "L1-raw/ucode/c_source-api-module-resolv.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-resolv.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "resolv.error": {
-      "signature": "resolv.error()",
-      "file": "L1-raw/ucode/c_source-api-module-resolv.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-resolv.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "rtnl.error": {
-      "signature": "rtnl.error()",
-      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-rtnl.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "rtnl.request": {
-      "signature": "rtnl.request(cmd, flags, payload)",
-      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-rtnl.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "rtnl.listener": {
-      "signature": "rtnl.listener()",
-      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-rtnl.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "listener.set": {
-      "signature": "listener.set()",
-      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-rtnl.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "listener.close": {
-      "signature": "listener.close()",
-      "file": "L1-raw/ucode/c_source-api-module-rtnl.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-rtnl.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.error": {
-      "signature": "socket.error([numeric])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.strerror": {
-      "signature": "socket.strerror(code)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.sockaddr": {
-      "signature": "socket.sockaddr(address) \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.nameinfo": {
-      "signature": "socket.nameinfo(address, [flags])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.addrinfo": {
-      "signature": "socket.addrinfo(hostname, [service], [hints]) \u21d2 [`Array.<AddressInfo>`](#module_socket.AddressInfo)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.poll": {
-      "signature": "socket.poll(timeout, ...sockets) \u21d2 [`Array.<PollSpec>`](#module_socket.PollSpec)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.connect": {
-      "signature": "socket.connect(address, port)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.listen": {
-      "signature": "socket.listen([backlog])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.create": {
-      "signature": "socket.create([domain], [type], [protocol]) \u21d2 [`socket`](#module_socket.socket)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.open": {
-      "signature": "socket.open([fd]) \u21d2 [`socket`](#module_socket.socket)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.pair": {
-      "signature": "socket.pair([type])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.socket": {
-      "signature": "socket.socket()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.setopt": {
-      "signature": "socket.setopt(level, option, value)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.getopt": {
-      "signature": "socket.getopt(level, option)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.fileno": {
-      "signature": "socket.fileno()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.send": {
-      "signature": "socket.send(data, [flags], [address])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.recv": {
-      "signature": "socket.recv([length], [flags], [address])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.sendmsg": {
-      "signature": "socket.sendmsg([data], [ancillaryData], [address], [flags])",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.recvmsg": {
-      "signature": "socket.recvmsg([sizes], [ancillarySize], [flags]) \u21d2 [`ReceivedMessage`](#module_socket.socket.ReceivedMessage)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.bind": {
-      "signature": "socket.bind(address)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.accept": {
-      "signature": "socket.accept([address], [flags]) \u21d2 [`socket`](#module_socket.socket)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.shutdown": {
-      "signature": "socket.shutdown(how)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.peercred": {
-      "signature": "socket.peercred() \u21d2 [`PeerCredentials`](#module_socket.socket.PeerCredentials)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.peername": {
-      "signature": "socket.peername() \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.sockname": {
-      "signature": "socket.sockname() \u21d2 [`SocketAddress`](#module_socket.socket.SocketAddress)",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.close": {
-      "signature": "socket.close()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.SocketAddress": {
-      "signature": "socket.SocketAddress()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.ControlMessage": {
-      "signature": "socket.ControlMessage()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.ReceivedMessage": {
-      "signature": "socket.ReceivedMessage()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.PeerCredentials": {
-      "signature": "socket.PeerCredentials()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.AddressInfo": {
-      "signature": "socket.AddressInfo()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "socket.PollSpec": {
-      "signature": "socket.PollSpec()",
-      "file": "L1-raw/ucode/c_source-api-module-socket.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-socket.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "struct.pack": {
-      "signature": "struct.pack(format, ...values)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "struct.unpack": {
-      "signature": "struct.unpack(format, input, [offset])",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "struct.new": {
-      "signature": "struct.new(format) \u21d2 [`instance`](#module_struct.instance)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "struct.buffer": {
-      "signature": "struct.buffer()",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "struct.instance": {
-      "signature": "struct.instance()",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "instance.pack": {
-      "signature": "instance.pack(...values)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "instance.unpack": {
-      "signature": "instance.unpack(input, [offset])",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.pos": {
-      "signature": "buffer.pos([position]) \u21d2 `number` \\| [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.length": {
-      "signature": "buffer.length([length]) \u21d2 `number` \\| [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.start": {
-      "signature": "buffer.start() \u21d2 [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.end": {
-      "signature": "buffer.end() \u21d2 [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.put": {
-      "signature": "buffer.put(format, ...values) \u21d2 [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.get": {
-      "signature": "buffer.get(format)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.slice": {
-      "signature": "buffer.slice([start], [end])",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.set": {
-      "signature": "buffer.set([value], [start], [end]) \u21d2 [`buffer`](#module_struct.buffer)",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
-      "returns": "any",
-      "parameters": [],
-      "deprecated": false
-    },
-    "buffer.pull": {
-      "signature": "buffer.pull()",
-      "file": "L1-raw/ucode/c_source-api-module-struct.md",
-      "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-struct.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
@@ -2242,92 +2116,1613 @@
       "parameters": [],
       "deprecated": false
     },
-    "zlib.deflate": {
-      "signature": "zlib.deflate()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.memdump": {
+      "signature": "debug.memdump(file)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "zlib.inflate": {
-      "signature": "zlib.inflate()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.traceback": {
+      "signature": "debug.traceback([level]) \u21d2 [`Array.<StackTraceEntry>`](#module_debug.StackTraceEntry)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "zlib.deflater": {
-      "signature": "zlib.deflater([gzip], [level]) \u21d2 [`deflate`](#module_zlib.deflate)",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.sourcepos": {
+      "signature": "debug.sourcepos() \u21d2 [`SourcePosition`](#module_debug.SourcePosition)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "zlib.inflater": {
-      "signature": "zlib.inflater() \u21d2 [`inflate`](#module_zlib.inflate)",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.getinfo": {
+      "signature": "debug.getinfo(value) \u21d2 [`ValueInformation`](#module_debug.ValueInformation)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "deflate.write": {
-      "signature": "deflate.write(src, [flush])",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.getlocal": {
+      "signature": "debug.getlocal([level], variable) \u21d2 [`LocalInfo`](#module_debug.LocalInfo)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "deflate.read": {
-      "signature": "deflate.read()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.setlocal": {
+      "signature": "debug.setlocal([level], variable, [value]) \u21d2 [`LocalInfo`](#module_debug.LocalInfo)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "deflate.error": {
-      "signature": "deflate.error()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.getupval": {
+      "signature": "debug.getupval(target, variable) \u21d2 [`UpvalInfo`](#module_debug.UpvalInfo)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "inflate.write": {
-      "signature": "inflate.write(src, [flush])",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.setupval": {
+      "signature": "debug.setupval(target, variable, value) \u21d2 [`UpvalInfo`](#module_debug.UpvalInfo)",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "inflate.read": {
-      "signature": "inflate.read()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.StackTraceEntry": {
+      "signature": "debug.StackTraceEntry()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false
     },
-    "inflate.error": {
-      "signature": "inflate.error()",
-      "file": "L1-raw/ucode/c_source-api-module-zlib.md",
+    "debug.SourcePosition": {
+      "signature": "debug.SourcePosition()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
       "module": "ucode",
-      "relative_target": "../ucode/c_source-api-module-zlib.md",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "debug.UpvalRef": {
+      "signature": "debug.UpvalRef()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "debug.ValueInformation": {
+      "signature": "debug.ValueInformation()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "debug.LocalInfo": {
+      "signature": "debug.LocalInfo()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "debug.UpvalInfo": {
+      "signature": "debug.UpvalInfo()",
+      "file": "L1-raw/ucode/c_source-api-module-debug.md",
+      "module": "ucode",
+      "relative_target": "../ucode/c_source-api-module-debug.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "WRONG": {
+      "signature": "WRONG()",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "CORRECT": {
+      "signature": "CORRECT()",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "INSTALL_BIN": {
+      "signature": "INSTALL_BIN()",
+      "file": "L1-raw/cookbook/minimal-openwrt-package-makefile.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/minimal-openwrt-package-makefile.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.get": {
+      "signature": "uci.get(config, section, option)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.get_first": {
+      "signature": "uci.get_first(config, type, option)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.foreach": {
+      "signature": "uci.foreach(config, type, callback)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.set": {
+      "signature": "uci.set(config, section, option, value)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.commit": {
+      "signature": "uci.commit(config)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uci.unload": {
+      "signature": "uci.unload(config)",
+      "file": "L1-raw/cookbook/uci-read-write-from-ucode.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/uci-read-write-from-ucode.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "USE_PROCD": {
+      "signature": "USE_PROCD()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_open_service": {
+      "signature": "procd_open_service()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_open_instance": {
+      "signature": "procd_open_instance()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "procd_set_param": {
+      "signature": "procd_set_param()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "service_triggers": {
+      "signature": "service_triggers()",
+      "file": "L1-raw/cookbook/procd-service-lifecycle.md",
+      "module": "cookbook",
+      "relative_target": "../cookbook/procd-service-lifecycle.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.env": {
+      "signature": "luCI.env()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.naturalCompare": {
+      "signature": "luCI.naturalCompare()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.raise": {
+      "signature": "luCI.raise([type], [fmt], [...args])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.error": {
+      "signature": "luCI.error([type], [fmt], [...args])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.bind": {
+      "signature": "luCI.bind(fn, self, [...args])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.require": {
+      "signature": "luCI.require(name, [from]) \u21d2 [`Promise.<baseclass>`](#LuCI.baseclass)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.hasSystemFeature": {
+      "signature": "luCI.hasSystemFeature(feature, [subfeature])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.fspath": {
+      "signature": "luCI.fspath([...parts])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.path": {
+      "signature": "luCI.path([prefix], [...parts])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.url": {
+      "signature": "luCI.url([...parts])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.resource": {
+      "signature": "luCI.resource([...parts])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.media": {
+      "signature": "luCI.media([...parts])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.location": {
+      "signature": "luCI.location()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.isObject": {
+      "signature": "luCI.isObject([val])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.isArguments": {
+      "signature": "luCI.isArguments([val])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.sortedKeys": {
+      "signature": "luCI.sortedKeys(obj, [key], [sortmode])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.sortedArray": {
+      "signature": "luCI.sortedArray(val)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.toArray": {
+      "signature": "luCI.toArray(val)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.resolveDefault": {
+      "signature": "luCI.resolveDefault(value, defvalue)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "luCI.hasViewPermission": {
+      "signature": "luCI.hasViewPermission()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.baseclass": {
+      "signature": "LuCI.baseclass()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.varargs": {
+      "signature": "baseclass.varargs(args, offset, [...extra_args])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.super": {
+      "signature": "baseclass.super(key, [callArgs])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.toString": {
+      "signature": "baseclass.toString()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.extend": {
+      "signature": "baseclass.extend(properties) \u21d2 [`baseclass`](#LuCI.baseclass)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.singleton": {
+      "signature": "baseclass.singleton(properties, ...new_args) \u21d2 [`baseclass`](#LuCI.baseclass)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.instantiate": {
+      "signature": "baseclass.instantiate(args) \u21d2 [`baseclass`](#LuCI.baseclass)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "baseclass.isSubclass": {
+      "signature": "baseclass.isSubclass(classValue)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.headers": {
+      "signature": "LuCI.headers()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "headers.has": {
+      "signature": "headers.has(name)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "headers.get": {
+      "signature": "headers.get(name)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.response": {
+      "signature": "LuCI.response()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.ok": {
+      "signature": "response.ok()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.status": {
+      "signature": "response.status()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.statusText": {
+      "signature": "response.statusText()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.headers": {
+      "signature": "response.headers()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.duration": {
+      "signature": "response.duration()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.url": {
+      "signature": "response.url()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.clone": {
+      "signature": "response.clone([content]) \u21d2 [`response`](#LuCI.response)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.json": {
+      "signature": "response.json()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.text": {
+      "signature": "response.text()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "response.blob": {
+      "signature": "response.blob()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.request": {
+      "signature": "LuCI.request()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.expandURL": {
+      "signature": "request.expandURL(url)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.request": {
+      "signature": "request.request(target, [options]) \u21d2 [`Promise.<response>`](#LuCI.response)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.handleReadyStateChange": {
+      "signature": "request.handleReadyStateChange(resolveFn, rejectFn, [ev])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.get": {
+      "signature": "request.get(url, [options]) \u21d2 [`Promise.<response>`](#LuCI.response)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.post": {
+      "signature": "request.post(url, [data], [options]) \u21d2 [`Promise.<response>`](#LuCI.response)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.addInterceptor": {
+      "signature": "request.addInterceptor(interceptorFn) \u21d2 [`interceptorFn`](#LuCI.request.interceptorFn)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.removeInterceptor": {
+      "signature": "request.removeInterceptor(interceptorFn)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.poll": {
+      "signature": "request.poll()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.RequestOptions": {
+      "signature": "request.RequestOptions()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "request.interceptorFn": {
+      "signature": "request.interceptorFn()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.poll": {
+      "signature": "LuCI.poll()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "poll.add": {
+      "signature": "poll.add(fn, interval)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "poll.remove": {
+      "signature": "poll.remove(fn)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "poll.start": {
+      "signature": "poll.start()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "poll.stop": {
+      "signature": "poll.stop()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "poll.active": {
+      "signature": "poll.active()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LuCI.dom": {
+      "signature": "LuCI.dom()",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.elem": {
+      "signature": "dom.elem(e)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.parse": {
+      "signature": "dom.parse(s)",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.matches": {
+      "signature": "dom.matches(node, [selector])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.parent": {
+      "signature": "dom.parent(node, [selector])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.append": {
+      "signature": "dom.append(node, [children])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "dom.content": {
+      "signature": "dom.content(node, [children])",
+      "file": "L1-raw/luci/js_source-api-luci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-luci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "isEqual": {
+      "signature": "isEqual(x, y)",
+      "file": "L1-raw/luci/js_source-api-form.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-form.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "isContained": {
+      "signature": "isContained(x, y)",
+      "file": "L1-raw/luci/js_source-api-form.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-form.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "initFirewallState": {
+      "signature": "initFirewallState()",
+      "file": "L1-raw/luci/js_source-api-firewall.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-firewall.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "parseEnum": {
+      "signature": "parseEnum(s, values)",
+      "file": "L1-raw/luci/js_source-api-firewall.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-firewall.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "parsePolicy": {
+      "signature": "parsePolicy(s, [defaultValue])",
+      "file": "L1-raw/luci/js_source-api-firewall.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-firewall.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "lookupZone": {
+      "signature": "lookupZone(name)",
+      "file": "L1-raw/luci/js_source-api-firewall.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-firewall.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "getColorForName": {
+      "signature": "getColorForName(forName)",
+      "file": "L1-raw/luci/js_source-api-firewall.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-firewall.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "isEmpty": {
+      "signature": "isEmpty(object, ignore)",
+      "file": "L1-raw/luci/js_source-api-uci.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-uci.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "scrubMenu": {
+      "signature": "scrubMenu(node)",
+      "file": "L1-raw/luci/js_source-api-ui.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-ui.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "handleRpcReply": {
+      "signature": "handleRpcReply(expect, rc)",
+      "file": "L1-raw/luci/js_source-api-fs.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "handleCgiIoReply": {
+      "signature": "handleCgiIoReply(res)",
+      "file": "L1-raw/luci/js_source-api-fs.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-fs.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "getUsers": {
+      "signature": "getUsers()",
+      "file": "L1-raw/luci/js_source-api-tools-widgets.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-tools-widgets.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "getGroups": {
+      "signature": "getGroups()",
+      "file": "L1-raw/luci/js_source-api-tools-widgets.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-tools-widgets.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "getDevices": {
+      "signature": "getDevices(network)",
+      "file": "L1-raw/luci/js_source-api-tools-widgets.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-tools-widgets.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "isCIDR": {
+      "signature": "isCIDR(value)",
+      "file": "L1-raw/luci/js_source-api-protocol-static.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-protocol-static.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "calculateBroadcast": {
+      "signature": "calculateBroadcast(s, use_cfgvalue)",
+      "file": "L1-raw/luci/js_source-api-protocol-static.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-protocol-static.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "validateBroadcast": {
+      "signature": "validateBroadcast(section_id, value)",
+      "file": "L1-raw/luci/js_source-api-protocol-static.md",
+      "module": "luci",
+      "relative_target": "../luci/js_source-api-protocol-static.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "preinit_essentials": {
+      "signature": "preinit_essentials()",
+      "file": "L1-raw/wiki/wiki_page-techref-preinit-mount.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-preinit-mount.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "preinit_main": {
+      "signature": "preinit_main()",
+      "file": "L1-raw/wiki/wiki_page-techref-preinit-mount.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-preinit-mount.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "preinit_mount_root": {
+      "signature": "preinit_mount_root()",
+      "file": "L1-raw/wiki/wiki_page-techref-preinit-mount.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-preinit-mount.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "no_fo": {
+      "signature": "no_fo()",
+      "file": "L1-raw/wiki/wiki_page-techref-preinit-mount.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-preinit-mount.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "MTDSPLIT": {
+      "signature": "MTDSPLIT()",
+      "file": "L1-raw/wiki/wiki_page-techref-flash-layout.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-flash-layout.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "NOTE": {
+      "signature": "NOTE()",
+      "file": "L1-raw/wiki/wiki_page-techref-luci2.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-luci2.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "MIMO": {
+      "signature": "MIMO()",
+      "file": "L1-raw/wiki/wiki_page-techref-wireless-standards.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-wireless-standards.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "RSDB": {
+      "signature": "RSDB()",
+      "file": "L1-raw/wiki/wiki_page-techref-wireless-standards.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-wireless-standards.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "GPIO": {
+      "signature": "GPIO()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-add-new-device.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-add-new-device.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "mDNS": {
+      "signature": "mDNS()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-mdns.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-mdns.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "NAND": {
+      "signature": "NAND()",
+      "file": "L1-raw/wiki/wiki_page-techref-flash.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-flash.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "EGLIBC": {
+      "signature": "EGLIBC()",
+      "file": "L1-raw/wiki/wiki_page-techref-externaldocumentation.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-externaldocumentation.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uBus": {
+      "signature": "uBus()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-ubus.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-ubus.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "UBIFS": {
+      "signature": "UBIFS()",
+      "file": "L1-raw/wiki/wiki_page-techref-filesystems.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-filesystems.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "mini_fo": {
+      "signature": "mini_fo()",
+      "file": "L1-raw/wiki/wiki_page-techref-filesystems.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-filesystems.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "json_get_var": {
+      "signature": "json_get_var()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-jshn.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-jshn.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "json_for_each_item": {
+      "signature": "json_for_each_item()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-jshn.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-jshn.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "json_get_values": {
+      "signature": "json_get_values()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-jshn.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-jshn.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "main.c": {
+      "signature": "main.c()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "meson.build": {
+      "signature": "meson.build()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "feeds.conf": {
+      "signature": "feeds.conf()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-creating-a-meson-based-package.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "JTAG": {
+      "signature": "JTAG()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-debugging.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-debugging.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "UEFI": {
+      "signature": "UEFI()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-uefi-bootable-image.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-uefi-bootable-image.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "sdcard.img.gz": {
+      "signature": "sdcard.img.gz()",
+      "file": "L1-raw/wiki/wiki_page-techref-image-format.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-image-format.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "ubinized.bin": {
+      "signature": "ubinized.bin()",
+      "file": "L1-raw/wiki/wiki_page-techref-image-format.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-image-format.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "uImage": {
+      "signature": "uImage()",
+      "file": "L1-raw/wiki/wiki_page-techref-image-format.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-image-format.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "zImage": {
+      "signature": "zImage()",
+      "file": "L1-raw/wiki/wiki_page-techref-image-format.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-image-format.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "imagebuilder.sh": {
+      "signature": "imagebuilder.sh()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-imagebuilder-frontends.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-imagebuilder-frontends.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "openwrt_autobuild": {
+      "signature": "openwrt_autobuild()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-imagebuilder-frontends.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-imagebuilder-frontends.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "IBSS": {
+      "signature": "IBSS()",
+      "file": "L1-raw/wiki/wiki_page-techref-wireless-modes.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-wireless-modes.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "MESH": {
+      "signature": "MESH()",
+      "file": "L1-raw/wiki/wiki_page-techref-wireless-modes.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-wireless-modes.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "MONITOR": {
+      "signature": "MONITOR()",
+      "file": "L1-raw/wiki/wiki_page-techref-wireless-modes.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-wireless-modes.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "SONAME": {
+      "signature": "SONAME()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-package-policies.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-package-policies.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "HTTP": {
+      "signature": "HTTP()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-adding-new-device.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-adding-new-device.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "TFTP": {
+      "signature": "TFTP()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-adding-new-device.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-adding-new-device.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "CONFIG_EXTERNAL_KERNEL_TREE": {
+      "signature": "CONFIG_EXTERNAL_KERNEL_TREE()",
+      "file": "L1-raw/wiki/wiki_page-techref-buildroot.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-buildroot.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "FHEM": {
+      "signature": "FHEM()",
+      "file": "L1-raw/wiki/wiki_page-techref-ubus.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-techref-ubus.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "CMakeLists.txt": {
+      "signature": "CMakeLists.txt()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-creating-a-cmake-package-in-openwrt.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-creating-a-cmake-package-in-openwrt.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "config_cb": {
+      "signature": "config_cb()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-config-scripting.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-config-scripting.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "option_cb": {
+      "signature": "option_cb()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-config-scripting.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-config-scripting.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "list_cb": {
+      "signature": "list_cb()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-config-scripting.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-config-scripting.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "init_config": {
+      "signature": "init_config()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-network-scripting.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-network-scripting.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "PKG_FIXUP": {
+      "signature": "PKG_FIXUP()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-packages.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-packages.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "CONFIG_SRC_TREE_OVERRIDE": {
+      "signature": "CONFIG_SRC_TREE_OVERRIDE()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-packages.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-packages.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "USE_SOURCE_DIR": {
+      "signature": "USE_SOURCE_DIR()",
+      "file": "L1-raw/wiki/wiki_page-guide-developer-packages.md",
+      "module": "wiki",
+      "relative_target": "../wiki/wiki_page-guide-developer-packages.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "LICENSE": {
+      "signature": "LICENSE()",
+      "file": "L1-raw/openwrt-core/makefile_meta-category-utils.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-category-utils.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "lua5.3": {
+      "signature": "lua5.3()",
+      "file": "L1-raw/openwrt-core/makefile_meta-category-utils.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-category-utils.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "spidev_test": {
+      "signature": "spidev_test()",
+      "file": "L1-raw/openwrt-core/makefile_meta-category-utils.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-category-utils.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "autotools.mk": {
+      "signature": "autotools.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "debug.mk": {
+      "signature": "debug.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "depends.mk": {
+      "signature": "depends.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "download.mk": {
+      "signature": "download.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "feeds.mk": {
+      "signature": "feeds.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "hardening.mk": {
+      "signature": "hardening.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "image.mk": {
+      "signature": "image.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "kernel.mk": {
+      "signature": "kernel.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "meson.mk": {
+      "signature": "meson.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "netfilter.mk": {
+      "signature": "netfilter.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "nls.mk": {
+      "signature": "nls.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "package.mk": {
+      "signature": "package.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "prereq.mk": {
+      "signature": "prereq.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "quilt.mk": {
+      "signature": "quilt.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "subdir.mk": {
+      "signature": "subdir.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "target.mk": {
+      "signature": "target.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "toplevel.mk": {
+      "signature": "toplevel.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "unpack.mk": {
+      "signature": "unpack.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "verbose.mk": {
+      "signature": "verbose.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
+      "returns": "any",
+      "parameters": [],
+      "deprecated": false
+    },
+    "version.mk": {
+      "signature": "version.mk()",
+      "file": "L1-raw/openwrt-core/makefile_meta-include-mk.md",
+      "module": "openwrt-core",
+      "relative_target": "../openwrt-core/makefile_meta-include-mk.md",
       "returns": "any",
       "parameters": [],
       "deprecated": false

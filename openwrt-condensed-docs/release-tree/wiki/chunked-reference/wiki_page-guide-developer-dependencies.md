@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1486
 source_file: L1-raw/wiki/wiki_page-guide-developer-dependencies.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_url: https://openwrt.org/docs/guide-developer/dependencies
 language: text
 ai_summary: The 'Using Dependencies' module provides guidance on how to define package dependencies in OpenWrt Makefiles. It explains various dependency types, such as mandatory dependencies, conditional selections, and negations, using examples like 'DEPENDS:=+libpcap' and 'DEPENDS:=@USB_SUPPORT'. The module also highlights the importance of correctly structuring dependencies to avoid issues when packages are installed on a running system. Additionally, it mentions special notes on selecting packages outside the usual 'DEPENDS' definition.

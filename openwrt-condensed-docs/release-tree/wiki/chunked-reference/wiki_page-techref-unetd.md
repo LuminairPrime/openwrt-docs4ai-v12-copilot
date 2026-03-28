@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 3162
 source_file: L1-raw/wiki/wiki_page-techref-unetd.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_url: https://openwrt.org/docs/techref/unetd
 language: text
 ai_summary: unetd is a WireGuard based VPN daemon designed for OpenWrt routers, facilitating the creation and management of fully-meshed VPN connections. It separates network setup into shared network configurations and local configurations, ensuring secure and encrypted data replication among network members. Features include automatic peer IP address replication, VXLAN setup, and support for direct connections through double-NAT. Additionally, it offers a simple CLI for network management and generates IPv6 addresses based on host public keys.

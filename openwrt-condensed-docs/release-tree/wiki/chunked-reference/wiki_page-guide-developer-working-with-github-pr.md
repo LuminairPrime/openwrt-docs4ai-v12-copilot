@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1398
 source_file: L1-raw/wiki/wiki_page-guide-developer-working-with-github-pr.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_url: https://openwrt.org/docs/guide-developer/working-with-github-pr
 language: text
 ai_summary: The 'Working with GitHub' module provides a comprehensive guide for developers on how to interact with the OpenWrt source repository using GitHub. It covers essential steps such as forking the repository, cloning it locally, creating branches for changes, and submitting pull requests. Additionally, it explains how to configure Git settings, manage commits, and squash commits for cleaner pull requests. This module is particularly useful for developers looking to contribute to the OpenWrt project through GitHub.

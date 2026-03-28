@@ -4,7 +4,7 @@ module: openwrt-core
 origin_type: makefile_meta
 token_count: 2744
 source_file: L1-raw/openwrt-core/makefile_meta-category-kernel.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/openwrt/blob/unknown/package/kernel
 source_locator: package/kernel

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 545
 source_file: L1-raw/wiki/wiki_page-techref-libnl.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_url: https://openwrt.org/docs/techref/libnl
 language: text
 ai_summary: The `libnl` library facilitates communication with the kernel through netlink sockets, allowing applications to manage routing information and interface settings. It is a comprehensive library but is not included by default in OpenWrt due to its size; instead, `libnl-tiny` serves as a lightweight alternative for basic functionalities. The `libnl` package has been modularized into components like `libnl-core`, `libnl-genl`, `libnl-nf`, and `libnl-route`, each serving specific purposes. In contrast, `libnl-tiny` is a compact version that replaces essential parts of `libnl-core` and `libnl-genl`, making it suitable for most applications while maintaining compatibility.

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1589
 source_file: L1-raw/wiki/wiki_page-techref-mtd.md
-last_pipeline_run: '2026-03-27T07:16:36.403470+00:00'
+last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
 source_url: https://openwrt.org/docs/techref/mtd
 language: text
 ai_summary: The `mtd` utility is designed for writing to Memory Technology Devices (MTD) in OpenWrt. It provides a variety of commands such as `unlock`, `refresh`, `erase`, and `write`, allowing users to manage MTD partitions effectively. Additional functionalities include appending files to jffs2 partitions and fixing checksums in trx headers. Various options are available to customize the behavior of these commands, including quiet mode and forced writes.

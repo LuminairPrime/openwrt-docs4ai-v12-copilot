@@ -1,75 +1,13 @@
 {
-  "timestamp": "2026-03-27T07:16:54.094025+00:00",
+  "timestamp": "2026-03-27T20:02:57.570596+00:00",
   "summary": {
-    "added": 14,
-    "removed": 1,
+    "added": 0,
+    "removed": 0,
     "changed": 0
   },
   "details": {
-    "added": [
-      {
-        "symbol": "WRONG",
-        "signature": "WRONG()"
-      },
-      {
-        "symbol": "CORRECT",
-        "signature": "CORRECT()"
-      },
-      {
-        "symbol": "USE_PROCD",
-        "signature": "USE_PROCD()"
-      },
-      {
-        "symbol": "procd_open_service",
-        "signature": "procd_open_service()"
-      },
-      {
-        "symbol": "procd_open_instance",
-        "signature": "procd_open_instance()"
-      },
-      {
-        "symbol": "procd_set_param",
-        "signature": "procd_set_param()"
-      },
-      {
-        "symbol": "service_triggers",
-        "signature": "service_triggers()"
-      },
-      {
-        "symbol": "uci.get",
-        "signature": "uci.get(config, section, option)"
-      },
-      {
-        "symbol": "uci.get_first",
-        "signature": "uci.get_first(config, type, option)"
-      },
-      {
-        "symbol": "uci.foreach",
-        "signature": "uci.foreach(config, type, callback)"
-      },
-      {
-        "symbol": "uci.set",
-        "signature": "uci.set(config, section, option, value)"
-      },
-      {
-        "symbol": "uci.commit",
-        "signature": "uci.commit(config)"
-      },
-      {
-        "symbol": "uci.unload",
-        "signature": "uci.unload(config)"
-      },
-      {
-        "symbol": "INSTALL_BIN",
-        "signature": "INSTALL_BIN()"
-      }
-    ],
-    "removed": [
-      {
-        "symbol": "DEVICE_TITLE",
-        "signature": "DEVICE_TITLE()"
-      }
-    ],
+    "added": [],
+    "removed": [],
     "changed": []
   }
 }

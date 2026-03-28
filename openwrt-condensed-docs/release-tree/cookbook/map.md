@@ -1,7 +1,7 @@
 # cookbook Navigation Map
 
 > **Contains:** Headers and function signatures for cookbook.
-> **Generated:** 2026-03-28T05:18:45.431191+00:00
+> **Generated:** 2026-03-27T20:02:56.666251+00:00
 
 ---
 
@@ -79,7 +79,6 @@
 # Standard install -- wrong outside of buildroot context
 ### CORRECT
 ## Related Topics
-## Deep-Dive Follow-Up Pages
 ## Verification Notes
 
 
@@ -87,79 +86,6 @@
 
 
 
-
-> **Summary:** Correct pattern for first-boot and migration-time configuration changes in OpenWrt using /etc/uci-defaults, including sequencing, idempotency, helper usage, and the boundary between config mutation and service orchestration.
-# First-Boot uci-defaults Pattern
-## Overview
-## Wrong Boundary
-## Pattern 1: Config-Only Mutation Then Exit
-#!/bin/sh
-## Pattern 2: Commit Only If You Changed Something
-## Pattern 3: Use Helper APIs For Board-Or Image-Scoped Defaults
-## Pattern 4: Create Missing Config Once, Then Populate It
-#!/bin/sh
-## First-Boot Wi-Fi Is A Policy Decision, Not A Probe Race
-## Rules To Keep
-## Rules To Avoid
-## Related Pages
-## Verification Notes
-
-> **Summary:** Focused guide to enabling or pre-seeding Wi-Fi on first boot in OpenWrt without turning asynchronous radio discovery into ad-hoc boot orchestration.
-# First-Boot Wi-Fi Policy
-## Overview
-## The Current Boot Boundary
-## Wrong Mental Model
-## Pattern 1: Pre-Seed Wireless Defaults Before config_generate
-## Pattern 2: Mutate /etc/config/wireless Before reload_config Applies It
-#!/bin/sh
-## Pattern 3: Keep Hardware Discovery Separate From Policy
-#!/bin/sh
-## What To Avoid
-## Decision Guide
-## Related Pages
-## Verification Notes
-
-> **Summary:** Shows how to write narrowly-scoped OpenWrt hotplug handlers that match explicit event contracts, publish minimal state, and hand off heavier work to the right control plane.
-# Hotplug Handler Pattern
-## Overview
-## Wrong Boundary
-### WRONG
-#!/bin/sh
-# Broad, weak match: every event falls through.
-# Rebuild service state on every event.
-### CORRECT
-## Pattern 1: Guard the event taxonomy first
-# package/network/config/firewall/files/firewall.hotplug
-# package/network/config/wifi-scripts/files/etc/hotplug.d/ieee80211/11-ath12k-trigger
-# package/system/fstools/files/mount.hotplug
-
-## Pattern 2: Use a deliberate event contract, not ambient shell state
-# package/network/services/dnsmasq/files/dhcp-script.sh
-## Pattern 3: Small state publication is fine; full service lifecycle control is not
-# package/network/config/netifd/files/etc/hotplug.d/iface/00-netstate
-## Pattern 4: If you must trigger a reload, make it narrow and justified
-# package/network/config/firewall/files/firewall.hotplug
-## Keep / Avoid
-## Related Pages
-## Verification Notes
-
-> **Summary:** Practical guide to choosing the correct communication boundary in modern OpenWrt: UCI for persistent config, ubus for runtime state and method calls, rpcd for privileged backend APIs, and LuCI as the browser-facing consumer.
-# Inter-Component Communication Map
-## Overview
-## The Current Request Path
-## Choose The Right Boundary
-### If the data must persist across boots: use UCI
-### If the data is live runtime state: use ubus
-### If the question is "what device am I actually running on?": use `ubus call system board`
-### If a browser needs privileged backend logic: use rpcd
-### If the concern is HTTP session or request transport: use uhttpd and LuCI runtime
-## Common Placement Errors
-### WRONG: Put runtime status in UCI
-### WRONG: Make LuCI rediscover backend state itself
-### WRONG: Treat rpcd as a generic shell executor
-## Practical Decision Rules
-## Related Pages
-## Verification Notes
 
 > **Summary:** End-to-end guide to creating a LuCI settings page that reads and writes UCI configuration, covering the JavaScript view, form.Map binding, rpcd plugin, ACL file, and the complete request flow from browser to disk.
 # LuCI Form with UCI
@@ -181,17 +107,6 @@
 ## Related Topics
 ## Verification Notes
 
-
-> **Summary:** Explains the current OpenWrt login and transport path across LuCI, uhttpd, rpcd sessions, cookies, bearer auth, and HTTPS configuration, including the main edge cases that break deployments.
-# LuCI uhttpd HTTPS and Auth Pattern
-## Overview
-## Pattern 1: LuCI login is a session-creation flow
-## Pattern 2: Dispatcher rules distinguish auth methods by route
-## Pattern 3: HTTPS is a real deployment surface, not only a theme option
-## Pattern 4: ubus-backed HTTP calls still enforce session semantics
-## Keep / Avoid
-## Related Pages
-## Verification Notes
 
 > **Summary:** Annotated minimal Makefile for packaging a C program in OpenWrt, covering the required variables, Build/Compile, Package/install, and the correct PKG_HASH vs PKG_MD5SUM distinction.
 # Minimal OpenWrt Package Makefile
@@ -249,17 +164,6 @@
 
 
 
-> **Summary:** Correct pattern for modern OpenWrt network model migrations, including bridge ifname-to-ports conversion, device-section migration, and current DSA-era helper usage in board defaults.
-# Network Device Model Migrations
-## Overview
-## Pattern 1: Convert bridge `ifname` into `ports`
-## Pattern 2: Move interface-owned bridge shape into a device section
-## Pattern 3: Current board defaults use DSA-era helper APIs
-## Pattern 4: Treat swconfig-to-DSA as a user-intent migration problem
-## Keep / Avoid
-## Related Pages
-## Verification Notes
-
 > **Summary:** Reference for identifying which OpenWrt era (legacy, transitional, or current) a given pattern belongs to, so AI tools produce era-appropriate recommendations.
 # OpenWrt Era Guide
 ## Version Target Statement
@@ -302,17 +206,6 @@
 ## Related Topics
 ## Verification Notes
 
-> **Summary:** Correct pattern for package-owned OpenWrt configuration: ship predictable /etc/config files, use /etc/uci-defaults only for one-shot detection or migration, and keep service application in init or procd logic.
-# Package Config Bootstrap Pattern
-## Overview
-## Pattern 1: Install the package-owned config file explicitly
-## Pattern 2: Static detection defaults belong in one-shot bootstrap scripts
-## Pattern 3: Upgrades should migrate keys deliberately and commit only when needed
-## Pattern 4: Runtime application belongs to init or procd, not package install layout
-## Keep / Avoid
-## Related Pages
-## Verification Notes
-
 > **Summary:** Complete guide to writing a procd-managed init script for an OpenWrt service, covering the full lifecycle from start to reload to stop with supervised respawn.
 # procd Service Lifecycle
 ## Overview
@@ -352,35 +245,6 @@
 
 
 
-> **Summary:** Canonical pattern for identifying a running OpenWrt device from live system state using `ubus call system board` instead of reconstructing build tuples or scraping implementation-specific files.
-# Runtime Device Identity via ubus
-## Overview
-## The Archive Correction
-## Current Source Anchor
-## What The Reply Gives You
-## Preferred Usage Patterns
-### Shell
-### LuCI Or Backend RPC Consumers
-### Upgrade Tooling
-## Wrong Approaches
-## Decision Rule
-## Related Pages
-## Verification Notes
-
-> **Summary:** Correct pattern for publishing runtime state once through ubus and letting LuCI, CLI tooling, and other services consume that shared state instead of re-deriving it in multiple places.
-# ubus Observability Pattern
-## Overview
-## Wrong Boundary
-### WRONG
-### CORRECT
-## Pattern 1: The owner daemon should expose status methods
-## Pattern 2: Service managers should publish service state, not just process ids
-## Pattern 3: LuCI should consume ubus through a stable RPC layer
-## Pattern 4: The bus registry is part of the contract
-## Keep / Avoid
-## Related Pages
-## Verification Notes
-
 > **Summary:** Concrete guide to reading and writing UCI configuration from a ucode script or rpcd plugin, covering cursor lifecycle, get/set/commit, section iteration, and error handling.
 # UCI Read/Write from ucode
 ## Overview
@@ -402,23 +266,4 @@
 ### WRONG: Forgetting commit()
 ## Using uci in an rpcd plugin
 ## Related Topics
-## Verification Notes
-
-
-
-> **Summary:** Correct pattern for exposing OpenWrt backend methods through rpcd using ucode, including method shape, ACL boundaries, structured return values, and graceful degradation when optional state is absent.
-# ucode rpcd Service Pattern
-## Overview
-## Wrong Boundary
-### WRONG
-#!/bin/sh
-# Called directly from a web action.
-### CORRECT
-## Pattern 1: Export a small method table from ucode
-#!/usr/bin/env ucode
-## Pattern 2: Let rpcd own the type bridge
-## Pattern 3: Put permissions at the rpcd boundary
-## Pattern 4: Frontends should expect defaults, not perfection
-## Keep / Avoid
-## Related Pages
 ## Verification Notes
