@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.support.pytest_pipeline_support import load_script_module
+from tests.support.pytest_pipeline_support import OUTDIR, PROJECT_ROOT, load_script_module
 
 
 # ---------------------------------------------------------------------------
@@ -236,14 +236,9 @@ def test_copy_release_chunked_pages_no_fabricated_url_when_source_absent(tmp_pat
     assert "hand-authored" in text
 
 
-def test_l2_files_do_not_contain_provenance_block(tmp_path: Path) -> None:
+def test_l2_files_do_not_contain_provenance_block() -> None:
     """L2 source files must not contain the visible provenance block (it is only in release output)."""
-    import os
-
-    # Read from the actual pipeline output directory (staging/ by default)
-    project_root = Path(__file__).resolve().parents[2]
-    outdir = os.environ.get("OUTDIR", "staging")
-    l2_dir = project_root / outdir / "L2-semantic"
+    l2_dir = OUTDIR / "L2-semantic"
     if not l2_dir.is_dir():
         pytest.skip(f"no pipeline output at {l2_dir}")
 
@@ -251,8 +246,8 @@ def test_l2_files_do_not_contain_provenance_block(tmp_path: Path) -> None:
     for fpath in l2_files:
         content = fpath.read_text(encoding="utf-8")
         assert "> **Normalized:**" not in content, (
-            f"L2 file contains visible provenance block (should be release-only): {fpath.relative_to(project_root)}"
+            f"L2 file contains visible provenance block (should be release-only): {fpath.relative_to(PROJECT_ROOT)}"
         )
         assert "> **Kind:**" not in content, (
-            f"L2 file contains visible provenance block: {fpath.relative_to(project_root)}"
+            f"L2 file contains visible provenance block: {fpath.relative_to(PROJECT_ROOT)}"
         )
