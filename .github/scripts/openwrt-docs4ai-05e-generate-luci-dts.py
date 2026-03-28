@@ -3,7 +3,7 @@ Purpose: Generates TypeScript declaration files (.d.ts) for the LuCI JavaScript 
 Phase: Indexing
 Layers: L3
 Inputs: WORKDIR/repo-luci/modules/luci-base/htdocs/luci-static/resources/*.js
-Outputs: OUTDIR/release-tree/luci/types/luci-env.d.ts
+Outputs: OUTDIR/luci/luci-env.d.ts, OUTDIR/release-tree/luci/types/luci-env.d.ts
 Environment Variables: WORKDIR, OUTDIR
 Dependencies: lib.config
 
@@ -863,16 +863,22 @@ def main() -> None:
 
     dts_content = _generate_dts(sources)
 
+    # Write to OUTDIR/luci/luci-env.d.ts (consumed by stage 06 glob for Tooling Surfaces)
+    flat_out_dir = os.path.join(OUTDIR, "luci")
+    os.makedirs(flat_out_dir, exist_ok=True)
+    flat_out_path = os.path.join(flat_out_dir, "luci-env.d.ts")
+    with open(flat_out_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(dts_content)
+
     # Write to release-tree/luci/types/luci-env.d.ts
     out_dir = os.path.join(RELEASE_TREE_DIR, "luci", config.MODULE_TYPES_DIRNAME)
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "luci-env.d.ts")
-
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(dts_content)
 
     line_count = dts_content.count("\n")
-    print(f"[05e] OK: {out_path} ({line_count} lines)")
+    print(f"[05e] OK: {flat_out_path}, {out_path} ({line_count} lines)")
 
 
 if __name__ == "__main__":
