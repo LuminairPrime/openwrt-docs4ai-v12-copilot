@@ -1,0 +1,278 @@
+I'll provide solutions for each scenario with explanations.
+
+### Result for Scenario 01
+
+```bash
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+USE_PROCD=1
+
+CONFIG_FILE="/etc/config/my_daemon"
+DAEMON_NAME="my_daemon"
+
+start_service() {
+    # Read hostname from config file
+    [ -f "$CONFIG_FILE" ] && {
+        config_load "$(basename "$CONFIG_FILE" .conf)"
+        config_get hostname "$DAEMON_NAME" hostname
+        [ -n "$hostname" ] && uci set system.@system[0].hostname="$hostname" && uci commit system
+    }
+    
+    procd_open_instance
+    procd_set_param command "/usr/sbin/$DAEMON_NAME"
+    procd_set_param respawn 3600 5 0
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_set_param env SOME_VAR="some_value"
+    procd_close_instance
+}
+
+stop_service() {
+    procd_kill "$DAEMON_NAME"
+}
+
+reload_service() {
+    stop
+    start
+}
+```
+
+**Explanation:**
+- Used `procd` (OpenWrt's process management daemon) for proper service management
+- `respawn` parameter handles crash recovery automatically
+- Reads config using OpenWrt's `config_load`/`config_get` utilities
+- Updates system hostname via UCI (Unified Configuration Interface)
+- **Debate**: Considered using `ubus` for hostname change vs UCI. UCI is simpler for boot-time changes.
+
+---
+
+### Result for Scenario 05
+
+```lua
+<%-
+local json = require "luci.jsonc"
+local ubus = require "ubus"
+local util = require "luci.util"
+
+local conn = ubus.connect()
+if not conn then
+    return '<p>Failed to connect to ubus</p>'
+end
+
+local clients = conn:call("hostapd.wlan0", "get_clients", {}) or {}
+conn:close()
+
+if not clients or not next(clients) then
+    return '<p>No connected clients</p>'
+end
+-%>
+
+<h2>Connected WiFi Clients</h2>
+<table class="table">
+    <tr>
+        <th>MAC Address</th>
+        <th>Connected Time</th>
+        <th>Signal (dBm)</th>
+    </tr>
+    <% for mac, info in pairs(clients) do %>
+    <tr>
+        <td><%= mac %></td>
+        <td><%= info.connected_time or "N/A" %> seconds</td>
+        <td><%= info.signal or "N/A" %></td>
+    </tr>
+    <% end %>
+</table>
+```
+
+**Explanation:**
+- Uses LuCI web framework (standard OpenWrt web interface)
+- Fetches data via `ubus` from `hostapd` service
+- **Difficulty**: Actual ubus method name varies (`hostapd.wlan0`, `hostapd.wlan1`, etc.)
+- **Alternative**: Could use `iwinfo` command-line tool instead of ubus
+
+---
+
+### Result for Scenario 07
+
+```c
+#include <libubox/blobmsg_json.h>
+#include <libubus.h>
+
+static int handle_status_request(struct ubus_context *ctx,
+                                struct ubus_object *obj,
+                                struct ubus_request_data *req,
+                                const char *method,
+                                struct blob_attr *msg)
+{
+    struct blob_buf b = {};
+    void *c;
+    
+    blob_buf_init(&b, 0);
+    
+    // Create JSON response
+    blobmsg_add_string(&b, "status", "ok");
+    
+    // Send response
+    ubus_send_reply(ctx, req, b.head);
+    
+    blob_buf_free(&b);
+    return UBUS_STATUS_OK;
+}
+
+// Registration would typically be:
+static const struct ubus_method myapp_methods[] = {
+    UBUS_METHOD("get_status", handle_status_request, NULL),
+};
+
+static struct ubus_object_type myapp_object_type = 
+    UBUS_OBJECT_TYPE("myapp", myapp_methods);
+
+static struct ubus_object myapp_object = {
+    .name = "myapp",
+    .type = &myapp_object_type,
+    .methods = myapp_methods,
+    .n_methods = ARRAY_SIZE(myapp_methods),
+};
+```
+
+**Explanation:**
+- Uses `libubox` and `libubus` libraries (standard OpenWrt RPC)
+- `blobmsg_json.h` provides JSON serialization
+- **Debate**: Considered using raw JSON library vs blobmsg. blobmsg is more efficient for OpenWrt's microservices.
+
+---
+
+### Result for Scenario 10
+
+```bash
+#!/bin/sh
+
+# Check if this is first boot
+if [ ! -f /etc/firstboot_completed ]; then
+    # Set timezone to UTC
+    uci set system.@system[0].timezone='UTC'
+    uci set system.@system[0].zonename='UTC'
+    uci commit system
+    
+    # Force NTP to update immediately
+    /etc/init.d/sysntpd restart 2>/dev/null || true
+    
+    # Create marker file
+    touch /etc/firstboot_completed
+    
+    logger "First boot: Timezone set to UTC"
+fi
+```
+
+**Placement:**
+```
+/etc/uci-defaults/99-set-timezone-utc
+```
+
+**Explanation:**
+- `/etc/uci-defaults/` scripts run once during first boot
+- Files are deleted after successful execution
+- **Alternative**: Could use `/etc/rc.local` with a marker file check
+- **Difficulty**: Need to handle both `sysntpd` and `ntpd` service names across OpenWrt versions
+
+---
+
+### Result for Scenario 13
+
+```bash
+#!/bin/sh
+
+CONFIG_FILE="/etc/my_app/config.json"
+
+# Check if jq is available (preferred method)
+if command -v jq >/dev/null 2>&1; then
+    startup_delay=$(jq -r '.startup_delay // empty' "$CONFIG_FILE" 2>/dev/null)
+    
+    if [ -n "$startup_delay" ]; then
+        echo "Startup delay: $startup_delay"
+        exit 0
+    fi
+fi
+
+# Fallback to awk if jq not available
+if [ -f "$CONFIG_FILE" ]; then
+    startup_delay=$(awk -F'"' '
+        /[[:space:]]*"startup_delay"[[:space:]]*:/ {
+            for (i=1; i<=NF; i++) {
+                if ($i ~ /^[0-9]+$/) {
+                    print $i
+                    exit
+                }
+            }
+        }
+    ' "$CONFIG_FILE")
+    
+    if [ -n "$startup_delay" ]; then
+        echo "Startup delay: $startup_delay"
+    else
+        echo "Startup delay not found or config file invalid"
+        exit 1
+    fi
+else
+    echo "Config file not found: $CONFIG_FILE"
+    exit 1
+fi
+```
+
+**Explanation:**
+- Prefers `jq` for robust JSON parsing
+- Provides fallback to `awk` for systems without `jq`
+- **Debate**: Considered `jsonfilter` (OpenWrt's ubox JSON tool) but it's less common
+- **Alternative**: Could use Python if available, but not guaranteed on all OpenWrt installations
+
+---
+
+### Result for Scenario 16
+
+```bash
+#!/bin/sh
+
+ping_stream() {
+    local target=$1
+    while read -r line; do
+        echo "[$target] $line"
+    done
+}
+
+# Start ping processes in background
+ping -O 10.10.10.2 2>&1 | ping_stream "10.10.10.2" &
+PID1=$!
+
+ping -O 10.10.10.3 2>&1 | ping_stream "10.10.10.3" &
+PID2=$!
+
+# Trap Ctrl+C to clean up
+trap 'kill $PID1 $PID2 2>/dev/null; exit' INT TERM
+
+# Wait for both processes
+wait $PID1 $PID2 2>/dev/null
+
+# Alternative using named pipes (more robust):
+# mkfifo /tmp/ping1 /tmp/ping2
+# ping 10.10.10.2 > /tmp/ping1 &
+# ping 10.10.10.3 > /tmp/ping2 &
+# while read line1 <&3 && read line2 <&4; do
+#     echo "[10.10.10.2] $line1"
+#     echo "[10.10.10.3] $line2"
+# done 3</tmp/ping1 4</tmp/ping2
+```
+
+**Explanation:**
+- Uses bash process substitution and background jobs
+- `-O` flag shows timestamp for better debugging
+- **Difficulty**: Synchronous reading from two streams can block
+- **Alternative solution** (commented) uses named pipes for true parallel output
+- **Debate**: Considered using `multitail` or `tmux` but wanted minimal dependencies
+
+**Common themes across scenarios:**
+1. Prefer OpenWrt-specific tools (procd, ubus, uci) over generic Linux tools
+2. Handle resource constraints (avoid heavy dependencies like Python)
+3. Provide fallbacks for different OpenWrt versions/installations
+4. Follow OpenWrt filesystem conventions (/etc/config/, /etc/init.d/, etc.)

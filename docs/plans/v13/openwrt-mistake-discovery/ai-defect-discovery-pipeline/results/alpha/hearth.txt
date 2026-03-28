@@ -1,0 +1,198 @@
+Here are the working snippets for each slice, with the architecture choices and the real-world trade-offs I weighed while writing them:
+
+### Result for Scenario 01
+
+**/etc/init.d/my_daemon**
+
+```sh
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+START=95
+STOP=10
+
+PROG=/usr/sbin/my_daemon
+
+start_service() {
+    config_load my_daemon
+    local hostname
+    config_get hostname global hostname
+
+    [ -n "$hostname" ] && {
+        uci set system.@system[0].hostname="$hostname"
+        uci commit system
+        /etc/init.d/system reload
+    }
+
+    procd_open_instance
+    procd_set_param command "$PROG"
+    procd_set_param respawn 3600 5 0  # restart if it crashes
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_close_instance
+}
+```
+
+Corresponding config **/etc/config/my_daemon**:
+
+```uci
+config my_daemon 'global'
+    option hostname 'myrouter'
+```
+
+**Architecture:** OpenWrt uses **procd** (not classic SysVinit). `USE_PROCD=1` gives us ubus integration, logging, and native respawn. Daemons from packages always live in `/usr/sbin/` or `/usr/bin/`, and config files live in `/etc/config/`.
+
+**Difficulties / Debates:**
+
+1. *procd vs start-stop-daemon*: I could have written a `while true; do $PROG; sleep 5; done` loop, but that loses procd’s crash-rate limiting and `service my_daemon status` integration.
+2. *hostname handling*: Setting `/proc/sys/kernel/hostname` works instantly, but OpenWrt re-applies the UCI value later in boot. Using `uci commit` + `reload_config` is persistent but slows boot slightly. I chose UCI because that's the "OpenWrt way".
+3. Config parsing requires `/lib/functions.sh` (sourced by rc.common). Forgetting `config_load` is a common bug.
+
+### Result for Scenario 05
+
+**/usr/lib/lua/luci/view/admin_status/wifi_clients.htm**
+
+```lua
+<%+header%>
+<h2>Connected WiFi Clients</h2>
+<table class="table">
+  <tr class="tr table-titles">
+    <th class="th">MAC Address</th>
+  </tr>
+<%
+local ubus = require("ubus").connect()
+if ubus then
+    for _, obj in ipairs(ubus:objects()) do
+        if obj:match("^hostapd%.") then
+            local data = ubus:call(obj, "get_clients", {})
+            if data and data.clients then
+                for mac, _ in pairs(data.clients) do
+%>
+  <tr class="tr"><td class="td"><%=mac%></td></tr>
+<%
+                end
+            end
+        end
+    end
+    ubus:close()
+end
+%>
+</table>
+<%+footer%>
+```
+
+**Architecture:** Classic LuCI (Lua) view using the **lua-ubus** binding. The system bus (ubus) exposes `hostapd.wlan0`, `hostapd.wlan1`, etc. Calling `get_clients` returns a dict keyed by MAC.
+
+**Difficulties / Debates:**
+
+1. *Lua view vs JS view*: New LuCI (22.03+) prefers JavaScript. I used Lua because it's still supported and needs no build step.
+2. Enumerating radios. I can’t hard-code `wlan0`; iterating `ubus:objects()` and matching `^hostapd%.` handles any number of radios, but makes the template heavier.
+3. `iwinfo` library would be simpler, but it parses `iw` output and is less reliable than ubus which talks directly to hostapd/wpad.
+
+### Result for Scenario 07
+
+```c
+#include <libubus.h>
+#include <libubox/blobmsg_json.h>
+
+static int rpc_status_ok(struct ubus_context *ctx, struct ubus_object *obj,
+                         struct ubus_request_data *req, const char *method,
+                         struct blob_attr *msg)
+{
+    struct blob_buf b = { 0 };
+
+    blob_buf_init(&b, 0);
+    blobmsg_add_string(&b, "status", "ok");
+    ubus_send_reply(ctx, req, b.head);
+    blob_buf_free(&b);
+
+    return 0;
+}
+
+/* Registration:
+static const struct ubus_method my_methods[] = {
+    UBUS_METHOD_NOARG("ping", rpc_status_ok),
+};
+*/
+```
+
+**Architecture:** **libubus + libblobmsg** (part of libubox). This is the standard OpenWrt RPC mechanism. You build a blob_buf, add fields, and ubus serializes it to JSON automatically.
+
+**Difficulties / Debates:**
+
+1. *blobmsg vs json-c*: json-c is more familiar but pulls in extra space (~30 KB). blobmsg is already in the base system and integrates with ubus validation.
+2. Memory: forgetting `blob_buf_free()` leaks on every call — a common bug in long-running daemons.
+3. Error handling. The handler must *always* return 0; real errors should be sent as `{ "error": "..."}` in the reply, otherwise ubus reports a generic failure.
+
+### Result for Scenario 10
+
+**Script (place at `/etc/uci-defaults/99-set-timezone`)**
+
+```sh
+#!/bin/sh
+uci -q batch <<EOF
+set system.@system[0].timezone='UTC'
+set system.@system[0].zonename='UTC'
+commit system
+EOF
+
+exit 0
+```
+
+**Where to put it:** `/etc/uci-defaults/` - any executable script here runs **once** on first boot, then OpenWrt automatically deletes it. Enable with `chmod +x`.
+
+**Architecture:** The uci-defaults mechanism is the official OpenWrt “first boot” hook. It runs before `sysfixtime` and `crond` start.
+
+**Difficulties / Debates:**
+
+1. *uci-defaults vs rc.local*: rc.local runs every boot; you’d need a sentinel file (`/etc/.tz_done`). uci-defaults is cleaner and self-cleaning.
+2. `zonename` is needed for LuCI to display the correct name; setting only `timezone` works but the GUI shows a blank.
+3. I used `uci -q batch` to avoid partial commits if the script is interrupted.
+
+### Result for Scenario 13
+
+```sh
+#!/bin/sh
+CONFIG=/etc/my_app/config.json
+
+[ -r "$CONFIG" ] || {
+    logger -t my_app "Config $CONFIG not readable"
+    exit 1
+}
+
+startup_delay=$(jsonfilter -i "$CONFIG" -e '@.startup_delay')
+
+# Default if key missing
+[ -z "$startup_delay" ] && startup_delay=0
+
+echo "$startup_delay"
+```
+
+**Architecture:** **jsonfilter** (from libubox) is "native" on every OpenWrt install. No extra packages needed.
+
+**Difficulties / Debates:**
+
+1. *jsonfilter vs jshn.sh*: jshn (`. /usr/share/libubox/jshn.sh; json_load_file...`) allows nested validation but is verbose. jsonfilter is one-liner but returns nothing silently if the key is missing.
+2. Error handling: I explicitly check readability because jsonfilter exits 0 even on parse errors, making failures silent.
+3. Quoting: jsonfilter strips quotes; if the value is a string you must be careful not to treat it as number.
+
+### Result for Scenario 16
+
+```sh
+#!/bin/sh
+trap 'kill 0' INT TERM EXIT
+
+ping 10.10.10.2 2>&1 | sed -u 's/^/[10.10.10.2] /' &
+ping 10.10.10.3 2>&1 | sed -u 's/^/[10.10.10.3] /' &
+
+wait
+```
+
+**Architecture:** BusyBox ash + **background jobs** + `sed -u` (unbuffered). Each ping runs in parallel, piping to sed which prefixes every line.
+
+**Difficulties / Debates:**
+
+1. *Buffering*: Without `-u`, sed buffers ~4 KB and you get bursts, not live output. `stdbuf -oL` also works but isn’t always in BusyBox.
+2. *Cleanup*: If you Ctrl-C, the child pings keep running. The `trap 'kill 0'` kills the whole process group.
+3. *Alternative*: `awk '{print "[ip] "$0; fflush()}'` is cleaner but awk on OpenWrt is BusyBox awk, which lacks `fflush()` on older builds. sed -u is more portable.
+4. Interleaving: Even with prefixes, lines can mix mid-line over slow serial consoles — unavoidable without a proper multiplexer like `parallel` (too big for routers).

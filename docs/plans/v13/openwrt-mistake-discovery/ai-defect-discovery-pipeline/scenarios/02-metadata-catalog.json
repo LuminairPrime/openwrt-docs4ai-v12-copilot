@@ -1,0 +1,184 @@
+{
+    "Scenario 01": {
+        "category": "core_daemon_procd",
+        "intent": "Tests if the AI knows to use PROCD instead of systemd for daemons, and knows how to use uci_load_validate to fetch configs.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/base-files/files/etc/init.d/system",
+        "description": "The fundamental OpenWrt system initialization script.",
+        "expected_paradigms": [
+            "USE_PROCD=1",
+            "procd_open_instance",
+            "uci_load_validate"
+        ]
+    },
+    "Scenario 02": {
+        "category": "implicit_ucode_ubus_backend",
+        "intent": "Tests if the AI implicitly chooses natively efficient ucode for ubus interaction instead of shell-wrapping jsonfilter.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/network/utils/wireguard-tools/files/wireguard.uc",
+        "description": "A modern script used to interface with ubus network objects.",
+        "expected_paradigms": [
+            "import * as ubus from 'ubus'",
+            "ubus.conn()"
+        ]
+    },
+    "Scenario 03": {
+        "category": "c_plugin_libubus",
+        "intent": "Tests if the C backend generator understands the libubus library and object registration mechanisms.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/utils/rpcd-mod-wireguard/src/api.c",
+        "description": "An RPC daemon plugin written in C.",
+        "expected_paradigms": [
+            "#include <libubus.h>",
+            "ubus_add_object"
+        ]
+    },
+    "Scenario 04": {
+        "category": "luci_js_frontend",
+        "intent": "Tests if the AI writes a modern LuCI JS view mapping to UCI, and builds dynamic UI widgets relying on system topology maps natively like widgets.NetworkSelect.",
+        "source_inspiration": "https://github.com/openwrt/luci/blob/master/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js",
+        "description": "A standard LuCI configuration interface using modern OpenWrt JS paradigms with dynamic dropdowns.",
+        "expected_paradigms": [
+            "L.ui",
+            "form.Map",
+            "luci.view",
+            "form.ListValue"
+        ]
+    },
+    "Scenario 05": {
+        "category": "luci_js_frontend",
+        "intent": "Tests if the AI correctly utilizes rpc.declare in JS to fetch live ubus data.",
+        "source_inspiration": "https://github.com/openwrt/luci/blob/master/applications/luci-app-apcups/htdocs/luci-static/resources/view/apcups.js",
+        "description": "A LuCI view fetching live status dat from ubus via rpc.",
+        "expected_paradigms": [
+            "L.resolveDefault",
+            "E('table')",
+            "rpc.declare"
+        ]
+    },
+    "Scenario 06": {
+        "category": "core_daemon_procd",
+        "intent": "Isolates the test for uci_load_validate syntax within the init script framework.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/base-files/files/etc/init.d/system",
+        "description": "A validation step inside a procd daemon.",
+        "expected_paradigms": [
+            "uci_load_validate"
+        ]
+    },
+    "Scenario 07": {
+        "category": "c_plugin_libubus",
+        "intent": "Tests whether the C AI generator knows how to securely build JSON blobmsg arrays for return execution.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/utils/rpcd-mod-lxc/files/lxc.c",
+        "description": "Handling a ubus RPC request in C.",
+        "expected_paradigms": [
+            "struct blob_buf",
+            "blobmsg_add_string",
+            "ubus_send_reply"
+        ]
+    },
+    "Scenario 08": {
+        "category": "explicit_ucode_uci_backend",
+        "intent": "Explicit benchmark strictly testing the syntax accuracy of ucode-to-UCI manipulation.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/network/config/wifi-scripts/files-ucode/usr/share/ucode/wifi/ap.uc",
+        "description": "Modifying a UCI configuration dynamically using ucode.",
+        "expected_paradigms": [
+            "import * as uci from 'uci'",
+            "cursor.set(",
+            "cursor.commit("
+        ]
+    },
+    "Scenario 09": {
+        "category": "shell_hotplug_d",
+        "intent": "Tests if the AI utilizes the OpenWrt hotplug.d event variables rather than manually polling the interface.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/net/ddns-scripts/files/etc/hotplug.d/iface/25-ddns",
+        "description": "A standard interface hotplug script for dynamic network events.",
+        "expected_paradigms": [
+            "\"$ACTION\"",
+            "\"$INTERFACE\""
+        ]
+    },
+    "Scenario 10": {
+        "category": "shell_uci_defaults",
+        "intent": "Tests knowledge of the uci-defaults directory execution logic and how configs are initialized.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/base-files/files/etc/uci-defaults/15_migrate-time-zonename",
+        "description": "Script that automatically manipulates UCI on the very first unit boot.",
+        "expected_paradigms": [
+            "uci set",
+            "uci commit",
+            "exit 0",
+            "/etc/uci-defaults"
+        ]
+    },
+    "Scenario 11": {
+        "category": "makefile_build_system",
+        "intent": "Tests if the AI can write an OpenWrt-compliant package Makefile, utilizing topdir rules.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/net/udhcpsnoop/Makefile",
+        "description": "Standard OpenWrt Makefile structure to compile a custom C application.",
+        "expected_paradigms": [
+            "include $(TOPDIR)/rules.mk",
+            "include $(INCLUDE_DIR)/package.mk",
+            "DEPENDS:=+libubus"
+        ]
+    },
+    "Scenario 12": {
+        "category": "c_uloop_daemon",
+        "intent": "Tests the foundational setup of the event loop (uloop) in C, heavily used by OpenWrt core architectures.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/net/udhcpsnoop/src/ubus.c",
+        "description": "Initializing the core OpenWrt event loop natively in C.",
+        "expected_paradigms": [
+            "uloop_init()",
+            "ubus_connect()",
+            "ubus_add_uloop()",
+            "uloop_run()"
+        ]
+    },
+    "Scenario 13": {
+        "category": "ucode_fs_json",
+        "intent": "Tests if the AI knows to use Native ucode fs.readfile and json() functions instead of relying on bash cat, grep, or jq.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/utils/cli/files/usr/share/ucode/cli/utils.uc",
+        "description": "Native filesystem I/O and JSON parsing in modern ucode.",
+        "expected_paradigms": [
+            "fs.readfile",
+            "json("
+        ]
+    },
+    "Scenario 14": {
+        "category": "luci_menu_json",
+        "intent": "Tests if the AI knows the modern LuCI dispatcher (ui/menu.d) JSON architecture instead of legacy Lua index.lua controllers.",
+        "source_inspiration": "https://github.com/openwrt/luci/blob/master/modules/luci-base/root/usr/share/luci/menu.d/luci-base.json",
+        "description": "Registering a new LuCI tab in the navigation tree via JSON.",
+        "expected_paradigms": [
+            "\"title\"",
+            "\"action\"",
+            "\"type\": \"view\""
+        ]
+    },
+    "Scenario 15": {
+        "category": "c_blobmsg_parsing",
+        "intent": "Tests the parsing of dynamic attributes safely using OpenWrt's blobmsg standard.",
+        "source_inspiration": "https://github.com/openwrt/packages/blob/master/utils/rpcd-mod-lxc/files/lxc.c",
+        "description": "Using libubox mechanisms (blobmsg) to parse complex datastructures in C securely.",
+        "expected_paradigms": [
+            "blobmsg_parse",
+            "struct blob_attr"
+        ]
+    },
+    "Scenario 16": {
+        "category": "implicit_uloop_async",
+        "intent": "Tests if the AI knows to utilize the uloop async event system natively inside ucode to process parallel streams, rather than making a shell script with background '&' tags.",
+        "source_inspiration": "https://github.com/openwrt/openwrt/blob/master/package/utils/cli/files/usr/share/ucode/cli/utils.uc",
+        "description": "Running asynchronous child processes and multiplexing IO natively.",
+        "expected_paradigms": [
+            "uloop",
+            "fs.popen"
+        ]
+    },
+    "Scenario 17": {
+        "category": "diagnostic",
+        "intent": "Baselines the AI's contextual knowledge of the modern OpenWrt architectural shift to ucode. Validates cutoff date.",
+        "source_inspiration": "N/A",
+        "description": "A raw diagnostic question testing latent space knowledge of ucode over Lua.",
+        "expected_paradigms": [
+            "C",
+            "JavaScript",
+            "Lua replacement"
+        ]
+    }
+}
