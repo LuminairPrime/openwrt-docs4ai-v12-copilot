@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1314
 source_file: L1-raw/wiki/wiki_page-guide-developer-creating-a-meson-based-package.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/guide-developer/creating_a_meson_based_package
 language: text
 ai_summary: This tutorial outlines the process of creating and installing Meson-based packages in OpenWrt, providing a comprehensive guide for developers. It details the necessary steps, including including `$(INCLUDE_DIR)/meson.mk` in the `Makefile`, and using `MESON_ARGS` to pass configuration options. Additionally, it covers how to define environment variables with `MESON_VARS` and provides a simple example of a 'Hello World' application. By following these instructions, developers can efficiently build and customize their software packages within the OpenWrt environment.

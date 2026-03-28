@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 951
 source_file: L1-raw/wiki/wiki_page-guide-developer-frequent-pr-mistakes.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/guide-developer/frequent-pr-mistakes
 language: text
 ai_summary: This document outlines common mistakes that developers make when submitting Pull Requests (PRs) to OpenWrt, aiming to help them avoid delays in the review process. Key points include the necessity of a commit message, the importance of using a real name and email in the Signed-off-by line, and the distinction between a PR and its commits. Developers are also advised to respond to reviewer questions, avoid multi-posting PRs, and use the checkpatch.pl script for code quality checks.

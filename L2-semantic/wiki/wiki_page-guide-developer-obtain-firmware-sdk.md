@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1599
 source_file: L1-raw/wiki/wiki_page-guide-developer-obtain-firmware-sdk.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/guide-developer/obtain.firmware.sdk
 language: text
 ai_summary: The SDK (Software Development Kit) for OpenWrt is a relocatable, precompiled toolchain designed for cross-compiling single userspace packages for specific targets without the need to compile the entire system. It allows developers to compile custom software for specific releases, update certain packages, or recompile existing packages with custom patches. To use the SDK, one can download a precompiled version or compile it themselves using 'make menuconfig'. After setting up the SDK, package definitions must be obtained and the desired packages can be compiled using standard buildroot commands.

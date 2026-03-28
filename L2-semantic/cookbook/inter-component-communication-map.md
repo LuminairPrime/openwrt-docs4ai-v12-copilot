@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1645
 source_file: L1-raw/cookbook/inter-component-communication-map.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_locator: content/cookbook-source/inter-component-communication-map.md
 description: 'Practical guide to choosing the correct communication boundary in modern
   OpenWrt: UCI for persistent config, ubus for runtime state and method calls, rpcd

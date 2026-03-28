@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1469
 source_file: L1-raw/wiki/wiki_page-techref-headers.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/techref/headers
 language: text
 ai_summary: The TRX, TRX2, and BIN firmware formats are used in various OpenWrt devices, each having distinct header structures despite containing similar content. TRX v1 and v2 both start with a magic number and include fields for header length, CRC value, flags, version, and multiple partition offsets, with TRX v2 adding an additional partition offset. The BIN header format is less defined, but it also begins with a magic number and includes reserved fields. Understanding these formats is crucial for firmware development and modification in OpenWrt.

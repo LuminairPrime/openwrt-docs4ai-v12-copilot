@@ -4,7 +4,7 @@ module: luci
 origin_type: js_source
 token_count: 262
 source_file: L1-raw/luci/js_source-api-firewall.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/firewall.js
 source_locator: modules/luci-base/htdocs/luci-static/resources/firewall.js

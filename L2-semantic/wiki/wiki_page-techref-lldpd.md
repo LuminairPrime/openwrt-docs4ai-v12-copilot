@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 380
 source_file: L1-raw/wiki/wiki_page-techref-lldpd.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/techref/lldpd
 language: text
 ---

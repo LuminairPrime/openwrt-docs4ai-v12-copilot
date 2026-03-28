@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 331
 source_file: L1-raw/wiki/wiki_page-guide-developer-drivers.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_url: https://openwrt.org/docs/guide-developer/drivers
 language: text
 ai_summary: The Drivers module in OpenWrt provides an overview of how drivers operate within the Linux kernel, emphasizing that they can be compiled into the kernel or loaded as modules. It highlights the different types of driver source code, including Open Source, partially Open Source, and Closed Source (Binary Blobs). The document also notes that all kernel module package filenames in OpenWrt begin with 'kmod-' and that the modprobe command may not be available, recommending the use of insmod instead. Additionally, it suggests various resources for further learning and contacting developers.

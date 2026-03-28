@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 7457
 source_file: L1-raw/ucode/c_source-api-module-uloop.md
-last_pipeline_run: '2026-03-28T11:23:30.361702+00:00'
+last_pipeline_run: '2026-03-28T11:37:47.626796+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/uloop.c
 source_locator: lib/uloop.c
