@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 2384
 source_file: L1-raw/wiki/wiki_page-guide-developer-procd-init-script-example.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_url: https://openwrt.org/docs/guide-developer/procd-init-script-example
 language: text
 ---

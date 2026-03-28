@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 631
 source_file: L1-raw/wiki/wiki_page-guide-developer-creating-a-cmake-package-in-openwrt.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_url: https://openwrt.org/docs/guide-developer/creating-a-cmake-package-in-openwrt
 language: text
 ai_summary: This document provides a guide for creating a CMake package in OpenWrt, highlighting the differences from the Meson package creation process. It includes a basic `CMakeLists.txt` example for a simple 'Hello, World' application and details the structure of the corresponding `Makefile`. Key sections cover how to pass CMake options and how to build the package using OpenWrt's build system. The guide concludes with instructions on enabling the package through the configuration menu and locating the built package files.

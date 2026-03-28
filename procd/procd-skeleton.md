@@ -1,7 +1,7 @@
 # procd (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for procd.
-> **Generated:** 2026-03-28T11:46:58.282694+00:00
+> **Generated:** 2026-03-28T12:00:00.596003+00:00
 
 ---
 

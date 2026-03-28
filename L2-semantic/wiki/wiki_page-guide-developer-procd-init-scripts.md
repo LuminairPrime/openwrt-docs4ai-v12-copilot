@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 5333
 source_file: L1-raw/wiki/wiki_page-guide-developer-procd-init-scripts.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_url: https://openwrt.org/docs/guide-developer/procd-init-scripts
 language: text
 ai_summary: Practical guide for writing procd-based /etc/init.d/ service scripts. Walks through USE_PROCD=1, procd_open_instance, procd_set_param command/respawn/stdout/stderr, procd_close_instance, and the service_triggers() callback for uci-change-triggered reloads; includes worked examples for a simple daemon, a daemon with multiple instances, and a service that reloads on UCI changes to a specific package.

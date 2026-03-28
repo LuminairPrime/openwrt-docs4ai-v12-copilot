@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 2639
 source_file: L1-raw/cookbook/minimal-openwrt-package-makefile.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_locator: content/cookbook-source/minimal-openwrt-package-makefile.md
 description: Annotated minimal Makefile for packaging a C program in OpenWrt, covering
   the required variables, Build/Compile, Package/install, and the correct PKG_HASH

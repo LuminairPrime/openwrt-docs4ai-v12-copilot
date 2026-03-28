@@ -4,7 +4,7 @@ module: luci-examples
 origin_type: example_app
 token_count: 5819
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-root-usr-share-rpcd-ucode-docker-rpc-uc.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc
 source_locator: applications/luci-app-dockerman/root/usr/share/rpcd/ucode/docker_rpc.uc

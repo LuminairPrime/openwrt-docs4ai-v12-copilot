@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 13517
 source_file: L1-raw/ucode/c_source-api-module-socket.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/socket.c
 source_locator: lib/socket.c

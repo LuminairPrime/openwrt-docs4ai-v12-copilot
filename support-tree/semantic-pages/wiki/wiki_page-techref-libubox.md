@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 748
 source_file: L1-raw/wiki/wiki_page-techref-libubox.md
-last_pipeline_run: '2026-03-28T11:46:40.989674+00:00'
+last_pipeline_run: '2026-03-28T11:59:43.422282+00:00'
 source_url: https://openwrt.org/docs/techref/libubox
 language: text
 ai_summary: Documents libubox, the OpenWrt utility library that underpins ubus, procd, and netifd. Covers the blob/blobmsg API for binary/JSON message encoding (blob_buf_init, blobmsg_add_*), the uloop event loop (uloop_run, uloop_fd_add, uloop_timeout_*), avl/list data structures, and the json_script policy-based configuration evaluator used by procd.
