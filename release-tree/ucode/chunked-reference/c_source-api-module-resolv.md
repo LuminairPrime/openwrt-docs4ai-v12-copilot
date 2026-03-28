@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 2516
 source_file: L1-raw/ucode/c_source-api-module-resolv.md
-last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
+last_pipeline_run: '2026-03-28T09:11:39.723949+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/resolv.c
 source_locator: lib/resolv.c

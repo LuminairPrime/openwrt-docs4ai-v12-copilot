@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 2815
 source_file: L1-raw/cookbook/firstboot-uci-defaults-pattern.md
-last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
+last_pipeline_run: '2026-03-28T09:11:39.723949+00:00'
 source_locator: content/cookbook-source/firstboot-uci-defaults-pattern.md
 description: Correct pattern for first-boot and migration-time configuration changes
   in OpenWrt using /etc/uci-defaults, including sequencing, idempotency, helper usage,

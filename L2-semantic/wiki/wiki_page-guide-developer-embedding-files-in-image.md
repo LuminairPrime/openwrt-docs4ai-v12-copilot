@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 484
 source_file: L1-raw/wiki/wiki_page-guide-developer-embedding-files-in-image.md
-last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
+last_pipeline_run: '2026-03-28T09:11:39.723949+00:00'
 source_url: https://openwrt.org/docs/guide-developer/embedding-files-in-image
 language: text
 ai_summary: The 'embedding-files-in-image' module describes a method for embedding custom files into OpenWrt images using buildroot features. Although this functionality was removed in April 2017, it previously allowed users to create overlay files that could modify package installations without altering source code. Users could create a Makefile fragment in the overlay directory to append custom installation commands to existing package recipes, such as adding a custom banner or inittab to the 'base-files' package. The documentation provides an example of how to structure the overlay and the necessary Makefile commands for this process.

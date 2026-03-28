@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-28T08:27:17.356900+00:00",
+  "generated": "2026-03-28T09:11:57.879878+00:00",
   "signatures": {
     "struct.pack": "struct.pack(format, ...values)",
     "struct.unpack": "struct.unpack(format, input, [offset])",
