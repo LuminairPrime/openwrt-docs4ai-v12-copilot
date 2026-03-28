@@ -5,7 +5,7 @@ section_count: 27
 is_monolithic: false
 is_sharded_index: true
 part_count: 2
-generated: '2026-03-27T20:02:56.666251+00:00'
+generated: '2026-03-28T08:27:16.398522+00:00'
 ---
 
 # luci-examples Complete Reference

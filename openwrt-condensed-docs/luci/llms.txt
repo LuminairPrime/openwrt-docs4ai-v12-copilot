@@ -7,6 +7,10 @@
 - [luci-skeleton.md](./luci-skeleton.md): Structural map for luci that prioritizes quick orientation and symbol discovery. (~3027 tokens, l3-skeleton)
 - [luci-complete-reference.md](./luci-complete-reference.md): Complete monolithic reference for luci when a larger context window is available. (~20416 tokens, l4-monolith)
 
+## Tooling Surfaces
+
+- [luci-env.d.ts](./luci-env.d.ts): TypeScript declarations for IDE navigation and static analysis of luci. (~3406 tokens, l3-ide-schema)
+
 ## Source Documents
 
 - [js_source-api-cbi.md](../L2-semantic/luci/js_source-api-cbi.md): Implements the CBI declarative form framework for LuCI. (~3075 tokens, l2-source)

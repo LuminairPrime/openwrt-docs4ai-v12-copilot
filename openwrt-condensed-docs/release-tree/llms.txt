@@ -2,10 +2,10 @@
 > For a flat file listing, see [llms-full.txt](./llms-full.txt)
 
 > **Version:** openwrt/openwrt@82d9859, openwrt/luci@405d4af, jow-/ucode@763d8c3
-> **Total Context Available:** ~439660 tokens
+> **Total Context Available:** ~456605 tokens
 
 ## Guides
-- [cookbook](./cookbook/llms.txt): Task-oriented OpenWrt guides: era-appropriate patterns, common AI mistakes, architecture overview, and cross-component howtos. (~18852 tokens)
+- [cookbook](./cookbook/llms.txt): Task-oriented OpenWrt guides: era-appropriate patterns, common AI mistakes, architecture overview, and cross-component howtos. (~35804 tokens)
 
 ## Core Daemons
 - [openwrt-hotplug](./openwrt-hotplug/llms.txt): Hotplug event subsystem: netifd-injected environment variables and /etc/hotplug.d/ script interfaces. (~1412 tokens)
@@ -21,7 +21,7 @@
 - [openwrt-core](./openwrt-core/llms.txt): OpenWrt buildroot core packages: early boot firmware, kernel module infrastructure, and base-files. (~23147 tokens)
 
 ## Manuals
-- [wiki](./wiki/llms.txt): OpenWrt project documentation: developer guides, architecture references, release notes, and hardware support. (~194622 tokens)
+- [wiki](./wiki/llms.txt): OpenWrt project documentation: developer guides, architecture references, release notes, and hardware support. (~194615 tokens)
 
 ## Complete Aggregation
 If your context window permits, you may fetch the flat URL index:

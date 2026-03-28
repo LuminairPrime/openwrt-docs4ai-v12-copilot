@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 3029
 source_file: L1-raw/wiki/wiki_page-guide-developer-adding-new-device.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/adding_new_device
 language: text
 ai_summary: The 'Adding a new device' module provides a comprehensive guide for developers looking to integrate new hardware into OpenWrt. It emphasizes the importance of examining recent commits and using local grep searches to identify necessary files for device integration. Key directories and their functions are outlined, including base-files for firmware integration, device tree source files, and image configuration. Additionally, it covers the process of making the new device visible in the make menuconfig and the organization of kernel patches.
@@ -20,7 +20,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/adding_new_device](https://openwrt.org/docs/guide-developer/adding_new_device)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # Adding a new device
 

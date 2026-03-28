@@ -5,7 +5,7 @@
 ## Recommended Entry Points
 
 - [cookbook-skeleton.md](./cookbook-skeleton.md): Structural map for cookbook that prioritizes quick orientation and symbol discovery. (~3921 tokens, l3-skeleton)
-- [cookbook-complete-reference.md](./cookbook-complete-reference.md): Complete monolithic reference for cookbook when a larger context window is available. (~36426 tokens, l4-monolith)
+- [cookbook-complete-reference.md](./cookbook-complete-reference.md): Complete monolithic reference for cookbook when a larger context window is available. (~36561 tokens, l4-monolith)
 
 ## Source Documents
 

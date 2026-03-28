@@ -9,8 +9,8 @@
   "conversion_mode": "pandoc",
   "last_modified": "unknown",
   "last_modified_http": null,
-  "raw_hash": "ac0273a4244fe486f52a6ace25b86a09e2888370446107713581797a7824f890",
+  "raw_hash": "bab1e68fe85eb72fa4952aacd1962edd0f0422851f12a96523f7ae60770ab134",
   "source_path": "/docs/techref/sysupgrade",
-  "extraction_timestamp": "2026-03-26T08:36:27.157877+00:00",
-  "content_hash": "d96bbde8"
+  "extraction_timestamp": "2026-03-28T07:36:55.710873+00:00",
+  "content_hash": "675b0fac"
 }

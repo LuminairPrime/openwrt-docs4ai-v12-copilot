@@ -1,7 +1,7 @@
 # wiki (Skeleton Semantic Map)
 
 > **Contains:** Headers and function signatures for wiki.
-> **Generated:** 2026-03-27T20:02:56.666251+00:00
+> **Generated:** 2026-03-28T08:27:16.398522+00:00
 
 ---
 
@@ -1287,8 +1287,6 @@
 
 ## References
 
-> **Summary:** The Sysupgrade module in OpenWrt is a shell script located at `/sbin/sysupgrade` designed to facilitate system updates. It provides various command-line options for upgrading the system, creating backups, and restoring configurations. Key options include `-f` for restoring configurations from a tarball, `-c` for preserving changed files in `/etc/`, and `-n` to skip saving configurations during a reflash. Users should be cautious with certain options, as preserving files can lead to incompatibilities in new versions.
-> **Use Case:** Use Sysupgrade when you need to update your OpenWrt device or restore configurations from a backup. It is particularly useful for maintaining system settings across upgrades.
 # Sysupgrade – Technical Reference
 # Sysupgrade – Technical Reference
 ## Usage

@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1022
 source_file: L1-raw/cookbook/package-config-bootstrap-pattern.md
-last_pipeline_run: '2026-03-28T05:18:40.352496+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_locator: content/cookbook-source/package-config-bootstrap-pattern.md
 description: 'Correct pattern for package-owned OpenWrt configuration: ship predictable
   /etc/config files, use /etc/uci-defaults only for one-shot detection or migration,

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 390
 source_file: L1-raw/wiki/wiki_page-guide-developer-build-mpd-full-pulse.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/build.mpd-full.pulse
 language: text
 ai_summary: This document provides a guide for building MPD-full with PulseAudio on OpenWrt. It outlines the necessary modifications to the Makefile, including adding dependencies for PulseAudio and adjusting compilation flags. Key changes include adding `+pulseaudio-daemon` to DEPENDS and enabling PulseAudio in the configuration. Additionally, it specifies the need to modify the EXTRA_LDFLAGS to include the correct library path for PulseAudio.
@@ -17,7 +17,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/build.mpd-full.pulse](https://openwrt.org/docs/guide-developer/build.mpd-full.pulse)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # Building MPD-full with PulseAudio
 

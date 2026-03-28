@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 842
 source_file: L1-raw/wiki/wiki_page-guide-developer-uefi-bootable-image.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/uefi-bootable-image
 language: text
 ai_summary: The OpenWrt module for UEFI based x86 systems provides guidance on generating UEFI bootable images for x86-64 architecture. It outlines the necessary steps to build these images using the OpenWrt build system, including configuring the menu options and running the build command. Additionally, it covers the process for creating UEFI secure boot images, detailing the required tools and commands to sign EFI binaries. The module also references a development repository for secure boot capabilities and provides instructions for importing signing certificates.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/uefi-bootable-image](https://openwrt.org/docs/guide-developer/uefi-bootable-image)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # OpenWrt on UEFI based x86 systems
 

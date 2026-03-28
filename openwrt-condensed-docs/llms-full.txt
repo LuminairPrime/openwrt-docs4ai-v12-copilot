@@ -1,6 +1,6 @@
 # openwrt-docs4ai - Complete Flat Catalog
 > Includes generated AI-facing helper surfaces and all published L2 source documents.
-> **Total Underlying L2 Context:** ~456612 tokens
+> **Total Underlying L2 Context:** ~456605 tokens
 
 - [AGENTS.md](./AGENTS.md): AI agent usage rules for navigating the generated OpenWrt documentation corpus. (~468 tokens, l3-agent-guide)
 - [architecture-overview.md](./L2-semantic/cookbook/architecture-overview.md): Structural overview of OpenWrt component relationships, data flow, ACL/permission boundaries, and build-time vs runtime distinctions for AI tools and developers building on the platform. (~2981 tokens, l2-source)
@@ -161,7 +161,7 @@
 - [wiki_page-techref-requirements-boot-process.md](./L2-semantic/wiki/wiki_page-techref-requirements-boot-process.md): The Boot/Init Requirements document outlines the necessary functions and goals for initscripts in the new OpenWrt init system. (~1562 tokens, l2-source)
 - [wiki_page-techref-rpcd.md](./L2-semantic/wiki/wiki_page-techref-rpcd.md): Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. (~1043 tokens, l2-source)
 - [wiki_page-techref-swconfig.md](./L2-semantic/wiki/wiki_page-techref-swconfig.md): The swconfig program is used for configuring Ethernet network switches in OpenWrt. (~3222 tokens, l2-source)
-- [wiki_page-techref-sysupgrade.md](./L2-semantic/wiki/wiki_page-techref-sysupgrade.md): The Sysupgrade module in OpenWrt is a shell script located at /sbin/sysupgrade designed to facilitate system updates. (~2605 tokens, l2-source)
+- [wiki_page-techref-sysupgrade.md](./L2-semantic/wiki/wiki_page-techref-sysupgrade.md): Sysupgrade – Technical Reference This information is based upon v21.02, last updated for commit 6d266ef158 on 2022-02-10. (~2598 tokens, l2-source)
 - [wiki_page-techref-ubox.md](./L2-semantic/wiki/wiki_page-techref-ubox.md): The ubox package is a component of the OpenWrt operating system that facilitates the management of UCI configurations and block devices. (~242 tokens, l2-source)
 - [wiki_page-techref-ubus.md](./L2-semantic/wiki/wiki_page-techref-ubus.md): Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. (~6656 tokens, l2-source)
 - [wiki_page-techref-uci.md](./L2-semantic/wiki/wiki_page-techref-uci.md): Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. (~3923 tokens, l2-source)
@@ -171,7 +171,7 @@
 - [wiki_page-techref-wireless-standards.md](./L2-semantic/wiki/wiki_page-techref-wireless-standards.md): The Wireless Standards module in OpenWrt provides an overview of various wireless communication standards relevant to the operating system. (~845 tokens, l2-source)
 - [wiki_page-techref-xenomai.md](./L2-semantic/wiki/wiki_page-techref-xenomai.md): The Xenomai module provides a real-time framework within OpenWrt, allowing for the handling of interrupts in a prioritized manner through Adeos. (~502 tokens, l2-source)
 - [README.md](./README.md): Generated corpus overview and quick-start guidance for published outputs. (~195 tokens, l3-generated-readme)
-- [cookbook-complete-reference.md](./cookbook/cookbook-complete-reference.md): Complete monolithic reference for cookbook when a larger context window is available. (~36426 tokens, l4-monolith)
+- [cookbook-complete-reference.md](./cookbook/cookbook-complete-reference.md): Complete monolithic reference for cookbook when a larger context window is available. (~36561 tokens, l4-monolith)
 - [cookbook-skeleton.md](./cookbook/cookbook-skeleton.md): Structural map for cookbook that prioritizes quick orientation and symbol discovery. (~3921 tokens, l3-skeleton)
 - [llms.txt](./cookbook/llms.txt): Module-specific routing guide for cookbook with preferred entry points, tooling, and source documents. (~1353 tokens, l3-module-index)
 - [llms.txt](./luci-examples/llms.txt): Module-specific routing guide for luci-examples with preferred entry points, tooling, and source documents. (~2672 tokens, l3-module-index)
@@ -179,8 +179,9 @@
 - [luci-examples-complete-reference.part-01.md](./luci-examples/luci-examples-complete-reference.part-01.md): Part 1 of the sharded complete reference for luci-examples when the full module exceeds the token budget. (~100136 tokens, l4-monolith-part)
 - [luci-examples-complete-reference.part-02.md](./luci-examples/luci-examples-complete-reference.part-02.md): Part 2 of the sharded complete reference for luci-examples when the full module exceeds the token budget. (~421 tokens, l4-monolith-part)
 - [luci-examples-skeleton.md](./luci-examples/luci-examples-skeleton.md): Structural map for luci-examples that prioritizes quick orientation and symbol discovery. (~4066 tokens, l3-skeleton)
-- [llms.txt](./luci/llms.txt): Module-specific routing guide for luci with preferred entry points, tooling, and source documents. (~588 tokens, l3-module-index)
+- [llms.txt](./luci/llms.txt): Module-specific routing guide for luci with preferred entry points, tooling, and source documents. (~632 tokens, l3-module-index)
 - [luci-complete-reference.md](./luci/luci-complete-reference.md): Complete monolithic reference for luci when a larger context window is available. (~20416 tokens, l4-monolith)
+- [luci-env.d.ts](./luci/luci-env.d.ts): TypeScript declarations for IDE navigation and static analysis of luci. (~3406 tokens, l3-ide-schema)
 - [luci-skeleton.md](./luci/luci-skeleton.md): Structural map for luci that prioritizes quick orientation and symbol discovery. (~3027 tokens, l3-skeleton)
 - [llms.txt](./openwrt-core/llms.txt): Module-specific routing guide for openwrt-core with preferred entry points, tooling, and source documents. (~605 tokens, l3-module-index)
 - [openwrt-core-complete-reference.md](./openwrt-core/openwrt-core-complete-reference.md): Complete monolithic reference for openwrt-core when a larger context window is available. (~24828 tokens, l4-monolith)
@@ -198,8 +199,8 @@
 - [ucode-complete-reference.md](./ucode/ucode-complete-reference.md): Complete monolithic reference for ucode when a larger context window is available. (~81066 tokens, l4-monolith)
 - [ucode-skeleton.md](./ucode/ucode-skeleton.md): Structural map for ucode that prioritizes quick orientation and symbol discovery. (~5571 tokens, l3-skeleton)
 - [ucode.d.ts](./ucode/ucode.d.ts): TypeScript declarations for IDE navigation and static analysis of ucode. (~3242 tokens, l3-ide-schema)
-- [llms.txt](./wiki/llms.txt): Module-specific routing guide for wiki with preferred entry points, tooling, and source documents. (~6050 tokens, l3-module-index)
+- [llms.txt](./wiki/llms.txt): Module-specific routing guide for wiki with preferred entry points, tooling, and source documents. (~6060 tokens, l3-module-index)
 - [wiki-complete-reference.md](./wiki/wiki-complete-reference.md): Sharded complete reference index for wiki with links to smaller part files. (~194 tokens, l4-monolith)
 - [wiki-complete-reference.part-01.md](./wiki/wiki-complete-reference.part-01.md): Part 1 of the sharded complete reference for wiki when the full module exceeds the token budget. (~99911 tokens, l4-monolith-part)
-- [wiki-complete-reference.part-02.md](./wiki/wiki-complete-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~96761 tokens, l4-monolith-part)
-- [wiki-skeleton.md](./wiki/wiki-skeleton.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19639 tokens, l3-skeleton)
+- [wiki-complete-reference.part-02.md](./wiki/wiki-complete-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~96754 tokens, l4-monolith-part)
+- [wiki-skeleton.md](./wiki/wiki-skeleton.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19496 tokens, l3-skeleton)

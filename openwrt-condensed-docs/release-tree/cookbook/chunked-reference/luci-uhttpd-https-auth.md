@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1547
 source_file: L1-raw/cookbook/luci-uhttpd-https-auth.md
-last_pipeline_run: '2026-03-28T05:18:40.352496+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_locator: content/cookbook-source/luci-uhttpd-https-auth.md
 description: Explains the current OpenWrt login and transport path across LuCI, uhttpd,
   rpcd sessions, cookies, bearer auth, and HTTPS configuration, including the main
@@ -41,7 +41,7 @@ The current path is:
 1. LuCI authenticates through the `session login` ubus method
 2. LuCI stores the returned session id in the `sysauth` cookie for browser flows
 3. the dispatcher decides which auth methods are accepted for a route
-4. uhttpd terminates HTTP or HTTPS and forwards ubus-backed requests with the session context
+4. uhttpd terminates [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) or HTTPS and forwards ubus-backed requests with the session context
 
 That means login bugs often come from boundary mismatches, not just wrong passwords.
 
@@ -105,7 +105,7 @@ entry.auth = {
 What this means in practice:
 
 1. not every route accepts the same auth transport
-2. HTTPS and HTTP cookie paths are differentiated explicitly
+2. HTTPS and [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) cookie paths are differentiated explicitly
 3. older or custom endpoints that assume one universal cookie path are easy to get wrong
 
 ## Pattern 3: HTTPS is a real deployment surface, not only a theme option
@@ -157,7 +157,7 @@ and later, requests are checked against ubus session permissions unless `no_ubus
 
 What this gets right:
 
-1. bearer-style auth can be accepted for ubus HTTP flows
+1. bearer-style auth can be accepted for ubus [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) flows
 2. transport-layer auth is still mapped back to ubus session checks
 3. disabling ubus auth is available only as a dangerous debug escape hatch, not a normal deployment pattern
 
@@ -177,7 +177,7 @@ Avoid:
 2. debugging LuCI login without checking `uhttpd` listener and certificate state
 3. turning on `no_ubusauth` outside local debug work
 4. assuming browser auth state can bypass rpcd session policy
-5. treating HTTP versus HTTPS differences as purely cosmetic
+5. treating [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) versus HTTPS differences as purely cosmetic
 
 ## Related Pages
 

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 383
 source_file: L1-raw/wiki/wiki_page-guide-developer-build-mpd-full.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/build.mpd-full
 language: text
 ai_summary: The MPD-full building from source guide provides instructions for enabling the full version of the Music Player Daemon (MPD) in OpenWrt by modifying the Makefile. Users must edit the MPD Makefile located in the OpenWrt feeds directory to change the dependency from `+libffmpeg` to `+libffmpeg-full`. After saving the changes, the full MPD version will be available in the `make menuconfig` interface alongside the mini version. This process is particularly relevant for users building from source who want access to the full feature set of MPD.

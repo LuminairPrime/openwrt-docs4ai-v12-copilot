@@ -3,7 +3,7 @@ module: openwrt-hotplug
 total_token_count: 1412
 section_count: 1
 is_monolithic: true
-generated: '2026-03-27T20:02:56.666251+00:00'
+generated: '2026-03-28T08:27:16.398522+00:00'
 ---
 
 # openwrt-hotplug Bundled Reference

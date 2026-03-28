@@ -1,13 +1,13 @@
 # wiki module
 > OpenWrt project documentation: developer guides, architecture references, release notes, and hardware support.
-> **Total Context:** ~194622 tokens
+> **Total Context:** ~194615 tokens
 
 ## Recommended Entry Points
 
-- [wiki-skeleton.md](./wiki-skeleton.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19639 tokens, l3-skeleton)
+- [wiki-skeleton.md](./wiki-skeleton.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19496 tokens, l3-skeleton)
 - [wiki-complete-reference.md](./wiki-complete-reference.md): Sharded complete reference index for wiki with links to smaller part files. (~194 tokens, l4-monolith)
 - [wiki-complete-reference.part-01.md](./wiki-complete-reference.part-01.md): Part 1 of the sharded complete reference for wiki when the full module exceeds the token budget. (~99911 tokens, l4-monolith-part)
-- [wiki-complete-reference.part-02.md](./wiki-complete-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~96761 tokens, l4-monolith-part)
+- [wiki-complete-reference.part-02.md](./wiki-complete-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~96754 tokens, l4-monolith-part)
 
 ## Source Documents
 
@@ -91,7 +91,7 @@
 - [wiki_page-techref-requirements-boot-process.md](../L2-semantic/wiki/wiki_page-techref-requirements-boot-process.md): The Boot/Init Requirements document outlines the necessary functions and goals for initscripts in the new OpenWrt init system. (~1562 tokens, l2-source)
 - [wiki_page-techref-rpcd.md](../L2-semantic/wiki/wiki_page-techref-rpcd.md): Documents rpcd, the OpenWrt RPC daemon that exposes ubus methods over HTTP for LuCI. (~1043 tokens, l2-source)
 - [wiki_page-techref-swconfig.md](../L2-semantic/wiki/wiki_page-techref-swconfig.md): The swconfig program is used for configuring Ethernet network switches in OpenWrt. (~3222 tokens, l2-source)
-- [wiki_page-techref-sysupgrade.md](../L2-semantic/wiki/wiki_page-techref-sysupgrade.md): The Sysupgrade module in OpenWrt is a shell script located at /sbin/sysupgrade designed to facilitate system updates. (~2605 tokens, l2-source)
+- [wiki_page-techref-sysupgrade.md](../L2-semantic/wiki/wiki_page-techref-sysupgrade.md): Sysupgrade – Technical Reference This information is based upon v21.02, last updated for commit 6d266ef158 on 2022-02-10. (~2598 tokens, l2-source)
 - [wiki_page-techref-ubox.md](../L2-semantic/wiki/wiki_page-techref-ubox.md): The ubox package is a component of the OpenWrt operating system that facilitates the management of UCI configurations and block devices. (~242 tokens, l2-source)
 - [wiki_page-techref-ubus.md](../L2-semantic/wiki/wiki_page-techref-ubus.md): Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. (~6656 tokens, l2-source)
 - [wiki_page-techref-uci.md](../L2-semantic/wiki/wiki_page-techref-uci.md): Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. (~3923 tokens, l2-source)

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1172
 source_file: L1-raw/wiki/wiki_page-guide-developer-build-wndr3700.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/build.wndr3700
 language: text
 ai_summary: This document provides a comprehensive guide on building OpenWrt for the Netgear WNDR3700, detailing the steps required to create a functional firmware image from scratch. It includes prerequisites for setting up the OpenWrt Buildroot, instructions for pulling the latest code, and configuration steps necessary for a successful build. Additionally, it covers how to unbrick the device without a serial cable and offers optional guidance for creating one. The instructions are based on the trunk revision 19064 and emphasize the importance of specific configuration settings for network access.

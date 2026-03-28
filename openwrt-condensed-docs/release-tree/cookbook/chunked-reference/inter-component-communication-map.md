@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1645
 source_file: L1-raw/cookbook/inter-component-communication-map.md
-last_pipeline_run: '2026-03-28T05:18:40.352496+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_locator: content/cookbook-source/inter-component-communication-map.md
 description: 'Practical guide to choosing the correct communication boundary in modern
   OpenWrt: UCI for persistent config, ubus for runtime state and method calls, rpcd
@@ -44,7 +44,7 @@ The communication map is simple once you separate persistent configuration from 
 1. **UCI** owns persistent configuration under `/etc/config/*`
 2. **ubus** owns structured runtime calls and state exchange
 3. **rpcd** exposes privileged backend methods and enforces ACLs for callers
-4. **uhttpd** terminates HTTP and forwards browser RPC traffic into the ubus world
+4. **uhttpd** terminates [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) and forwards browser RPC traffic into the ubus world
 5. **LuCI** renders the browser UI and consumes backend state through RPC, not through direct shell access
 
 ## The Current Request Path
@@ -52,7 +52,7 @@ The communication map is simple once you separate persistent configuration from 
 For a browser-driven admin flow, the current path looks like this:
 
 1. a LuCI view declares or issues an RPC call
-2. uhttpd receives the request and handles the HTTP session context
+2. uhttpd receives the request and handles the [HTTP](../../wiki/chunked-reference/wiki_page-guide-developer-adding-new-device.md) session context
 3. rpcd validates the session and ACL boundary
 4. ubus routes the call to the owning daemon or plugin
 5. the owner daemon returns structured data
