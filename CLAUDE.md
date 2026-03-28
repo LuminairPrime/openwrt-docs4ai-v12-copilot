@@ -83,13 +83,9 @@ gh run view <run_id> --log-failed                       # only if artifacts don'
 | L2 | `L2-semantic/{module}/` | Semantic markdown + YAML frontmatter + cross-links | Generated |
 | L3/L4 | `release-tree/{module}/` | Published references, maps, routing indexes, and IDE surfaces | Published |
 
-`openwrt-condensed-docs/` is the **tracked publish root** — updated only by an explicit `tools/sync_tree.py promote-generated` step. Direct local pipeline script execution generates into `staging/` (the default `OUTDIR`, ignored by git). To update the tracked publish tree after local generation:
+Pipeline scripts generate into `staging/` (the default `OUTDIR`, gitignored). Tests read from `staging/` to validate fresh output. CI generates into `staging/`, then publishes `staging/release-tree/` to external distribution targets and mirrors the full tree to `gh-pages` for test preview.
 
-```powershell
-python tools/sync_tree.py promote-generated --src staging --dest openwrt-condensed-docs
-```
-
-External publication ships the `release-tree/` subtree as the direct-root `release-tree/` layout. `tmp/` is ephemeral scratch, never authoritative.
+There is no tracked publish root in the source repository. External publication ships the `release-tree/` subtree as the direct-root `release-tree/` layout. `tmp/` is ephemeral scratch, never authoritative.
 
 ## Architecture: Pipeline Stage Flow
 
@@ -118,9 +114,9 @@ Shared Python libraries live in `lib/` (`config.py`, `ai_store.py`, `ai_enrichme
 This repo has two distinct LLM-relevant surfaces — do not conflate them:
 
 - **Source repo** (`docs/`, `DEVELOPMENT.md`, `README.md`): Maintainer docs and implementation.
-- **Generated corpus** (`openwrt-condensed-docs/release-tree/` locally, `release-tree/` externally): Published AI navigation surface consumed by downstream tools. Routing contracts defined in `docs/specs/schema-definitions.md`.
+- **Generated corpus** (`staging/release-tree/` locally, `release-tree/` externally): Published AI navigation surface consumed by downstream tools. Routing contracts defined in `docs/specs/schema-definitions.md`.
 
-The `openwrt-condensed-docs` name is internal-only and must never appear in any public path.
+The source repository does not track generated output. All generated content lives in `staging/` (gitignored) or external distribution targets.
 
 A source-repo root `llms.txt` is intentionally out of scope. Do not create one.
 
@@ -129,7 +125,7 @@ A source-repo root `llms.txt` is intentionally out of scope. Do not create one.
 Before editing numbered scripts or the workflow:
 
 1. Read `docs/ARCHITECTURE.md`, `docs/specs/schema-definitions.md`, and `docs/specs/pipeline-stage-catalog.md`.
-2. For `05b`–`08` changes: inspect current `openwrt-condensed-docs/llms.txt`, `llms-full.txt`, and `AGENTS.md` first.
+2. For `05b`–`08` changes: inspect current `staging/llms.txt`, `staging/llms-full.txt`, and `staging/AGENTS.md` first (generate fresh output if needed).
 3. For workflow changes: map the change to a specific trigger path (push/schedule/dispatch).
 
 ## Key Conventions

@@ -12,22 +12,20 @@ This document defines the active filesystem and data contracts for the current p
 | `content/cookbook-source/` | Hand-authored cookbook source |
 | `release-inputs/` | Overlay inputs for final publication |
 | `tmp/` | Ephemeral local working area |
-| `openwrt-condensed-docs/` | Default local committed output root |
-| `openwrt-condensed-docs/release-tree/` | Local representation of the public output contract |
-| `openwrt-condensed-docs/support-tree/` | Internal support and telemetry outputs |
+| `staging/` | Default local generated output root (gitignored) |
+| `staging/release-tree/` | Local representation of the public output contract |
+| `staging/support-tree/` | Internal support and telemetry outputs |
 
 `WORKDIR` is ephemeral. Locally it defaults to `tmp/`. In hosted workflow runs it is set to `${{ github.workspace }}/tmp`.
 
-`OUTDIR` is the output root for a run. Locally it defaults to `openwrt-condensed-docs/`. In hosted workflow runs it is overridden to `staging/`.
+`OUTDIR` is the output root for a run. It always defaults to `staging/`. Tests read from `staging/` to validate fresh pipeline output. The source repository does not track generated output.
 
 ## Documentation Boundary
 
 The source repository and the generated corpus are separate contract surfaces:
 
 - The source repository is the maintainer and implementation surface. Its authoritative docs live in `README.md`, `DEVELOPMENT.md`, `CLAUDE.md`, and the active files under `docs/`.
-- The generated corpus under `OUTDIR/release-tree/` is the published navigation surface for humans, tools, and LLMs.
-
-The `openwrt-condensed-docs` name is internal to the source repository only. It must not appear in published URLs or public layout examples.
+- The generated corpus under `OUTDIR/release-tree/` is the published navigation surface for humans, tools, and LLMs. Locally it generates into `staging/` (gitignored); externally it is published to distribution targets.
 
 ## Layer Contracts
 

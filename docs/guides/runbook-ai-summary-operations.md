@@ -9,8 +9,7 @@ The policy is:
 - scratch-first only
 
 `data/base/` and `data/override/` are the source of truth for AI summaries.
-`openwrt-condensed-docs/` is downstream generated evidence, not the primary
-edit surface.
+`staging/` is downstream generated evidence, not the primary edit surface.
 
 ## Authoritative References
 
@@ -29,7 +28,7 @@ edit surface.
    are cache-backed local smoke tests for placement behavior.
 3. Always validate the scratch AI store before promotion.
 4. Promote reviewed JSON records into `data/base/`; do not hand-edit generated
-   files under `openwrt-condensed-docs/` as the primary AI workflow.
+   files under `staging/` as the primary AI workflow.
 5. Use `data/override/` only for intentional human-pinned edits.
 
 ## Preferred Helper
@@ -113,7 +112,7 @@ New-Item -ItemType Directory -Force -Path $scratch | Out-Null
 
 Copy-Item (Join-Path $root "data/base") (Join-Path $scratch "ai-data/base") -Recurse
 Copy-Item (Join-Path $root "data/override") (Join-Path $scratch "ai-data/override") -Recurse
-Copy-Item (Join-Path $root "openwrt-condensed-docs/L2-semantic") (Join-Path $scratch "out/L2-semantic") -Recurse
+Copy-Item (Join-Path $root "staging/L2-semantic") (Join-Path $scratch "out/L2-semantic") -Recurse
 
 $env:OUTDIR = Join-Path $scratch "out"
 $env:AI_DATA_BASE_DIR = Join-Path $scratch "ai-data/base"

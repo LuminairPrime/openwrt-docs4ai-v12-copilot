@@ -100,7 +100,7 @@ When a module exceeds the token limit for a single file:
 
 The following must never appear in the published release-tree:
 
-- `L1-raw/`, `L2-semantic/`, `openwrt-condensed-docs/`
+- `L1-raw/`, `L2-semantic/`, `staging/`, `tmp/`
 - `*-skeleton.md`, `*-complete-reference.md`
 - `cross-link-registry.json`, `repo-manifest.json`, `signature-inventory.json`, `changelog.json`, `CHANGES.md`
 - Any `.meta.json` sidecar

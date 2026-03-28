@@ -100,20 +100,17 @@ These are the minimal local rerun paths when you already have the prerequisite s
 
 For cookbook-only local authoring work, do not assume that rerunning `03 -> 05a -> 05b -> 06 -> 07` in a dirty workspace is isolated to the cookbook module. If unrelated generated module trees under `staging/`, `release-tree/`, or `support-tree/` drift or disappear, restore the non-cookbook generated paths from `HEAD`, keep the cookbook slice, then rerun `06 -> 07 -> 08`.
 
-## Generate → Validate → Promote Cycle
+## Generate → Validate Cycle
 
-Direct local script execution generates into `staging/` (the default `OUTDIR`). The tracked publish tree (`openwrt-condensed-docs/`) is updated only by an explicit promote step:
+Direct local script execution generates into `staging/` (the default `OUTDIR`, gitignored). Tests read from `staging/` to validate fresh pipeline output. The source repository does not track generated output.
 
 ```powershell
-# 1. Generate into scratch (default OUTDIR=staging)
+# Generate into staging (default OUTDIR=staging)
 python .github/scripts/openwrt-docs4ai-03-normalize-semantic.py
 python .github/scripts/openwrt-docs4ai-05a-assemble-references.py
 python .github/scripts/openwrt-docs4ai-06-generate-llm-routing-indexes.py
 python .github/scripts/openwrt-docs4ai-07-generate-web-index.py
 python .github/scripts/openwrt-docs4ai-08-validate-output.py
-
-# 2. Explicitly promote validated scratch into tracked publish tree
-python tools/sync_tree.py promote-generated --src staging --dest openwrt-condensed-docs
 ```
 
-Local smoke runners are unaffected — they use isolated temp directories and never write to `staging/` or `openwrt-condensed-docs/`.
+Local smoke runners use isolated temp directories and never write to `staging/`.

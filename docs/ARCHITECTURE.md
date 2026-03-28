@@ -11,9 +11,7 @@ The active operating model is Windows-first local validation with GitHub Actions
 This repository has two distinct documentation surfaces:
 
 - The source repository is the maintainer surface. Authoritative docs live in `README.md`, `DEVELOPMENT.md`, `CLAUDE.md`, and the active files under `docs/`.
-- The generated corpus is the published navigation surface. Locally it lives under `openwrt-condensed-docs/release-tree/`; externally it is shipped as the direct-root `release-tree/` layout.
-
-`openwrt-condensed-docs/` is an internal staging root only. It must never appear in public URLs or user-facing path contracts.
+- The generated corpus is the published navigation surface. Locally it generates into the ephemeral `staging/` directory (gitignored); externally it is shipped as the direct-root `release-tree/` layout to distribution targets.
 
 ## Repository Zones
 
@@ -28,7 +26,7 @@ This repository has two distinct documentation surfaces:
 | `release-inputs/` | Overlay inputs | `release-include/` for common overlays, plus Pages-only and release-repo-only overlays. |
 | `docs/` | Active maintainer docs | Overview, getting started, architecture, active specs, guides, roadmap, plans, and archive. |
 | `docs/archive/` | Historical material | Preserved for context only; never authoritative over active docs. |
-| `openwrt-condensed-docs/` | Tracked publish root | Updated only by explicit promote step. Never the default pipeline generation target. |
+| `staging/` | Generated output root | Ephemeral scratch space where pipeline scripts generate output. Gitignored, never committed. |
 | `tmp/` | Ephemeral working area | Scratch space for local runs, CI artifacts, and rollback snapshots. |
 | `templates/` | Static templates | Keep only templates that still have a real consumer. |
 
@@ -43,13 +41,7 @@ This repository has two distinct documentation surfaces:
 | `L4` | Published reference surfaces | `OUTDIR/release-tree/{module}/` | Published |
 | `L5` | Telemetry and drift outputs | `OUTDIR/support-tree/telemetry/` | Internal |
 
-For both direct local runs and hosted workflow runs, the default `OUTDIR` is `staging/`. This is the scratch generated output root — it is ignored by git and safe to overwrite. To update the tracked publish tree, explicitly promote the validated scratch output:
-
-```powershell
-python tools/sync_tree.py promote-generated --src staging --dest openwrt-condensed-docs
-```
-
-`openwrt-condensed-docs/` is the tracked publish root. It is only updated by an explicit promote step — never by direct pipeline script execution.
+For both direct local runs and hosted workflow runs, the default `OUTDIR` is `staging/`. This is the scratch generated output root — it is gitignored and safe to overwrite. Tests read from `staging/` to validate fresh pipeline output. The source repository does not track generated output.
 
 ## Pipeline Shape
 
@@ -88,9 +80,9 @@ Use `docs/specs/pipeline-stage-catalog.md` for stage ordering and rerun sequence
 ## Remote Publication Contract
 
 - Hosted workflow runs build into `staging/` and validate there first.
-- Successful deploys synchronize staged output into `openwrt-condensed-docs/` and publish the validated `release-tree/` to external targets.
-- Generated source-repo update commits use the `docs: auto-update YYYY-MM-DD` format.
+- Successful deploys publish the validated `release-tree/` from staging to external targets.
 - External publication targets receive only the `release-tree/` subtree plus the appropriate overlay material.
+- The `gh-pages` branch provides a test preview mirror of the full staging tree.
 
 ## Archive Policy
 
@@ -122,9 +114,8 @@ This pipeline publishes to multiple repositories across two GitHub accounts. Und
 
 The `deploy` job performs three output publication actions:
 
-1. **Commit to main** — updates `openwrt-condensed-docs/` in this repository. Auto-commit format: `docs: auto-update YYYY-MM-DD`.
-2. **Push `gh-pages` branch** — triggers `pages-build-deployment` on this repo (test preview at `luminairprime.github.io/openwrt-docs4ai-pipeline/`).
-3. **Push to external distribution repos** (gated by `DIST_APP_ID` and `DIST_APP_PRIVATE_KEY` secrets):
+1. **Push `gh-pages` branch** — mirrors the full staging tree for test preview at `luminairprime.github.io/openwrt-docs4ai-pipeline/`. Triggers GitHub automatic `pages-build-deployment`.
+2. **Push to external distribution repos** (gated by `DIST_APP_ID` and `DIST_APP_PRIVATE_KEY` secrets):
    - `openwrt-docs4ai/corpus` main — production corpus with dated release ZIP assets.
    - `openwrt-docs4ai/openwrt-docs4ai.github.io` main — production Pages site.
 

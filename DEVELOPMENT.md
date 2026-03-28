@@ -62,7 +62,7 @@ These runners are intentionally local-first. Remote GitHub Actions validation st
 
 Do not treat a cookbook-only content edit as permission to freely rerun broad generation stages in a dirty working tree.
 
-- `03`, `05a`, and downstream stages can rewrite or remove unrelated generated module trees under `openwrt-condensed-docs/`, `openwrt-condensed-docs/release-tree/`, and `openwrt-condensed-docs/support-tree/` if the local tree is incomplete or already drifted.
+- `03`, `05a`, and downstream stages can rewrite or remove unrelated generated module trees under `staging/release-tree/` and `staging/support-tree/` if the local tree is incomplete or already drifted.
 - If the intended change is cookbook-only and the non-cookbook generated corpus should remain as-is, restore unrelated generated paths from `HEAD` before validating, then rerun only the minimal root-surface stages needed after the cookbook pass, typically `06 -> 07 -> 08`.
 - If a cookbook-local rerun suddenly produces missing module directories, missing `source_commit` fields in unrelated L2 content, or support-tree mirror mismatches, treat that as collateral regeneration damage and restore the non-cookbook generated paths instead of patching around the symptoms.
 
@@ -96,7 +96,7 @@ Before editing pipeline scripts, generated outputs, or workflow behavior:
 
 1. Decide whether the change affects maintainer docs, generated-corpus contracts, workflow execution, or only local tests.
 2. Read this file, `docs/ARCHITECTURE.md`, `docs/specs/schema-definitions.md`, and `docs/specs/pipeline-stage-catalog.md` before changing numbered scripts or the workflow.
-3. If the change touches scripts `05b` through `08`, inspect the currently generated AI-facing outputs first: `openwrt-condensed-docs/llms.txt`, `openwrt-condensed-docs/llms-full.txt`, `openwrt-condensed-docs/AGENTS.md`, and at least one representative `openwrt-condensed-docs/{module}/llms.txt`.
+3. If the change touches scripts `05b` through `08`, inspect the currently generated AI-facing outputs first: `staging/llms.txt`, `staging/llms-full.txt`, `staging/AGENTS.md`, and at least one representative `staging/{module}/llms.txt` (generate fresh output if needed).
 4. If the change touches `.github/workflows/openwrt-docs4ai-00-pipeline.yml`, map the intended behavior to a specific trigger path: push on `main`, monthly schedule, or `workflow_dispatch` with explicit inputs.
 5. Run the smallest local proof first. Only use remote GitHub Actions runs after local validation passes.
 
@@ -105,18 +105,18 @@ Before editing pipeline scripts, generated outputs, or workflow behavior:
 This repository has two LLM-relevant surfaces and they should not be conflated:
 
 - The source repository is the implementation and maintainer-doc surface. Its authoritative docs live under `docs/`, `README.md`, and `DEVELOPMENT.md`.
-- The generated corpus under `openwrt-condensed-docs/` is the published AI navigation surface consumed by downstream tools and models.
+- The generated corpus published externally is the AI navigation surface consumed by downstream tools and models. Locally it is generated into the ephemeral `staging/` directory (gitignored).
 
 The strict routing contract for generated `llms.txt`, `llms-full.txt`, module `llms.txt`, and `AGENTS.md` lives in `docs/specs/schema-definitions.md`.
 
-The published AI navigation surface is the external `release-tree/` layout with generic filenames (`map.md`, `bundled-reference.md`, `chunked-reference/`). The `openwrt-condensed-docs` name is internal to the source repo only and never appears in any public path or URL.
+The published AI navigation surface is the external `release-tree/` layout with generic filenames (`map.md`, `bundled-reference.md`, `chunked-reference/`).
 
 A source-repo root `llms.txt` remains intentionally out of scope for the current maintenance tranche. Do not create one opportunistically while working on generated output behavior.
 
 ## Repository Rules
 
-- `openwrt-condensed-docs/` is the stable generated output root.
-- `openwrt-condensed-docs/release-tree/` is the publishable output root inside the source repo staging tree. External publish targets receive that subtree as the direct-root `release-tree/` layout.
+- `staging/` is the gitignored scratch output root where pipeline scripts generate into by default.
+- `staging/release-tree/` is the publishable output root inside the ephemeral staging tree. External publish targets receive that subtree as the direct-root `release-tree/` layout.
 - `tmp/` is ephemeral and never authoritative.
 - `L1-raw` and `L2-semantic` are the standard intermediate layer names.
 - Script numbering denotes stage families and dependency boundaries. Letter suffixes denote sibling scripts inside the same stage family.
@@ -154,7 +154,7 @@ These entry points are maintained as first-class engineering assets. Use `tests/
 Real AI-summary work is intentionally AI-store first and scratch first.
 
 - `data/base/` and `data/override/` are the authoritative AI-summary surfaces.
-- `openwrt-condensed-docs/` is downstream generated evidence.
+- `staging/` is downstream generated evidence, never committed.
 - The permanent workflow lives in [docs/guides/runbook-ai-summary-operations.md](docs/guides/runbook-ai-summary-operations.md).
 - The only numbered AI stage is `.github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py`.
 - Script `04` performs its own library-backed preflight against the selected AI store before applying or generating summaries.
@@ -169,7 +169,7 @@ Use the cache-backed smoke paths for regression proof, and use the runbook plus 
 
 - The workflow builds generated artifacts into `staging/` first and only promotes them in the `deploy` job.
 - Hosted extraction now runs `02a` in parallel with `01`, while `02b` through `02h` remain clone-gated.
-- On push, schedule, and manual runs, the deploy job syncs `staging/` into `openwrt-condensed-docs/` with `rsync -a --delete`.
+- On push, schedule, and manual runs, the deploy job reads `staging/release-tree/` from the build artifact and publishes to external targets (corpus repo, release ZIP, org GitHub Pages). The full staging tree is also mirrored to the `gh-pages` branch for test preview on the source repo's GitHub Pages.
 - If the promoted tree changed, GitHub Actions writes a bot-authored commit in the form `docs: v12 auto-update YYYY-MM-DD`.
 - GitHub Pages publishes a `public/` copy of staging that excludes `L1-raw` and `L2-semantic`.
 - Workflow diagnostics now include `extract-summary`, `process-summary`, and `pipeline-summary` artifacts for first-stop triage.
@@ -273,7 +273,7 @@ dispatch exposes `skip_ai=false` by default.
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `WORKDIR` | `tmp` | Scratch area for cloned repos and intermediate layers |
-| `OUTDIR` | `staging` | Scratch generated output root. Direct local runs generate into `staging/` and must explicitly promote into `openwrt-condensed-docs/` to update the tracked publish tree. |
+| `OUTDIR` | `staging` | Scratch generated output root. Pipeline scripts generate into `staging/` (gitignored). Tests read from `staging/` to validate fresh output. CI publishes `staging/release-tree/` to external targets. |
 | `SKIP_WIKI` | `false` | Skip wiki extraction |
 | `SKIP_AI` | `true` | Disable optional AI enrichment by default |
 | `WRITE_AI` | `true` | Allow script `04` to create missing base records when AI is enabled |
