@@ -1,6 +1,0 @@
-{
-  "stage": "scored",
-  "threads_total": 5886,
-  "threads_passing": 4822,
-  "threshold": 0.3
-}

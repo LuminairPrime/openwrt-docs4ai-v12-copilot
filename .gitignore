@@ -21,3 +21,6 @@ node_modules/
 
 # Local review bundles and scratch reports
 tests/comprehensive-test-results-*/
+
+# Large research data files (kept locally, not pushed to GitHub)
+docs/plans/v13/openwrt-mistake-discovery/OpenWrt_Archives_Processed_Small/
