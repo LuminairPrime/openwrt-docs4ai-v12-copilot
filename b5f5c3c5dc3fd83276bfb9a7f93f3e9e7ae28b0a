@@ -1,0 +1,39 @@
+tests/support/smoke_pipeline_support.py
+  c8c6cb28d32acf0e 20
+.github/workflows/openwrt-docs4ai-00-pipeline.yml
+  c8c6cb28d32acf0e 684,692-693,834,947,953-958
+docs/specs/pipeline-stage-catalog.md
+  c8c6cb28d32acf0e 12
+docs/ARCHITECTURE.md
+  c8c6cb28d32acf0e 7,23,86,92-125
+docs/GETTING_STARTED.md
+  c8c6cb28d32acf0e 63
+DEVELOPMENT.md
+  c8c6cb28d32acf0e 220
+tests/pytest/pytest_06_warning_regression_test.py
+  c8c6cb28d32acf0e 14-20,22,24-25,27,29,31-32,34,39-40,43,45
+CLAUDE.md
+  c8c6cb28d32acf0e 64,68,103
+tests/pytest/pytest_01_workflow_contract_test.py
+  c8c6cb28d32acf0e 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "b5f5c3c5dc3fd83276bfb9a7f93f3e9e7ae28b0a",
+  "prompts": {
+    "c8c6cb28d32acf0e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "426caea0-2088-485f-a0d2-6495199e51d9",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "LuminairPrime <luminair@gmail.com>",
+      "messages": [],
+      "total_additions": 78,
+      "total_deletions": 28,
+      "accepted_lines": 75,
+      "overriden_lines": 0
+    }
+  }
+}
