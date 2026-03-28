@@ -168,6 +168,10 @@ def validate_index_html_contract(outdir, hard_fail):
     content = open(path, "r", encoding="utf-8").read()
     if "./openwrt-condensed-docs/" not in content:
         hard_fail("index.html missing the mirrored display-path prefix")
+    # Note: the check above validates that root index.html renders paths using the
+    # tracked publish root display prefix (openwrt-condensed-docs/). This is a
+    # publish-contract check, not an OUTDIR check. It must remain regardless of
+    # what OUTDIR defaults to.
 
     actual_links = {
         normalized

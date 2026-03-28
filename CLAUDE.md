@@ -38,7 +38,7 @@ python tools/manage_ai_store.py --option full --keep-scratch
 
 Do not assume a cookbook-only source edit is isolated just because the authored files live under `content/cookbook-source/`.
 
-- A local rerun through `03` and `05a` can dirty or truncate unrelated generated trees under `openwrt-condensed-docs/`, `release-tree/`, and `support-tree/` when the working tree is already partial.
+- A local rerun through `03` and `05a` can dirty or truncate unrelated generated trees under `staging/`, `release-tree/`, and `support-tree/` when the working tree is already partial.
 - For cookbook authoring fixes, prefer the smallest proof first. If cookbook outputs are already present and only root routing surfaces need refresh, restore unrelated generated paths from `HEAD` and rerun only `06 -> 07 -> 08` after preserving the cookbook slice.
 - If validation starts failing on unrelated modules after a cookbook-only rerun, restore non-cookbook generated paths instead of editing unrelated generated content.
 
@@ -83,7 +83,13 @@ gh run view <run_id> --log-failed                       # only if artifacts don'
 | L2 | `L2-semantic/{module}/` | Semantic markdown + YAML frontmatter + cross-links | Generated |
 | L3/L4 | `release-tree/{module}/` | Published references, maps, routing indexes, and IDE surfaces | Published |
 
-`openwrt-condensed-docs/` is the **stable internal output root** — never hand-edit it if a workflow run will overwrite it. Local and CI runs materialize the public contract under `openwrt-condensed-docs/release-tree/`, and external publication ships that subtree as the direct-root `release-tree/` layout. `tmp/` is ephemeral scratch, never authoritative.
+`openwrt-condensed-docs/` is the **tracked publish root** — updated only by an explicit `tools/sync_tree.py promote-generated` step. Direct local pipeline script execution generates into `staging/` (the default `OUTDIR`, ignored by git). To update the tracked publish tree after local generation:
+
+```powershell
+python tools/sync_tree.py promote-generated --src staging --dest openwrt-condensed-docs
+```
+
+External publication ships the `release-tree/` subtree as the direct-root `release-tree/` layout. `tmp/` is ephemeral scratch, never authoritative.
 
 ## Architecture: Pipeline Stage Flow
 

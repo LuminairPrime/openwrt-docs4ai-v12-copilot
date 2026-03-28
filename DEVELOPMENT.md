@@ -273,7 +273,7 @@ dispatch exposes `skip_ai=false` by default.
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `WORKDIR` | `tmp` | Scratch area for cloned repos and intermediate layers |
-| `OUTDIR` | `openwrt-condensed-docs` | Stable output root for generated artifacts |
+| `OUTDIR` | `staging` | Scratch generated output root. Direct local runs generate into `staging/` and must explicitly promote into `openwrt-condensed-docs/` to update the tracked publish tree. |
 | `SKIP_WIKI` | `false` | Skip wiki extraction |
 | `SKIP_AI` | `true` | Disable optional AI enrichment by default |
 | `WRITE_AI` | `true` | Allow script `04` to create missing base records when AI is enabled |

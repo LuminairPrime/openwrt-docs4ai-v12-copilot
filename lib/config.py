@@ -2,7 +2,7 @@ import os
 
 # Base Directories
 WORKDIR = os.environ.get("WORKDIR", "tmp")
-OUTDIR = os.environ.get("OUTDIR", "openwrt-condensed-docs")
+OUTDIR = os.environ.get("OUTDIR", "staging")
 
 # Execution Flags & Quotas
 SKIP_WIKI = os.environ.get("SKIP_WIKI", "false").lower() == "true"

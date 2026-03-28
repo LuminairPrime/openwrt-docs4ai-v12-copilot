@@ -28,7 +28,7 @@ This repository has two distinct documentation surfaces:
 | `release-inputs/` | Overlay inputs | `release-include/` for common overlays, plus Pages-only and release-repo-only overlays. |
 | `docs/` | Active maintainer docs | Overview, getting started, architecture, active specs, guides, roadmap, plans, and archive. |
 | `docs/archive/` | Historical material | Preserved for context only; never authoritative over active docs. |
-| `openwrt-condensed-docs/` | Local generated output root | Stable internal output root; do not treat it as the source of truth for maintainer docs. |
+| `openwrt-condensed-docs/` | Tracked publish root | Updated only by explicit promote step. Never the default pipeline generation target. |
 | `tmp/` | Ephemeral working area | Scratch space for local runs, CI artifacts, and rollback snapshots. |
 | `templates/` | Static templates | Keep only templates that still have a real consumer. |
 
@@ -43,7 +43,13 @@ This repository has two distinct documentation surfaces:
 | `L4` | Published reference surfaces | `OUTDIR/release-tree/{module}/` | Published |
 | `L5` | Telemetry and drift outputs | `OUTDIR/support-tree/telemetry/` | Internal |
 
-For local committed inspection, the default `OUTDIR` is `openwrt-condensed-docs/`. In hosted workflow runs, `OUTDIR` is overridden to `staging/`.
+For both direct local runs and hosted workflow runs, the default `OUTDIR` is `staging/`. This is the scratch generated output root — it is ignored by git and safe to overwrite. To update the tracked publish tree, explicitly promote the validated scratch output:
+
+```powershell
+python tools/sync_tree.py promote-generated --src staging --dest openwrt-condensed-docs
+```
+
+`openwrt-condensed-docs/` is the tracked publish root. It is only updated by an explicit promote step — never by direct pipeline script execution.
 
 ## Pipeline Shape
 

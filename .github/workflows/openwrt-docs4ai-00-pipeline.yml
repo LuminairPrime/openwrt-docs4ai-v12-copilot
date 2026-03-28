@@ -939,7 +939,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           echo "Promoting staging to $PUBLISH_DIR"
-          rsync -a --delete "$OUTDIR/" "$GITHUB_WORKSPACE/$PUBLISH_DIR/"
+          python tools/sync_tree.py promote-generated --src "$OUTDIR" --dest "$GITHUB_WORKSPACE/$PUBLISH_DIR"
           git add "$PUBLISH_DIR/"
           if git diff --cached --quiet; then
             echo "No changes to commit."
@@ -987,7 +987,7 @@ jobs:
             )
           fi
 
-          rsync -a --delete --exclude=".git" "$publish_root/" "$branch_dir/"
+          python tools/sync_tree.py mirror-tree --src "$publish_root" --dest "$branch_dir" --exclude .git
           touch "$branch_dir/.nojekyll"
 
           (
@@ -1101,7 +1101,7 @@ jobs:
 
           rm -rf "$zip_stage"
           mkdir -p "$zip_root"
-          rsync -a --delete "$release_tree/" "$zip_root/"
+          python tools/sync_tree.py mirror-tree --src "$release_tree" --dest "$zip_root"
           rm -f "$zip_path"
 
           (
@@ -1140,7 +1140,7 @@ jobs:
           git -C "$repo_dir" config user.name "github-actions[bot]"
           git -C "$repo_dir" config user.email "github-actions[bot]@users.noreply.github.com"
 
-          rsync -a --delete --exclude=".git" "$release_tree/" "$repo_dir/"
+          python tools/sync_tree.py mirror-tree --src "$release_tree" --dest "$repo_dir" --exclude .git
 
           git -C "$repo_dir" add --all
           if git -C "$repo_dir" diff --cached --quiet; then
@@ -1203,9 +1203,9 @@ jobs:
           git -C "$repo_dir" config user.name "github-actions[bot]"
           git -C "$repo_dir" config user.email "github-actions[bot]@users.noreply.github.com"
 
-          rsync -a --delete --exclude=".git" "$release_tree/" "$repo_dir/"
+          python tools/sync_tree.py mirror-tree --src "$release_tree" --dest "$repo_dir" --exclude .git
           if [ -d "$pages_include_dir" ]; then
-            rsync -a "$pages_include_dir/" "$repo_dir/"
+            python tools/sync_tree.py overlay-tree --src "$pages_include_dir" --dest "$repo_dir"
           fi
 
           git -C "$repo_dir" add --all

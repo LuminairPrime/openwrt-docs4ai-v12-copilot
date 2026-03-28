@@ -1,6 +1,4 @@
-import ast
 import re
-import textwrap
 
 import pytest
 
@@ -163,13 +161,15 @@ def test_process_summary_depends_on_validate_output_outcome():
         '(summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")'
     )
 
-    heredoc_match = re.search(
-        r"python - <<'PY'\n(?P<body>.*?)\n\s+PY",
-        process_block,
-        flags=re.DOTALL,
-    )
-    assert heredoc_match is not None
-    ast.parse(textwrap.dedent(heredoc_match.group("body")))
+
+def test_deploy_promotes_with_python_sync_tool():
+    """The source-repo promotion step must use tools/sync_tree.py, not rsync."""
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    deploy_block = get_workflow_job_block(workflow_text, "deploy")
+
+    assert "tools/sync_tree.py promote-generated" in deploy_block
+    # Confirm the old rsync promotion is gone
+    assert 'rsync -a --delete "$OUTDIR/"' not in deploy_block
 
 
 def test_pipeline_summary_reports_validate_output_outcome():
