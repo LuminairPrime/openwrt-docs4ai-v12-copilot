@@ -19,6 +19,7 @@ from lib.output_sync import (
     GENERATED_ROOT_REQUIRED_FILES,
     RELEASE_TREE_MIN_MODULES,
     assert_safe_tree_sync,
+    resolve_tree,
     sync_tree,
     validate_generated_root,
 )
@@ -426,3 +427,73 @@ def test_end_to_end_promote_cycle(tmp_path: Path) -> None:
     assert not (publish / "stale-artifact.txt").exists(), (
         "extraneous file was not removed during promote"
     )
+
+
+# ---------------------------------------------------------------------------
+# Regression tests for review findings (24-28)
+# ---------------------------------------------------------------------------
+
+
+def test_resolve_tree_rejects_empty_string() -> None:
+    """Finding 2: resolve_tree('') must raise, not resolve to cwd."""
+    with pytest.raises(ValueError, match="empty"):
+        resolve_tree("")
+
+
+def test_resolve_tree_rejects_whitespace_only_string() -> None:
+    with pytest.raises(ValueError, match="empty"):
+        resolve_tree("   ")
+
+
+def test_sync_tree_does_not_create_destination_on_missing_source(tmp_path: Path) -> None:
+    """Finding 3: missing source must not leave destination created on disk."""
+    src = tmp_path / "no-such-dir"
+    dst = tmp_path / "should-not-exist"
+
+    with pytest.raises(FileNotFoundError):
+        sync_tree(src, dst, delete_extraneous=True)
+
+    assert not dst.exists(), "destination was created despite missing source"
+
+
+def test_sync_tree_replaces_directory_with_file(tmp_path: Path) -> None:
+    """Finding 1: when source has a file and destination has a directory
+    with the same name, the directory must be replaced by the file."""
+    src = tmp_path / "src"
+    dst = tmp_path / "dst"
+    src.mkdir()
+    dst.mkdir()
+
+    # Source: item is a file
+    (src / "item").write_text("I am a file", encoding="utf-8")
+
+    # Destination: item is a directory with children
+    (dst / "item").mkdir()
+    (dst / "item" / "old.txt").write_text("leftover", encoding="utf-8")
+
+    sync_tree(src, dst, delete_extraneous=True)
+
+    assert (dst / "item").is_file(), "directory was not replaced by file"
+    assert (dst / "item").read_text(encoding="utf-8") == "I am a file"
+
+
+def test_sync_tree_replaces_file_with_directory(tmp_path: Path) -> None:
+    """Finding 1 inverse: when source has a directory and destination has a
+    file with the same name, the file must be replaced by the directory."""
+    src = tmp_path / "src"
+    dst = tmp_path / "dst"
+    src.mkdir()
+    dst.mkdir()
+
+    # Source: item is a directory with a child
+    (src / "item").mkdir()
+    (src / "item" / "child.txt").write_text("child content", encoding="utf-8")
+
+    # Destination: item is a file
+    (dst / "item").write_text("I am a file that should be replaced", encoding="utf-8")
+
+    sync_tree(src, dst, delete_extraneous=True)
+
+    assert (dst / "item").is_dir(), "file was not replaced by directory"
+    assert (dst / "item" / "child.txt").read_text(encoding="utf-8") == "child content"
+

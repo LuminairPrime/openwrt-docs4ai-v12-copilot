@@ -70,10 +70,11 @@ def resolve_tree(path: str | Path) -> Path:
     Does not require the path to exist (callers that need existence checks
     should do so explicitly after calling this function).
     """
-    path = Path(path)
-    if not str(path).strip():
+    # Validate the raw input before Path() converts "" to "." (cwd).
+    if isinstance(path, str) and not path.strip():
         raise ValueError("path must not be empty")
-    return path.resolve()
+    resolved = Path(path).resolve()
+    return resolved
 
 
 def assert_safe_tree_sync(source: Path, destination: Path) -> None:
@@ -225,6 +226,12 @@ def sync_tree(
     source = source.resolve()
     destination = destination.resolve()
 
+    # Fail fast: source must exist and be a directory before we touch destination.
+    if not source.exists():
+        raise FileNotFoundError(f"source does not exist: {source}")
+    if not source.is_dir():
+        raise NotADirectoryError(f"source is not a directory: {source}")
+
     # Build destination root if it does not exist
     destination.mkdir(parents=True, exist_ok=True)
 
@@ -263,6 +270,19 @@ def _sync_recursive(
     # Copy / update files and recurse into directories
     for name, src_entry in sorted(src_entries.items()):
         dst_entry = dst_dir / name
+
+        # Handle node-type conflicts: if source is a file but destination is
+        # a directory (or vice versa), remove the destination entry first so
+        # the correct node type can be created.  Symlinks are always unlinked
+        # directly to avoid shutil.rmtree following them into a target tree.
+        if dst_entry.exists() or dst_entry.is_symlink():
+            src_is_dir = src_entry.is_dir()
+            dst_is_dir = dst_entry.is_dir()
+            if src_is_dir != dst_is_dir:
+                if dst_entry.is_symlink() or not dst_is_dir:
+                    dst_entry.unlink()
+                else:
+                    shutil.rmtree(dst_entry)
 
         if src_entry.is_dir():
             dst_entry.mkdir(exist_ok=True)
