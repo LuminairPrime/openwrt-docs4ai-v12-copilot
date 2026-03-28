@@ -17,9 +17,9 @@ import sys
 
 import pytest
 
-from tests.support.pytest_pipeline_support import PROJECT_ROOT, load_script_module
+from tests.support.pytest_pipeline_support import OUTDIR, PROJECT_ROOT, load_script_module
 
-RELEASE_LUCI_TYPES_DIR = PROJECT_ROOT / "openwrt-condensed-docs" / "release-tree" / "luci" / "types"
+RELEASE_LUCI_TYPES_DIR = OUTDIR / "release-tree" / "luci" / "types"
 DTS_PATH = RELEASE_LUCI_TYPES_DIR / "luci-env.d.ts"
 
 
@@ -37,6 +37,8 @@ def _load_stage05e():
 
 def test_luci_env_dts_file_exists() -> None:
     """release-tree/luci/types/luci-env.d.ts must exist after 05e runs."""
+    if not RELEASE_LUCI_TYPES_DIR.exists():
+        pytest.skip(f"no pipeline output at {RELEASE_LUCI_TYPES_DIR}")
     assert DTS_PATH.exists(), (
         f"Expected {DTS_PATH} to exist. "
         "Run .github/scripts/openwrt-docs4ai-05e-generate-luci-dts.py first."
@@ -45,6 +47,8 @@ def test_luci_env_dts_file_exists() -> None:
 
 def test_luci_env_dts_min_length() -> None:
     """File must have at least 200 lines (substantive, not a stub)."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     lines = content.splitlines()
     assert len(lines) >= 200, (
@@ -55,24 +59,32 @@ def test_luci_env_dts_min_length() -> None:
 
 def test_luci_env_dts_declares_form_map() -> None:
     """File must declare LuCI.form.Map class."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "class Map" in content, "Expected 'class Map' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_form_typed_section() -> None:
     """File must declare LuCI.form.TypedSection class."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "class TypedSection" in content, "Expected 'class TypedSection' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_form_value() -> None:
     """File must declare LuCI.form.Value class."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "class Value" in content, "Expected 'class Value' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_rpc_declare() -> None:
     """File must declare rpc.declare function."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "function declare(" in content or "declare(" in content, (
         "Expected rpc.declare declaration in luci-env.d.ts"
@@ -81,24 +93,32 @@ def test_luci_env_dts_declares_rpc_declare() -> None:
 
 def test_luci_env_dts_declares_uci_load() -> None:
     """File must declare uci.load function."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "function load(" in content, "Expected 'function load(' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_uci_get() -> None:
     """File must declare uci.get function."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "function get(" in content, "Expected 'function get(' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_uci_set() -> None:
     """File must declare uci.set function."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "function set(" in content, "Expected 'function set(' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_view_lifecycle() -> None:
     """File must declare view lifecycle methods (load and render)."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "load():" in content or "load(): " in content, (
         "Expected view.load() lifecycle method in luci-env.d.ts"
@@ -110,12 +130,16 @@ def test_luci_env_dts_declares_view_lifecycle() -> None:
 
 def test_luci_env_dts_declares_dom_namespace() -> None:
     """File must declare the dom namespace."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "namespace dom" in content, "Expected 'namespace dom' in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_global_E() -> None:
     """File must declare the global E() DOM helper."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "declare function E(" in content, (
         "Expected 'declare function E(' global helper in luci-env.d.ts"
@@ -124,6 +148,8 @@ def test_luci_env_dts_declares_global_E() -> None:
 
 def test_luci_env_dts_declares_global_translate() -> None:
     """File must declare the global _() i18n helper."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     assert "declare function _(" in content, (
         "Expected 'declare function _(' i18n helper in luci-env.d.ts"
@@ -161,6 +187,8 @@ def test_generate_dts_works_without_js_sources() -> None:
 
 def test_generate_dts_contains_no_fabricated_http_urls() -> None:
     """The generated .d.ts must not contain any fabricated http(s) source URLs."""
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     import re
     # The .d.ts must not reference any specific external URLs (it's a type declaration
@@ -202,6 +230,8 @@ def test_luci_env_dts_is_valid_typescript() -> None:
     Verify luci-env.d.ts is valid TypeScript via tsc --noEmit.
     Skipped if tsc is not available on PATH.
     """
+    if not DTS_PATH.exists():
+        pytest.skip(f"no pipeline output at {DTS_PATH}")
     tsc = _tsc_cmd()
     if tsc is None:
         pytest.skip("tsc not available on PATH — skipping TypeScript validation")

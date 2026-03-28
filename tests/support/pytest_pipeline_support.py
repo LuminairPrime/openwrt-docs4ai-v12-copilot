@@ -1,4 +1,5 @@
 import importlib.util
+import os
 import re
 from pathlib import Path
 
@@ -9,7 +10,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = PROJECT_ROOT / ".github" / "scripts"
 SMOKE_SUPPORT_PATH = PROJECT_ROOT / "tests" / "support" / "smoke_pipeline_support.py"
 WORKFLOW_PATH = PROJECT_ROOT / ".github" / "workflows" / "openwrt-docs4ai-00-pipeline.yml"
-WIKI_L2_DIR = PROJECT_ROOT / "openwrt-condensed-docs" / "L2-semantic" / "wiki"
+OUTDIR = PROJECT_ROOT / os.environ.get("OUTDIR", "staging")
+WIKI_L2_DIR = OUTDIR / "L2-semantic" / "wiki"
 
 WIKI_ARTIFACT_PATTERNS = {
     "wrap": re.compile(r"(?:\\<|&lt;|<)\s*/?wrap\b", re.IGNORECASE),

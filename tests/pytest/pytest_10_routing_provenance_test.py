@@ -14,6 +14,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from tests.support.pytest_pipeline_support import load_script_module
 
 
@@ -236,12 +238,14 @@ def test_copy_release_chunked_pages_no_fabricated_url_when_source_absent(tmp_pat
 
 def test_l2_files_do_not_contain_provenance_block(tmp_path: Path) -> None:
     """L2 source files must not contain the visible provenance block (it is only in release output)."""
+    import os
 
-    # Find some actual L2 files in the live corpus
+    # Read from the actual pipeline output directory (staging/ by default)
     project_root = Path(__file__).resolve().parents[2]
-    l2_dir = project_root / "openwrt-condensed-docs" / "L2-semantic"
+    outdir = os.environ.get("OUTDIR", "staging")
+    l2_dir = project_root / outdir / "L2-semantic"
     if not l2_dir.is_dir():
-        return  # No corpus present; skip
+        pytest.skip(f"no pipeline output at {l2_dir}")
 
     l2_files = list(l2_dir.rglob("*.md"))[:20]  # Sample first 20
     for fpath in l2_files:
