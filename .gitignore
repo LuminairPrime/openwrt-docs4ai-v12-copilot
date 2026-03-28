@@ -24,3 +24,6 @@ tests/comprehensive-test-results-*/
 
 # Large research data files (kept locally, not pushed to GitHub)
 docs/plans/v13/openwrt-mistake-discovery/OpenWrt_Archives_Processed_Small/
+
+# Generated publish tree (produced by CI, served via gh-pages)
+openwrt-condensed-docs/

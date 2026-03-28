@@ -934,22 +934,10 @@ jobs:
         with:
           name: final-staging
           path: ${{ env.OUTDIR }}
-      - name: Promote & Commit
+      - name: Promote staging to workspace
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           echo "Promoting staging to $PUBLISH_DIR"
           python tools/sync_tree.py promote-generated --src "$OUTDIR" --dest "$GITHUB_WORKSPACE/$PUBLISH_DIR"
-          git add "$PUBLISH_DIR/"
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "docs: auto-update $(date -u +%Y-%m-%d)"
-            # Rebase on remote first in case a concurrent run or our own push
-            # landed on main between checkout and now (race condition avoidance).
-            git pull --rebase origin main
-            git push
-          fi
       # --- Publication targets ---
       # The gh-pages push below triggers GitHub's built-in pages-build-deployment
       # on LuminairPrime/openwrt-docs4ai-pipeline (test preview).
