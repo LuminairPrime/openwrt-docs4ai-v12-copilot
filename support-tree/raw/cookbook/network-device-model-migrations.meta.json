@@ -1,0 +1,18 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "network-device-model-migrations",
+  "source_locator": "content/cookbook-source/network-device-model-migrations.md",
+  "title": "Network Device Model Migrations",
+  "description": "Correct pattern for modern OpenWrt network model migrations, including bridge ifname-to-ports conversion, device-section migration, and current DSA-era helper usage in board defaults.",
+  "when_to_use": "Use when migrating legacy network config, reviewing board defaults, or writing current-era OpenWrt network setup that must survive bridge and DSA model changes.",
+  "related_modules": [
+    "openwrt-core",
+    "uci",
+    "wiki"
+  ],
+  "era_status": "current",
+  "verification_basis": "Verified against current openwrt source checkout under tmp/authoring-repos on 2026-03-28 plus archive-backed shortlist for bridge and DSA migration lessons",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-28"
+}

@@ -1,18 +1,18 @@
 ---
 module: wiki
-total_token_count: 95396
+total_token_count: 95389
 section_count: 40
 is_monolithic: false
 is_sharded_part: true
 part_number: 2
 part_count: 2
-generated: '2026-03-27T20:02:56.666251+00:00'
+generated: '2026-03-28T08:27:16.398522+00:00'
 ---
 
 # wiki Complete Reference (Part 2 of 2)
 
 > **Contains:** 40 documents
-> **Tokens:** ~95396 (cl100k_base)
+> **Tokens:** ~95389 (cl100k_base)
 > **Index:** [./wiki-complete-reference.md](./wiki-complete-reference.md)
 
 ---
@@ -4459,7 +4459,7 @@ This information is based upon v21.02, last updated for [commit 6d266ef158 on 20
 
 # Sysupgrade – Technical Reference
 
-In contrast to `opkg`, `mtd` and others, `sysupgrade` is merely a shell script: `/sbin/sysupgrade` intended to facilitate easy updates.
+In contrast to `apk`, `mtd` and others, `sysupgrade` is merely a shell script: `/sbin/sysupgrade` intended to facilitate easy updates.
 
 ## Usage
 
@@ -4512,7 +4512,7 @@ Files to be preserved depend on the following:
 
 - `/etc/sysupgrade.conf` - customizable backup configuration.
 - `/lib/upgrade/keep.d/*` - system configurations provided by specific packages preserved by default.
-- `opkg list-changed-conffiles` - list of files derived by package manager.
+- `apk audit` - list of files derived by package manager.
 - `-o` will cause the entire `/overlay` directory to be saved (with the `-u` caveat below).
 - `-n` will cause *NO* files will be saved and all configuration settings will be initialized from default values.
 - `-u` will prevent preservation of any file that has not been changed since the last sysupgrade. This prevents the need for programs to migrate an old configuration and reduces time needed for sysupgrade.

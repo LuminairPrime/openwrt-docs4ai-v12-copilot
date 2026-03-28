@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 845
 source_file: L1-raw/wiki/wiki_page-techref-wireless-standards.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/techref/wireless.standards
 language: text
 ai_summary: The Wireless Standards module in OpenWrt provides an overview of various wireless communication standards relevant to the operating system. It covers standards such as 802.11a, 802.11b, 802.11g, 802.11n, 802.11ac, 802.11ad, and 802.11ax, detailing their frequency bands and characteristics. Additionally, it discusses features in drivers that can be queried using the `iw phy <phy interface> info` command, highlighting the importance of compatibility for optimal data transfer rates. The module also introduces concepts like MIMO, HT, VHT, HE, MCS, RSDB, and WOW, which are essential for understanding wireless performance and capabilities.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/wireless.standards](https://openwrt.org/docs/techref/wireless.standards)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # Wireless Standards
 

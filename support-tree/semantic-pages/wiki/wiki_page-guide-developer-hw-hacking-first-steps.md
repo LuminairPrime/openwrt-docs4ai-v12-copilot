@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1492
 source_file: L1-raw/wiki/wiki_page-guide-developer-hw-hacking-first-steps.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/hw.hacking.first.steps
 language: text
 ai_summary: The 'Hardware Hacking First Steps' module provides guidance for users looking to install OpenWrt on unsupported routers. It outlines essential steps such as gaining access to the device via Unix shell, bootloader console, or JTAG port, and emphasizes the importance of gathering hardware information to identify compatible drivers. Users are encouraged to research available GNU/Linux drivers and learn programming languages like C for further development. The module also references various resources for deeper understanding and assistance in hardware hacking.

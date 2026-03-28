@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 690
 source_file: L1-raw/wiki/wiki_page-guide-developer-links-software-libraries.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/links.software.libraries
 language: text
 ai_summary: The 'Links to Libraries' module provides a curated list of lightweight libraries suitable for linking in OpenWrt development. It includes various C standard libraries like uClibc, which is currently used by OpenWrt, and alternatives such as dietlibc and Newlib. Additionally, it offers links to SSL/TLS libraries, including OpenSSL and PolarSSL, along with their licensing information. This resource is essential for developers looking to integrate specific libraries into their OpenWrt projects.

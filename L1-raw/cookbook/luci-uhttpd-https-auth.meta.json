@@ -1,0 +1,19 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "luci-uhttpd-https-auth",
+  "source_locator": "content/cookbook-source/luci-uhttpd-https-auth.md",
+  "title": "LuCI uhttpd HTTPS and Auth Pattern",
+  "description": "Explains the current OpenWrt login and transport path across LuCI, uhttpd, rpcd sessions, cookies, bearer auth, and HTTPS configuration, including the main edge cases that break deployments.",
+  "when_to_use": "Use when building or debugging LuCI login flows, rpc endpoints, HTTPS deployment, session cookies, or ubus-backed browser requests behind uhttpd.",
+  "related_modules": [
+    "luci",
+    "uhttpd",
+    "rpcd",
+    "ubus"
+  ],
+  "era_status": "current",
+  "verification_basis": "Verified against current luci, uhttpd, and openwrt source checkouts under tmp/authoring-repos on 2026-03-28; archive-backed shortlist for LuCI and uhttpd HTTPS/auth edge cases",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-28"
+}

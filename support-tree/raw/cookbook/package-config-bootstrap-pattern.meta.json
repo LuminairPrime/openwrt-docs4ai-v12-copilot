@@ -1,0 +1,19 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "package-config-bootstrap-pattern",
+  "source_locator": "content/cookbook-source/package-config-bootstrap-pattern.md",
+  "title": "Package Config Bootstrap Pattern",
+  "description": "Correct pattern for package-owned OpenWrt configuration: ship predictable /etc/config files, use /etc/uci-defaults only for one-shot detection or migration, and keep service application in init or procd logic.",
+  "when_to_use": "Use when creating a new package that owns config under /etc/config, needs to bootstrap defaults, or must migrate older config on upgrade.",
+  "related_modules": [
+    "openwrt-core",
+    "uci",
+    "procd",
+    "rpcd"
+  ],
+  "era_status": "current",
+  "verification_basis": "Verified against current openwrt source checkout under tmp/authoring-repos on 2026-03-28; package Makefiles and installed defaults reviewed directly",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-28"
+}

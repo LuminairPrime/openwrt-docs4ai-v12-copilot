@@ -1,23 +1,17 @@
 ---
-title: Sysupgrade – Technical Reference
+title: "Sysupgrade \u2013 Technical Reference"
 module: wiki
 origin_type: wiki_page
-token_count: 2605
+token_count: 2598
 source_file: L1-raw/wiki/wiki_page-techref-sysupgrade.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/techref/sysupgrade
 language: text
-ai_summary: The Sysupgrade module in OpenWrt is a shell script located at `/sbin/sysupgrade` designed to facilitate system updates. It provides various command-line options for upgrading the system, creating backups, and restoring configurations. Key options include `-f` for restoring configurations from a tarball, `-c` for preserving changed files in `/etc/`, and `-n` to skip saving configurations during a reflash. Users should be cautious with certain options, as preserving files can lead to incompatibilities in new versions.
-ai_when_to_use: Use Sysupgrade when you need to update your OpenWrt device or restore configurations from a backup. It is particularly useful for maintaining system settings across upgrades.
-ai_related_topics:
-- sysupgrade
-- opkg
-- mtd
 ---
 
 > **Source:** [https://openwrt.org/docs/techref/sysupgrade](https://openwrt.org/docs/techref/sysupgrade)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # Sysupgrade – Technical Reference
 
@@ -25,7 +19,7 @@ This information is based upon v21.02, last updated for [commit 6d266ef158 on 20
 
 # Sysupgrade – Technical Reference
 
-In contrast to `opkg`, `mtd` and others, `sysupgrade` is merely a shell script: `/sbin/sysupgrade` intended to facilitate easy updates.
+In contrast to `apk`, `mtd` and others, `sysupgrade` is merely a shell script: `/sbin/sysupgrade` intended to facilitate easy updates.
 
 ## Usage
 
@@ -78,7 +72,7 @@ Files to be preserved depend on the following:
 
 - `/etc/sysupgrade.conf` - customizable backup configuration.
 - `/lib/upgrade/keep.d/*` - system configurations provided by specific packages preserved by default.
-- `opkg list-changed-conffiles` - list of files derived by package manager.
+- `apk audit` - list of files derived by package manager.
 - `-o` will cause the entire `/overlay` directory to be saved (with the `-u` caveat below).
 - `-n` will cause *NO* files will be saved and all configuration settings will be initialized from default values.
 - `-u` will prevent preservation of any file that has not been changed since the last sysupgrade. This prevents the need for programs to migrate an old configuration and reduces time needed for sysupgrade.

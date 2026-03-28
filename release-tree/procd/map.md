@@ -1,7 +1,7 @@
 # procd Navigation Map
 
 > **Contains:** Headers and function signatures for procd.
-> **Generated:** 2026-03-27T20:02:56.666251+00:00
+> **Generated:** 2026-03-28T08:27:16.398522+00:00
 
 ---
 

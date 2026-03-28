@@ -17,5 +17,5 @@
   "era_status": "current",
   "verification_basis": "Patterns sourced from procd, uci, ucode, and luci corpus review; swconfig/DSA distinction from wiki corpus; package path conventions from openwrt-core corpus",
   "reviewed_by": "placeholder",
-  "last_reviewed": "2026-03-23"
+  "last_reviewed": "2026-03-28"
 }

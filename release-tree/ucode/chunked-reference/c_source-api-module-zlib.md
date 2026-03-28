@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 1913
 source_file: L1-raw/ucode/c_source-api-module-zlib.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/zlib.c
 source_locator: lib/zlib.c
@@ -20,7 +20,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/nicowillis/ucode/blob/unknown/lib/zlib.c](https://github.com/nicowillis/ucode/blob/unknown/lib/zlib.c)
 > **Kind:** c_source | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # ucode module: zlib
 

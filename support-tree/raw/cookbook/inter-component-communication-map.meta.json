@@ -1,0 +1,23 @@
+{
+  "module": "cookbook",
+  "origin_type": "authored",
+  "slug": "inter-component-communication-map",
+  "source_locator": "content/cookbook-source/inter-component-communication-map.md",
+  "title": "Inter-Component Communication Map",
+  "description": "Practical guide to choosing the correct communication boundary in modern OpenWrt: UCI for persistent config, ubus for runtime state and method calls, rpcd for privileged backend APIs, and LuCI as the browser-facing consumer.",
+  "when_to_use": "Use when deciding where new logic belongs and how components should exchange data across browser, web server, backend services, and system daemons.",
+  "related_modules": [
+    "luci",
+    "uhttpd",
+    "rpcd",
+    "ubus",
+    "uci",
+    "procd",
+    "netifd",
+    "ucode"
+  ],
+  "era_status": "current",
+  "verification_basis": "Verified against current luci, uhttpd, rpcd, netifd, procd, ubus, and ucode source checkouts under tmp/authoring-repos on 2026-03-28",
+  "reviewed_by": "placeholder",
+  "last_reviewed": "2026-03-28"
+}

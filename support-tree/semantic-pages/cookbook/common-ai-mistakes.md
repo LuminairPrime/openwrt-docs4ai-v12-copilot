@@ -2,9 +2,9 @@
 title: Common AI Mistakes in OpenWrt Development
 module: cookbook
 origin_type: authored
-token_count: 2642
+token_count: 2833
 source_file: L1-raw/cookbook/common-ai-mistakes.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_locator: content/cookbook-source/common-ai-mistakes.md
 description: Documents seven recurring categories of era-mismatched or API-incorrect
   patterns that AI tools produce when generating OpenWrt code, with WRONG/CORRECT
@@ -23,19 +23,19 @@ verification_basis: Patterns sourced from procd, uci, ucode, and luci corpus rev
   swconfig/DSA distinction from wiki corpus; package path conventions from openwrt-core
   corpus
 reviewed_by: placeholder
-last_reviewed: '2026-03-23'
+last_reviewed: '2026-03-28'
 ---
 # Common AI Mistakes in OpenWrt Development
 
 > **When to use:** Use when reviewing AI-generated OpenWrt init scripts, Makefile fragments, UCI calls, LuCI views, or ucode plugins -- to identify and correct era-mismatched or structurally incorrect patterns before deployment.
 > **Key components:** procd, UCI, ucode, package Makefiles, LuCI, network config
-> **Era:** Current (23.x+). Patterns labeled [WRONG](../cookbook/uci-read-write-from-ucode.md) are common in AI output trained on generic Linux resources or older OpenWrt examples.
+> **Era:** Current (23.x+). Patterns labeled `WRONG` are common in AI output trained on generic Linux resources or older OpenWrt examples.
 
 ## Overview
 
 Large language models trained on the broad web learn a mix of generic Linux, legacy OpenWrt, and current OpenWrt patterns without reliable era discrimination. The result is code that looks plausible but uses deprecated init-system hooks, incorrect UCI call sites, generic Linux package managers that do not exist on OpenWrt, or network configuration APIs that have been superseded by DSA.
 
-This page catalogs seven recurring mistake categories with concrete [WRONG](../cookbook/uci-read-write-from-ucode.md)/[CORRECT](../cookbook/uci-read-write-from-ucode.md) pairs. Each mistake is grounded in actual reference material from the OpenWrt corpus rather than speculation.
+This page catalogs seven recurring mistake categories with concrete `WRONG`/`CORRECT` pairs. Each mistake is grounded in actual reference material from the OpenWrt corpus rather than speculation.
 
 ## Mistake 1: Era Confusion -- Lua CBI Instead of JavaScript LuCI View
 
@@ -55,7 +55,7 @@ return m
 ### CORRECT
 
 ```javascript
-// luci/controller/myservice.js  (view file path in modern LuCI)
+// htdocs/luci-static/resources/view/myservice/settings.js
 'use strict';
 'require view';
 'require form';
@@ -332,6 +332,19 @@ $(eval $(call BuildPackage,myservice))
 - [OpenWrt Era Guide](./openwrt-era-guide.md)
 - [OpenWrt Architecture Overview](./architecture-overview.md)
 
+## Deep-Dive Follow-Up Pages
+
+- [First-Boot uci-defaults Pattern](./firstboot-uci-defaults-pattern.md)
+- [First-Boot Wi-Fi Policy](./firstboot-wifi-policy.md)
+- [Hotplug Handler Pattern](./hotplug-handler-pattern.md)
+- [ucode rpcd Service Pattern](./ucode-rpcd-service-pattern.md)
+- [ubus Observability Pattern](./ubus-observability-pattern.md)
+- [Inter-Component Communication Map](./inter-component-communication-map.md)
+- [Runtime Device Identity via ubus](./runtime-device-identity-via-ubus.md)
+- [LuCI uhttpd HTTPS and Auth Pattern](./luci-uhttpd-https-auth.md)
+- [Package Config Bootstrap Pattern](./package-config-bootstrap-pattern.md)
+- [Network Device Model Migrations](./network-device-model-migrations.md)
+
 ## Verification Notes
 
 - Mistake 1 (era confusion): LuCI form.js and cbi.js both present in `openwrt-condensed-docs/L2-semantic/luci/`; Lua CBI is the compatibility path, form.js is current
@@ -342,5 +355,5 @@ $(eval $(call BuildPackage,myservice))
 - Mistake 6 (init system): procd `USE_PROCD=1` pattern verified against procd corpus; systemd absence confirmed
 - Mistake 7 (build system): OpenWrt Makefile DSL pattern verified against openwrt-core corpus files
 - Reviewed by: placeholder
-- Last reviewed: 2026-03-23
+- Last reviewed: 2026-03-28
 - Known limitation: DSA vs swconfig guidance is target-dependent; always check the specific device wiki page before assuming DSA

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 349
 source_file: L1-raw/wiki/wiki_page-techref-wireless-modes.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/techref/wireless.modes
 language: text
 ai_summary: The Wireless Modes module in OpenWrt outlines various wireless operation modes supported by the system, including Access Point (AP), Ad-Hoc (IBSS), and Mesh Point (802.11s). Each mode serves specific networking purposes, such as AP for creating a wireless network, P2P for peer-to-peer connections, and Monitor for packet analysis. The module also references dynamic VLAN tagging and other advanced configurations. For detailed setup, users are directed to the relevant documentation and commands like 'iw list' to explore supported interface modes.

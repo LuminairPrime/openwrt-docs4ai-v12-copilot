@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1468
 source_file: L1-raw/wiki/wiki_page-guide-developer-overview.md
-last_pipeline_run: '2026-03-27T20:02:39.961617+00:00'
+last_pipeline_run: '2026-03-28T08:26:59.224930+00:00'
 source_url: https://openwrt.org/docs/guide-developer/overview
 language: text
 ai_summary: The OpenWrt API module provides an overview of how the OpenWrt GNU/Linux distribution is structured, focusing on package management and compilation. OpenWrt is designed for embedded devices, utilizing a package manager called opkg to handle software packages, which are compressed archives containing programs, libraries, and configuration files. The build process involves compiling packages separately and assembling them into a firmware image that can be installed on devices. Additionally, the module explains the role of Makefiles in specifying source downloads and integrity checks for packages.
@@ -19,7 +19,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/overview](https://openwrt.org/docs/guide-developer/overview)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-27
+> **Normalized:** 2026-03-28
 
 # Overview
 
