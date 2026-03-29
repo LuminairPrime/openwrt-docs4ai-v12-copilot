@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 2139
 source_file: L1-raw/wiki/wiki_page-techref-bootloader.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/techref/bootloader
 language: text
 ai_summary: The Bootloader is a critical piece of software executed upon powering up a hardware device, responsible for initializing low-level hardware details and passing a hardware description to the Kernel. It is typically stored on flash storage and is device-specific, though it is not part of OpenWrt itself. While not strictly necessary for booting Linux, bootloaders provide additional functionalities such as firmware flashing and device recovery options. Limitations may exist based on OEM designs, affecting kernel size and firmware formats.

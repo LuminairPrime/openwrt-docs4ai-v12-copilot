@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 943
 source_file: L1-raw/wiki/wiki_page-techref-ucwmp.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/techref/ucwmp
 language: text
 ai_summary: 'EasyCwmp is a client implementation of the TR-069 CPE WAN Management Protocol for OpenWrt, developed by PIVA Software and licensed under GPL 2. It consists of two main components: the EasyCwmp core, which handles communication with the ACS server, and the EasyCwmp DataModel, which adheres to various TR-069 DataModel standards. The design allows for easy updates to DataModel parameters and supports multiple protocols including HTTP, HTTPS, and FTP, as well as SSL and IPv6. EasyCwmp is designed for flexibility, making it easy to install on Linux and POSIX systems while providing comprehensive documentation for users.'

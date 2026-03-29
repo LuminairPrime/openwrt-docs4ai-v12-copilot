@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 3923
 source_file: L1-raw/wiki/wiki_page-techref-uci.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/techref/uci
 language: text
 ai_summary: Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. Explains the /etc/config/ text file format, section and option syntax, the uci CLI (uci set/get/add/delete/commit/revert), the C library API (uci_load, uci_set, uci_commit), and batch-change semantics where changes stay staged in memory until commit.

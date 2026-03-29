@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1003
 source_file: L1-raw/wiki/wiki_page-guide-developer-buildserver-virtualbox.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/guide-developer/buildserver_virtualbox
 language: text
 ai_summary: This guide provides detailed instructions for setting up a build virtual machine (VM) for OpenWrt using VirtualBox on a Debian OS. It outlines the necessary prerequisites, including a 64-bit OS and at least 8 GB of free disk space. The steps include downloading VirtualBox, obtaining a Debian image, configuring the VM settings, and performing initial Debian setup tasks such as updating the system and installing required packages. Additionally, it covers configuring shared folders and enabling sudo access for the user, ensuring a functional development environment for OpenWrt.

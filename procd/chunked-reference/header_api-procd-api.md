@@ -4,7 +4,7 @@ module: procd
 origin_type: header_api
 token_count: 352
 source_file: L1-raw/procd/header_api-procd-api.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/openwrt/blob/unknown/package/system/procd/files/procd.sh
 source_locator: package/system/procd/files/procd.sh

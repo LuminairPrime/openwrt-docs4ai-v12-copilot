@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 2388
 source_file: L1-raw/wiki/wiki_page-techref-initscripts.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/techref/initscripts
 language: text
 ai_summary: Documents the OpenWrt /etc/init.d/ procd init script system, including the required START/STOP priority numbers, the USE_PROCD=1 flag, mandatory shell functions (start_service, stop_service, reload, status), and the boot sequence ordering enforced by procd. Covers how to enable/disable services via symlinks in /etc/rc.d/, reload semantics, and the difference between restart and reload.

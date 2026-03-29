@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1049
 source_file: L1-raw/wiki/wiki_page-guide-developer-defining-firmware-partitions.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/guide-developer/defining-firmware-partitions
 language: text
 ai_summary: The Device Tree Usage in OpenWrt (DTS) module outlines the transition from older 'mach' files to Device Tree (DT) files, which include .dts, .dtsi, and .dtb formats. It provides guidelines for defining software partitions in DTS targets, emphasizing the importance of proper partition naming and read-only settings for critical components like boot loader binaries and firmware. The document also highlights the need for specific 'compatible' labels to ensure correct partition parsing by the OpenWrt kernel, thereby avoiding the use of certain configuration options. Additionally, it includes references to external resources for further understanding of Device Tree conventions.

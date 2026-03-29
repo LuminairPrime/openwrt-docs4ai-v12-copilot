@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 3087
 source_file: L1-raw/wiki/wiki_page-techref-flash.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_url: https://openwrt.org/docs/techref/flash
 language: text
 ai_summary: The Flash memory module in OpenWrt provides comprehensive insights into the considerations and types of flash memory used in embedded devices. It discusses critical factors such as read/write cycles, the choice between NOR and NAND flash, and the implications of SLC versus MLC flash types. The module also explains the structure of flash storage, including erase blocks, pages, and the out-of-band area for metadata. Understanding these concepts is essential for making informed decisions about flash memory in various projects.

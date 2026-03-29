@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 7325
 source_file: L1-raw/ucode/c_source-api-module-struct.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/struct.c
 source_locator: lib/struct.c

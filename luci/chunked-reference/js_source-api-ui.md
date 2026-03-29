@@ -4,7 +4,7 @@ module: luci
 origin_type: js_source
 token_count: 69
 source_file: L1-raw/luci/js_source-api-ui.md
-last_pipeline_run: '2026-03-29T21:42:16.100525+00:00'
+last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/ui.js
 source_locator: modules/luci-base/htdocs/luci-static/resources/ui.js
