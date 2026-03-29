@@ -1,0 +1,65 @@
+[04] AI summary enrichment starting
+[04] WARN: base openwrt-core/makefile_meta-category-firmware: content_hash does not match current L2 body
+[04] WARN: base openwrt-core/makefile_meta-category-libs: content_hash does not match current L2 body
+[04] WARN: base ucode/c_source-api-module-fs: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-guide-developer-20-xx-major-changes: no matching L2 document found for /home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-guide-developer-20-xx-major-changes.json
+[04] WARN: base wiki/wiki_page-guide-developer-luci: no matching L2 document found for /home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-guide-developer-luci.json
+[04] WARN: base wiki/wiki_page-guide-developer-mdns: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-guide-developer-package-policies: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-guide-developer-procd-init-script-example: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-guide-developer-security: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-techref-dfs: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-techref-hotplug-legacy: no matching L2 document found for /home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-techref-hotplug-legacy.json
+[04] WARN: base wiki/wiki_page-techref-lldpd: content_hash does not match current L2 body
+[04] WARN: base wiki/wiki_page-techref-sysupgrade: content_hash does not match current L2 body
+[04] Checked 153 records: OK
+[04] L2 documents available for cross-check: 167
+[04] L2 documents: 167
+[04] Active coverage: current=128, pinned=12, stale=10, missing=17
+[04] Active sources: base_current=128, base_pinned=12, base_stale=10, override_current=0, override_pinned=0, override_stale=0
+[04] Store hygiene: orphan_base=3, orphan_override=0, invalid_base=0, invalid_override=0
+[04] missing detail (17):
+  - cookbook/architecture-overview — OpenWrt Architecture Overview
+  - cookbook/common-ai-mistakes — Common AI Mistakes in OpenWrt Development
+  - cookbook/firstboot-uci-defaults-pattern — First-Boot uci-defaults Pattern
+  - cookbook/firstboot-wifi-policy — First-Boot Wi-Fi Policy
+  - cookbook/hotplug-handler-pattern — Hotplug Handler Pattern
+  - cookbook/inter-component-communication-map — Inter-Component Communication Map
+  - cookbook/luci-form-with-uci — LuCI Form with UCI
+  - cookbook/luci-uhttpd-https-auth — LuCI uhttpd HTTPS and Auth Pattern
+  - cookbook/minimal-openwrt-package-makefile — Minimal OpenWrt Package Makefile
+  - cookbook/network-device-model-migrations — Network Device Model Migrations
+  ... 7 more
+[04] stale detail (10):
+  - base openwrt-core/makefile_meta-category-firmware — OpenWrt Buildroot: firmware packages
+  - base openwrt-core/makefile_meta-category-libs — OpenWrt Buildroot: libs packages
+  - base ucode/c_source-api-module-fs — ucode module: fs
+  - base wiki/wiki_page-guide-developer-mdns — umdns for Local Device Discovery
+  - base wiki/wiki_page-guide-developer-package-policies — OpenWrt packages
+  - base wiki/wiki_page-guide-developer-procd-init-script-example — Create a sample procd init script
+  - base wiki/wiki_page-guide-developer-security — Security
+  - base wiki/wiki_page-techref-dfs — DFS
+  - base wiki/wiki_page-techref-lldpd — lldpd
+  - base wiki/wiki_page-techref-sysupgrade — Sysupgrade – Technical Reference
+[04] orphan detail (3):
+  - base wiki/wiki_page-guide-developer-20-xx-major-changes (/home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-guide-developer-20-xx-major-changes.json)
+  - base wiki/wiki_page-guide-developer-luci (/home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-guide-developer-luci.json)
+  - base wiki/wiki_page-techref-hotplug-legacy (/home/runner/work/openwrt-docs4ai-pipeline/openwrt-docs4ai-pipeline/static/data/base/wiki/wiki_page-techref-hotplug-legacy.json)
+[04] Legacy cache loaded: 6 hash-keyed entries available for migration
+[04] Found 167 L2 documents
+[04] TIMER: phase=discover_targets seconds=0.001
+[04] API quota/auth failure (HTTP 401); halting API calls for this run.
+[04] STALE: openwrt-core/makefile_meta-category-firmware (stored=ccae574586bf current=4c869050f322)
+[04] STALE: openwrt-core/makefile_meta-category-libs (stored=efe86f6047d0 current=efae5e73192a)
+[04] STALE: ucode/c_source-api-module-fs (stored=d1bc1a2b8b83 current=b4ae01da871a)
+[04] STALE: wiki/wiki_page-guide-developer-mdns (stored=664ca9bdebc2 current=5a0cb6529c38)
+[04] STALE: wiki/wiki_page-guide-developer-package-policies (stored=704ede38cf98 current=d1f366ccdf0b)
+[04] STALE: wiki/wiki_page-guide-developer-procd-init-script-example (stored=fa8c8c7d4239 current=32bd8e47f80b)
+[04] STALE: wiki/wiki_page-guide-developer-security (stored=891237757c7b current=fe1af83d63c9)
+[04] STALE: wiki/wiki_page-techref-dfs (stored=4bf61fde7750 current=2cc936a779d8)
+[04] STALE: wiki/wiki_page-techref-lldpd (stored=459cf168808c current=1a687c394100)
+[04] STALE: wiki/wiki_page-techref-sysupgrade (stored=62c8178924c9 current=983ae5f7d2ff)
+[04] Complete: 140 enriched (0 API-generated, 0 migrated from legacy cache, 0 applied stale), 0 already had summaries, 0 too short.
+[04] Data store: 153 base records, 0 override records.
+[04] TIMER: stage_start_epoch=1774811848 stage_end_epoch=1774811848 total_seconds=0.837 discover_targets_seconds=0.001 store_lookup_seconds=0.009 legacy_migration_seconds=0.000 api_generation_seconds=0.229 injection_seconds=0.167 targets=167 api_calls=0
+[04] INFO: API calls were halted (quota/auth/cap); remaining files left unenriched.

@@ -1,0 +1,178 @@
+[1] Focused pytest suites
+    Log: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\ci\local-validation\20260329-103314\01-pytest.txt
+.......................................................s................ [ 42%]
+........................................................................ [ 84%]
+........sssssssssssss..ss..                                              [100%]
+155 passed, 16 skipped in 8.10s
+    Result: PASS (9.0s)
+[2] Deterministic post-extract smoke
+    Log: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\ci\local-validation\20260329-103314\02-smoke-00-post-extract.txt
+Starting deterministic v12 smoke test. Logging to C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\logs\smoke-00-post-extract-pipeline-log.txt
+WORKDIR=C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\downloads
+PROCESSED_DIR=C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\processed
+OUTDIR=C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged
+[03] Pass 1: YAML Schema Injection & Link Registry Build
+[03] Pass 2: Injecting Cross-Links
+[03] Pass 3: Injecting Deprecation Warnings
+[03] Promoting manifests to processed/
+[03] Complete.
+[05a] Assemble L4 monolithic files and L3 skeletons
+[05a] Processing module: procd (1 files)
+[05a] OK: procd L4 (26 tokens) and L3 skeleton
+[05a] Processing module: uci (1 files)
+[05a] OK: uci L4 (37 tokens) and L3 skeleton
+[05a] Processing module: ucode (2 files)
+[05a] OK: ucode L4 (67 tokens) and L3 skeleton
+[05a] Processing module: wiki (1 files)
+[05a] OK: wiki L4 (26 tokens) and L3 skeleton
+[05a] Complete: 8 artifacts generated.
+[05b] Generating AGENTS.md and README.md
+[05b] Complete.
+[05c] Generating ucode.d.ts IDE schemas
+[05c] OK: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged\ucode\ucode.d.ts, C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged\release-tree\ucode\types\ucode.d.ts (4 symbols)
+[05d] Generating L5 Changelog and Telemetry
+[05d] INFO: No baseline inventory found. This is likely the first run.
+[05d] OK: changelog.json, CHANGES.md, signature-inventory.json
+[05e] Generating luci-env.d.ts IDE type declarations
+[05e] WARN: LuCI repo not found at C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\downloads\repo-luci\modules\luci-base\htdocs\luci-static\resources. Generating stub .d.ts without dynamic type extraction.
+[05e] WARN: Missing JS sources (will use fallback types): form, rpc, uci, luci, network
+[05e] OK: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged\luci\luci-env.d.ts, C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged\release-tree\luci\types\luci-env.d.ts (477 lines)
+[06] INFO: Loaded missing commit versions from C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\processed\manifests\repo-manifest.json
+[06] Generating L3 Navigational Maps (llms.txt)
+[06] Indexed 20 catalog entries across 4 modules totaling ~156 underlying L2 tokens.
+[06] Complete: Generated llms.txt, llms-full.txt, and module-level indexes.
+[07] Generating filesystem-derived index.html web landing page
+[07] OK: applied release-include overlay: cookbook/AGENTS.md, luci/AGENTS.md, README.md, ucode/AGENTS.md
+[07] OK: generated index.html and finalized release/support trees.
+[08] Security & Quality Validation (C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged) [Mode: soft]
+[08] Source exclusion policy: 3 entries active
+[08]   wiki/guide-developer-luci: not present in L1
+[08]     reason: Deprecated Lua/CBI LuCI tutorial that misroutes modern AI generation toward obsolete APIs
+[08]   wiki/techref-hotplug-legacy: not present in L1
+[08]     reason: Historical Hotplug2 page superseded by procd; low-value for current routing corpus
+[08]   wiki/guide-developer-20-xx-major-changes: not present in L1
+[08]     reason: Release-transition page that disproportionately distorts wiki routing summaries
+
+[08] ----------------------------------------------
+[08] Validation Results
+[08]   Files Checked: 35
+[08]   Hard Failures: 0
+[08]   Soft Warnings: 0
+[08] ----------------------------------------------
+
+[08] Validation pass complete.
+[09] OK: built C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\fixture-smoke-6cxbjruo\staged\packages\openwrt-docs4ai-2026-03-29-fixture-smoke-6cxbjruo.zip
+Deterministic smoke test completed successfully.
+    Result: PASS (2.9s)
+[3] Sequential full local smoke
+    Log: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\ci\local-validation\20260329-103314\03-smoke-01-full-local.txt
+============================================================
+openwrt-docs4ai Sequential Smoke Test
+============================================================
+Time: 2026-03-29 07:33:26
+Keep temp: False
+Run AI: False
+Include extractors: False
+
+Temp dir: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo
+WORKDIR:  C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\downloads
+PROCESSED_DIR: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\processed
+OUTDIR:   C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged
+
+[ 1/10] openwrt-docs4ai-03-normalize-semantic.py      ... 
+  [03] Pass 1: YAML Schema Injection & Link Registry Build
+  [03] Pass 2: Injecting Cross-Links
+  [03] Pass 3: Injecting Deprecation Warnings
+  [03] Promoting manifests to processed/
+  [03] Complete. PASS (0.7s)
+[ 2/10] openwrt-docs4ai-05a-assemble-references.py    ... 
+  [05a] Assemble L4 monolithic files and L3 skeletons
+  [05a] Processing module: procd (1 files)
+  [05a] OK: procd L4 (26 tokens) and L3 skeleton
+  [05a] Processing module: uci (1 files)
+  [05a] OK: uci L4 (37 tokens) and L3 skeleton
+  [05a] Processing module: ucode (2 files)
+  [05a] OK: ucode L4 (67 tokens) and L3 skeleton
+  [05a] Processing module: wiki (1 files)
+  [05a] OK: wiki L4 (26 tokens) and L3 skeleton
+  [05a] Complete: 8 artifacts generated. PASS (0.2s)
+[ 3/10] openwrt-docs4ai-05b-generate-agents-and-readme.py ... 
+  [05b] Generating AGENTS.md and README.md
+  [05b] Complete. PASS (0.2s)
+[ 4/10] openwrt-docs4ai-05c-generate-ucode-ide-schemas.py ... 
+  [05c] Generating ucode.d.ts IDE schemas
+  [05c] OK: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged\ucode\ucode.d.ts, C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged\release-tree\ucode\types\ucode.d.ts (4 symbols) PASS (0.1s)
+[ 5/10] openwrt-docs4ai-05d-generate-api-drift-changelog.py ... 
+  [05d] Generating L5 Changelog and Telemetry
+  [05d] INFO: No baseline inventory found. This is likely the first run.
+  [05d] OK: changelog.json, CHANGES.md, signature-inventory.json PASS (0.1s)
+[ 6/10] openwrt-docs4ai-05e-generate-luci-dts.py      ... 
+  [05e] Generating luci-env.d.ts IDE type declarations
+  [05e] WARN: LuCI repo not found at C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\downloads\repo-luci\modules\luci-base\htdocs\luci-static\resources. Generating stub .d.ts without dynamic type extraction.
+  [05e] WARN: Missing JS sources (will use fallback types): form, rpc, uci, luci, network
+  [05e] OK: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged\luci\luci-env.d.ts, C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged\release-tree\luci\types\luci-env.d.ts (477 lines) PASS (0.1s)
+[ 7/10] openwrt-docs4ai-06-generate-llm-routing-indexes.py ... 
+  [06] INFO: Loaded missing commit versions from C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\processed\manifests\repo-manifest.json
+  [06] Generating L3 Navigational Maps (llms.txt)
+  [06] Indexed 20 catalog entries across 4 modules totaling ~156 underlying L2 tokens.
+  [06] Complete: Generated llms.txt, llms-full.txt, and module-level indexes. PASS (0.4s)
+[ 8/10] openwrt-docs4ai-07-generate-web-index.py      ... 
+  [07] Generating filesystem-derived index.html web landing page
+  [07] OK: applied release-include overlay: cookbook/AGENTS.md, luci/AGENTS.md, README.md, ucode/AGENTS.md
+  [07] OK: generated index.html and finalized release/support trees. PASS (0.2s)
+[ 9/10] openwrt-docs4ai-08-validate-output.py         ... 
+  [08] Security & Quality Validation (C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged) [Mode: soft]
+  [08] Source exclusion policy: 3 entries active
+  [08]   wiki/guide-developer-luci: not present in L1
+  [08]     reason: Deprecated Lua/CBI LuCI tutorial that misroutes modern AI generation toward obsolete APIs
+  [08]   wiki/techref-hotplug-legacy: not present in L1
+  [08]     reason: Historical Hotplug2 page superseded by procd; low-value for current routing corpus
+  [08]   wiki/guide-developer-20-xx-major-changes: not present in L1
+  [08]     reason: Release-transition page that disproportionately distorts wiki routing summaries
+  
+  [08] ----------------------------------------------
+  [08] Validation Results
+  [08]   Files Checked: 35
+  [08]   Hard Failures: 0
+  [08]   Soft Warnings: 0
+  [08] ----------------------------------------------
+  
+  [08] Validation pass complete. PASS (0.3s)
+[10/10] openwrt-docs4ai-09-build-packages.py          ... 
+  [09] OK: built C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\smoke-test-1fuxhzuo\staged\packages\openwrt-docs4ai-2026-03-29-smoke-test-1fuxhzuo.zip PASS (0.2s)
+
+============================================================
+Results:
+------------------------------------------------------------
+  openwrt-docs4ai-03-normalize-semantic.py      PASS     (0.7s)
+  openwrt-docs4ai-05a-assemble-references.py    PASS     (0.2s)
+  openwrt-docs4ai-05b-generate-agents-and-readme.py PASS     (0.2s)
+  openwrt-docs4ai-05c-generate-ucode-ide-schemas.py PASS     (0.1s)
+  openwrt-docs4ai-05d-generate-api-drift-changelog.py PASS     (0.1s)
+  openwrt-docs4ai-05e-generate-luci-dts.py      PASS     (0.1s)
+  openwrt-docs4ai-06-generate-llm-routing-indexes.py PASS     (0.4s)
+  openwrt-docs4ai-07-generate-web-index.py      PASS     (0.2s)
+  openwrt-docs4ai-08-validate-output.py         PASS     (0.3s)
+  openwrt-docs4ai-09-build-packages.py          PASS     (0.2s)
+------------------------------------------------------------
+  Overall: PASS in 2.5s
+============================================================
+
+Cleaning up temp directory...
+Traceback (most recent call last):
+  File "C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tests\smoke\smoke_02_ai_store_contract.py", line 179, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tests\smoke\smoke_02_ai_store_contract.py", line 167, in main
+    total, counts = validate_base_store_schema()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tests\smoke\smoke_02_ai_store_contract.py", line 50, in validate_base_store_schema
+    _assert(os.path.isdir(base_root), f"Missing data/base directory: {base_root}")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tests\smoke\smoke_02_ai_store_contract.py", line 40, in _assert
+    raise AssertionError(message)
+AssertionError: Missing data/base directory: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\data\base
+    Result: PASS (2.8s)
+[4] AI store contract smoke
+    Log: C:\Users\MC\Documents\AirSentinel\openwrt-docs4ai-pipeline\tmp\ci\local-validation\20260329-103314\04-smoke-02-ai-store.txt
+    Result: FAIL (0.2s)
