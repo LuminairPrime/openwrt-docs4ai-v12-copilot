@@ -1,0 +1,25 @@
+docs/plans/v13/pipeline-folder-refactor-03.md
+  a46a1f7e4f92e5f5 1-1175
+docs/plans/v13/pipeline-folder-refactor-04.md
+  a46a1f7e4f92e5f5 1-8,10-570,572-1328
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "f0c339a7a8ce8338c635aa8552c3dc334b521ae6",
+  "prompts": {
+    "a46a1f7e4f92e5f5": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "79236bac-f6ed-472e-99bd-875807cff70b",
+        "model": "copilot/gpt-5.4"
+      },
+      "human_author": "LuminairPrime <luminair@gmail.com>",
+      "messages": [],
+      "total_additions": 2835,
+      "total_deletions": 332,
+      "accepted_lines": 2501,
+      "overriden_lines": 3
+    }
+  }
+}
