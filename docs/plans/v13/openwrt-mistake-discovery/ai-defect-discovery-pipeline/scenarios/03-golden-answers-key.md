@@ -62,6 +62,7 @@ To optimize pipeline speed, we continuously analyze output similarities:
 *   Must use `ubus.conn()`.
 **Falses:**
 *   Using `ubus call network.interface dump | jsonfilter` inside a bash wrapper instead of native ucode.
+*   Using raw `ip`, `/sys/class/net`, or `jq` shell parsing instead of native ucode access to the OpenWrt network state via `ubus`.
 
 ### Scenario 03: C libubus Plugin
 **Truths:**
@@ -109,16 +110,19 @@ To optimize pipeline speed, we continuously analyze output similarities:
 ### Scenario 09: Hotplug.d Event Trigger
 **Truths:**
 *   Must read the `$ACTION` and `$INTERFACE` environment variables pushed by the hotplug system.
+*   Must filter accepted `$ACTION` values first and exit early for unrelated hotplug events before causing side effects.
 **Falses:**
 *   Setting up a cron job or manual `while true` polling loop to watch the interface.
 
 ### Scenario 10: UCI Defaults First-Boot
 **Truths:**
 *   The script must be placed in `/etc/uci-defaults/` and MUST exit with `0` so it deletes itself.
+*   `uci-defaults` is a configuration-mutation boundary only; normal boot or later procd triggers should apply the resulting state.
 **Falses:**
 *   Placing the script in `/etc/init.d/` and trying to track state manually.
 *   Omitting the explicit `exit 0` at the end of the script (prevents the system from deleting the file).
 *   Creating redundant "marker" or "sentinel" files (e.g., `/etc/firstboot_done`) to track state, as the `uci-defaults` directory itself is the state machine.
+*   Calling `/etc/init.d/...` from inside the `/etc/uci-defaults/` script to start or reload services immediately.
 
 ### Scenario 11: C Package Makefile
 **Truths:**
@@ -127,6 +131,7 @@ To optimize pipeline speed, we continuously analyze output similarities:
 *   Must use `DEPENDS:=+libubus`.
 **Falses:**
 *   Writing a standard `cmake` or `gcc` Makefile without the OpenWrt cross-compilation boilerplate.
+*   Using deprecated `PKG_MD5SUM` instead of `PKG_HASH` in a current-era OpenWrt package Makefile.
 
 ### Scenario 12: C uloop Initialization
 **Truths:**
@@ -149,6 +154,7 @@ To optimize pipeline speed, we continuously analyze output similarities:
 *   Must explicitly define `"title"`, `"action"`, and `"type": "view"`.
 **Falses:**
 *   Writing a legacy `index.lua` controller to register the node.
+*   Installing the menu JSON under `/usr/share/luci/menus.d/` (plural) or using noncanonical fields instead of the `"action"` + `"type": "view"` contract.
 
 ### Scenario 15: C blobmsg Dictionary Parsing
 **Truths:**
@@ -159,8 +165,11 @@ To optimize pipeline speed, we continuously analyze output similarities:
 ### Scenario 16: uCode Parallel Async Ping
 **Truths:**
 *   Must execute the commands through `uloop` integration (e.g., async `fs.popen`).
+*   Must pass explicit event flags to `uloop.handle(..., uloop.ULOOP_READ)` when wiring asynchronous process output.
+*   Must treat `fs.popen()` as a process-handle API rather than inventing raw descriptor reads.
 **Falses:**
 *   Running the ping commands sequentially, or using bash `&` background jobs wrapper.
+*   Omitting the `events` argument to `uloop.handle()`, or inventing `fs.read(fd, len)`-style APIs for async process output.
 
 ### Scenario 17: Diagnostic Check
 **Truths:**
