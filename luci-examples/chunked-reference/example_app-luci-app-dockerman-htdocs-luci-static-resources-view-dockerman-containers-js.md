@@ -4,7 +4,7 @@ module: luci-examples
 origin_type: example_app
 token_count: 3219
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-containers-js.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/containers.js
 source_locator: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/containers.js
@@ -22,7 +22,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/containers.js](https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/containers.js)
 > **Kind:** example_app | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # containers.js
 ```javascript

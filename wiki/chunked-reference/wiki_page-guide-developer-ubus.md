@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 405
 source_file: L1-raw/wiki/wiki_page-guide-developer-ubus.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/guide-developer/ubus
 language: text
 ai_summary: Practical guide for using ubus from shell scripts, C code, and Lua/ucode. Covers the ubus CLI (ubus call, ubus listen, ubus wait_for), calling ubus from C (ubus_lookup_id, ubus_invoke, ubus_send_event), registering a new ubus object in a C daemon (ubus_add_object, ubus_method definitions), and the ACL permission file format for granting rpcd access to specific ubus paths.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/ubus](https://openwrt.org/docs/guide-developer/ubus)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # uBus IPC/RPC System
 

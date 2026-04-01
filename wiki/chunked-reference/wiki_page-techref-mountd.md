@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 323
 source_file: L1-raw/wiki/wiki_page-techref-mountd.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/mountd
 language: text
 ai_summary: The mountd module is an automount daemon for OpenWrt, configured through the `/etc/config/mountd` file. It has been part of OpenWrt since version r17853 and is licensed under GPLv2. Although mountd was designed for embedded devices, it has since been replaced by blockd in newer versions. The module requires dependencies such as +uci, +kmod-usb-storage, and +kmod-fs-autofs4 to function properly.
@@ -19,7 +19,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/mountd](https://openwrt.org/docs/techref/mountd)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # mountd – Technical Reference
 

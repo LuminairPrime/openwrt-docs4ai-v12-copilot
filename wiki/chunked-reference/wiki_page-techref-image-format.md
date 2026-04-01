@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1610
 source_file: L1-raw/wiki/wiki_page-techref-image-format.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/image.format
 language: text
 ai_summary: The Image formats module provides an overview of various firmware types and their respective file extensions used in OpenWrt. It categorizes these formats into standard and specific types, detailing their usage scenarios such as factory images for OEM flashing and sysupgrade images for upgrading existing OpenWrt installations. Additional formats like ext4, squashfs, and initramfs are explained, highlighting their characteristics and typical applications. The document also includes information on developer files and example firmware image names for different targets.
@@ -29,7 +29,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/image.format](https://openwrt.org/docs/techref/image.format)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Image formats
 

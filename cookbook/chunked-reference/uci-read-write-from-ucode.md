@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 2648
 source_file: L1-raw/cookbook/uci-read-write-from-ucode.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_locator: static/cookbook-source/uci-read-write-from-ucode.md
 description: Concrete guide to reading and writing UCI configuration from a ucode
   script or rpcd plugin, covering cursor lifecycle, get/set/commit, section iteration,
@@ -27,7 +27,7 @@ last_reviewed: '2026-03-23'
 
 > **Source:** `static/cookbook-source/uci-read-write-from-ucode.md`
 > **Kind:** authored | **Method:** hand-authored
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # UCI Read/Write from ucode
 

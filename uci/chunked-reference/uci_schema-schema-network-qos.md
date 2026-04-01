@@ -4,7 +4,7 @@ module: uci
 origin_type: uci_schema
 token_count: 420
 source_file: L1-raw/uci/uci_schema-schema-network-qos.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/openwrt/blob/unknown/package/network/config/qos-scripts/files/etc/config/qos
 source_locator: package/network/config/qos-scripts/files/etc/config/qos
@@ -20,7 +20,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/network/config/qos-scripts/files/etc/config/qos](https://github.com/openwrt/openwrt/blob/unknown/package/network/config/qos-scripts/files/etc/config/qos)
 > **Kind:** uci_schema | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # UCI Default Schema: qos
 

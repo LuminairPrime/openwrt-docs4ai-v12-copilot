@@ -4,14 +4,14 @@ module: wiki
 origin_type: wiki_page
 token_count: 2384
 source_file: L1-raw/wiki/wiki_page-guide-developer-procd-init-script-example.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/guide-developer/procd-init-script-example
 language: text
 ---
 
 > **Source:** [https://openwrt.org/docs/guide-developer/procd-init-script-example](https://openwrt.org/docs/guide-developer/procd-init-script-example)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Create a sample procd init script
 

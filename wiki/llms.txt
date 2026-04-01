@@ -1,13 +1,13 @@
 # wiki module
 > OpenWrt project documentation: developer guides, architecture references, release notes, and hardware support.
-> **Total Context:** ~194615 tokens
+> **Total Context:** ~194915 tokens
 
 ## Recommended Entry Points
 
-- [map.md](./map.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19496 tokens, l3-skeleton)
+- [map.md](./map.md): Structural map for wiki that prioritizes quick orientation and symbol discovery. (~19526 tokens, l3-skeleton)
 - [bundled-reference.md](./bundled-reference.md): Sharded complete reference index for wiki with links to smaller part files. (~194 tokens, l4-monolith)
 - [bundled-reference.part-01.md](./bundled-reference.part-01.md): Part 1 of the sharded complete reference for wiki when the full module exceeds the token budget. (~99911 tokens, l4-monolith-part)
-- [bundled-reference.part-02.md](./bundled-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~96754 tokens, l4-monolith-part)
+- [bundled-reference.part-02.md](./bundled-reference.part-02.md): Part 2 of the sharded complete reference for wiki when the full module exceeds the token budget. (~97054 tokens, l4-monolith-part)
 
 ## Source Documents
 
@@ -94,7 +94,7 @@
 - [wiki_page-techref-sysupgrade.md](./chunked-reference/wiki_page-techref-sysupgrade.md): Sysupgrade – Technical Reference This information is based upon v21.02, last updated for commit 6d266ef158 on 2022-02-10. (~2598 tokens, l2-source)
 - [wiki_page-techref-ubox.md](./chunked-reference/wiki_page-techref-ubox.md): The ubox package is a component of the OpenWrt operating system that facilitates the management of UCI configurations and block devices. (~242 tokens, l2-source)
 - [wiki_page-techref-ubus.md](./chunked-reference/wiki_page-techref-ubus.md): Explains the OpenWrt ubus inter-process communication bus, which provides a Unix-socket-based RPC mechanism for daemons to expose services and receive method calls. (~6656 tokens, l2-source)
-- [wiki_page-techref-uci.md](./chunked-reference/wiki_page-techref-uci.md): Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. (~3923 tokens, l2-source)
+- [wiki_page-techref-uci.md](./chunked-reference/wiki_page-techref-uci.md): Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. (~4223 tokens, l2-source)
 - [wiki_page-techref-ucwmp.md](./chunked-reference/wiki_page-techref-ucwmp.md): EasyCwmp is a client implementation of the TR-069 CPE WAN Management Protocol for OpenWrt, developed by PIVA Software and licensed under GPL 2. (~943 tokens, l2-source)
 - [wiki_page-techref-unetd.md](./chunked-reference/wiki_page-techref-unetd.md): unetd is a WireGuard based VPN daemon designed for OpenWrt routers, facilitating the creation and management of fully-meshed VPN connections. (~3162 tokens, l2-source)
 - [wiki_page-techref-wireless-modes.md](./chunked-reference/wiki_page-techref-wireless-modes.md): The Wireless Modes module in OpenWrt outlines various wireless operation modes supported by the system, including Access Point (AP), Ad-Hoc (IBSS), and Mesh Point (802.11s). (~349 tokens, l2-source)

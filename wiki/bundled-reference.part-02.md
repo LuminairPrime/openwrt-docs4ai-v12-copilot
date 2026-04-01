@@ -1,18 +1,18 @@
 ---
 module: wiki
-total_token_count: 95389
+total_token_count: 95689
 section_count: 40
 is_monolithic: false
 is_sharded_part: true
 part_number: 2
 part_count: 2
-generated: '2026-03-29T23:50:19.225986+00:00'
+generated: '2026-04-01T11:39:51.401225+00:00'
 ---
 
 # wiki Bundled Reference (Part 2 of 2)
 
 > **Contains:** 40 documents
-> **Tokens:** ~95389 (cl100k_base)
+> **Tokens:** ~95689 (cl100k_base)
 > **Index:** [./bundled-reference.md](./bundled-reference.md)
 
 ---
@@ -5321,9 +5321,39 @@ However, the standard frontend handleSave/handleSaveApply methods do \_not\_ cal
 
 ------------------------------------------------------------------------
 
+## ucode Bindings for UCI
+
+Use in `ucode` scripts is provided by the `ucode-mod-uci` package. This package should already be installed on your device as it's a dependency of `firewall4`.
+
+The [API documentation](https://ucode.mein.io/module-uci.html) is quite throrough, but here's a small example to get you started.
+
+``` javascript
+#!/usr/bin/ucode -S
+
+import { cursor } from 'uci';
+let uci = cursor();
+
+printf("configs:\n");
+let configs = uci.configs();
+for (let item in configs) {
+    printf("  %s\n", item);
+}
+
+function show_section(config, section)
+{
+    printf("%s.%s:\n", config, section);
+    for (let item, value in uci.get_all(config, section)) {
+        printf("  %s = %s\n", item, value);
+    }
+}
+
+show_section("dhcp", "@host[0]");
+show_section("system", "ntp");
+```
+
 ## Lua Bindings for UCI
 
-For those who like lua, UCI can be accessed in your code via the package libuci-lua. Just install the package then, in your lua code do `require("uci")`
+For those who like lua, UCI can be accessed in your code via the package `libuci-lua`. Just install the package then, in your lua code do `require("uci")`
 
 ## API
 
@@ -5638,6 +5668,19 @@ To compile your application you have to link it against the uci library. Append 
     $(CC) test.o -o test -luci
 
 And examples on how to use UCI in C can be found in this thread: <https://forum.openwrt.org/viewtopic.php?pid=183335#p183335> To get more examples look into the source directory of uci which you got by git clone and open cli.c or ucimap-example.c
+
+### Building and running tests with scripts/devel-build.sh
+
+Assuming you already have the following packages installed: [install-buildsystem](/docs/guide-developer/toolchain/install-buildsystem).
+
+Additional packages required (package names for ubuntu):
+
+    cmake pkgconf python3.13-venv valgrind
+
+Clone the repo. Run:
+
+    cd uci
+    scripts/devel-build.sh
 
 ## See also
 

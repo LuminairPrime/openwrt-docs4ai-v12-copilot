@@ -4,14 +4,14 @@ module: wiki
 origin_type: wiki_page
 token_count: 5457
 source_file: L1-raw/wiki/wiki_page-guide-developer-package-policies.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/guide-developer/package-policies
 language: text
 ---
 
 > **Source:** [https://openwrt.org/docs/guide-developer/package-policies](https://openwrt.org/docs/guide-developer/package-policies)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # OpenWrt packages
 

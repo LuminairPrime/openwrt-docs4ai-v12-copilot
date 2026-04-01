@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1320
 source_file: L1-raw/cookbook/runtime-device-identity-via-ubus.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_locator: static/cookbook-source/runtime-device-identity-via-ubus.md
 description: Canonical pattern for identifying a running OpenWrt device from live
   system state using `ubus call system board` instead of reconstructing build tuples
@@ -28,7 +28,7 @@ last_reviewed: '2026-03-28'
 
 > **Source:** `static/cookbook-source/runtime-device-identity-via-ubus.md`
 > **Kind:** authored | **Method:** hand-authored
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Runtime Device Identity via ubus
 

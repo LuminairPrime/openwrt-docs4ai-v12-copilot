@@ -2,9 +2,9 @@
 title: UCI (Unified Configuration Interface) – Technical Reference
 module: wiki
 origin_type: wiki_page
-token_count: 3923
+token_count: 4223
 source_file: L1-raw/wiki/wiki_page-techref-uci.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/uci
 language: text
 ai_summary: Documents the OpenWrt Unified Configuration Interface (UCI) — the standard system for storing and modifying router configuration. Explains the /etc/config/ text file format, section and option syntax, the uci CLI (uci set/get/add/delete/commit/revert), the C library API (uci_load, uci_set, uci_commit), and batch-change semantics where changes stay staged in memory until commit.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/uci](https://openwrt.org/docs/techref/uci)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # UCI (Unified Configuration Interface) – Technical Reference
 
@@ -147,9 +147,39 @@ However, the standard frontend handleSave/handleSaveApply methods do \_not\_ cal
 
 ------------------------------------------------------------------------
 
+## ucode Bindings for UCI
+
+Use in `ucode` scripts is provided by the `ucode-mod-uci` package. This package should already be installed on your device as it's a dependency of `firewall4`.
+
+The [API documentation](https://ucode.mein.io/module-uci.html) is quite throrough, but here's a small example to get you started.
+
+``` javascript
+#!/usr/bin/ucode -S
+
+import { cursor } from 'uci';
+let uci = cursor();
+
+printf("configs:\n");
+let configs = uci.configs();
+for (let item in configs) {
+    printf("  %s\n", item);
+}
+
+function show_section(config, section)
+{
+    printf("%s.%s:\n", config, section);
+    for (let item, value in uci.get_all(config, section)) {
+        printf("  %s = %s\n", item, value);
+    }
+}
+
+show_section("dhcp", "@host[0]");
+show_section("system", "ntp");
+```
+
 ## Lua Bindings for UCI
 
-For those who like lua, UCI can be accessed in your code via the package libuci-lua. Just install the package then, in your lua code do `require("uci")`
+For those who like lua, UCI can be accessed in your code via the package `libuci-lua`. Just install the package then, in your lua code do `require("uci")`
 
 ## API
 
@@ -464,6 +494,19 @@ To compile your application you have to link it against the uci library. Append 
     $(CC) test.o -o test -luci
 
 And examples on how to use UCI in C can be found in this thread: <https://forum.openwrt.org/viewtopic.php?pid=183335#p183335> To get more examples look into the source directory of uci which you got by git clone and open cli.c or ucimap-example.c
+
+### Building and running tests with scripts/devel-build.sh
+
+Assuming you already have the following packages installed: [install-buildsystem](/docs/guide-developer/toolchain/install-buildsystem).
+
+Additional packages required (package names for ubuntu):
+
+    cmake pkgconf python3.13-venv valgrind
+
+Clone the repo. Run:
+
+    cd uci
+    scripts/devel-build.sh
 
 ## See also
 

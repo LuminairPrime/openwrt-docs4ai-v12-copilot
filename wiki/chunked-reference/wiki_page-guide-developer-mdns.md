@@ -4,14 +4,14 @@ module: wiki
 origin_type: wiki_page
 token_count: 2298
 source_file: L1-raw/wiki/wiki_page-guide-developer-mdns.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/guide-developer/mdns
 language: text
 ---
 
 > **Source:** [https://openwrt.org/docs/guide-developer/mdns](https://openwrt.org/docs/guide-developer/mdns)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # umdns for Local Device Discovery
 

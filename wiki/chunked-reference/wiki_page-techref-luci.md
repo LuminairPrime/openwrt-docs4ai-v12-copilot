@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1499
 source_file: L1-raw/wiki/wiki_page-techref-luci.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/luci
 language: text
 ai_summary: Provides a technical overview of the LuCI web interface framework for OpenWrt. Covers the three-tier architecture (controller/model/view), the CBI/form module system, Lua vs. JavaScript view types, the rpcd permission model, package Makefile conventions for registering menu entries and ACL files, and the workflow for developing and testing LuCI packages locally.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/luci](https://openwrt.org/docs/techref/luci)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # LuCI – Technical Reference
 

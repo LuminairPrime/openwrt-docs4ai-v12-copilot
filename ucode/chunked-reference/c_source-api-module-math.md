@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 2848
 source_file: L1-raw/ucode/c_source-api-module-math.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/math.c
 source_locator: lib/math.c
@@ -22,7 +22,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/nicowillis/ucode/blob/unknown/lib/math.c](https://github.com/nicowillis/ucode/blob/unknown/lib/math.c)
 > **Kind:** c_source | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # ucode module: math
 

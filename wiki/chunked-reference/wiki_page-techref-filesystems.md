@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 3337
 source_file: L1-raw/wiki/wiki_page-techref-filesystems.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/filesystems
 language: text
 ai_summary: The Filesystems module in OpenWrt provides an overview of various file systems utilized for device built-in flash storage. It covers common file systems such as OverlayFS, tmpfs, SquashFS, and JFFS2, detailing their characteristics, advantages, and limitations. OverlayFS is used to merge read-only and writable file systems, while tmpfs operates like a RAM-Disk for temporary storage. SquashFS is a read-only compressed file system, and JFFS2 is a writable compressed file system with journaling and wear leveling features.
@@ -20,7 +20,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/filesystems](https://openwrt.org/docs/techref/filesystems)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Filesystems
 

@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 1367
 source_file: L1-raw/cookbook/network-device-model-migrations.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_locator: static/cookbook-source/network-device-model-migrations.md
 description: Correct pattern for modern OpenWrt network model migrations, including
   bridge ifname-to-ports conversion, device-section migration, and current DSA-era
@@ -25,7 +25,7 @@ last_reviewed: '2026-03-28'
 
 > **Source:** `static/cookbook-source/network-device-model-migrations.md`
 > **Kind:** authored | **Method:** hand-authored
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Network Device Model Migrations
 

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 901
 source_file: L1-raw/wiki/wiki_page-guide-developer-security-incidents-response.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/guide-developer/security_incidents_response
 language: text
 ai_summary: The High-level security incident response handling process outlines the steps necessary for effectively managing security incidents within OpenWrt. It emphasizes the importance of awareness, identification, and collaboration among team members to address security issues promptly. Key tasks include making the security team aware of incidents and analyzing reports for validity and severity. This structured approach ensures that security responses are handled efficiently and effectively.
@@ -16,7 +16,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/guide-developer/security_incidents_response](https://openwrt.org/docs/guide-developer/security_incidents_response)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # High-level security incident response handling process
 

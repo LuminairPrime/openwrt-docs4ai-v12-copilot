@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 1929
 source_file: L1-raw/wiki/wiki_page-techref-netifd.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_url: https://openwrt.org/docs/techref/netifd
 language: text
 ai_summary: Documents netifd, the OpenWrt network interface daemon responsible for managing network interfaces based on UCI config. Explains the interface/device/proto handler model, the /etc/config/network schema (interface, device, bridge, route, rule sections), protocol handler shell scripts in /lib/netifd/proto/, ifup/ifdown/ifupdate hotplug event flow, and the ubus network API exposed by netifd.
@@ -21,7 +21,7 @@ ai_related_topics:
 
 > **Source:** [https://openwrt.org/docs/techref/netifd](https://openwrt.org/docs/techref/netifd)
 > **Kind:** wiki_page | **Method:** scraped
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # netifd (Network Interface Daemon) – Technical Reference
 

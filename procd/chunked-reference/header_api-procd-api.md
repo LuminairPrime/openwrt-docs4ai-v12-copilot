@@ -4,7 +4,7 @@ module: procd
 origin_type: header_api
 token_count: 352
 source_file: L1-raw/procd/header_api-procd-api.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/openwrt/blob/unknown/package/system/procd/files/procd.sh
 source_locator: package/system/procd/files/procd.sh
@@ -22,7 +22,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/openwrt/openwrt/blob/unknown/package/system/procd/files/procd.sh](https://github.com/openwrt/openwrt/blob/unknown/package/system/procd/files/procd.sh)
 > **Kind:** header_api | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # procd init.d API Reference
 

@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 2283
 source_file: L1-raw/cookbook/hotplug-handler-pattern.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_locator: static/cookbook-source/hotplug-handler-pattern.md
 description: Shows how to write narrowly-scoped OpenWrt hotplug handlers that match
   explicit event contracts, publish minimal state, and hand off heavier work to the
@@ -27,7 +27,7 @@ last_reviewed: '2026-03-28'
 
 > **Source:** `static/cookbook-source/hotplug-handler-pattern.md`
 > **Kind:** authored | **Method:** hand-authored
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # Hotplug Handler Pattern
 

@@ -4,7 +4,7 @@ module: luci
 origin_type: js_source
 token_count: 3075
 source_file: L1-raw/luci/js_source-api-cbi.md
-last_pipeline_run: '2026-03-29T23:50:02.157846+00:00'
+last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/cbi.js
 source_locator: modules/luci-base/htdocs/luci-static/resources/cbi.js
@@ -22,7 +22,7 @@ ai_related_topics:
 
 > **Source:** [https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/cbi.js](https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/cbi.js)
 > **Kind:** js_source | **Commit:** unknown | **Method:** normalized
-> **Normalized:** 2026-03-29
+> **Normalized:** 2026-04-01
 
 # LuCI API: cbi
 

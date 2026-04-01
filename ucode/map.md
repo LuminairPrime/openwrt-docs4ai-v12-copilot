@@ -1,7 +1,7 @@
 # ucode Navigation Map
 
 > **Contains:** Headers and function signatures for ucode.
-> **Generated:** 2026-03-29T23:50:19.225986+00:00
+> **Generated:** 2026-04-01T11:39:51.401225+00:00
 
 ---
 
