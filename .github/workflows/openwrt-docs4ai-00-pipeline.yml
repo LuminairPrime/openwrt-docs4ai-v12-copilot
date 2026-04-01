@@ -1101,13 +1101,15 @@ jobs:
           - Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
           EOF
 
-          echo "dist_date=$dist_date" >> "$GITHUB_OUTPUT"
-          echo "release_tag=v$dist_date" >> "$GITHUB_OUTPUT"
-          echo "release_name=openwrt-docs4ai $dist_date" >> "$GITHUB_OUTPUT"
-          echo "zip_name=openwrt-docs4ai-$dist_date.zip" >> "$GITHUB_OUTPUT"
-          echo "zip_root_dir=$DIST_ZIP_ROOT_DIR" >> "$GITHUB_OUTPUT"
-          echo "source_sha_short=$(echo "$GITHUB_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
-          echo "notes_path=$notes_path" >> "$GITHUB_OUTPUT"
+          {
+            echo "dist_date=$dist_date"
+            echo "release_tag=v$dist_date"
+            echo "release_name=openwrt-docs4ai $dist_date"
+            echo "zip_name=openwrt-docs4ai-$dist_date.zip"
+            echo "zip_root_dir=$DIST_ZIP_ROOT_DIR"
+            echo "source_sha_short=$(echo "$GITHUB_SHA" | cut -c1-7)"
+            echo "notes_path=$notes_path"
+          } >> "$GITHUB_OUTPUT"
       - name: Validate external distribution staging
         if: steps.distribution_gate.outputs.enabled == 'true'
         run: |
