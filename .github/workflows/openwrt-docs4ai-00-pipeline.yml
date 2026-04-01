@@ -56,7 +56,9 @@ jobs:
       - name: Install validation tools
         run: |
           pip install -r .github/scripts/requirements.txt ruff pyright
-          go install github.com/rhysd/actionlint/cmd/actionlint@latest
+          # TODO: return to actionlint@latest after this job moves to Go 1.25+.
+          # actionlint v1.7.12+ requires Go 1.25+, while this job runs on Go 1.24.
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.11
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
       - name: Run source validation
         run: python tests/check_linting.py --strict --result-root tmp/ci/lint-review/current
