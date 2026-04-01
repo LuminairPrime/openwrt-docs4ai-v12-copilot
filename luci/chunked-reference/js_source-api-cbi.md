@@ -4,7 +4,7 @@ module: luci
 origin_type: js_source
 token_count: 3075
 source_file: L1-raw/luci/js_source-api-cbi.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/modules/luci-base/htdocs/luci-static/resources/cbi.js
 source_locator: modules/luci-base/htdocs/luci-static/resources/cbi.js

@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 2900
 source_file: L1-raw/wiki/wiki_page-techref-odhcpd.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_url: https://openwrt.org/docs/techref/odhcpd
 language: text
 ai_summary: odhcpd is a daemon designed for managing DHCP, DHCPv6, Router Advertisements (RA), and Neighbor Discovery Protocol (NDP) in embedded systems, particularly for IPv6 home routers. It supports both stateless and stateful DHCPv4 and DHCPv6, as well as prefix delegation and dynamic reconfiguration. The module can operate in server or relay modes for both DHCPv6 and Router Discovery, enabling seamless IP management across routed interfaces. Configuration is handled via a UCI file located at `/etc/config/dhcp`.

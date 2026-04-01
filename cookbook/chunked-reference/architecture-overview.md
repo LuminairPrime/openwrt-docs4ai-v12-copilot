@@ -4,7 +4,7 @@ module: cookbook
 origin_type: authored
 token_count: 2981
 source_file: L1-raw/cookbook/architecture-overview.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_locator: static/cookbook-source/architecture-overview.md
 description: Structural overview of OpenWrt component relationships, data flow, ACL/permission
   boundaries, and build-time vs runtime distinctions for AI tools and developers building

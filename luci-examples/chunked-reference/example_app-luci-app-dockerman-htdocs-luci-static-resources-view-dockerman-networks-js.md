@@ -4,7 +4,7 @@ module: luci-examples
 origin_type: example_app
 token_count: 1998
 source_file: L1-raw/luci-examples/example_app-luci-app-dockerman-htdocs-luci-static-resources-view-dockerman-networks-js.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_commit: unknown
 source_url: https://github.com/openwrt/luci/blob/unknown/applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/networks.js
 source_locator: applications/luci-app-dockerman/htdocs/luci-static/resources/view/dockerman/networks.js

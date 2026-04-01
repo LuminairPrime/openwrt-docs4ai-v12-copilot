@@ -1,7 +1,7 @@
 # openwrt-docs4ai - LLM Routing Index
 > For a flat file listing, see [llms-full.txt](./llms-full.txt)
 
-> **Version:** openwrt/openwrt@dad9df1, openwrt/luci@95a84c0, jow-/ucode@a078b72
+> **Version:** openwrt/openwrt@b23e92c, openwrt/luci@95a84c0, jow-/ucode@a078b72
 > **Total Context Available:** ~456905 tokens
 
 ## Guides

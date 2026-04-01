@@ -4,7 +4,7 @@ module: wiki
 origin_type: wiki_page
 token_count: 2298
 source_file: L1-raw/wiki/wiki_page-guide-developer-mdns.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_url: https://openwrt.org/docs/guide-developer/mdns
 language: text
 ---

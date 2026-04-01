@@ -4,7 +4,7 @@ module: ucode
 origin_type: c_source
 token_count: 3903
 source_file: L1-raw/ucode/c_source-api-module-debug.md
-last_pipeline_run: '2026-04-01T11:39:34.127010+00:00'
+last_pipeline_run: '2026-04-01T13:49:08.540826+00:00'
 source_commit: unknown
 source_url: https://github.com/nicowillis/ucode/blob/unknown/lib/debug.c
 source_locator: lib/debug.c

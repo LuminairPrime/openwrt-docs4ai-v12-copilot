@@ -1,7 +1,7 @@
 # wiki Navigation Map
 
 > **Contains:** Headers and function signatures for wiki.
-> **Generated:** 2026-04-01T11:39:51.401225+00:00
+> **Generated:** 2026-04-01T13:49:25.808980+00:00
 
 ---
 

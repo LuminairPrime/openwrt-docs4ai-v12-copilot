@@ -5,7 +5,7 @@ section_count: 89
 is_monolithic: false
 is_sharded_index: true
 part_count: 2
-generated: '2026-04-01T11:39:51.401225+00:00'
+generated: '2026-04-01T13:49:25.808980+00:00'
 ---
 
 # wiki Bundled Reference
