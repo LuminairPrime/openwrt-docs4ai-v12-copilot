@@ -1,0 +1,38 @@
+docs/plans/v14/ruff-testing-upgrade-plan-03-review-response.md
+  715933430093b90f 1-336
+docs/plans/v14/ruff-testing-upgrade-plan-03.md
+  715933430093b90f 1-541
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "19216ce4db3c12d8a23d491300c05c229159441c",
+  "prompts": {
+    "715933430093b90f": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "65e0ffd7-3e70-4051-9f33-89dd70e1ddbc",
+        "model": "copilot/claude-sonnet-4.6"
+      },
+      "human_author": "LuminairPrime <luminair@gmail.com>",
+      "messages": [],
+      "total_additions": 877,
+      "total_deletions": 0,
+      "accepted_lines": 877,
+      "overriden_lines": 0
+    },
+    "aebb318b20260b8e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "38658a37-76b7-493a-8312-1e4450515dc0",
+        "model": "copilot/claude-sonnet-4.6"
+      },
+      "human_author": "LuminairPrime <luminair@gmail.com>",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 3,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
