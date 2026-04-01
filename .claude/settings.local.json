@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo $PATH)",
+      "Bash(codex:*)",
+      "Bash(where codex:*)",
+      "Bash(npm list:*)",
+      "Bash(node:*)",
+      "Bash(export PATH=\"$PATH:/c/Users/MC/AppData/Roaming/npm\")",
+      "Read(//c/Users/MC/AppData/Roaming/npm/**)"
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+● codex:codex-rescue(Codex adversarial pipeline review)
+  ⎿  Done (15 tool uses · 39.9k tokens · 20m 24s)
+  (ctrl+o to expand)
+
+● Codex Adversarial Review: openwrt-docs4ai-pipeline
+
+  1. Executive Summary
+
+  This pipeline works, but its maintainability story is weaker than its stage numbering suggests. The core problem is
+  not one broken script; it is that the contract is spread across stage code, shell in CI, validators, and tests. That
+  creates a system that is resilient to some single-step failures, but brittle to contract drift, partial reruns, and
+  format changes.
+
+  Confirmed high-risk themes:
+
+  - Stage boundaries are not clean. 03 normalizes, injects links, builds the symbol registry, and promotes manifests;
+  05a builds both legacy staged outputs and the public release-tree; 07 generates HTML, overlays static assets, and
+  materializes support-tree. That is orchestration hidden inside stage scripts, not a clean layer model.
+  - Cross-stage coupling is mostly stringly typed: adjacent .meta.json sidecars, filename prefixes, relative_target
+  strings, and regex-based link rewriting. A filename convention change would ripple through multiple stages.
+  - The repo claims strong contracts, but many stages degrade silently on partial loss. 02b and 02c tolerate many
+  per-file failures and only fail on total emptiness; 05a warns and skips malformed L2 files; CI extraction contracts
+  only count .md and .meta.json, not semantic correctness.
+
+  ---
+  2. Architecture Critique
+
+  - lib/config.py is doing too much. Path resolution, env parsing, run-state persistence, mutable global configuration,
+  and run-record lifecycle — all executed at import time. Every script inherits hidden global state before main()
+  starts.
+  - Stage numbering is operationally duplicated in the workflow, smoke runners, and contract tests. Reordering or
+  splitting a stage means coordinated edits across .github/workflows/, tests/support/smoke_pipeline_support.py, and
+  YAML-string tests.
+  - Several numbered scripts are not import-safe. 02g, 05b, and 05c execute work at module import time, making them
+  harder to test, reuse, or compose.
+  - The public/private output split is implemented late and redundantly. 05a writes old staged module files and the
+  release-tree copies in the same pass, then 07 builds yet another support-tree. That is duplication, not separation of
+  concerns.
+
+  ---
+  3. Error Handling and Resilience
+
+  - Stage 01 deletes existing clones before attempting new clones. If the network is down after deletion, the run loses
+  the previous usable repo state with no retry logic.
+  - write_l1_markdown() writes .md and .meta.json separately and non-atomically. 03 then hard-fails if the .meta.json is
+   missing. A crash between those writes produces a broken corpus from a single interrupted file write.
+  - Wiki scraper retry budget is tiny and cleanup behavior changes based on discovery completeness and page caps. Stale
+  pages are retained silently by design when discovery is incomplete or WIKI_MAX_PAGES is hit.
+  - 02c collapses to a whole-directory api-all fallback if per-file JSDoc generation yields zero outputs. That keeps the
+   stage green but changes granularity dramatically without producing a formal degraded-mode artifact.
+
+  ---
+  4. Data Flow and Coupling Analysis
+
+  - The .meta.json sidecar pattern is a hidden schema, not an explicit typed contract. 03 depends on adjacent naming and
+   particular keys; extractors all hand-roll metadata dicts; validator rules live elsewhere.
+  - cross-link-registry.json is built from heading regexes and consumed through link rewriting regexes and string
+  replacement. Brittle in both directions: symbol extraction is heuristic, and link generation depends on path-shape
+  conventions.
+  - Tests still seed deprecated metadata fields like upstream_path and original_url, while the validator only soft-warns
+   on stale fields and new code prefers source_url and source_locator. Real contract drift between fixtures and
+  production.
+
+  ---
+  5. Configuration and Hardcoding
+
+  - Major product semantics are hardcoded outside config: wiki namespaces and mandatory pages, token sharding budget,
+  module categories/descriptions, section descriptions, and baseline lookup.
+  - Source provenance for ucode is internally inconsistent. REPO_BASE_UCODE in lib/source_provenance.py points at
+  nicowillis/ucode, while 01 clones jow-/ucode.git.
+  - 05e hardcodes a manually curated subset of LuCI namespaces and emits fallback stubs when the repo is missing.
+
+  ---
+  6. Test Infrastructure Assessment
+
+  - Workflow contract suite is heavily string-matching over YAML text. Catches accidental textual edits but is brittle
+  to harmless refactors and weak at proving behavior.
+  - Default smoke path is fixture-backed and offline-friendly; extractor coverage is optional. Upstream layout changes
+  in OpenWrt repos or the wiki can break production extraction while local smoke stays green.
+  - Tests explicitly enforce risky CI choices, including @main action refs — encoding operational policy that increases
+  supply-chain volatility.
+
+  ---
+  7. CI/CD Workflow Analysis
+
+  - The workflow uses actions/*@main throughout. Not robust CI — accepting moving upstream code on every run.
+  - Extraction steps run with continue-on-error: true, then ad hoc shell contracts decide whether to fail. Duplicates
+  logic and makes local script behavior different from CI job semantics.
+  - Wiki cache key uses github.run_id — guarantees no exact-key reuse across runs; allows broad stale-cache restores
+  from unrelated prior runs.
+  - Deploy pushes to external repos after git pull --rebase. If the target branch conflicts, deploy fails late with no
+  retry or conflict recovery path.
+
+  ---
+  8. Scalability Concerns
+
+  - Cross-link injection in 03 is roughly O(files x symbols x content), materializing a character-position protection
+  set over whole files.
+  - 05a, 07, and 08 repeatedly walk entire trees and rewrite large concatenated artifacts. Batch-file-oriented, not
+  incrementally scalable.
+  - No indexing layer beyond globbing and ad hoc JSON scans.
+
+  ---
+  9. Security Surface
+
+  - AI payload validation is narrow. It scans summary and when_to_use but not related_topics, which are also injected
+  into YAML frontmatter.
+  - HTML ingestion relies on best-effort regex and markdownify transforms. Validator only soft-warns on residual wiki
+  HTML.
+  - Mutable GitHub Actions refs and external repo publishing with broad bot write access are the bigger operational
+  security concerns.
+
+  ---
+  10. Design Tradeoff Evaluation
+
+  - File-based intermediates make inspection easy, but the design pays with duplicated trees, regex rewrites, and no
+  transactional promotion. 05a deletes and rebuilds release-tree wholesale.
+  - Windows compatibility is influencing implementation shape in real ways: custom path normalization, shell branching,
+  temp file handling, sync utilities.
+  - A database is probably overkill, but a typed manifest layer would not be. The weakest point is not "files instead of
+   DB" — it is "implicit file contracts instead of one canonical schema."
+
+  ---
+  Subtle Issues
+
+  - Partial-rerun guards only reason at module-directory granularity — they do not detect partial loss within a module.
+  - 05a destroys release-tree before rebuilding — no atomic promotion boundary.
+  - 07 overlays static assets after generating release artifacts, explicitly letting static replace
+  release-tree/index.html.
+  - ai_store.temporary_store_roots() mutates module globals — not concurrency-safe if code is ever parallelized
+  in-process.
+
+  ---
+  Top 10 Highest-Impact Recommendations (ranked by risk x effort)
+
+  ┌──────┬───────────────────────────────────────────────────────┬──────────────────────────────────────────────────┐
+  │ Rank │                    Recommendation                     │                       Why                        │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 1    │ Centralize the stage contract in one typed            │ Most current brittleness is contract drift       │
+  │      │ manifest/schema module                                │                                                  │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 2    │ Make L1 writes atomic: temp-write then promote both   │ Single interrupted write can break the corpus    │
+  │      │ .md and sidecar together                              │                                                  │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 3    │ Split 03, 05a, 07 into pure transforms plus explicit  │ Hidden orchestration makes failure recovery      │
+  │      │ promotion steps                                       │ harder                                           │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 4    │ Replace regex/string path rewriting with structured   │ Eliminates the most fragile cross-stage coupling │
+  │      │ link records                                          │                                                  │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 5    │ Pin GitHub Actions to immutable SHAs                  │ Low effort, high operational risk reduction      │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 6    │ Add extractor-integrated CI tests exercising real     │ Default smoke stays green while production       │
+  │      │ repo layouts                                          │ extraction breaks                                │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 7    │ Tighten degraded-mode semantics with machine-readable │ 02c api-all fallback and 05e stubs are invisible │
+  │      │  degradation markers                                  │  to downstream                                   │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 8    │ Move product constants into versioned config data     │ Module metadata, wiki targets, sharding          │
+  │      │                                                       │ thresholds scattered across scripts              │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 9    │ Strengthen AI payload sanitization for all injected   │ related_topics bypass validation before YAML     │
+  │      │ fields                                                │ injection                                        │
+  ├──────┼───────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ 10   │ Add transactional staging for                         │ Mid-stage crash currently leaves partially       │
+  │      │ release-tree/support-tree                             │ rebuilt public tree                              │
+  └──────┴───────────────────────────────────────────────────────┴──────────────────────────────────────────────────┘
+
+  Bottom line: The codebase is strongest where it is explicit about generated outputs and weakest where it pretends
+  convention is contract. The next improvement should be schema and promotion discipline, not another stage.
+
+✻ Sautéed for 14m 27s
