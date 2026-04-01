@@ -13,7 +13,7 @@ import os
 import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
@@ -69,7 +69,7 @@ metadata = {
     "source_commit": OPENWRT_COMMIT,
     "language": "bash",
     "fetch_status": "success",
-    "extraction_timestamp": ts
+    "extraction_timestamp": ts,
 }
 
 extractor.write_l1_markdown("procd", "header_api", slug, final_content, metadata)

@@ -15,8 +15,7 @@ def test_wiki_l2_committed_corpus_sanity_snapshot():
     summary = summarize_wiki_l2_corpus(WIKI_L2_DIR)
     status = classify_wiki_l2_sanity(summary)
     artifact_stats = " ".join(
-        f"{name}={summary[f'{name}_files']}/{summary[f'{name}_occurrences']}"
-        for name in WIKI_ARTIFACT_PATTERNS
+        f"{name}={summary[f'{name}_files']}/{summary[f'{name}_occurrences']}" for name in WIKI_ARTIFACT_PATTERNS
     )
 
     print(

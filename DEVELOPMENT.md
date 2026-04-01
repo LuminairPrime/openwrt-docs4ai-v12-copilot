@@ -8,7 +8,7 @@ This file is the maintainer quick start for local development. The current engin
 
 | Tool | Version | Purpose |
 | --- | --- | --- |
-| Python | 3.11+ | All pipeline scripts and local tests |
+| Python | 3.12+ | All pipeline scripts and local tests |
 | Node.js | 20+ | `jsdoc-to-markdown` and JavaScript syntax checks |
 | pandoc | 3.0+ | Wiki conversion |
 | git | 2.25+ | Repo cloning and versioned refactors |
@@ -22,19 +22,17 @@ npm install -g jsdoc-to-markdown
 winget install --id JohnMacFarlane.Pandoc
 ```
 
-After dependencies are installed, use the local tests in `tests/` rather than relying on GitHub Actions behavior.
+After dependencies are installed, use the canonical local validation wrappers in `tools/testing/` rather than relying on GitHub Actions behavior.
 
 ## Recommended Local Commands
 
 ```powershell
-python tests/run_pytest.py
-python tests/run_smoke.py
-python tests/run_smoke.py --run-ai
-python tests/run_smoke.py --include-extractors
-python tests/run_smoke_and_pytest.py
-python tests/run_smoke_and_pytest.py --run-ai --keep-temp
-python tests/run_smoke_and_pytest_parallel.py
-python tests/check_linting.py
+python tools/testing/run_default_validation.py
+python tools/testing/run_default_validation.py --run-ai --keep-temp
+python tools/testing/run_default_validation.py --include-extractors
+python tools/testing/run_source_validation.py
+python tools/testing/run_targeted_pytest.py -k wiki -q
+python tools/testing/run_targeted_smoke.py --include-extractors
 python tools/manage_ai_store.py --option review
 python tools/manage_ai_store.py --option full --keep-scratch
 ```
@@ -47,16 +45,17 @@ For one-off terminal invocations, either activate `.venv` once before testing or
 
 ## Validation Runners
 
-The maintained local validation surface is now Python-first and cross-platform.
-See `tests/README.md` for the full layout and direct entry points.
+The canonical human-facing validation surface is now Python-first, cross-platform, and intentionally small.
+See `tools/testing/README.md` for the operator-facing menu and `tests/README.md` for the underlying implementation-level runners.
 
-- `tests/run_pytest.py` runs the focused suites in `tests/pytest/` and forwards any extra CLI arguments to pytest.
-- `tests/run_smoke.py` runs the maintained smoke lane in serial order. It supports `--run-ai`, `--keep-temp`, `--include-extractors`, the individual `--skip-*` switches, and `--result-root`.
-- `tests/run_smoke_and_pytest.py` is the maintained one-command sequential validation path. It runs the focused pytest lane first, then the enabled smoke stages, and writes per-stage logs plus `summary.json` under `tmp/ci/local-validation/`.
-- `tests/run_smoke_and_pytest_parallel.py` runs one pytest lane and one smoke lane in parallel. Use it only for that supported split; do not treat it as permission to run multiple smoke scripts concurrently.
-- `tests/check_linting.py` performs a read-only Ruff, strict Pyright, and actionlint review and writes its bundle under `tmp/ci/lint-review/`.
+- `tools/testing/run_default_validation.py` is the normal local proof. It runs `tests/check_linting.py --strict` first and then `tests/run_smoke_and_pytest.py`.
+- `tools/testing/run_source_validation.py` is the source gate only. Use it when the change is clearly in formatting, typing, or workflow validation.
+- `tools/testing/run_targeted_pytest.py` forwards diagnostic arguments to `tests/run_pytest.py`.
+- `tools/testing/run_targeted_smoke.py` forwards diagnostic arguments to `tests/run_smoke.py`.
+- The implementation-level runners under `tests/` remain maintained and scriptable. Use them directly only when you need advanced flags such as `--result-root` or a very specific execution path.
 
 These runners are intentionally local-first. Remote GitHub Actions validation still depends on a pushed commit and the run-pinning procedure in `CI Operations`.
+When the hosted `validate_source` job fails, download the `lint-review` artifact and inspect `summary.json` first.
 
 ## Cookbook Local Regeneration Warning
 
@@ -70,8 +69,8 @@ Do not treat a cookbook-only content edit as permission to freely rerun broad ge
 
 This project is a batch documentation pipeline with recoverable failures, not a latency-sensitive production application. In practice, most real regressions are cheaper to find from execution-time evidence than from repeated speculative review.
 
-- Start with focused pytest, deterministic smoke, and `tests/check_linting.py`.
-- If remote proof is needed, pin the exact GitHub Actions run to your commit SHA and read `pipeline-summary`, `process-summary`, and `extract-summary` before raw logs.
+- Start with `tools/testing/run_source_validation.py` for the source gate, then use `tools/testing/run_targeted_pytest.py` or `tools/testing/run_targeted_smoke.py` only when you are deliberately isolating a failure.
+- If remote proof is needed, pin the exact GitHub Actions run to your commit SHA and read `lint-review`, `pipeline-summary`, `process-summary`, and `extract-summary` before raw logs.
 - Use reviewer agents sparingly. For most diffs, one reviewer pass is enough; many diffs need none.
 - Do not run overlapping reviewer agents in a loop by default. `code-reviewer` plus `python-reviewer` on the same change should be the exception, not the baseline.
 - Prefer runtime and CI artifacts when the failure is already observable there. This repo tolerates iterative fixes driven by concrete logs better than token-heavy pre-emptive review loops.
@@ -82,8 +81,8 @@ This project is a batch documentation pipeline with recoverable failures, not a 
 When validating this project from the terminal, prefer deterministic, bounded commands over ad hoc shell control flow.
 
 1. Start in the repo root with the workspace virtual environment active, or use the explicit `.venv` interpreter path when running a single isolated command.
-2. Run the smallest proof first: `python tests/run_pytest.py`, then `python tests/run_smoke.py`, then remote workflow validation.
-3. When you want the full preferred local progression in one command, use `python tests/run_smoke_and_pytest.py` instead of rebuilding the sequence ad hoc.
+2. Run the smallest proof first: `python tools/testing/run_source_validation.py`, then a targeted wrapper if needed, then remote workflow validation.
+3. When you want the full preferred local progression in one command, use `python tools/testing/run_default_validation.py` instead of rebuilding the sequence ad hoc.
 4. Keep one purpose per command. Prefer a direct command invocation over inline retry loops or multi-purpose shell snippets.
 5. Capture durable local evidence when it matters, typically under `tests/test-results-*.txt` or `tmp/ci/`, so reruns can be compared without re-reading terminal scrollback.
 6. For GitHub Actions validation, pin the run to the pushed commit SHA, identify the matching `databaseId`, and wait on that exact run with `gh run watch <run_id> --exit-status --interval 15`.
@@ -145,10 +144,10 @@ A source-repo root `llms.txt` remains intentionally out of scope for the current
 ## Local Tests
 
 - `tests/pytest/` contains the focused pytest suites for import-safe helpers, workflow contracts, fixture routing, corpus sanity, and wiki scraper behavior.
-- `tests/smoke/` contains the direct smoke runners; use `python tests/run_smoke.py` for the maintained serial sequence.
-- `tests/check_linting.py` produces read-only local review bundles for Ruff, strict Pyright, and actionlint.
+- `tests/smoke/` contains the direct smoke runners used by the canonical wrappers.
+- `tests/check_linting.py` remains the implementation source of truth for Ruff, strict Pyright, and actionlint.
 
-These entry points are maintained as first-class engineering assets. Use `tests/README.md` when you need the exact folder contract or runner/output mapping.
+The canonical operator entry points now live under `tools/testing/`. Use `tests/README.md` when you need the exact folder contract or implementation-level runner/output mapping.
 
 ## AI Summary Operations
 
@@ -230,7 +229,14 @@ This pipeline runs CI frequently. Follow the procedure below every time you push
 
 #### Phase B: Triage From Summary Artifacts Before Opening Raw Logs
 
-1. Download and inspect the structured pipeline summary artifact first:
+1. Download and inspect the source-validation artifact first when the failure is in `validate_source`:
+
+   ```powershell
+   gh run download <run_id> -n lint-review -D tmp/ci/lint-review
+   Get-Content tmp/ci/lint-review/**/summary.json | ConvertFrom-Json
+   ```
+
+1. Then download and inspect the structured pipeline summary artifact:
 
    ```powershell
    gh run download <run_id> -n pipeline-summary -D tmp/ci/pipeline-summary

@@ -35,7 +35,7 @@ import os
 import re
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config  # noqa: E402
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -45,16 +45,13 @@ OUTDIR = config.OUTDIR
 RELEASE_TREE_DIR = config.RELEASE_TREE_DIR
 
 LUCI_REPO_PATH = os.path.join(WORKDIR, "repo-luci")
-LUCI_JS_BASE = os.path.join(
-    LUCI_REPO_PATH,
-    "modules", "luci-base", "htdocs", "luci-static", "resources"
-)
+LUCI_JS_BASE = os.path.join(LUCI_REPO_PATH, "modules", "luci-base", "htdocs", "luci-static", "resources")
 
 JS_FILES = {
-    "form":    os.path.join(LUCI_JS_BASE, "form.js"),
-    "rpc":     os.path.join(LUCI_JS_BASE, "rpc.js"),
-    "uci":     os.path.join(LUCI_JS_BASE, "uci.js"),
-    "luci":    os.path.join(LUCI_JS_BASE, "luci.js"),   # contains view + dom + request
+    "form": os.path.join(LUCI_JS_BASE, "form.js"),
+    "rpc": os.path.join(LUCI_JS_BASE, "rpc.js"),
+    "uci": os.path.join(LUCI_JS_BASE, "uci.js"),
+    "luci": os.path.join(LUCI_JS_BASE, "luci.js"),  # contains view + dom + request
     "network": os.path.join(LUCI_JS_BASE, "network.js"),
 }
 
@@ -65,52 +62,37 @@ print("[05e] Generating luci-env.d.ts IDE type declarations")
 # JSDoc parsing helpers
 # ---------------------------------------------------------------------------
 
-_JSDOC_RE = re.compile(
-    r'/\*\*(.*?)\*/',
-    re.DOTALL
-)
+_JSDOC_RE = re.compile(r"/\*\*(.*?)\*/", re.DOTALL)
 
-_PARAM_RE = re.compile(
-    r'@param\s+\{([^}]+)\}\s+\[?([a-zA-Z0-9_$]+)\]?',
-    re.MULTILINE
-)
+_PARAM_RE = re.compile(r"@param\s+\{([^}]+)\}\s+\[?([a-zA-Z0-9_$]+)\]?", re.MULTILINE)
 
-_RETURNS_RE = re.compile(
-    r'@returns?\s+\{([^}]+)\}',
-    re.MULTILINE
-)
+_RETURNS_RE = re.compile(r"@returns?\s+\{([^}]+)\}", re.MULTILINE)
 
-_CLASS_RE = re.compile(
-    r'@class\s+(\S+)',
-    re.MULTILINE
-)
+_CLASS_RE = re.compile(r"@class\s+(\S+)", re.MULTILINE)
 
-_MEMBEROF_RE = re.compile(
-    r'@memberof\s+([^\s*]+)',
-    re.MULTILINE
-)
+_MEMBEROF_RE = re.compile(r"@memberof\s+([^\s*]+)", re.MULTILINE)
 
 
 # Simpler type conversions used repeatedly
 _JS_TYPE_MAP = {
-    "string":     "string",
-    "number":     "number",
-    "boolean":    "boolean",
-    "null":       "null",
-    "undefined":  "undefined",
-    "void":       "void",
-    "*":          "any",
-    "any":        "any",
-    "object":     "object",
-    "Object":     "Record<string, unknown>",
-    "function":   "(...args: any[]) => any",
-    "Function":   "(...args: any[]) => any",
-    "Node":       "Node",
+    "string": "string",
+    "number": "number",
+    "boolean": "boolean",
+    "null": "null",
+    "undefined": "undefined",
+    "void": "void",
+    "*": "any",
+    "any": "any",
+    "object": "object",
+    "Object": "Record<string, unknown>",
+    "function": "(...args: any[]) => any",
+    "Function": "(...args: any[]) => any",
+    "Node": "Node",
     "HTMLElement": "HTMLElement",
-    "Event":      "Event",
-    "Error":      "Error",
-    "Promise":    "Promise<unknown>",
-    "Array":      "unknown[]",
+    "Event": "Event",
+    "Error": "Error",
+    "Promise": "Promise<unknown>",
+    "Array": "unknown[]",
 }
 
 
@@ -134,28 +116,28 @@ def _convert_type(js_type: str) -> str:
         return raw
 
     # Array<X> → X[]
-    m = re.match(r'^Array<(.+)>$', raw)
+    m = re.match(r"^Array<(.+)>$", raw)
     if m:
         inner = _convert_type(m.group(1))
         return f"{inner}[]"
 
     # Object<K, V> → Record<K, V>
-    m = re.match(r'^Object<([^,]+),\s*(.+)>$', raw)
+    m = re.match(r"^Object<([^,]+),\s*(.+)>$", raw)
     if m:
         k = _convert_type(m.group(1).strip())
         v = _convert_type(m.group(2).strip())
         return f"Record<{k}, {v}>"
 
     # Promise<X>
-    m = re.match(r'^Promise<(.+)>$', raw)
+    m = re.match(r"^Promise<(.+)>$", raw)
     if m:
         inner = _convert_type(m.group(1))
         return f"Promise<{inner}>"
 
     # Union: split on | respecting < > nesting
-    if '|' in raw and '<' not in raw:
-        parts = [_convert_type(p.strip()) for p in raw.split('|')]
-        return ' | '.join(parts)
+    if "|" in raw and "<" not in raw:
+        parts = [_convert_type(p.strip()) for p in raw.split("|")]
+        return " | ".join(parts)
 
     # Fallback with bracket notation from JSDoc (e.g. {string[]} already)
     if raw.endswith("[]"):
@@ -186,20 +168,22 @@ def _parse_jsdoc_blocks(source: str) -> list[dict]:
         for pm in _PARAM_RE.finditer(raw):
             js_t = pm.group(1).strip()
             p_name = pm.group(2).strip()
-            optional = ('[' + p_name + ']') in raw or pm.group(0).__contains__('[')
+            optional = ("[" + p_name + "]") in raw or pm.group(0).__contains__("[")
             params.append((p_name, _convert_type(js_t), optional))
 
         # Extract return type
         ret_m = _RETURNS_RE.search(raw)
         returns_ts = _convert_type(ret_m.group(1).strip()) if ret_m else "void"
 
-        blocks.append({
-            "class_name": class_name,
-            "memberof": memberof,
-            "params": params,
-            "returns_ts": returns_ts,
-            "raw": raw,
-        })
+        blocks.append(
+            {
+                "class_name": class_name,
+                "memberof": memberof,
+                "params": params,
+                "returns_ts": returns_ts,
+                "raw": raw,
+            }
+        )
 
     return blocks
 
@@ -209,9 +193,9 @@ def _find_method_after_jsdoc(source: str, jsdoc_end_pos: int) -> str | None:
     Given the end position of a JSDoc block, return the method name
     from the first function definition or method assignment that follows.
     """
-    snippet = source[jsdoc_end_pos: jsdoc_end_pos + 200]
+    snippet = source[jsdoc_end_pos : jsdoc_end_pos + 200]
     # Match: identifier followed by ( or : function or = function
-    m = re.match(r'\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*[\({]', snippet)
+    m = re.match(r"\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*[\({]", snippet)
     if m:
         return m.group(1)
     return None
@@ -229,16 +213,16 @@ def _read_source(path: str) -> str | None:
 # Type-safe parameter formatting helpers
 # ---------------------------------------------------------------------------
 
+
 def _fmt_params(params: list[tuple[str, str, bool]]) -> str:
     parts = []
-    for (name, ts_type, optional) in params:
+    for name, ts_type, optional in params:
         opt_mark = "?" if optional else ""
         parts.append(f"{name}{opt_mark}: {ts_type}")
     return ", ".join(parts)
 
 
-def _method_line(indent: str, name: str, params: list, returns: str, *,
-                 as_fn: bool = False) -> str:
+def _method_line(indent: str, name: str, params: list, returns: str, *, as_fn: bool = False) -> str:
     prefix = "function " if as_fn else ""
     return f"{indent}{prefix}{name}({_fmt_params(params)}): {returns};"
 
@@ -246,6 +230,7 @@ def _method_line(indent: str, name: str, params: list, returns: str, *,
 # ---------------------------------------------------------------------------
 # Generate the .d.ts content
 # ---------------------------------------------------------------------------
+
 
 def _generate_dts(sources: dict[str, str | None]) -> str:
     """
@@ -300,7 +285,7 @@ def _generate_dts(sources: dict[str, str | None]) -> str:
             for pm in _PARAM_RE.finditer(raw):
                 js_t = pm.group(1).strip()
                 p_name = pm.group(2).strip()
-                is_opt = ('[' + p_name + ']') in raw
+                is_opt = ("[" + p_name + "]") in raw
                 params.append((p_name, _convert_type(js_t), is_opt))
             ret_m = _RETURNS_RE.search(raw)
             returns_ts = _convert_type(ret_m.group(1).strip()) if ret_m else "void"
@@ -314,38 +299,37 @@ def _generate_dts(sources: dict[str, str | None]) -> str:
         return _method_line("    ", name, fallback_params, fallback_ret, as_fn=True)
 
     lines += [
-        _uci_method("load",     [("packages", "string | string[]", False)],
-                    "Promise<string[]>"),
-        _uci_method("unload",   [("packages", "string | string[]", False)],
-                    "void"),
-        _uci_method("add",      [("conf", "string", False),
-                                 ("type", "string", False),
-                                 ("name", "string", True)],
-                    "string"),
-        _uci_method("remove",   [("conf", "string", False),
-                                 ("sid", "string", False)],
-                    "void"),
-        _uci_method("sections", [("conf", "string", False),
-                                 ("type", "string", True),
-                                 ("cb", "(section: SectionObject, sid: string) => void", True)],
-                    "SectionObject[]"),
-        _uci_method("get",      [("conf", "string", False),
-                                 ("sid", "string", False),
-                                 ("opt", "string", True)],
-                    "string | string[] | SectionObject | null"),
-        _uci_method("set",      [("conf", "string", False),
-                                 ("sid", "string", False),
-                                 ("opt", "string", False),
-                                 ("val", "string | string[] | null", False)],
-                    "void"),
-        _uci_method("unset",    [("conf", "string", False),
-                                 ("sid", "string", False),
-                                 ("opt", "string", False)],
-                    "null"),
-        _uci_method("save",     [],
-                    "Promise<void>"),
-        _uci_method("apply",    [("timeout", "number", True)],
-                    "Promise<void>"),
+        _uci_method("load", [("packages", "string | string[]", False)], "Promise<string[]>"),
+        _uci_method("unload", [("packages", "string | string[]", False)], "void"),
+        _uci_method("add", [("conf", "string", False), ("type", "string", False), ("name", "string", True)], "string"),
+        _uci_method("remove", [("conf", "string", False), ("sid", "string", False)], "void"),
+        _uci_method(
+            "sections",
+            [
+                ("conf", "string", False),
+                ("type", "string", True),
+                ("cb", "(section: SectionObject, sid: string) => void", True),
+            ],
+            "SectionObject[]",
+        ),
+        _uci_method(
+            "get",
+            [("conf", "string", False), ("sid", "string", False), ("opt", "string", True)],
+            "string | string[] | SectionObject | null",
+        ),
+        _uci_method(
+            "set",
+            [
+                ("conf", "string", False),
+                ("sid", "string", False),
+                ("opt", "string", False),
+                ("val", "string | string[] | null", False),
+            ],
+            "void",
+        ),
+        _uci_method("unset", [("conf", "string", False), ("sid", "string", False), ("opt", "string", False)], "null"),
+        _uci_method("save", [], "Promise<void>"),
+        _uci_method("apply", [("timeout", "number", True)], "Promise<void>"),
         "  }",
         "",
     ]
@@ -837,21 +821,18 @@ def _generate_dts(sources: dict[str, str | None]) -> str:
 # Main
 # ---------------------------------------------------------------------------
 
+
 def main() -> None:
     # Check if the cloned repo is available
     repo_available = os.path.isdir(LUCI_JS_BASE)
 
     if not repo_available:
         print(
-            f"[05e] WARN: LuCI repo not found at {LUCI_JS_BASE}. "
-            "Generating stub .d.ts without dynamic type extraction."
+            f"[05e] WARN: LuCI repo not found at {LUCI_JS_BASE}. Generating stub .d.ts without dynamic type extraction."
         )
 
     # Read JS source files (returns None for missing)
-    sources: dict[str, str | None] = {
-        key: _read_source(path)
-        for key, path in JS_FILES.items()
-    }
+    sources: dict[str, str | None] = {key: _read_source(path) for key, path in JS_FILES.items()}
 
     found = [k for k, v in sources.items() if v is not None]
     missing = [k for k, v in sources.items() if v is None]

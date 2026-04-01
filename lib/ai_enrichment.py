@@ -35,7 +35,7 @@ SYSTEM_PROMPT = (
     "developer-focused descriptions.\n\n"
     "Given an API/module doc as context, produce a JSON object with exactly:\n"
     '  "summary":       "<3-5 sentences. Sentence 1 is comprehensive. '
-    'Sentences 2-5 add concrete details and clarifications with exact '
+    "Sentences 2-5 add concrete details and clarifications with exact "
     'functions.>"\n'
     '  "when_to_use":   "<1-2 sentences: specific OpenWrt use case.>"\n'
     '  "related_topics": ["<exact symbol name found in text>", ...]\n\n'
@@ -76,18 +76,12 @@ def _validate_payload(
         return False
 
     if len(summary) < 20:
-        print(
-            f"{prefix} WARN: Rejecting too-short summary for {label} "
-            f"(len={len(summary)})"
-        )
+        print(f"{prefix} WARN: Rejecting too-short summary for {label} (len={len(summary)})")
         return False
 
     for field_name, field_value in (("summary", summary), ("when_to_use", when_to_use)):
         if _UNSAFE_PAYLOAD_RE.search(field_value):
-            print(
-                f"{prefix} WARN: Unsafe content in {field_name} for {label}; "
-                "skipping injection"
-            )
+            print(f"{prefix} WARN: Unsafe content in {field_name} for {label}; skipping injection")
             return False
 
     if not related_topics:
@@ -208,13 +202,9 @@ def _call_api(
                 continue
 
             if response.status_code in (401, 403) or any(
-                keyword in response.text.lower()
-                for keyword in ("no quota", "limit reached")
+                keyword in response.text.lower() for keyword in ("no quota", "limit reached")
             ):
-                print(
-                    f"{prefix} API quota/auth failure (HTTP "
-                    f"{response.status_code}); halting API calls for this run."
-                )
+                print(f"{prefix} API quota/auth failure (HTTP {response.status_code}); halting API calls for this run.")
                 return "STOP"
 
             response.raise_for_status()
@@ -233,12 +223,8 @@ def _call_api(
             parsed = cast(dict[str, Any], parsed_any)
             return {
                 "summary": str(parsed.get("summary", "")).replace("\n", " ").strip(),
-                "when_to_use": str(parsed.get("when_to_use", ""))
-                .replace("\n", " ")
-                .strip(),
-                "related_topics": _coerce_related_topics(
-                    parsed.get("related_topics", [])
-                ),
+                "when_to_use": str(parsed.get("when_to_use", "")).replace("\n", " ").strip(),
+                "related_topics": _coerce_related_topics(parsed.get("related_topics", [])),
             }
         except Exception as exc:
             print(f"{prefix} WARN: API error for {label} (attempt {attempt + 1}): {exc}")
@@ -261,9 +247,7 @@ def _discover_targets(
             continue
         for filename in sorted(os.listdir(module_dir)):
             if filename.endswith(".md"):
-                all_targets.append(
-                    (module, filename[:-3], os.path.join(module_dir, filename))
-                )
+                all_targets.append((module, filename[:-3], os.path.join(module_dir, filename)))
 
     discover_seconds = time.perf_counter() - discover_start
     print(f"{prefix} Found {len(all_targets)} L2 documents")
@@ -341,15 +325,9 @@ def run_ai_enrichment(
     stage_start_epoch = int(time.time())
     stage_timer_start = time.perf_counter()
     if not write_ai:
-        print(
-            f"{report_prefix} INFO: WRITE_AI=false — applying stored summaries "
-            "only, no API calls"
-        )
+        print(f"{report_prefix} INFO: WRITE_AI=false — applying stored summaries only, no API calls")
     elif not token_value:
-        print(
-            f"{report_prefix} INFO: WRITE_AI=true but no token is configured — "
-            "applying stored summaries only"
-        )
+        print(f"{report_prefix} INFO: WRITE_AI=true but no token is configured — applying stored summaries only")
 
     if not _run_preflight(
         l2_dir=l2_dir,
@@ -361,10 +339,7 @@ def run_ai_enrichment(
 
     legacy_cache = _load_legacy_cache(legacy_cache_path, report_prefix)
     if legacy_cache:
-        print(
-            f"{report_prefix} Legacy cache loaded: {len(legacy_cache)} "
-            "hash-keyed entries available for migration"
-        )
+        print(f"{report_prefix} Legacy cache loaded: {len(legacy_cache)} hash-keyed entries available for migration")
 
     all_targets, discover_targets_seconds = _discover_targets(l2_dir, report_prefix)
 
@@ -392,19 +367,13 @@ def run_ai_enrichment(
 
             frontmatter_text, body = split_frontmatter(full_content)
             if frontmatter_text is None or body is None:
-                print(
-                    f"{report_prefix} WARN: Skipping {slug} — no valid L2 "
-                    "frontmatter"
-                )
+                print(f"{report_prefix} WARN: Skipping {slug} — no valid L2 frontmatter")
                 continue
 
             try:
                 frontmatter_any: Any = _yaml.safe_load(frontmatter_text)
             except Exception as exc:
-                print(
-                    f"{report_prefix} WARN: Skipping {slug} — invalid YAML "
-                    f"frontmatter: {exc}"
-                )
+                print(f"{report_prefix} WARN: Skipping {slug} — invalid YAML frontmatter: {exc}")
                 continue
 
             frontmatter: dict[str, Any] = {}
@@ -446,23 +415,16 @@ def run_ai_enrichment(
                 result = {
                     "summary": str(record.get("ai_summary", "")),
                     "when_to_use": str(record.get("ai_when_to_use", "")),
-                    "related_topics": _coerce_related_topics(
-                        record.get("ai_related_topics", [])
-                    ),
+                    "related_topics": _coerce_related_topics(record.get("ai_related_topics", [])),
                 }
             elif status == "stale" and record:
                 stored_hash = record.get("content_hash", "?")
-                print(
-                    f"{report_prefix} STALE: {module}/{slug} "
-                    f"(stored={stored_hash} current={current_body_hash})"
-                )
+                print(f"{report_prefix} STALE: {module}/{slug} (stored={stored_hash} current={current_body_hash})")
                 if not write_ai or not token_value:
                     result = {
                         "summary": str(record.get("ai_summary", "")),
                         "when_to_use": str(record.get("ai_when_to_use", "")),
-                        "related_topics": _coerce_related_topics(
-                            record.get("ai_related_topics", [])
-                        ),
+                        "related_topics": _coerce_related_topics(record.get("ai_related_topics", [])),
                     }
                     stale_applied += 1
             store_lookup_seconds += time.perf_counter() - store_lookup_start
@@ -473,9 +435,7 @@ def run_ai_enrichment(
                 result = {
                     "summary": str(legacy_entry.get("summary", "")),
                     "when_to_use": str(legacy_entry.get("when_to_use", "")),
-                    "related_topics": _coerce_related_topics(
-                        legacy_entry.get("related_topics", [])
-                    ),
+                    "related_topics": _coerce_related_topics(legacy_entry.get("related_topics", [])),
                 }
                 ai_store.save_summary(
                     module,
@@ -504,8 +464,7 @@ def run_ai_enrichment(
                 if api_calls_made >= max_files:
                     if api_calls_made == max_files:
                         print(
-                            f"{report_prefix} API cap reached ({max_files}); "
-                            "remaining files left unenriched this run"
+                            f"{report_prefix} API cap reached ({max_files}); remaining files left unenriched this run"
                         )
                     api_stopped = True
                 else:
@@ -539,17 +498,18 @@ def run_ai_enrichment(
                         api_calls_made += 1
                         time.sleep(0.5)
                     else:
-                        print(
-                            f"{report_prefix} WARN: No summary generated for "
-                            f"{module}/{slug}"
-                        )
+                        print(f"{report_prefix} WARN: No summary generated for {module}/{slug}")
             api_generation_seconds += time.perf_counter() - api_generation_start
 
             injection_start = time.perf_counter()
-            if result and validate_payload and not _validate_payload(
-                result,
-                f"{module}/{slug}",
-                report_prefix,
+            if (
+                result
+                and validate_payload
+                and not _validate_payload(
+                    result,
+                    f"{module}/{slug}",
+                    report_prefix,
+                )
             ):
                 result = None
 
@@ -571,10 +531,7 @@ def run_ai_enrichment(
                         handle.write(new_content)
                     applied += 1
                 except Exception as exc:
-                    print(
-                        f"{report_prefix} ERR: YAML injection failed for "
-                        f"{module}/{slug}: {exc}"
-                    )
+                    print(f"{report_prefix} ERR: YAML injection failed for {module}/{slug}: {exc}")
             injection_seconds += time.perf_counter() - injection_start
 
         base_count, override_count = ai_store.stats()
@@ -586,10 +543,7 @@ def run_ai_enrichment(
         f"{stale_applied} applied stale), {skipped_already} already had "
         f"summaries, {skipped_short} too short."
     )
-    print(
-        f"{report_prefix} Data store: {base_count} base records, "
-        f"{override_count} override records."
-    )
+    print(f"{report_prefix} Data store: {base_count} base records, {override_count} override records.")
 
     stage_end_epoch = int(time.time())
     total_seconds = time.perf_counter() - stage_timer_start
@@ -604,9 +558,6 @@ def run_ai_enrichment(
         f"api_calls={api_calls_made}"
     )
     if api_stopped and generated_via_api == 0:
-        print(
-            f"{report_prefix} INFO: API calls were halted (quota/auth/cap); "
-            "remaining files left unenriched."
-        )
+        print(f"{report_prefix} INFO: API calls were halted (quota/auth/cap); remaining files left unenriched.")
 
     return 0

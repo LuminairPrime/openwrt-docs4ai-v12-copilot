@@ -9,11 +9,7 @@ def collect_directory_modules(root: str) -> set[str]:
     if not os.path.isdir(root):
         return set()
 
-    return {
-        name
-        for name in os.listdir(root)
-        if os.path.isdir(os.path.join(root, name))
-    }
+    return {name for name in os.listdir(root) if os.path.isdir(os.path.join(root, name))}
 
 
 def find_missing_modules_for_partial_rerun(

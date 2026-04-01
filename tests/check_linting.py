@@ -95,13 +95,29 @@ def _run_check(
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run read-only source hygiene checks")
     parser.add_argument("--result-root", type=str, default=None, help="Optional output directory override")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Fail if any configured tools are unavailable",
+    )
     args = parser.parse_args()
 
     result_dir = ensure_result_dir("lint-review", args.result_root)
     checks = [
-        (1, "ruff", _resolve_tool_command("ruff", "ruff"), ["check", ".github/scripts", "lib", "tests"]),
-        (2, "pyright", _resolve_tool_command("pyright", "pyright"), ["--project", "pyrightconfig.strict.json"]),
-        (3, "actionlint", _resolve_tool_command("actionlint"), [".github/workflows/openwrt-docs4ai-00-pipeline.yml"]),
+        (
+            1,
+            "ruff-format",
+            _resolve_tool_command("ruff", "ruff"),
+            ["format", "--check", ".github/scripts", "lib", "tests", "tools/testing"],
+        ),
+        (
+            2,
+            "ruff",
+            _resolve_tool_command("ruff", "ruff"),
+            ["check", ".github/scripts", "lib", "tests", "tools/testing"],
+        ),
+        (3, "pyright", _resolve_tool_command("pyright", "pyright"), ["--project", "pyrightconfig.strict.json"]),
+        (4, "actionlint", _resolve_tool_command("actionlint"), [".github/workflows/openwrt-docs4ai-00-pipeline.yml"]),
     ]
 
     results = [
@@ -112,6 +128,8 @@ def main() -> int:
     overall_status = "clean"
     if any(result["status"] == "issues" for result in results):
         overall_status = "issues"
+    elif args.strict and any(result["status"] == "unavailable" for result in results):
+        overall_status = "missing-tools"
     elif any(result["status"] == "unavailable" for result in results):
         overall_status = "clean-with-skips"
 
@@ -119,12 +137,13 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "kind": "lint-review",
         "python": str(REPO_PYTHON),
+        "strict_mode": args.strict,
         "status": overall_status,
         "results": results,
     }
     (result_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(f"Lint review written to {result_dir}")
-    return 1 if overall_status == "issues" else 0
+    return 1 if overall_status in {"issues", "missing-tools"} else 0
 
 
 if __name__ == "__main__":

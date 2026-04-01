@@ -78,9 +78,9 @@ if tiktoken is not None:
 
 
 def build_version_string(env=None):
-    env_snapshot = env if env is not None else {
-        key: os.environ.get(key) for key in repo_manifest.COMMIT_ENV_TO_MANIFEST_KEY
-    }
+    env_snapshot = (
+        env if env is not None else {key: os.environ.get(key) for key in repo_manifest.COMMIT_ENV_TO_MANIFEST_KEY}
+    )
     missing = [key for key, value in env_snapshot.items() if not value]
     commits, manifest_path = repo_manifest.resolve_commit_environment(
         env=env_snapshot,
@@ -402,11 +402,7 @@ def main():
 
         monolith_name = f"{module}-complete-reference.md"
         monolith_path = os.path.join(out_mod_dir, monolith_name)
-        monolith_part_paths = sorted(
-            glob.glob(
-                os.path.join(out_mod_dir, f"{module}-complete-reference.part-*.md")
-            )
-        )
+        monolith_part_paths = sorted(glob.glob(os.path.join(out_mod_dir, f"{module}-complete-reference.part-*.md")))
         if os.path.isfile(monolith_path):
             monolith_description = (
                 f"Sharded complete reference index for {module} with links to smaller part files."
@@ -545,7 +541,9 @@ def main():
             )
         )
 
-    print(f"[06] Indexed {len(full_catalog)} catalog entries across {len(module_registry)} modules totaling ~{global_tokens} underlying L2 tokens.")
+    print(
+        f"[06] Indexed {len(full_catalog)} catalog entries across {len(module_registry)} modules totaling ~{global_tokens} underlying L2 tokens."
+    )
 
     with open(os.path.join(OUTDIR, "llms.txt"), "w", encoding="utf-8", newline="\n") as handle:
         handle.write("# openwrt-docs4ai - LLM Routing Index\n")
@@ -555,9 +553,7 @@ def main():
 
         for category in CATEGORY_ORDER:
             modules_in_category = [
-                module
-                for module in sorted(module_registry)
-                if MODULE_CATEGORIES.get(module) == category
+                module for module in sorted(module_registry) if MODULE_CATEGORIES.get(module) == category
             ]
             if not modules_in_category:
                 continue
@@ -576,9 +572,7 @@ def main():
                 )
             handle.write("\n")
 
-        uncategorized_modules = [
-            module for module in sorted(module_registry) if module not in MODULE_CATEGORIES
-        ]
+        uncategorized_modules = [module for module in sorted(module_registry) if module not in MODULE_CATEGORIES]
         if uncategorized_modules:
             handle.write("## Other Components\n")
             for module in uncategorized_modules:
@@ -596,7 +590,9 @@ def main():
 
         handle.write("## Complete Aggregation\n")
         handle.write("If your context window permits, you may fetch the flat URL index:\n")
-        handle.write("- [llms-full.txt](./llms-full.txt): Exhaustive flat catalog of generated AI-facing documents. (~0 tokens)\n")
+        handle.write(
+            "- [llms-full.txt](./llms-full.txt): Exhaustive flat catalog of generated AI-facing documents. (~0 tokens)\n"
+        )
 
     with open(os.path.join(OUTDIR, "llms-full.txt"), "w", encoding="utf-8", newline="\n") as handle:
         handle.write("# openwrt-docs4ai - Complete Flat Catalog\n")

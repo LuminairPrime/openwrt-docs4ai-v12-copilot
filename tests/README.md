@@ -1,6 +1,8 @@
 # Tests
 
-This directory holds the maintained local validation surface for the repository.
+This directory holds the executable suites and implementation-level runner
+scripts that back the canonical operator surface in
+[tools/testing/README.md](../tools/testing/README.md).
 Only `tests/pytest/` and `tests/smoke/` contain runnable test code. Everything
 else under `tests/` is support material, committed sample data, durable
 artifacts, or planning notes.
@@ -19,30 +21,33 @@ artifacts, or planning notes.
 | `tests/run_smoke.py` | Maintained serial smoke entry point |
 | `tests/run_smoke_and_pytest.py` | Maintained sequential validation runner |
 | `tests/run_smoke_and_pytest_parallel.py` | Supported two-lane runner: one pytest lane plus one smoke lane |
-| `tests/check_linting.py` | Read-only Ruff, Pyright, and actionlint review runner |
+| `tests/check_linting.py` | Read-only Ruff format/check, Pyright, and actionlint review runner |
 
 ## Recommended Commands
 
 ```powershell
-python tests/run_pytest.py
-python tests/run_smoke.py
-python tests/run_smoke.py --run-ai --include-extractors
-python tests/run_smoke_and_pytest.py
-python tests/run_smoke_and_pytest.py --run-ai --keep-temp
-python tests/run_smoke_and_pytest_parallel.py
-python tests/check_linting.py
+python tools/testing/run_default_validation.py
+python tools/testing/run_default_validation.py --run-ai --keep-temp
+python tools/testing/run_source_validation.py
+python tools/testing/run_targeted_pytest.py -k wiki -q
+python tools/testing/run_targeted_smoke.py --include-extractors
 ```
 
-All root-level Python runners accept `--result-root` if you want to override the
-default output directory. `tests/run_pytest.py` forwards any extra arguments to
-pytest, so commands such as `python tests/run_pytest.py -k wiki -q` are valid.
+Use the wrappers in `tools/testing/` for normal maintenance. They keep the public
+command menu small while still delegating to the maintained runners in this
+directory.
 
 ## Direct Entry Points
 
-Use the root-level runners for normal maintenance. Run the underlying test files
-directly when you need a narrower proof.
+Use the underlying runners here when you need implementation-level control such
+as `--result-root` or when you want to bypass the smaller operator-facing menu.
+Run the underlying test files directly when you need a narrower proof.
 
 ```powershell
+python tests/check_linting.py --strict
+python tests/run_pytest.py -k wiki -q
+python tests/run_smoke.py --include-extractors
+python tests/run_smoke_and_pytest.py --run-ai --keep-temp
 python -m pytest tests/pytest/pytest_04_wiki_scraper_test.py -q
 python -m pytest tests/pytest/pytest_03_wiki_corpus_sanity_test.py -s -q
 python tests/smoke/smoke_00_post_extract_pipeline.py --keep-temp
@@ -63,9 +68,16 @@ The maintained runners write durable bundles under `tmp/ci/`:
 | `tests/run_smoke.py` | `tmp/ci/smoke/<timestamp>/` |
 | `tests/run_smoke_and_pytest.py` | `tmp/ci/local-validation/<timestamp>/` |
 | `tests/run_smoke_and_pytest_parallel.py` | `tmp/ci/local-validation-parallel/<timestamp>/` |
-| `tests/check_linting.py` | `tmp/ci/lint-review/<timestamp>/` |
+| `tests/check_linting.py` | `tmp/ci/lint-review/<timestamp>/` locally, `tmp/ci/lint-review/current/` in `validate_source` |
 
 Each bundle contains per-stage text logs and a `summary.json` file.
+When lint review fails, inspect `summary.json` first before raw console output.
+
+`tools/testing/run_default_validation.py` intentionally produces two maintained
+bundles by delegation:
+
+- `tmp/ci/lint-review/<timestamp>/`
+- `tmp/ci/local-validation/<timestamp>/`
 
 ## Parallel Rules
 

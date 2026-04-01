@@ -21,18 +21,19 @@ Use the workspace interpreter directly when needed: `.venv/Scripts/python.exe`. 
 Run the smallest proof first, then expand:
 
 ```powershell
-python tests/run_pytest.py                              # focused pytest suites
-python tests/run_smoke.py                               # serial smoke lane
-python tests/run_smoke_and_pytest.py                    # preferred full local validation
-python tests/run_smoke_and_pytest.py --run-ai --keep-temp
-python tests/run_smoke_and_pytest_parallel.py           # parallel pytest + smoke
-python tests/check_linting.py                           # Ruff + strict Pyright + actionlint
+python tools/testing/run_default_validation.py          # preferred normal local proof
+python tools/testing/run_default_validation.py --run-ai --keep-temp
+python tools/testing/run_source_validation.py           # strict Ruff + Pyright + actionlint gate
+python tools/testing/run_targeted_pytest.py             # focused pytest diagnosis
+python tools/testing/run_targeted_smoke.py              # smoke diagnosis
 
 python tools/manage_ai_store.py --option review         # AI store review (no promotion)
 python tools/manage_ai_store.py --option full --keep-scratch
 ```
 
 `--run-ai` is cache-backed for regression proof only — it does not generate real AI summaries or promote to the AI store. Results land under `tmp/ci/`.
+
+The main GitHub Actions workflow now starts with a `validate_source` job that runs `python tests/check_linting.py --strict --result-root tmp/ci/lint-review/current`. When that gate fails remotely, inspect the `lint-review` artifact's `summary.json` before opening raw logs.
 
 ## Cookbook Regeneration Guardrail
 
@@ -45,15 +46,15 @@ Do not assume a cookbook-only source edit is isolated just because the authored 
 ## Running a Single Test
 
 ```powershell
-python tests/run_pytest.py tests/pytest/pytest_01_workflow_contract_test.py
-python tests/run_pytest.py -k "test_name_pattern"
+python tools/testing/run_targeted_pytest.py tests/pytest/pytest_01_workflow_contract_test.py -q
+python tools/testing/run_targeted_pytest.py -k "test_name_pattern" -q
 ```
 
 ## Review Discipline
 
 This repository is a documentation production pipeline, not a long-running user-facing application. Most regressions are recoverable and show up quickly in execution-time evidence: focused pytest failures, deterministic smoke failures, Ruff or Pyright diagnostics, actionlint errors, and GitHub Actions summary artifacts.
 
-- Prefer the cheapest proof that can fail: focused pytest, deterministic smoke, `tests/check_linting.py`, then pinned CI artifact triage.
+- Prefer the cheapest proof that can fail: `tools/testing/run_targeted_pytest.py`, `tools/testing/run_targeted_smoke.py`, `tools/testing/run_source_validation.py`, then pinned CI artifact triage.
 - Treat reviewer agents as optional spot-checks, not the primary safety mechanism.
 - For most changes, use at most one reviewer-style pass. Do not stack `code-reviewer` and `python-reviewer` by default on the same diff.
 - If a bug can be reproduced from runtime evidence or CI artifacts, fix from that evidence instead of spending extra tokens on repeated speculative review rounds.
@@ -69,6 +70,7 @@ gh run list --workflow "openwrt-docs4ai-pipeline" --limit 20 --json databaseId,h
 gh run watch <run_id> --exit-status --interval 15
 
 # After completion — triage artifacts before raw logs
+gh run download <run_id> -n lint-review -D tmp/ci/lint-review-artifact
 gh run download <run_id> -n pipeline-summary -D tmp/ci/pipeline-summary
 gh run download <run_id> -n extract-summary -D tmp/ci/extract-summary
 gh run view <run_id> --log-failed                       # only if artifacts don't explain it

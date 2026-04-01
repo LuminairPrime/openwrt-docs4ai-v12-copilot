@@ -10,19 +10,7 @@ from tests.support.pytest_pipeline_support import load_script_module
 def test_ucode_normalize_fenced_blocks_classifies_shell_json_and_pseudocode():
     ucode = load_script_module("ucode_scraper", "openwrt-docs4ai-02b-scrape-ucode.py")
 
-    markdown = (
-        "```\n"
-        "$ echo hello\n"
-        "```\n\n"
-        "```\n"
-        "{\n"
-        '  "name": "demo"\n'
-        "}\n"
-        "```\n\n"
-        "```\n"
-        "listener(…)\n"
-        "```\n"
-    )
+    markdown = '```\n$ echo hello\n```\n\n```\n{\n  "name": "demo"\n}\n```\n\n```\nlistener(…)\n```\n'
 
     normalized = ucode.normalize_fenced_blocks(markdown, "ucode")
 
@@ -32,9 +20,7 @@ def test_ucode_normalize_fenced_blocks_classifies_shell_json_and_pseudocode():
 
 
 def test_ucode_fix_known_issues_rewrites_nl80211_named_const_import():
-    ucode = load_script_module(
-        "ucode_scraper_fixups", "openwrt-docs4ai-02b-scrape-ucode.py"
-    )
+    ucode = load_script_module("ucode_scraper_fixups", "openwrt-docs4ai-02b-scrape-ucode.py")
 
     source = (
         "import { error, request, listener, waitfor, const } from 'nl80211';\n"
@@ -54,9 +40,7 @@ def test_ucode_fix_known_issues_rewrites_nl80211_named_const_import():
 
 
 def test_clean_wiki_semantic_content_strips_wrap_color_and_duplicate_rows():
-    normalize = load_script_module(
-        "normalize_semantic", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# The Bootloader\n\n"
@@ -64,8 +48,8 @@ def test_clean_wiki_semantic_content_strips_wrap_color_and_duplicate_rows():
         "<table>\n"
         "<thead><tr><th>Name</th><th>Meaning</th></tr></thead>\n"
         "<tbody>\n"
-        "<tr class=\"odd\"><td>A</td><td>alpha</td></tr>\n"
-        "<tr class=\"odd\"><td>A</td><td>alpha</td></tr>\n"
+        '<tr class="odd"><td>A</td><td>alpha</td></tr>\n'
+        '<tr class="odd"><td>A</td><td>alpha</td></tr>\n'
         "</tbody>\n"
         "</table>\n"
     )
@@ -81,9 +65,7 @@ def test_clean_wiki_semantic_content_strips_wrap_color_and_duplicate_rows():
 
 
 def test_clean_wiki_semantic_content_removes_immediate_duplicate_heading():
-    normalize = load_script_module(
-        "normalize_semantic_headings", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_headings", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = "# Adding new elements to LuCI\n\n## Adding new elements to LuCI\n\nBody text.\n"
 
@@ -94,9 +76,7 @@ def test_clean_wiki_semantic_content_removes_immediate_duplicate_heading():
 
 
 def test_clean_wiki_semantic_content_strips_sortable_and_converts_data_table():
-    normalize = load_script_module(
-        "normalize_semantic_sortable", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_sortable", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# odhcpd\n\n"
@@ -118,17 +98,15 @@ def test_clean_wiki_semantic_content_strips_sortable_and_converts_data_table():
 
 
 def test_clean_wiki_semantic_content_converts_callout_table_to_admonition():
-    normalize = load_script_module(
-        "normalize_semantic_callout", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_callout", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# Hotplug -- Legacy\n\n"
         "<table>\n"
         "<tbody>\n"
         "<tr>\n"
-        "<td><img src=\"/meta/icons/tango/48px-outdated.svg.png\" alt=\"48px-outdated.svg.png\" /></td>\n"
-        "<td>See the <a href=\"/docs/guide-user/base-system/hotplug\">Hotplug article</a> for information on the current approach.<br /><br />The daemon was replaced with <a href=\"/docs/techref/procd\">procd</a>.</td>\n"
+        '<td><img src="/meta/icons/tango/48px-outdated.svg.png" alt="48px-outdated.svg.png" /></td>\n'
+        '<td>See the <a href="/docs/guide-user/base-system/hotplug">Hotplug article</a> for information on the current approach.<br /><br />The daemon was replaced with <a href="/docs/techref/procd">procd</a>.</td>\n'
         "</tr>\n"
         "</tbody>\n"
         "</table>\n"
@@ -143,9 +121,7 @@ def test_clean_wiki_semantic_content_converts_callout_table_to_admonition():
 
 
 def test_clean_wiki_semantic_content_converts_wide_layout_table_to_tsv():
-    normalize = load_script_module(
-        "normalize_semantic_tsv", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_tsv", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# The OpenWrt Flash Layout\n\n"
@@ -165,16 +141,14 @@ def test_clean_wiki_semantic_content_converts_wide_layout_table_to_tsv():
 
 
 def test_clean_wiki_semantic_content_converts_footnotes_and_inline_html():
-    normalize = load_script_module(
-        "normalize_semantic_footnotes", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_footnotes", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# Architecture\n\n"
-        "Raw NOR flash is <u>error-free</u><a href=\"#fn1\" class=\"footnote-ref\" id=\"fnref1\"><sup>1</sup></a>.\n\n"
-        "<aside id=\"footnotes\" class=\"footnotes footnotes-end-of-document\">\n"
+        'Raw NOR flash is <u>error-free</u><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.\n\n'
+        '<aside id="footnotes" class="footnotes footnotes-end-of-document">\n'
         "<ol>\n"
-        "<li id=\"fn1\">Vendor claim. <a href=\"#fnref1\" class=\"footnote-back\">↩︎</a></li>\n"
+        '<li id="fn1">Vendor claim. <a href="#fnref1" class="footnote-back">↩︎</a></li>\n'
         "</ol>\n"
         "</aside>\n"
     )
@@ -188,15 +162,13 @@ def test_clean_wiki_semantic_content_converts_footnotes_and_inline_html():
 
 
 def test_clean_wiki_semantic_content_preserves_unsupported_table_shape():
-    normalize = load_script_module(
-        "normalize_semantic_preserve", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+    normalize = load_script_module("normalize_semantic_preserve", "openwrt-docs4ai-03-normalize-semantic.py")
 
     raw = (
         "# Preserved Table\n\n"
         "<table>\n"
         "<tbody>\n"
-        "<tr><td rowspan=\"2\">A</td><td>B</td></tr>\n"
+        '<tr><td rowspan="2">A</td><td>B</td></tr>\n'
         "<tr><td>C</td></tr>\n"
         "</tbody>\n"
         "</table>\n"
@@ -209,16 +181,9 @@ def test_clean_wiki_semantic_content_preserves_unsupported_table_shape():
 
 
 def test_validate_extract_markdown_code_blocks_handles_indented_fences():
-    validate = load_script_module(
-        "validator_module", "openwrt-docs4ai-08-validate-output.py"
-    )
+    validate = load_script_module("validator_module", "openwrt-docs4ai-08-validate-output.py")
 
-    markdown = (
-        "- Example block:\n\n"
-        "    ```ucode\n"
-        "    export default 1;\n"
-        "    ```\n"
-    )
+    markdown = "- Example block:\n\n    ```ucode\n    export default 1;\n    ```\n"
 
     blocks = validate.extract_markdown_code_blocks(markdown)
 
@@ -226,15 +191,9 @@ def test_validate_extract_markdown_code_blocks_handles_indented_fences():
 
 
 def test_validate_extract_ucode_imports_supports_multiple_import_forms():
-    validate = load_script_module(
-        "validator_imports", "openwrt-docs4ai-08-validate-output.py"
-    )
+    validate = load_script_module("validator_imports", "openwrt-docs4ai-08-validate-output.py")
 
-    code = (
-        "import * as nl from 'nl80211';\n"
-        "import { readfile } from 'fs';\n"
-        "import 'uloop';\n"
-    )
+    code = "import * as nl from 'nl80211';\nimport { readfile } from 'fs';\nimport 'uloop';\n"
 
     imports = validate.extract_ucode_imports(code)
 
@@ -242,9 +201,7 @@ def test_validate_extract_ucode_imports_supports_multiple_import_forms():
 
 
 def test_validate_strip_fenced_code_blocks_preserves_prose():
-    validate = load_script_module(
-        "validator_strip_fences", "openwrt-docs4ai-08-validate-output.py"
-    )
+    validate = load_script_module("validator_strip_fences", "openwrt-docs4ai-08-validate-output.py")
 
     content = "Intro\n\n```javascript\nconsole.log('hi');\n```\n\nOutro\n"
 
@@ -256,9 +213,7 @@ def test_validate_strip_fenced_code_blocks_preserves_prose():
 
 
 def test_clone_repos_get_commit_rejects_invalid_hash(monkeypatch):
-    clone = load_script_module(
-        "clone_repos_invalid_hash", "openwrt-docs4ai-01-clone-repos.py"
-    )
+    clone = load_script_module("clone_repos_invalid_hash", "openwrt-docs4ai-01-clone-repos.py")
 
     def fake_run(*args, **kwargs):
         return SimpleNamespace(returncode=0, stdout="openwrt-test\n", stderr="")
@@ -269,12 +224,8 @@ def test_clone_repos_get_commit_rejects_invalid_hash(monkeypatch):
         clone.get_commit("repo-openwrt")
 
 
-def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(
-    tmp_path, monkeypatch
-):
-    normalize = load_script_module(
-        "normalize_semantic_manifest", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(tmp_path, monkeypatch):
+    normalize = load_script_module("normalize_semantic_manifest", "openwrt-docs4ai-03-normalize-semantic.py")
     manifest_path = tmp_path / "repo-manifest.json"
     manifest_path.write_text(
         json.dumps(
@@ -302,12 +253,8 @@ def test_normalize_resolve_pipeline_commits_reads_manifest_when_env_missing(
     assert commits["ucode"] == "3333333"
 
 
-def test_normalize_resolve_pipeline_commits_falls_back_to_workdir_manifest(
-    tmp_path, monkeypatch
-):
-    normalize = load_script_module(
-        "normalize_semantic_workdir_manifest", "openwrt-docs4ai-03-normalize-semantic.py"
-    )
+def test_normalize_resolve_pipeline_commits_falls_back_to_workdir_manifest(tmp_path, monkeypatch):
+    normalize = load_script_module("normalize_semantic_workdir_manifest", "openwrt-docs4ai-03-normalize-semantic.py")
     workdir = tmp_path / "downloads"
     workdir.mkdir(parents=True)
     manifest_path = workdir / "repo-manifest.json"
@@ -389,12 +336,8 @@ def test_ai_store_ops_promote_base_records_copies_json_only(tmp_path):
     assert not (target_root / "ucode" / "ignore.txt").exists()
 
 
-def test_llm_routing_build_version_string_reads_manifest_when_env_missing(
-    tmp_path, monkeypatch
-):
-    llms = load_script_module(
-        "llm_routing_manifest", "openwrt-docs4ai-06-generate-llm-routing-indexes.py"
-    )
+def test_llm_routing_build_version_string_reads_manifest_when_env_missing(tmp_path, monkeypatch):
+    llms = load_script_module("llm_routing_manifest", "openwrt-docs4ai-06-generate-llm-routing-indexes.py")
     manifest_path = tmp_path / "repo-manifest.json"
     manifest_path.write_text(
         json.dumps(
@@ -431,9 +374,7 @@ def test_jsdoc_fallback_requires_zero_exit_code():
 
 
 def test_api_drift_legacy_baseline_suppresses_module_diff(tmp_path):
-    changelog = load_script_module(
-        "api_drift_legacy_baseline", "openwrt-docs4ai-05d-generate-api-drift-changelog.py"
-    )
+    changelog = load_script_module("api_drift_legacy_baseline", "openwrt-docs4ai-05d-generate-api-drift-changelog.py")
     baseline_path = tmp_path / "signature-inventory.json"
     baseline_path.write_text(
         json.dumps(

@@ -38,6 +38,7 @@ def discover_pytest_targets() -> list[Path]:
         raise RuntimeError("No maintained pytest targets found under tests/pytest")
     return [target.relative_to(PROJECT_ROOT) for target in targets]
 
+
 SMOKE_SCRIPTS = {
     "post_extract": Path("tests/smoke/smoke_00_post_extract_pipeline.py"),
     "full_local": Path("tests/smoke/smoke_01_full_local_pipeline.py"),

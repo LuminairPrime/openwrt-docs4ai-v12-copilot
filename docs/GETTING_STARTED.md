@@ -25,16 +25,16 @@ Do not assume the system `python` on `PATH` is the repo interpreter.
 Run the smallest proof first, then expand:
 
 ```powershell
-python tests/run_pytest.py
-python tests/run_smoke.py
-python tests/run_smoke_and_pytest.py
-python tests/check_linting.py
+python tools/testing/run_default_validation.py
+python tools/testing/run_source_validation.py
+python tools/testing/run_targeted_pytest.py
+python tools/testing/run_targeted_smoke.py
 ```
 
 Preferred one-command local proof:
 
 ```powershell
-python tests/run_smoke_and_pytest.py
+python tools/testing/run_default_validation.py
 ```
 
 ## AI Summary Workflow
@@ -54,7 +54,7 @@ Use [guides/runbook-ai-summary-operations.md](guides/runbook-ai-summary-operatio
 1. Push the branch or target commit.
 2. Pin the exact commit SHA.
 3. Wait for the matching hosted workflow run.
-4. Read summary artifacts before raw logs.
+4. Read `lint-review/summary.json` and then the summary artifacts before raw logs.
 
 Useful commands:
 
@@ -62,6 +62,7 @@ Useful commands:
 git rev-parse HEAD
 gh run list --workflow "openwrt-docs4ai-pipeline" --limit 20 --json databaseId,headSha,status,conclusion,url
 gh run watch <run_id> --exit-status --interval 15
+gh run download <run_id> -n lint-review -D tmp/ci/lint-review
 gh run download <run_id> -n pipeline-summary -D tmp/ci/pipeline-summary
 gh run download <run_id> -n extract-summary -D tmp/ci/extract-summary
 ```

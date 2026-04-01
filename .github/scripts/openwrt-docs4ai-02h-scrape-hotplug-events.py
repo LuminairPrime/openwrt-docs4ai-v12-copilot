@@ -13,7 +13,7 @@ import os
 import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
@@ -50,26 +50,28 @@ total_lines = 0
 content_lines = []
 content_lines.append("# OpenWrt Core Hotplug Events\n")
 content_lines.append("> **Extracted from:** default `etc/hotplug.d/` scripts across the OpenWrt repository\n")
-content_lines.append("> **Note for LLMs:** Developers building apps use these scripts as templates. Analyze the `$ACTION`, `$INTERFACE`, and subsystem blocks to understand exactly which environment variables OpenWrt injects during hotplug events.\n\n---\n")
+content_lines.append(
+    "> **Note for LLMs:** Developers building apps use these scripts as templates. Analyze the `$ACTION`, `$INTERFACE`, and subsystem blocks to understand exactly which environment variables OpenWrt injects during hotplug events.\n\n---\n"
+)
 
 for f, fpath, subroot in sorted(hotplug_files):
     try:
         with open(fpath, "r", encoding="utf-8", errors="replace") as file:
             content = file.read().strip()
-            
+
         if not content:
             continue
-            
+
         rel_path = os.path.relpath(fpath, os.path.join(config.WORKDIR, "repo-openwrt", "package")).replace("\\", "/")
         event_type = os.path.basename(subroot)
-        
+
         content_lines.append(f"## Event Category: `{event_type}` — File: `{rel_path}`\n")
         content_lines.append(extractor.wrap_code_block("Shell Script", content, "bash"))
         content_lines.append("\n---\n")
-        
+
         saved += 1
         total_lines += content.count("\n") + 1
-        
+
     except Exception as e:
         print(f"[02h] WARN: Could not process {fpath}: {e}")
 
@@ -84,7 +86,7 @@ metadata = {
     "source_commit": OPENWRT_COMMIT,
     "language": "bash",
     "fetch_status": "success",
-    "extraction_timestamp": ts
+    "extraction_timestamp": ts,
 }
 
 extractor.write_l1_markdown("openwrt-hotplug", "hotplug_event", slug, "\n".join(content_lines), metadata)

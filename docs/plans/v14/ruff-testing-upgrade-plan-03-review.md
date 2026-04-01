@@ -399,3 +399,212 @@ That version is modest, cheap, and directly aligned with the actual failure that
 - v02 and v03 are mostly in scope, but only after trimming the rollout so the first change is "catch broken formatting and type drift" rather than "adopt a full maturity model."
 
 The project does need a quality upgrade. It probably does not need the full ceremony of a three-tier platform-quality program unless the working style also changes to PR-first, branch-protected development.
+
+
+### BEGIN ADDENDUM
+
+I’ve settled the architecture decision: for this repo’s direct-push workflow, the automatic authoritative check should live at the top of the existing pipeline, not in a parallel workflow. I’m saving the addendum text and the full execution plan to session memory now, then I’ll show you the plan in chat.
+
+Created memory file [](file:///c%3A/Users/MC/AppData/Roaming/Code%20-%20Insiders/User/workspaceStorage/94880bd89fb7451b6b4e68efdabbf578/GitHub.copilot-chat/memory-tool/memories/ZTRiYTZhNGQtMzQyMC00ZmIyLTk5OGYtYTMzNGQ3MGFmNjcy/plan.md)
+
+I stayed in planning mode, so I did not edit the repo docs yet. I did fold the response into the planning record and saved the full plan to /memories/session/plan.md.
+
+The exact addendum I would append to ruff-testing-upgrade-plan-03-review.md is this:
+
+## Addendum — Response-Informed Corrections
+
+The response memo improves the review in three useful ways:
+
+- It proves the phase-ordering problem empirically instead of arguing it abstractly. The measured Ruff results make it clear that stricter rules cannot land before cleanup.
+- It strengthens the rollout by separating a low-risk formatting baseline from later policy expansion.
+- It correctly reframes pre-commit as human ergonomics, not as an authoritative safety layer for AI-assisted work.
+
+It also sharpens two planning ideas worth preserving:
+
+- `summary.json` from the lint runner should be treated as the canonical machine-readable artifact for future AI debugging, not as an incidental byproduct.
+- CLAUDE.md and README.md are worth updating even in a solo-maintainer repo, because they are operational context for future agent sessions.
+
+One architectural decision changes after the maintainer clarification:
+
+- This repository is solo-maintained and direct-push-to-main.
+- Because of that, a separate `ci-validation.yml` is not the right primary architecture for the first rollout. It provides signal, but not authoritative prevention, and it leaves the heavy pipeline free to start anyway.
+- The first automatic authoritative check should therefore be a new `validate-source` job at the top of [ openwrt-docs4ai-00-pipeline.yml ](.github/workflows/openwrt-docs4ai-00-pipeline.yml). All downstream jobs should depend on it.
+- This preserves automatic logging, gives future AI sessions a stable `summary.json` artifact to inspect, and actually blocks expensive pipeline stages on broken formatting or type-check failures.
+
+Revised conclusion:
+
+- Keep the review’s right-sized philosophy.
+- Accept the response’s empirical resequencing.
+- Replace the response’s preferred separate validation workflow with a top-of-pipeline validation job because this repo is direct-push, solo-maintained, and primarily needs authoritative prevention rather than parallel signal.
+
+## Plan: Direct-Push Quality Upgrade
+
+Use check_linting.py as the single authoritative lint/type/actionlint surface, add conservative Ruff formatting enforcement and Python 3.12 alignment first, then place a new `validate-source` job at the top of [ openwrt-docs4ai-00-pipeline.yml ](.github/workflows/openwrt-docs4ai-00-pipeline.yml) so direct pushes to `main` are blocked before clone/extract stages begin. Keep pre-commit optional, keep `summary.json` as the machine-readable logging artifact for future AI sessions, and defer broader lint-policy expansion until the small, incident-driven fix is stable.
+
+**Steps**
+1. Phase 0: lock the architecture and review notes.
+   This rollout will use one authoritative automatic validation point inside the existing pipeline, not a separate workflow.
+   Append the addendum above to ruff-testing-upgrade-plan-03-review.md.
+   Keep the following out of the first rollout: separate `ci-validation.yml`, required pre-commit hooks, Ruff rule expansion beyond current defaults, coverage work, and smoke-in-CI changes.
+
+2. Phase 1: conservative tooling alignment. Depends on 1.
+   Create ruff.toml with `target-version = "py312"`, `line-length = 120`, repo-appropriate excludes, and Ruff formatting enabled.
+   Keep lint behavior conservative in the first pass by matching current Ruff defaults rather than introducing `I`, `UP`, `B`, or `SIM`.
+   Update pyrightconfig.strict.json from Python 3.11 to Python 3.12.
+   Update check_linting.py so it runs `ruff format --check` before `ruff check`, preserves JSON logging, and evaluates whether tools should be included in the first rollout.
+   Run one discriminating check on tools before widening scope. If it is noisy, defer tools rather than bundling cleanup into the first slice.
+   Update CLAUDE.md and README.md so future AI sessions and future local maintenance use the new validation path correctly. This doc work can run in parallel once the config shape is settled.
+
+3. Phase 2: formatting baseline with minimal churn. Depends on 2.
+   Run `ruff format --check` on the authored Python targets first to measure churn.
+   Apply `ruff format` to scripts, lib, tests, and tools only if Phase 1 proved tools is clean enough to include now.
+   Do not run broad `ruff check --fix` in this phase unless a very small number of obviously mechanical whitespace or import issues appear after formatting. The first baseline should be formatting-first, not a policy cleanup sweep.
+   Verify immediately with `python tests/run_pytest.py` and `python tests/check_linting.py`.
+   Create .git-blame-ignore-revs and record the formatting-baseline commit hash.
+   Treat this phase as the one intentional large-churn event. Everything else should stay surgical.
+
+4. Phase 3: automatic authoritative validation and logging. Depends on 3.
+   Modify [ openwrt-docs4ai-00-pipeline.yml ](.github/workflows/openwrt-docs4ai-00-pipeline.yml) to add a first job named `validate-source`.
+   Make `validate-source` run `python tests/check_linting.py` and write results under a stable `tmp/ci/lint-review/...` path.
+   Upload the resulting lint-review bundle, especially `summary.json`, as a named artifact so future AI sessions can inspect it with artifact triage instead of raw logs.
+   Add a short GitHub step summary in the validation job so failure attribution is visible without opening raw logs.
+   Make all downstream jobs depend on `validate-source` so broken formatting, Ruff issues, Pyright failures, or workflow-YAML failures stop the pipeline before clone and extract stages.
+
+5. Phase 4: contract coverage and local parity. Depends on 4.
+   Extend pytest_06_warning_regression_test.py to verify the new workflow shape while preserving the repo’s `@main` action-ref policy.
+   Update check_linting.py actionlint coverage so it validates the modified main workflow after `validate-source` is added.
+   Keep local check_linting.py and the top-of-pipeline validation job aligned closely enough that a local clean run predicts a CI clean run, while documenting any intentional divergence if needed.
+
+6. Phase 5: rollout procedure and operational discipline. Depends on 4.
+   Define the standard local pre-push habit for future work: run `python tests/check_linting.py` first, then `python tests/run_pytest.py`, then push.
+   Keep pre-commit optional. If added later, use `ruff-pre-commit` as opt-in ergonomics for the human maintainer, not as a core safety mechanism.
+   Add a lightweight rollback path: if the new validation stage becomes noisy or blocks unexpectedly, first disable the dependency chain or relax the push-trigger behavior before removing the whole design.
+   Document that the first artifact to inspect after failures is the lint-review `summary.json`, not raw console output.
+
+7. Phase 6: deferred follow-up improvements. Depends on 3, but excluded from the first rollout.
+   Consider a second-phase Ruff policy expansion to `I`, `UP`, `B`, and `SIM` only after the formatting baseline has proven stable.
+   Consider enriching `summary.json` with tool versions, target paths, and wall-clock duration if the current schema is too thin for future AI debugging.
+   Consider optional IDE guidance for Ruff and Pyright extensions if CLAUDE.md and README.md still feel too implicit.
+   Consider optional pre-commit installation guidance later, but do not make it the core architecture.
+
+**Relevant files**
+- ruff-testing-upgrade-plan-03-review.md — append the response-informed addendum so the review file reflects the final architecture decision.
+- check_linting.py — remains the authoritative local lint/type/actionlint runner; add `ruff format --check`, preserve JSON logging, and align target paths intentionally.
+- pyrightconfig.strict.json — surgical Python 3.12 alignment.
+- [ openwrt-docs4ai-00-pipeline.yml ](.github/workflows/openwrt-docs4ai-00-pipeline.yml) — add the new `validate-source` job and make downstream jobs depend on it.
+- pytest_06_warning_regression_test.py — extend workflow contract coverage for the modified main workflow.
+- ruff.toml — new conservative shared Ruff config.
+- .git-blame-ignore-revs — protect blame usability after the formatting baseline.
+- CLAUDE.md — update agent-facing operational guidance.
+- README.md — update the local validation contract and artifact-first debugging flow.
+
+**Verification**
+1. Before broad edits, run the smallest discriminating checks: conservative `ruff check` on the chosen target paths, `ruff format --check` on those same paths, and `pyright --project pyrightconfig.strict.json` after version alignment.
+2. After updating check_linting.py, verify locally with `python tests/check_linting.py` and confirm the emitted `summary.json` contains the new Ruff-format stage and still exits non-zero only for real issues.
+3. After the formatting baseline, run `python tests/run_pytest.py` and `python tests/check_linting.py` before creating the baseline commit.
+4. After workflow changes, run the narrowest workflow contract test first, then the local lint runner again so the modified workflow file is actionlint-checked.
+5. After the full rollout, validate the direct-push path end-to-end by ensuring the main workflow’s first job is the source-validation job and that its artifact bundle is available for post-failure inspection.
+6. Treat `python tests/run_smoke_and_pytest.py` as optional post-rollout confidence only if the workflow changes touch more pipeline-control logic than planned.
+
+**Decisions**
+- Included in first rollout: conservative Ruff config, Python 3.12 alignment, check_linting.py format enforcement, top-of-pipeline automatic validation, artifact logging, review-file addendum, and surgical doc updates in CLAUDE.md and README.md.
+- Excluded from first rollout: separate `ci-validation.yml`, mandatory pre-commit policy, broad Ruff rule expansion, coverage thresholds, smoke-in-CI, and GitHub Action pinning-policy changes.
+- Because the repo is solo-maintained and direct-push-to-main, authoritative automatic validation belongs at the top of the existing pipeline workflow, not in a separate parallel workflow.
+- `summary.json` from check_linting.py is the canonical machine-readable lint artifact for future AI inspection.
+- The first baseline is formatting-first, not a broad auto-fix sweep.
+
+**Further considerations**
+1. tools scope: recommended default is to probe it during Phase 1 and include it only if the resulting cleanup stays small.
+2. Artifact shape: recommended default is to upload the full lint-review bundle, not only `summary.json`, so future debugging retains stdout/stderr context without raw workflow logs.
+3. Future policy tightening: recommended default is to treat any Ruff rule expansion beyond current defaults as a separate quality-improvement plan after the first rollout is stable.
+
+If you want, the next turn can be the implementation handoff: I’ll convert this plan into the concrete first development slice and start with the smallest authoritative changes.
+
+
+### BEGIN ADDENDUM 2: REFACTORING TESTS FILES AND FOLDERS
+
+I’m grounding this against the actual tests tree first so the redesign answer stays specific to this repo instead of drifting into generic test-architecture advice.
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/pytest)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/support)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/smoke)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/run_pytest.py)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/run_smoke.py)
+
+I’ve confirmed the current tree mixes runnable suites, runner entrypoints, support code, artifacts, and planning material in one folder. I’m taking one more quick read of the shared support layer so I can separate what should stay central from what should move in a redesign.
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/artifacts)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/proposals)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/conftest.py)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/support/pytest_pipeline_support.py)
+
+Read [](file:///c%3A/Users/MC/Documents/AirSentinel/openwrt-docs4ai-pipeline/tests/support/runner_support.py)
+
+I have enough context now to answer specifically: the current tests tree is functional, but it mixes three different concerns in one surface. I’m appending a short design note to the session plan so the future implementation work can account for test-structure cleanup without confusing it with the first rollout.
+
+Read memory [](file:///c%3A/Users/MC/AppData/Roaming/Code%20-%20Insiders/User/workspaceStorage/94880bd89fb7451b6b4e68efdabbf578/GitHub.copilot-chat/memory-tool/memories/ZTRiYTZhNGQtMzQyMC00ZmIyLTk5OGYtYTMzNGQ3MGFmNjcy/plan.md)
+
+Inserted into memory file [](file:///c%3A/Users/MC/AppData/Roaming/Code%20-%20Insiders/User/workspaceStorage/94880bd89fb7451b6b4e68efdabbf578/GitHub.copilot-chat/memory-tool/memories/ZTRiYTZhNGQtMzQyMC00ZmIyLTk5OGYtYTMzNGQ3MGFmNjcy/plan.md)
+
+I would change it, but not before the first quality-upgrade rollout. Right now the highest-value work is making the current validation path authoritative. If I mixed a test-tree redesign into that same change, I’d widen scope, create noisier diffs, and make it harder to tell whether failures came from linting changes or folder surgery.
+
+The current tests tree is functional, but it mixes three different concerns in one place:
+
+- Executable validation entrypoints: run_pytest.py, run_smoke.py, check_linting.py
+- Reusable orchestration/support code: runner_support.py, pytest_pipeline_support.py
+- Non-executable historical material: PRE-RELEASE-TEST-PLAN-OPUS.md, recent-sequential-smoke-terminal-output.txt
+
+The other structural issue is taxonomy. Today the main suite lives under a tool-named folder, and the numeric prefixes are doing both ordering and categorization at once. For example, pytest_01_workflow_contract_test.py, pytest_04_wiki_scraper_test.py, and pytest_09_release_tree_contract_test.py are not the same kind of test, but the current layout makes them look like one bucket. The runner reinforces that: `discover_pytest_targets()` in runner_support.py discovers suites by lexical filename order, not by intent.
+
+If I were changing it after the quality rework, I’d do only two targeted things:
+
+1. Move non-executable material out of the active test surface.
+   That means plans and old test-design notes should live under docs, not under tests, and committed terminal-output artifacts should either move to a small archive area outside the active suite or be deleted if they are not part of a real contract. The reason is simple: when a future AI session or a human opens tests, they should see runnable validation surfaces first, not mixed archaeology.
+
+2. Split the current `pytest` bucket by validation intent.
+   I would separate contract tests, pure logic tests, and fixture-backed integration tests into different folders. I would keep the existing smoke lane concept because run_smoke.py and the three smoke scripts are already a coherent mental model.
+
+If I were creating the whole thing from scratch in theory, I’d design it like this:
+
+1. `tests/unit/`
+   Fast pure-Python logic tests for helpers and small modules. These should be the cheapest proof and should dominate day-to-day development.
+
+2. `tests/contracts/`
+   Workflow-shape tests, release-tree contract tests, warning-regression tests, and policy assertions. This repo has a lot of output-contract logic, so I would make that category explicit instead of hiding it in a generic pytest bucket.
+
+3. `tests/integration/`
+   Fixture-backed pipeline slices that test real interactions without becoming full smoke runs. The current wiki and partial-rerun style tests fit better here than under a generic pytest folder.
+
+4. smoke
+   Keep this as the explicit serial lane for full-path confidence checks. This part of the current design is already good.
+
+5. `tests/fixtures/`
+   Rename the idea behind `sample-inputs` into a standard fixtures surface. “Fixtures” is clearer than “sample inputs” once the suite grows.
+
+6. support
+   Keep one shared support layer. This repo’s tests are orchestration-heavy, and the current shared-runner pattern in runner_support.py is worth preserving.
+
+7. `tools/validation/` or `tools/testing/`
+   If I were truly starting fresh, I would probably move the runner CLIs out of tests entirely. run_pytest.py, run_smoke.py, and check_linting.py are operational entrypoints, not tests themselves. They are useful, but they read more like maintenance commands than suite definitions.
+
+8. `docs/testing/` or `docs/archive/testing/`
+   Test plans, proposals, and historical notes would live here instead of inside tests.
+
+The biggest naming change I’d make from scratch is this: I would stop using filename numbering as the primary structure. Ordered execution should be controlled in the runner layer, not encoded into every test filename. In this repo, lexical numbering is doing too much work. It helps curation, but it makes the tree harder to scan.
+
+So the practical answer is:
+
+- Before the quality rework: no structural test-folder redesign.
+- After the quality rework: yes, small cleanup.
+- From scratch: separate runnable tests by intent, move runner CLIs out of tests, and move historical material out of the active test surface.
+
+I’ve already added this direction as a design note in the session plan so it stays available when we move from planning into implementation.

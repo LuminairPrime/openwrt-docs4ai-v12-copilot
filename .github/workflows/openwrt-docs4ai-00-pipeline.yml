@@ -40,8 +40,65 @@ env:
   DIST_ZIP_ROOT_DIR: openwrt-docs4ai
 
 jobs:
+  # ── Phase 0: Source Validation Gate ───────────────────
+  validate_source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: "3.12"
+          cache: 'pip'
+      - uses: actions/setup-go@main
+        with:
+          go-version: "1.24"
+      - name: Install validation tools
+        run: |
+          pip install -r .github/scripts/requirements.txt ruff pyright
+          go install github.com/rhysd/actionlint/cmd/actionlint@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+      - name: Run source validation
+        run: python tests/check_linting.py --strict --result-root tmp/ci/lint-review/current
+      - name: Upload lint review artifact
+        if: always()
+        uses: actions/upload-artifact@main
+        with:
+          name: lint-review
+          path: ${{ github.workspace }}/tmp/ci/lint-review/current/
+          retention-days: 7
+      - name: Append source validation summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          summary_path = Path("tmp/ci/lint-review/current/summary.json")
+          lines = ["# Source Validation", ""]
+          if summary_path.is_file():
+              summary = json.loads(summary_path.read_text(encoding="utf-8"))
+              lines.append(f"- status: {summary.get('status', 'unknown')}")
+              lines.append(f"- strict_mode: {summary.get('strict_mode', False)}")
+              lines.append("")
+              lines.append("| check | status | exit_code |")
+              lines.append("| --- | --- | ---: |")
+              for result in summary.get("results", []):
+                  lines.append(
+                      f"| {result.get('name', 'unknown')} | {result.get('status', 'unknown')} | {result.get('exit_code', 'n/a')} |"
+                  )
+          else:
+              lines.append("- lint-review summary unavailable")
+
+          step_summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with step_summary.open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
   # ── Phase 1: Setup & Clone ───────────────────────────
   initialize:
+    needs: validate_source
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -70,6 +127,7 @@ jobs:
 
   # ── Phase 2a: Wiki Extraction (Parallel with initialize) ──
   extract_wiki:
+    needs: validate_source
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -204,6 +262,7 @@ jobs:
 
   # ── Phase 2a+: Cookbook Ingestion (Parallel with initialize) ──
   extract_cookbook:
+    needs: validate_source
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -1221,7 +1280,7 @@ jobs:
 
   # ── Final Summary: Always emit run-state artifact ───────
   pipeline_summary:
-    needs: [initialize, extract_wiki, extract_cookbook, extract, extract_summary, process, deploy]
+    needs: [validate_source, initialize, extract_wiki, extract_cookbook, extract, extract_summary, process, deploy]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10

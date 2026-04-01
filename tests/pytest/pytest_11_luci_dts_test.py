@@ -27,6 +27,7 @@ DTS_PATH = RELEASE_LUCI_TYPES_DIR / "luci-env.d.ts"
 # Helper
 # ---------------------------------------------------------------------------
 
+
 def _load_stage05e():
     return load_script_module("stage05e_luci_dts", "openwrt-docs4ai-05e-generate-luci-dts.py")
 
@@ -35,13 +36,13 @@ def _load_stage05e():
 # Existence & structure tests
 # ---------------------------------------------------------------------------
 
+
 def test_luci_env_dts_file_exists() -> None:
     """release-tree/luci/types/luci-env.d.ts must exist after 05e runs."""
     if not RELEASE_LUCI_TYPES_DIR.exists():
         pytest.skip(f"no pipeline output at {RELEASE_LUCI_TYPES_DIR}")
     assert DTS_PATH.exists(), (
-        f"Expected {DTS_PATH} to exist. "
-        "Run .github/scripts/openwrt-docs4ai-05e-generate-luci-dts.py first."
+        f"Expected {DTS_PATH} to exist. Run .github/scripts/openwrt-docs4ai-05e-generate-luci-dts.py first."
     )
 
 
@@ -51,10 +52,7 @@ def test_luci_env_dts_min_length() -> None:
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     lines = content.splitlines()
-    assert len(lines) >= 200, (
-        f"luci-env.d.ts is unexpectedly short ({len(lines)} lines). "
-        "Expected at least 200 lines."
-    )
+    assert len(lines) >= 200, f"luci-env.d.ts is unexpectedly short ({len(lines)} lines). Expected at least 200 lines."
 
 
 def test_luci_env_dts_declares_form_map() -> None:
@@ -86,9 +84,7 @@ def test_luci_env_dts_declares_rpc_declare() -> None:
     if not DTS_PATH.exists():
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
-    assert "function declare(" in content or "declare(" in content, (
-        "Expected rpc.declare declaration in luci-env.d.ts"
-    )
+    assert "function declare(" in content or "declare(" in content, "Expected rpc.declare declaration in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_uci_load() -> None:
@@ -120,12 +116,8 @@ def test_luci_env_dts_declares_view_lifecycle() -> None:
     if not DTS_PATH.exists():
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
-    assert "load():" in content or "load(): " in content, (
-        "Expected view.load() lifecycle method in luci-env.d.ts"
-    )
-    assert "render(" in content, (
-        "Expected view.render() lifecycle method in luci-env.d.ts"
-    )
+    assert "load():" in content or "load(): " in content, "Expected view.load() lifecycle method in luci-env.d.ts"
+    assert "render(" in content, "Expected view.render() lifecycle method in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_dom_namespace() -> None:
@@ -141,9 +133,7 @@ def test_luci_env_dts_declares_global_E() -> None:
     if not DTS_PATH.exists():
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
-    assert "declare function E(" in content, (
-        "Expected 'declare function E(' global helper in luci-env.d.ts"
-    )
+    assert "declare function E(" in content, "Expected 'declare function E(' global helper in luci-env.d.ts"
 
 
 def test_luci_env_dts_declares_global_translate() -> None:
@@ -151,16 +141,12 @@ def test_luci_env_dts_declares_global_translate() -> None:
     if not DTS_PATH.exists():
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
-    assert "declare function _(" in content, (
-        "Expected 'declare function _(' i18n helper in luci-env.d.ts"
-    )
+    assert "declare function _(" in content, "Expected 'declare function _(' i18n helper in luci-env.d.ts"
 
 
 def test_luci_env_dts_approach2_marker_in_script() -> None:
     """The 05e script docstring must document Approach 2 as the chosen parsing strategy."""
-    stage05e_path = (
-        PROJECT_ROOT / ".github" / "scripts" / "openwrt-docs4ai-05e-generate-luci-dts.py"
-    )
+    stage05e_path = PROJECT_ROOT / ".github" / "scripts" / "openwrt-docs4ai-05e-generate-luci-dts.py"
     content = stage05e_path.read_text(encoding="utf-8")
     assert "Approach 2" in content, (
         "Expected 'Approach 2' documentation in 05e script docstring. "
@@ -171,6 +157,7 @@ def test_luci_env_dts_approach2_marker_in_script() -> None:
 # ---------------------------------------------------------------------------
 # Functional test: _generate_dts works without real JS sources
 # ---------------------------------------------------------------------------
+
 
 def test_generate_dts_works_without_js_sources() -> None:
     """_generate_dts must produce a non-empty valid string even with all None sources."""
@@ -191,18 +178,18 @@ def test_generate_dts_contains_no_fabricated_http_urls() -> None:
         pytest.skip(f"no pipeline output at {DTS_PATH}")
     content = DTS_PATH.read_text(encoding="utf-8")
     import re
+
     # The .d.ts must not reference any specific external URLs (it's a type declaration
     # file — no upstream commit URLs or wiki URLs should be embedded)
-    external_url_pattern = re.compile(r'https?://(?!www\.typescriptlang\.org)')
+    external_url_pattern = re.compile(r"https?://(?!www\.typescriptlang\.org)")
     matches = external_url_pattern.findall(content)
-    assert len(matches) == 0, (
-        f"Found unexpected external URLs in luci-env.d.ts: {matches[:5]}"
-    )
+    assert len(matches) == 0, f"Found unexpected external URLs in luci-env.d.ts: {matches[:5]}"
 
 
 # ---------------------------------------------------------------------------
 # TypeScript validity test (requires tsc on PATH)
 # ---------------------------------------------------------------------------
+
 
 def _tsc_cmd() -> list[str] | None:
     """Return the tsc command list if tsc is available, else None.
@@ -237,18 +224,19 @@ def test_luci_env_dts_is_valid_typescript() -> None:
         pytest.skip("tsc not available on PATH — skipping TypeScript validation")
 
     result = subprocess.run(
-        tsc + [
+        tsc
+        + [
             "--noEmit",
             "--strict",
-            "--moduleResolution", "node",
-            "--target", "es2020",
+            "--moduleResolution",
+            "node",
+            "--target",
+            "es2020",
             str(DTS_PATH),
         ],
         capture_output=True,
         text=True,
     )
     assert result.returncode == 0, (
-        f"tsc --noEmit failed with exit code {result.returncode}.\n"
-        f"STDOUT:\n{result.stdout}\n"
-        f"STDERR:\n{result.stderr}"
+        f"tsc --noEmit failed with exit code {result.returncode}.\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
     )

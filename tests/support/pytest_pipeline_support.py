@@ -137,11 +137,6 @@ def get_workflow_job_block(workflow_text, job_name):
 
 
 def collect_workflow_script_invocations(workflow_text):
-    explicit_scripts = set(
-        re.findall(r"openwrt-docs4ai-\d{2}[a-z]?-[\w-]+\.py", workflow_text)
-    )
-    matrix_scripts = {
-        f"openwrt-docs4ai-{name}"
-        for name in re.findall(r'"(02[a-z]-[\w-]+\.py)"', workflow_text)
-    }
+    explicit_scripts = set(re.findall(r"openwrt-docs4ai-\d{2}[a-z]?-[\w-]+\.py", workflow_text))
+    matrix_scripts = {f"openwrt-docs4ai-{name}" for name in re.findall(r'"(02[a-z]-[\w-]+\.py)"', workflow_text)}
     return explicit_scripts | matrix_scripts

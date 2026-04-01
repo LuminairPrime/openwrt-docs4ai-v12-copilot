@@ -133,8 +133,7 @@ def resolve_token_value(
 
     if token_env:
         raise RuntimeError(
-            f"Live AI generation requested, but {token_env} is empty. "
-            "Set that variable or rerun with --no-write-ai."
+            f"Live AI generation requested, but {token_env} is empty. Set that variable or rerun with --no-write-ai."
         )
 
     raise RuntimeError(
@@ -157,9 +156,7 @@ def promote_base_records(source_root: Path, target_root: Path) -> int:
         copied += 1
 
     if copied == 0:
-        raise RuntimeError(
-            f"No JSON records found beneath scratch base store: {source_root}"
-        )
+        raise RuntimeError(f"No JSON records found beneath scratch base store: {source_root}")
 
     return copied
 

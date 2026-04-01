@@ -8,11 +8,12 @@
     "lib/ai_enrichment.py",
     "lib/config.py",
     ".github/scripts/openwrt-docs4ai-04-generate-ai-summaries.py",
-    "tools/manage_ai_store.py"
+    "tools/manage_ai_store.py",
+    "tools/testing"
   ],
   "exclude": [
     "**/__pycache__",
     "tmp"
   ],
-  "pythonVersion": "3.11"
+  "pythonVersion": "3.12"
 }

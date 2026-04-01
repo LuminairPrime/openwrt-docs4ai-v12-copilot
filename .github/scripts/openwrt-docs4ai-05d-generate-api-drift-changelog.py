@@ -14,7 +14,7 @@ import json
 import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -72,11 +72,7 @@ def compute_signature_drift(current_inventory, baseline_inventory):
         if sym not in baseline_inventory:
             added.append({"symbol": sym, "signature": sig})
         elif baseline_inventory[sym] != sig:
-            changed.append({
-                "symbol": sym,
-                "old": baseline_inventory[sym],
-                "new": sig
-            })
+            changed.append({"symbol": sym, "old": baseline_inventory[sym], "new": sig})
 
     for sym in baseline_inventory:
         if sym not in current_inventory:
@@ -102,7 +98,7 @@ def build_changes_markdown(added, removed, changed, added_mods, removed_mods):
         f"- **Added:** {len(added)}",
         f"- **Removed:** {len(removed)}",
         f"- **Changed:** {len(changed)}",
-        ""
+        "",
     ]
 
     if added_mods:
@@ -173,16 +169,8 @@ def main():
 
     changelog = {
         "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
-        "summary": {
-            "added": len(added),
-            "removed": len(removed),
-            "changed": len(changed)
-        },
-        "details": {
-            "added": added,
-            "removed": removed,
-            "changed": changed
-        }
+        "summary": {"added": len(added), "removed": len(removed), "changed": len(changed)},
+        "details": {"added": added, "removed": removed, "changed": changed},
     }
 
     with open(os.path.join(OUTDIR, "changelog.json"), "w", encoding="utf-8", newline="\n") as f:
@@ -192,10 +180,7 @@ def main():
     with open(os.path.join(OUTDIR, "CHANGES.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(changes_md))
 
-    inventory_payload = {
-        "generated": datetime.datetime.now(datetime.UTC).isoformat(),
-        "signatures": current_inventory
-    }
+    inventory_payload = {"generated": datetime.datetime.now(datetime.UTC).isoformat(), "signatures": current_inventory}
     with open(os.path.join(OUTDIR, "signature-inventory.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(inventory_payload, f, indent=2)
 

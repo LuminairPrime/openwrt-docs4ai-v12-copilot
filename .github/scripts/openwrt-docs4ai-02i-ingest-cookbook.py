@@ -21,9 +21,7 @@ from lib import config
 
 sys.stdout.reconfigure(line_buffering=True)
 
-COOKBOOK_SOURCE_DIR = os.path.join(
-    os.path.dirname(__file__), "..", "..", "static", "cookbook-source"
-)
+COOKBOOK_SOURCE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "static", "cookbook-source")
 
 REQUIRED_AUTHORED_FIELDS = [
     "title",
@@ -48,9 +46,7 @@ if not os.path.isdir(source_dir):
 out_dir = os.path.join(config.L1_RAW_WORKDIR, "cookbook")
 os.makedirs(out_dir, exist_ok=True)
 
-source_files = sorted(
-    f for f in os.listdir(source_dir) if f.endswith(".md")
-)
+source_files = sorted(f for f in os.listdir(source_dir) if f.endswith(".md"))
 
 # Skip non-cookbook helper files (era evidence tracker, etc.)
 SKIP_FILES = {"era-guide-evidence-needed.md"}

@@ -96,7 +96,7 @@ def extract_markdown_code_blocks(content):
             continue
 
         if fence_indent and line.startswith(fence_indent):
-            block_lines.append(line[len(fence_indent):])
+            block_lines.append(line[len(fence_indent) :])
         else:
             block_lines.append(line)
 
@@ -168,25 +168,17 @@ def validate_index_html_contract(outdir, hard_fail):
     content = open(path, "r", encoding="utf-8").read()
 
     actual_links = {
-        normalized
-        for href in HTML_HREF_RE.findall(content)
-        if (normalized := normalize_html_href(href)) is not None
+        normalized for href in HTML_HREF_RE.findall(content) if (normalized := normalize_html_href(href)) is not None
     }
     expected_links = expected_publish_links(outdir)
 
     missing_links = sorted(expected_links - actual_links)
     if missing_links:
-        hard_fail(
-            "index.html missing mirrored publish links: "
-            f"{summarize_paths(missing_links)}"
-        )
+        hard_fail(f"index.html missing mirrored publish links: {summarize_paths(missing_links)}")
 
     unexpected_links = sorted(actual_links - expected_links)
     if unexpected_links:
-        hard_fail(
-            "index.html contains hrefs outside the publish tree: "
-            f"{summarize_paths(unexpected_links)}"
-        )
+        hard_fail(f"index.html contains hrefs outside the publish tree: {summarize_paths(unexpected_links)}")
 
 
 def validate_release_index_html_contract(release_tree_dir, hard_fail):
@@ -197,24 +189,18 @@ def validate_release_index_html_contract(release_tree_dir, hard_fail):
 
     content = open(path, "r", encoding="utf-8").read()
     actual_links = {
-        normalized
-        for href in HTML_HREF_RE.findall(content)
-        if (normalized := normalize_html_href(href)) is not None
+        normalized for href in HTML_HREF_RE.findall(content) if (normalized := normalize_html_href(href)) is not None
     }
     expected_links = expected_release_publish_links(release_tree_dir)
 
     missing_links = sorted(expected_links - actual_links)
     if missing_links:
-        hard_fail(
-            "release-tree index.html missing mirrored publish links: "
-            f"{summarize_paths(missing_links)}"
-        )
+        hard_fail(f"release-tree index.html missing mirrored publish links: {summarize_paths(missing_links)}")
 
     unexpected_links = sorted(actual_links - expected_links)
     if unexpected_links:
         hard_fail(
-            "release-tree index.html contains hrefs outside the publish tree: "
-            f"{summarize_paths(unexpected_links)}"
+            f"release-tree index.html contains hrefs outside the publish tree: {summarize_paths(unexpected_links)}"
         )
 
 
@@ -225,8 +211,7 @@ def expected_module_names(outdir):
     return sorted(
         name
         for name in os.listdir(l2_root)
-        if os.path.isdir(os.path.join(l2_root, name))
-        and glob.glob(os.path.join(l2_root, name, "*.md"))
+        if os.path.isdir(os.path.join(l2_root, name)) and glob.glob(os.path.join(l2_root, name, "*.md"))
     )
 
 
@@ -262,13 +247,9 @@ def validate_mirrored_tree(source_dir, mirror_dir, label, hard_fail):
     missing_files = sorted(source_files - mirror_files)
     extra_files = sorted(mirror_files - source_files)
     if missing_files:
-        hard_fail(
-            f"support-tree {label} missing mirrored files: {summarize_paths(missing_files)}"
-        )
+        hard_fail(f"support-tree {label} missing mirrored files: {summarize_paths(missing_files)}")
     if extra_files:
-        hard_fail(
-            f"support-tree {label} contains unexpected files: {summarize_paths(extra_files)}"
-        )
+        hard_fail(f"support-tree {label} contains unexpected files: {summarize_paths(extra_files)}")
 
     for rel_path in sorted(source_files & mirror_files):
         source_path = os.path.join(source_dir, rel_path)
@@ -307,11 +288,7 @@ def validate_processed_layer(hard_fail):
             hard_fail(f"Processed layer missing directory: {label}")
             continue
 
-        module_dirs = [
-            name
-            for name in os.listdir(root_dir)
-            if os.path.isdir(os.path.join(root_dir, name))
-        ]
+        module_dirs = [name for name in os.listdir(root_dir) if os.path.isdir(os.path.join(root_dir, name))]
         if not module_dirs:
             hard_fail(f"Processed layer contains no module directories: {label}")
             continue
@@ -394,20 +371,11 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
                 support_only_file_hits.append(rel.replace("\\", "/"))
 
     if legacy_dir_hits:
-        hard_fail(
-            "release-tree contains legacy path names: "
-            f"{summarize_paths(sorted(legacy_dir_hits))}"
-        )
+        hard_fail(f"release-tree contains legacy path names: {summarize_paths(sorted(legacy_dir_hits))}")
     if legacy_file_hits:
-        hard_fail(
-            "release-tree contains legacy file names: "
-            f"{summarize_paths(sorted(legacy_file_hits))}"
-        )
+        hard_fail(f"release-tree contains legacy file names: {summarize_paths(sorted(legacy_file_hits))}")
     if support_only_file_hits:
-        hard_fail(
-            "release-tree contains support-only artifacts: "
-            f"{summarize_paths(sorted(support_only_file_hits))}"
-        )
+        hard_fail(f"release-tree contains support-only artifacts: {summarize_paths(sorted(support_only_file_hits))}")
 
     for file_name in required_root_files:
         path = os.path.join(release_tree_dir, file_name)
@@ -433,10 +401,7 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
 
         chunked_dir = os.path.join(module_dir, config.MODULE_CHUNKED_REF_DIRNAME)
         if os.path.isdir(chunked_dir) and not glob.glob(os.path.join(chunked_dir, "*.md")):
-            hard_fail(
-                "release-tree chunked-reference is empty: "
-                f"{module}/{config.MODULE_CHUNKED_REF_DIRNAME}"
-            )
+            hard_fail(f"release-tree chunked-reference is empty: {module}/{config.MODULE_CHUNKED_REF_DIRNAME}")
 
         module_llms_path = os.path.join(module_dir, "llms.txt")
         if os.path.isfile(module_llms_path):
@@ -449,10 +414,7 @@ def validate_release_tree_contract(outdir, hard_fail, soft_warn):
             ]
             leaked = [marker for marker in legacy_markers if marker in content]
             if leaked:
-                hard_fail(
-                    f"release-tree module llms.txt leaks legacy links for {module}: "
-                    f"{', '.join(leaked)}"
-                )
+                hard_fail(f"release-tree module llms.txt leaks legacy links for {module}: {', '.join(leaked)}")
 
     validate_root_llms_contract(release_tree_dir, modules, hard_fail, soft_warn)
     validate_release_module_llms_contract(
@@ -548,9 +510,7 @@ def validate_root_llms_contract(outdir, modules, hard_fail, soft_warn):
 
     expected_module_links = {f"./{module}/llms.txt" for module in modules}
     actual_module_links = {
-        entry["link"]
-        for entry in entries
-        if entry["link"].endswith("/llms.txt") and entry["link"] != "./llms-full.txt"
+        entry["link"] for entry in entries if entry["link"].endswith("/llms.txt") and entry["link"] != "./llms-full.txt"
     }
 
     missing = sorted(expected_module_links - actual_module_links)
@@ -588,18 +548,14 @@ def validate_module_llms_contract(outdir, modules, hard_fail, soft_warn):
         }
         missing_source_links = sorted(expected_source_links - actual_links)
         if missing_source_links:
-            hard_fail(
-                f"Module llms.txt missing L2 source entries for {module}: {', '.join(missing_source_links)}"
-            )
+            hard_fail(f"Module llms.txt missing L2 source entries for {module}: {', '.join(missing_source_links)}")
 
         recommended_expected = []
         for suffix in [f"{module}-skeleton.md", f"{module}-complete-reference.md"]:
             candidate = os.path.join(module_dir, suffix)
             if os.path.isfile(candidate):
                 recommended_expected.append(f"./{suffix}")
-        for match in glob.glob(
-            os.path.join(module_dir, f"{module}-complete-reference.part-*.md")
-        ):
+        for match in glob.glob(os.path.join(module_dir, f"{module}-complete-reference.part-*.md")):
             recommended_expected.append(f"./{os.path.basename(match)}")
 
         if recommended_expected and "## Recommended Entry Points" not in content:
@@ -611,18 +567,13 @@ def validate_module_llms_contract(outdir, modules, hard_fail, soft_warn):
                 f"Module llms.txt missing recommended entry points for {module}: {', '.join(missing_recommended)}"
             )
 
-        tooling_expected = [
-            f"./{os.path.basename(path)}"
-            for path in glob.glob(os.path.join(module_dir, "*.d.ts"))
-        ]
+        tooling_expected = [f"./{os.path.basename(path)}" for path in glob.glob(os.path.join(module_dir, "*.d.ts"))]
         if tooling_expected and "## Tooling Surfaces" not in content:
             hard_fail(f"Module llms.txt missing Tooling Surfaces section: {module}/llms.txt")
 
         missing_tooling = sorted(link for link in tooling_expected if link not in actual_links)
         if missing_tooling:
-            hard_fail(
-                f"Module llms.txt missing tooling-surface entries for {module}: {', '.join(missing_tooling)}"
-            )
+            hard_fail(f"Module llms.txt missing tooling-surface entries for {module}: {', '.join(missing_tooling)}")
 
         warn_on_placeholder_descriptions(entries, f"{module}/llms.txt", soft_warn)
 
@@ -642,23 +593,15 @@ def validate_release_module_llms_contract(
 
         content = open(module_index_path, "r", encoding="utf-8").read()
         if not content.startswith(f"# {module} module"):
-            hard_fail(
-                f"release-tree module llms.txt has unexpected title: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt has unexpected title: {module}/llms.txt")
         if "> **Total Context:**" not in content:
-            hard_fail(
-                f"release-tree module llms.txt missing total-context banner: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt missing total-context banner: {module}/llms.txt")
         if "## Source Documents" not in content:
-            hard_fail(
-                f"release-tree module llms.txt missing Source Documents section: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt missing Source Documents section: {module}/llms.txt")
 
         entries = parse_llms_entries(content)
         if not entries:
-            hard_fail(
-                f"release-tree module llms.txt contains no parseable entries: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt contains no parseable entries: {module}/llms.txt")
             continue
 
         actual_links = {entry["link"] for entry in entries}
@@ -675,8 +618,7 @@ def validate_release_module_llms_contract(
         missing_source_links = sorted(expected_source_links - actual_links)
         if missing_source_links:
             hard_fail(
-                "release-tree module llms.txt missing source entries for "
-                f"{module}: {', '.join(missing_source_links)}"
+                f"release-tree module llms.txt missing source entries for {module}: {', '.join(missing_source_links)}"
             )
 
         recommended_expected = []
@@ -696,14 +638,9 @@ def validate_release_module_llms_contract(
             recommended_expected.append(f"./{os.path.basename(match)}")
 
         if recommended_expected and "## Recommended Entry Points" not in content:
-            hard_fail(
-                "release-tree module llms.txt missing Recommended Entry Points "
-                f"section: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt missing Recommended Entry Points section: {module}/llms.txt")
 
-        missing_recommended = sorted(
-            link for link in recommended_expected if link not in actual_links
-        )
+        missing_recommended = sorted(link for link in recommended_expected if link not in actual_links)
         if missing_recommended:
             hard_fail(
                 "release-tree module llms.txt missing recommended entry points "
@@ -721,13 +658,9 @@ def validate_release_module_llms_contract(
             )
         ]
         if tooling_expected and "## Tooling Surfaces" not in content:
-            hard_fail(
-                f"release-tree module llms.txt missing Tooling Surfaces section: {module}/llms.txt"
-            )
+            hard_fail(f"release-tree module llms.txt missing Tooling Surfaces section: {module}/llms.txt")
 
-        missing_tooling = sorted(
-            link for link in tooling_expected if link not in actual_links
-        )
+        missing_tooling = sorted(link for link in tooling_expected if link not in actual_links)
         if missing_tooling:
             hard_fail(
                 "release-tree module llms.txt missing tooling-surface entries "
@@ -777,9 +710,7 @@ def validate_llms_full_contract(outdir, modules, hard_fail, soft_warn):
                 if os.path.isfile(candidate):
                     expected_links.add(f"./{module}/{pattern}")
 
-        for match in glob.glob(
-            os.path.join(module_dir, f"{module}-complete-reference.part-*.md")
-        ):
+        for match in glob.glob(os.path.join(module_dir, f"{module}-complete-reference.part-*.md")):
             expected_links.add(f"./{module}/{os.path.basename(match)}")
 
         for l2_path in glob.glob(os.path.join(config.L2_SEMANTIC_WORKDIR, module, "*.md")):
@@ -847,9 +778,7 @@ def validate_release_llms_full_contract(
                 "*.d.ts",
             )
         ):
-            expected_links.add(
-                f"./{module}/{config.MODULE_TYPES_DIRNAME}/{os.path.basename(match)}"
-            )
+            expected_links.add(f"./{module}/{config.MODULE_TYPES_DIRNAME}/{os.path.basename(match)}")
 
         for chunk_path in glob.glob(
             os.path.join(
@@ -858,16 +787,11 @@ def validate_release_llms_full_contract(
                 "*.md",
             )
         ):
-            expected_links.add(
-                f"./{module}/{config.MODULE_CHUNKED_REF_DIRNAME}/{os.path.basename(chunk_path)}"
-            )
+            expected_links.add(f"./{module}/{config.MODULE_CHUNKED_REF_DIRNAME}/{os.path.basename(chunk_path)}")
 
     missing_links = sorted(expected_links - set(actual_links))
     if missing_links:
-        hard_fail(
-            "release-tree llms-full.txt missing catalog entries: "
-            f"{', '.join(missing_links)}"
-        )
+        hard_fail(f"release-tree llms-full.txt missing catalog entries: {', '.join(missing_links)}")
 
     warn_on_placeholder_descriptions(
         entries,
@@ -881,6 +805,7 @@ def report_source_exclusions(outdir):
     try:
         sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
         from lib import source_exclusions
+
         exclusions = source_exclusions.get_all_exclusions()
     except Exception:
         return
@@ -892,10 +817,7 @@ def report_source_exclusions(outdir):
         identifier = entry.get("identifier", "?")
         reason = entry.get("reason", "")
         l1_glob = os.path.join(config.L1_RAW_WORKDIR, source)
-        present = any(
-            identifier in fname
-            for fname in (os.listdir(l1_glob) if os.path.isdir(l1_glob) else [])
-        )
+        present = any(identifier in fname for fname in (os.listdir(l1_glob) if os.path.isdir(l1_glob) else []))
         status = "file present (stale L1 cache?)" if present else "not present in L1"
         print(f"[08]   {source}/{identifier}: {status}")
         if reason:
@@ -938,10 +860,7 @@ def validate_release_agents_contract(release_tree_dir, hard_fail):
     ]
     missing = [marker for marker in required_markers if marker not in content]
     if missing:
-        hard_fail(
-            "release-tree AGENTS.md missing routing guidance markers: "
-            f"{', '.join(missing)}"
-        )
+        hard_fail(f"release-tree AGENTS.md missing routing guidance markers: {', '.join(missing)}")
 
 
 def validate_outdir(outdir):

@@ -21,7 +21,7 @@ from collections import Counter
 from html import unescape
 from typing import Any, Callable, cast
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, partial_rerun_guard, repo_manifest
 
 try:
@@ -43,38 +43,106 @@ L2_DIR = config.L2_SEMANTIC_WORKDIR
 
 try:
     import tiktoken
+
     encoder = tiktoken.get_encoding("cl100k_base")
+
     def count_tokens(text: str) -> int:
         return len(encoder.encode(text))
 except ImportError:
     print("[03] WARN: tiktoken missing, falling back to word count * 1.35")
+
     def count_tokens(text: str) -> int:
         return int(len(text.split()) * 1.35)
 
+
 # --- Heuristics & Config ---
 COMMON_WORDS = {
-    "name", "type", "value", "event", "data", "code", "info", "list",
-    "item", "node", "text", "form", "page", "time", "date", "user",
-    "host", "port", "path", "file", "mode", "status", "error", "result",
-    "state", "flags", "index", "count", "length", "size", "version",
-    "base", "init", "load", "open", "read", "write", "close", "send",
-    "recv", "bind", "call", "stop", "start", "reset", "clear", "check",
-    "parse", "fetch", "apply", "remove", "create", "update", "delete",
-    "source", "target", "output", "input", "params", "options", "config",
-    "return", "object", "string", "number", "boolean", "array", "table",
-    "class", "method", "property", "function", "callback", "promise",
-    "procd"
+    "name",
+    "type",
+    "value",
+    "event",
+    "data",
+    "code",
+    "info",
+    "list",
+    "item",
+    "node",
+    "text",
+    "form",
+    "page",
+    "time",
+    "date",
+    "user",
+    "host",
+    "port",
+    "path",
+    "file",
+    "mode",
+    "status",
+    "error",
+    "result",
+    "state",
+    "flags",
+    "index",
+    "count",
+    "length",
+    "size",
+    "version",
+    "base",
+    "init",
+    "load",
+    "open",
+    "read",
+    "write",
+    "close",
+    "send",
+    "recv",
+    "bind",
+    "call",
+    "stop",
+    "start",
+    "reset",
+    "clear",
+    "check",
+    "parse",
+    "fetch",
+    "apply",
+    "remove",
+    "create",
+    "update",
+    "delete",
+    "source",
+    "target",
+    "output",
+    "input",
+    "params",
+    "options",
+    "config",
+    "return",
+    "object",
+    "string",
+    "number",
+    "boolean",
+    "array",
+    "table",
+    "class",
+    "method",
+    "property",
+    "function",
+    "callback",
+    "promise",
+    "procd",
 }
 
 # procd is NOT common (BUG-041)
 COMMON_WORDS.discard("procd")
 
-WIKI_WRAP_TAG_RE = re.compile(r'\\?<\/?WRAP\b[^>]*\\?>', re.IGNORECASE)
-WIKI_COLOR_TAG_RE = re.compile(r'(?:\\?<\/?color\b[^>]*\\?>|&lt;\/?color\b[^&]*&gt;)', re.IGNORECASE)
-WIKI_SORTABLE_TAG_RE = re.compile(r'(?:\\?<\/?sortable\b[^>]*\\?>|&lt;\/?sortable\b[^&]*&gt;)', re.IGNORECASE)
-WIKI_HEADING_RE = re.compile(r'^(#{1,6})\s+(.+?)\s*$', re.MULTILINE)
-HTML_COMMENT_RE = re.compile(r'<!--.*?-->', re.DOTALL)
-TABLE_BLOCK_RE = re.compile(r'<table\b.*?</table>', re.IGNORECASE | re.DOTALL)
+WIKI_WRAP_TAG_RE = re.compile(r"\\?<\/?WRAP\b[^>]*\\?>", re.IGNORECASE)
+WIKI_COLOR_TAG_RE = re.compile(r"(?:\\?<\/?color\b[^>]*\\?>|&lt;\/?color\b[^&]*&gt;)", re.IGNORECASE)
+WIKI_SORTABLE_TAG_RE = re.compile(r"(?:\\?<\/?sortable\b[^>]*\\?>|&lt;\/?sortable\b[^&]*&gt;)", re.IGNORECASE)
+WIKI_HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$", re.MULTILINE)
+HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+TABLE_BLOCK_RE = re.compile(r"<table\b.*?</table>", re.IGNORECASE | re.DOTALL)
 FOOTNOTE_REF_RE = re.compile(
     r'<a\b[^>]*href="#fn(?P<id>[^"]+)"[^>]*>\s*<sup>\s*(?P<label>.*?)\s*</sup>\s*</a>',
     re.IGNORECASE | re.DOTALL,
@@ -84,10 +152,10 @@ FOOTNOTE_ASIDE_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 INLINE_HTML_FRAGMENT_RE = re.compile(
-    r'<(?P<tag>a|code|strong|b|em|i|u|sup|sub|span|div)\b[^>]*>.*?</(?P=tag)>|<br\s*/?>|<img\b[^>]*>',
+    r"<(?P<tag>a|code|strong|b|em|i|u|sup|sub|span|div)\b[^>]*>.*?</(?P=tag)>|<br\s*/?>|<img\b[^>]*>",
     re.IGNORECASE | re.DOTALL,
 )
-CODE_FENCE_BLOCK_RE = re.compile(r'(```.*?```|~~~.*?~~~)', re.DOTALL)
+CODE_FENCE_BLOCK_RE = re.compile(r"(```.*?```|~~~.*?~~~)", re.DOTALL)
 
 _html_normalizer_warning_emitted: bool = False
 
@@ -121,17 +189,17 @@ def is_code_symbol(name: str) -> bool:
         return False
     if len(name) < 4:
         return False
-    if re.match(r'^[a-z][a-zA-Z0-9]+$', name) and any(char.isupper() for char in name):
+    if re.match(r"^[a-z][a-zA-Z0-9]+$", name) and any(char.isupper() for char in name):
         return True
     if ("." in name or "_" in name) and len(name) >= 5:
         return True
-    if re.match(r'^[A-Z]{3,10}$', name):
+    if re.match(r"^[A-Z]{3,10}$", name):
         return True
     return False
 
 
 def normalize_heading_text(text: str) -> str:
-    return re.sub(r'\s+', ' ', text.strip()).casefold()
+    return re.sub(r"\s+", " ", text.strip()).casefold()
 
 
 def strip_duplicate_lead_heading(title: str, content: str) -> str:
@@ -210,12 +278,12 @@ def collapse_duplicate_html_table_rows(content: str) -> str:
 
 
 def legacy_clean_wiki_semantic_content(title: str, content: str) -> str:
-    cleaned = WIKI_WRAP_TAG_RE.sub('', content)
-    cleaned = WIKI_COLOR_TAG_RE.sub('', cleaned)
+    cleaned = WIKI_WRAP_TAG_RE.sub("", content)
+    cleaned = WIKI_COLOR_TAG_RE.sub("", cleaned)
     cleaned = strip_duplicate_lead_heading(title, cleaned)
     cleaned = collapse_duplicate_html_table_rows(cleaned)
-    cleaned = re.sub(r'(?m)[ \t]+$', '', cleaned)
-    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+    cleaned = re.sub(r"(?m)[ \t]+$", "", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip() + "\n"
 
 
@@ -223,7 +291,7 @@ def transform_outside_code_fences(content: str, transformer: Callable[[str], str
     pieces: list[str] = []
     last_index = 0
     for match in CODE_FENCE_BLOCK_RE.finditer(content):
-        pieces.append(transformer(content[last_index:match.start()]))
+        pieces.append(transformer(content[last_index : match.start()]))
         pieces.append(match.group(0))
         last_index = match.end()
     pieces.append(transformer(content[last_index:]))
@@ -231,22 +299,22 @@ def transform_outside_code_fences(content: str, transformer: Callable[[str], str
 
 
 def collapse_inline_whitespace(text: str) -> str:
-    return re.sub(r'\s+', ' ', text).strip()
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def normalize_markdown_text(text: str, multiline: bool = True) -> str:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ")
-    normalized = re.sub(r'(?m)[ \t]+$', '', normalized)
-    normalized = re.sub(r'\n{3,}', '\n\n', normalized)
+    normalized = re.sub(r"(?m)[ \t]+$", "", normalized)
+    normalized = re.sub(r"\n{3,}", "\n\n", normalized)
     if multiline:
         return normalized.strip()
-    normalized = re.sub(r'\s*\n\s*', '; ', normalized)
-    normalized = re.sub(r'\s{2,}', ' ', normalized)
-    return normalized.strip(' ;')
+    normalized = re.sub(r"\s*\n\s*", "; ", normalized)
+    normalized = re.sub(r"\s{2,}", " ", normalized)
+    return normalized.strip(" ;")
 
 
 def normalize_footnote_label(raw_label: str | None) -> str:
-    label = re.sub(r'[^A-Za-z0-9_-]+', '', (raw_label or '').strip())
+    label = re.sub(r"[^A-Za-z0-9_-]+", "", (raw_label or "").strip())
     return label or "note"
 
 
@@ -285,7 +353,9 @@ def render_image_markdown(tag: Any, strip_icon_images: bool = False) -> str:
 
 def render_unknown_html_node(node: Any, preserve_linebreaks: bool = True) -> str:
     if markdownify_html is None:
-        return normalize_markdown_text(node.get_text("\n" if preserve_linebreaks else " ", strip=False), multiline=preserve_linebreaks)
+        return normalize_markdown_text(
+            node.get_text("\n" if preserve_linebreaks else " ", strip=False), multiline=preserve_linebreaks
+        )
     rendered = markdownify_html(str(node), heading_style="ATX", bullets="-")
     return normalize_markdown_text(rendered, multiline=preserve_linebreaks)
 
@@ -295,7 +365,10 @@ def render_list(tag: Any, strip_icon_images: bool = False) -> str:
     lines: list[str] = []
     for index, item in enumerate(tag.find_all("li", recursive=False), start=1):
         prefix = f"{index}. " if ordered else "- "
-        body = normalize_markdown_text(render_html_nodes(item.contents, preserve_linebreaks=True, strip_icon_images=strip_icon_images), multiline=True)
+        body = normalize_markdown_text(
+            render_html_nodes(item.contents, preserve_linebreaks=True, strip_icon_images=strip_icon_images),
+            multiline=True,
+        )
         if not body:
             continue
         body_lines = body.splitlines()
@@ -320,13 +393,20 @@ def render_html_nodes(nodes: Any, preserve_linebreaks: bool = True, strip_icon_i
 
         name = (node.name or "").lower()
         if name in {"span", "div", "thead", "tbody", "tfoot", "th", "td"}:
-            parts.append(render_html_nodes(node.contents, preserve_linebreaks=preserve_linebreaks, strip_icon_images=strip_icon_images))
+            parts.append(
+                render_html_nodes(
+                    node.contents, preserve_linebreaks=preserve_linebreaks, strip_icon_images=strip_icon_images
+                )
+            )
             continue
         if name == "a":
-            label = normalize_markdown_text(
-                render_html_nodes(node.contents, preserve_linebreaks=False, strip_icon_images=strip_icon_images),
-                multiline=False,
-            ) or _tag_str_attr(node, "href").strip()
+            label = (
+                normalize_markdown_text(
+                    render_html_nodes(node.contents, preserve_linebreaks=False, strip_icon_images=strip_icon_images),
+                    multiline=False,
+                )
+                or _tag_str_attr(node, "href").strip()
+            )
             href = _tag_str_attr(node, "href").strip()
             parts.append(f"[{label}]({href})" if href else label)
             continue
@@ -410,7 +490,9 @@ def render_html_fragment(fragment_html: str, preserve_linebreaks: bool = True, s
     if soup is None:
         return normalize_markdown_text(unescape(fragment_html), multiline=preserve_linebreaks)
     root = soup.body if getattr(soup, "body", None) else soup
-    rendered = render_html_nodes(root.contents, preserve_linebreaks=preserve_linebreaks, strip_icon_images=strip_icon_images)
+    rendered = render_html_nodes(
+        root.contents, preserve_linebreaks=preserve_linebreaks, strip_icon_images=strip_icon_images
+    )
     return normalize_markdown_text(rendered, multiline=preserve_linebreaks)
 
 
@@ -475,7 +557,9 @@ def parse_html_table(table_html: str) -> dict[str, Any] | None:
                 "markdown": markdown,
                 "flat_text": flatten_table_cell_text(markdown),
                 "has_icon": bool(cell.find("img")),
-                "icon_hint": detect_callout_kind(" ".join(filter(None, icon_signature + [cell.get_text(" ", strip=True)]))),
+                "icon_hint": detect_callout_kind(
+                    " ".join(filter(None, icon_signature + [cell.get_text(" ", strip=True)]))
+                ),
             }
             row.append(cell_info)
             for _ in range(colspan - 1):
@@ -643,7 +727,7 @@ def normalize_html_tables(content: str) -> str:
         output: list[str] = []
         last_index = 0
         for match in TABLE_BLOCK_RE.finditer(segment):
-            output.append(segment[last_index:match.start()])
+            output.append(segment[last_index : match.start()])
             rendered = render_html_table(match.group(0))
             output.append(match.group(0) if rendered == match.group(0) else f"\n\n{rendered}\n\n")
             last_index = match.end()
@@ -665,23 +749,23 @@ def normalize_inline_html_residue(content: str) -> str:
                 lambda match: render_html_fragment(match.group(0), preserve_linebreaks=True, strip_icon_images=False),
                 current,
             )
-        current = re.sub(r'</?(?:span|div)\b[^>]*>', '', current, flags=re.IGNORECASE)
-        current = re.sub(r'</?(?:u|sup|sub)\b[^>]*>', '', current, flags=re.IGNORECASE)
-        current = re.sub(r'<br\s*/?>', '\n', current, flags=re.IGNORECASE)
+        current = re.sub(r"</?(?:span|div)\b[^>]*>", "", current, flags=re.IGNORECASE)
+        current = re.sub(r"</?(?:u|sup|sub)\b[^>]*>", "", current, flags=re.IGNORECASE)
+        current = re.sub(r"<br\s*/?>", "\n", current, flags=re.IGNORECASE)
         return current
 
     return transform_outside_code_fences(content, replace_inline)
 
 
 def normalize_wiki_semantic_content_v2(title: str, content: str) -> str:
-    normalized = WIKI_SORTABLE_TAG_RE.sub('', content)
-    normalized = HTML_COMMENT_RE.sub('', normalized)
+    normalized = WIKI_SORTABLE_TAG_RE.sub("", content)
+    normalized = HTML_COMMENT_RE.sub("", normalized)
     normalized = convert_footnotes_to_markdown(normalized)
     normalized = normalize_html_tables(normalized)
     normalized = normalize_inline_html_residue(normalized)
     normalized = strip_duplicate_lead_heading(title, normalized)
-    normalized = re.sub(r'(?m)[ \t]+$', '', normalized)
-    normalized = re.sub(r'\n{3,}', '\n\n', normalized)
+    normalized = re.sub(r"(?m)[ \t]+$", "", normalized)
+    normalized = re.sub(r"\n{3,}", "\n\n", normalized)
     return normalized.strip() + "\n"
 
 
@@ -714,6 +798,7 @@ def resolve_pipeline_commits() -> dict[str, str]:
         "ucode": commits["UCODE_COMMIT"],
     }
 
+
 def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, Any], str]:
     print("[03] Pass 1: YAML Schema Injection & Link Registry Build")
     cross_link_registry: dict[str, Any] = {"pipeline_date": ts_now, "symbols": {}}
@@ -725,10 +810,10 @@ def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, A
                 continue
             md_path = os.path.join(root, f)
             meta_path = os.path.splitext(md_path)[0] + ".meta.json"
-            
+
             with open(md_path, "r", encoding="utf-8") as file:
                 content = file.read()
-            
+
             if not os.path.isfile(meta_path):
                 print(f"[03] FAIL: Missing meta file: {meta_path}")
                 sys.exit(1)
@@ -737,7 +822,7 @@ def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, A
 
             module, o_type = meta.get("module", "unknown"), meta.get("origin_type", "unknown")
             slug = meta.get("slug", os.path.splitext(f)[0])
-            
+
             title_m = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
             title = title_m.group(1).strip() if title_m else slug
 
@@ -746,26 +831,42 @@ def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, A
 
             # Mermaid Injection (Specific to procd)
             if module == "procd" and "init" in title.lower():
-                mermaid_tmpl = os.path.join(os.path.dirname(__file__), "..", "..", "templates", "mermaid", "procd-init-sequence.md")
+                mermaid_tmpl = os.path.join(
+                    os.path.dirname(__file__), "..", "..", "templates", "mermaid", "procd-init-sequence.md"
+                )
                 if os.path.isfile(mermaid_tmpl):
                     with open(mermaid_tmpl, "r", encoding="utf-8") as tmpl_f:
                         content = content.replace("---\n\n", "---\n\n" + tmpl_f.read().strip() + "\n\n", 1)
 
             l1_rel = os.path.relpath(md_path, config.PROCESSED_DIR).replace("\\", "/")
             y_meta: dict[str, Any] = {
-                "title": title, "module": module, "origin_type": o_type,
+                "title": title,
+                "module": module,
+                "origin_type": o_type,
                 "token_count": count_tokens(content),
-                "source_file": l1_rel, "last_pipeline_run": ts_now
+                "source_file": l1_rel,
+                "last_pipeline_run": ts_now,
             }
             # Carry source_commit from L1 sidecar (git-backed modules only; wiki/cookbook omit it)
             if meta.get("source_commit"):
                 y_meta["source_commit"] = meta["source_commit"]
             # Carry optional provenance and routing fields from L1 sidecar
-            for k in ["source_url", "source_locator", "language", "description",
-                      "routing_summary", "routing_keywords", "routing_priority",
-                      "era_status", "audience_hint",
-                      "when_to_use", "related_modules", "verification_basis",
-                      "reviewed_by", "last_reviewed"]:
+            for k in [
+                "source_url",
+                "source_locator",
+                "language",
+                "description",
+                "routing_summary",
+                "routing_keywords",
+                "routing_priority",
+                "era_status",
+                "audience_hint",
+                "when_to_use",
+                "related_modules",
+                "verification_basis",
+                "reviewed_by",
+                "last_reviewed",
+            ]:
                 if meta.get(k):
                     y_meta[k] = meta[k]
 
@@ -774,36 +875,38 @@ def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, A
             os.makedirs(os.path.dirname(out_file), exist_ok=True)
             with open(out_file, "w", encoding="utf-8", newline="\n") as out:
                 out.write(full_l2)
-            
+
             l2_files.append({"path": out_file, "module": module, "root_rel": f"{module}/{f}", "l1_rel": l1_rel})
-            
+
             # Symbol Indexing
             for m in re.finditer(r'^#{2,4}\s+[`"]?([A-Za-z][A-Za-z0-9_.]+(?:\(.*\))?)[`"]?', content, re.MULTILINE):
                 raw_node = m.group(1)
-                symbol = re.split(r'\(', raw_node)[0].strip()
+                symbol = re.split(r"\(", raw_node)[0].strip()
                 if not is_code_symbol(symbol):
                     continue
-                
+
                 # Check for deprecation only inside the current section.
                 is_dep = False
-                section_tail = content[m.end():]
-                next_heading = re.search(r'^#{2,4}\s+', section_tail, re.MULTILINE)
-                dep_window = section_tail[:next_heading.start()] if next_heading else section_tail[:1000]
-                if re.search(r'\*\*[Dd]eprecated\*\*', dep_window):
+                section_tail = content[m.end() :]
+                next_heading = re.search(r"^#{2,4}\s+", section_tail, re.MULTILINE)
+                dep_window = section_tail[: next_heading.start()] if next_heading else section_tail[:1000]
+                if re.search(r"\*\*[Dd]eprecated\*\*", dep_window):
                     is_dep = True
 
                 sig = raw_node if "(" in raw_node else f"{symbol}()"
                 payload: dict[str, Any] = {
-                    "signature": sig, "file": l1_rel,
+                    "signature": sig,
+                    "file": l1_rel,
                     "module": module,
-                    "relative_target": f"../{module}/{f}", 
-                    "returns": "any", "parameters": [],
-                    "deprecated": is_dep
+                    "relative_target": f"../{module}/{f}",
+                    "returns": "any",
+                    "parameters": [],
+                    "deprecated": is_dep,
                 }
-                
+
                 if symbol not in cross_link_registry["symbols"]:
                     cross_link_registry["symbols"][symbol] = payload
-                elif any(x in l1_rel for x in ["ucode", "luci"]): # API docs (L2/L3) win conflicts
+                elif any(x in l1_rel for x in ["ucode", "luci"]):  # API docs (L2/L3) win conflicts
                     cross_link_registry["symbols"][symbol] = payload
 
     reg_path = os.path.join(WORKDIR, "cross-link-registry.json")
@@ -811,31 +914,32 @@ def pass_1_normalize_all(ts_now: str) -> tuple[list[dict[str, Any]], dict[str, A
         json.dump(cross_link_registry, rf, indent=2)
     return l2_files, cross_link_registry, reg_path
 
+
 def pass_2_link_all(l2_files: list[dict[str, Any]], registry: dict[str, Any]) -> None:
     print("[03] Pass 2: Injecting Cross-Links")
     sorted_syms = sorted(registry["symbols"].items(), key=lambda x: -len(x[0]))
-    patterns = [(s, m["relative_target"], re.compile(rf'\b{re.escape(s)}\b(?:\(\))?')) for s, m in sorted_syms]
+    patterns = [(s, m["relative_target"], re.compile(rf"\b{re.escape(s)}\b(?:\(\))?")) for s, m in sorted_syms]
 
     for info in l2_files:
         with open(info["path"], "r", encoding="utf-8") as f:
             content = f.read()
-        
+
         # Protection: Skip frontmatter, fenced code blocks, existing links, inline code, and headers.
         prot: set[int] = set()
-        fm_match = re.match(r'^---\r?\n.*?\r?\n---\r?\n?', content, re.DOTALL)
+        fm_match = re.match(r"^---\r?\n.*?\r?\n---\r?\n?", content, re.DOTALL)
         if fm_match:
             prot.update(range(fm_match.start(), fm_match.end()))
-        for m in re.finditer(r'```.*?```|~~~.*?~~~', content, re.DOTALL):
+        for m in re.finditer(r"```.*?```|~~~.*?~~~", content, re.DOTALL):
             prot.update(range(m.start(), m.end()))
-        for m in re.finditer(r'^\s*#+ .+$', content, re.MULTILINE):
+        for m in re.finditer(r"^\s*#+ .+$", content, re.MULTILINE):
             prot.update(range(m.start(), m.end()))
-        for m in re.finditer(r'<[^>\n]+>', content):
+        for m in re.finditer(r"<[^>\n]+>", content):
             prot.update(range(m.start(), m.end()))
-        for m in re.finditer(r'^\s*[*-]\s+\[.*\]\(#.*\).*$' , content, re.MULTILINE):
+        for m in re.finditer(r"^\s*[*-]\s+\[.*\]\(#.*\).*$", content, re.MULTILINE):
             prot.update(range(m.start(), m.end()))
-        for m in re.finditer(r'`[^`\n]+`|\[[^\]]+\]\([^)]+\)', content):
+        for m in re.finditer(r"`[^`\n]+`|\[[^\]]+\]\([^)]+\)", content):
             prot.update(range(m.start(), m.end()))
-            
+
         spans: list[tuple[int, int, str]] = []
         for _, target, pat in patterns:
             if target.endswith(info["root_rel"]):
@@ -844,7 +948,7 @@ def pass_2_link_all(l2_files: list[dict[str, Any]], registry: dict[str, Any]) ->
                 if not any(i in prot for i in range(m.start(), m.end())):
                     if not any(s <= m.start() < e for s, e, _ in spans):
                         spans.append((m.start(), m.end(), f"[{m.group(0)}]({target})"))
-        
+
         if spans:
             spans.sort(key=lambda x: x[0])
             new_c: list[str] = []
@@ -857,6 +961,7 @@ def pass_2_link_all(l2_files: list[dict[str, Any]], registry: dict[str, Any]) ->
             with open(info["path"], "w", encoding="utf-8", newline="\n") as f:
                 f.write("".join(new_c))
 
+
 def pass_3_deprecation_warnings(l2_files: list[dict[str, Any]], registry: dict[str, Any]) -> None:
     print("[03] Pass 3: Injecting Deprecation Warnings")
     deprecated_symbols: dict[str, Any] = {s: m for s, m in registry["symbols"].items() if m.get("deprecated")}
@@ -866,34 +971,35 @@ def pass_3_deprecation_warnings(l2_files: list[dict[str, Any]], registry: dict[s
     for info in l2_files:
         if info["module"] != "wiki":
             continue  # Warnings priority for wiki usage
-        
+
         with open(info["path"], "r", encoding="utf-8") as f:
             content = f.read()
-        
+
         warnings: list[str] = []
         for sym, meta in deprecated_symbols.items():
             # If the file contains a link to this deprecated symbol
-            link_pat = rf'\[.*?\]\(\.\.\/{re.escape(meta["relative_target"].lstrip("./"))}\)'
+            link_pat = rf"\[.*?\]\(\.\.\/{re.escape(meta['relative_target'].lstrip('./'))}\)"
             if re.search(link_pat, content):
                 warnings.append(f"- `{sym}` (see [{sym}]({meta['relative_target']}))")
-        
+
         if warnings:
             callout = "\n> [!WARNING]\n"
             callout += "> This page references deprecated symbols from the official API documentation:\n"
             for w in warnings:
                 callout += f"> {w}\n"
             callout += "\n"
-            
+
             # Inject after frontmatter
             if content.startswith("---"):
                 end_fm = content.find("---\n", 3)
                 if end_fm != -1:
-                    content = content[:end_fm+4] + callout + content[end_fm+4:]
+                    content = content[: end_fm + 4] + callout + content[end_fm + 4 :]
             else:
                 content = callout + content
-                
+
             with open(info["path"], "w", encoding="utf-8", newline="\n") as f:
                 f.write(content)
+
 
 def promote_to_staging(registry_path: str) -> None:
     print("[03] Promoting manifests to processed/")
@@ -967,6 +1073,7 @@ def main(argv: list[str] | None = None) -> int:
     promote_to_staging(r_path)
     print("[03] Complete.")
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

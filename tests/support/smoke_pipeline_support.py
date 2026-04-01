@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+from pathlib import Path
 import re
 import subprocess
 import sys
@@ -70,6 +71,7 @@ def select_pipeline_scripts(pipeline, only=None):
 
     available = ", ".join(get_stage_id(script) for script in scripts)
     raise ValueError(f"No scripts match selector '{only}'. Available stage ids in this run: {available}")
+
 
 FIXTURE_DOCS = [
     {
@@ -273,24 +275,18 @@ def processed_root(outdir):
     return os.path.join(os.path.dirname(outdir), "processed")
 
 
-def expected_outputs(outdir, processed_dir=None):
+def expected_outputs(outdir, processed_dir=None, expect_fixture_wiki=True):
     publish_dir = publish_root(outdir)
     support_dir = support_root(outdir)
     if processed_dir is None:
         processed_dir = processed_root(outdir)
 
-    return [
+    outputs = [
         os.path.join(
             processed_dir,
             "L1-raw",
             "ucode",
             "c_source-api-fs.md",
-        ),
-        os.path.join(
-            processed_dir,
-            "L2-semantic",
-            "wiki",
-            "wiki_page-service-events.md",
         ),
         os.path.join(publish_dir, "llms.txt"),
         os.path.join(publish_dir, "llms-full.txt"),
@@ -311,22 +307,41 @@ def expected_outputs(outdir, processed_dir=None):
         os.path.join(publish_dir, "ucode", "types", "ucode.d.ts"),
     ]
 
+    if expect_fixture_wiki:
+        outputs.insert(
+            1,
+            os.path.join(
+                processed_dir,
+                "L2-semantic",
+                "wiki",
+                "wiki_page-service-events.md",
+            ),
+        )
 
-def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False):
+    return outputs
+
+
+def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False, expect_fixture_wiki=True):
     publish_dir = publish_root(outdir)
     if processed_dir is None:
         processed_dir = processed_root(outdir)
     semantic_root = os.path.join(processed_dir, "L2-semantic")
 
-    missing = [path for path in expected_outputs(outdir, processed_dir) if not os.path.exists(path)]
+    missing = [
+        path
+        for path in expected_outputs(outdir, processed_dir, expect_fixture_wiki=expect_fixture_wiki)
+        if not os.path.exists(path)
+    ]
     if missing:
         joined = "\n".join(missing)
         raise AssertionError(f"Missing expected output files:\n{joined}")
 
     packages_dir = os.path.join(outdir, "packages")
-    zip_files = sorted(
-        file_name for file_name in os.listdir(packages_dir) if file_name.endswith(".zip")
-    ) if os.path.isdir(packages_dir) else []
+    zip_files = (
+        sorted(file_name for file_name in os.listdir(packages_dir) if file_name.endswith(".zip"))
+        if os.path.isdir(packages_dir)
+        else []
+    )
     if len(zip_files) != 1:
         raise AssertionError(f"Expected exactly one package zip in {packages_dir}, found: {zip_files}")
     zip_path = os.path.join(packages_dir, zip_files[0])
@@ -334,12 +349,30 @@ def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False):
         raise AssertionError(f"Expected non-empty package zip: {zip_path}")
 
     procd_l2 = read_text(os.path.join(semantic_root, "procd", "c_source-init-service.md"))
-    if "../uci/c_source-api-config.md" not in procd_l2:
-        raise AssertionError("Expected cross-link from procd fixture to the UCI fixture output")
+    if expect_fixture_wiki:
+        if "../uci/c_source-api-config.md" not in procd_l2:
+            raise AssertionError("Expected cross-link from procd fixture to the UCI fixture output")
+    elif "[uci.get()](" not in procd_l2:
+        raise AssertionError("Expected extractor-enabled smoke to preserve a resolvable uci.get() cross-link")
 
-    wiki_l2 = read_text(os.path.join(semantic_root, "wiki", "wiki_page-service-events.md"))
-    if "[!WARNING]" not in wiki_l2:
-        raise AssertionError("Expected deprecated-symbol warning to be injected into the wiki fixture output")
+    if expect_fixture_wiki:
+        wiki_l2 = read_text(os.path.join(semantic_root, "wiki", "wiki_page-service-events.md"))
+        if "[!WARNING]" not in wiki_l2:
+            raise AssertionError("Expected deprecated-symbol warning to be injected into the wiki fixture output")
+    else:
+        wiki_semantic_dir = Path(semantic_root) / "wiki"
+        published_wiki_dir = Path(publish_dir) / "wiki" / "chunked-reference"
+        semantic_wiki_names = {path.name for path in wiki_semantic_dir.glob("wiki_page-*.md")}
+        published_wiki_names = {path.name for path in published_wiki_dir.glob("wiki_page-*.md")}
+
+        if not semantic_wiki_names:
+            raise AssertionError("Expected extractor-enabled smoke to generate semantic wiki outputs")
+        if not published_wiki_names:
+            raise AssertionError("Expected extractor-enabled smoke to publish wiki chunked-reference outputs")
+        if not any(name.startswith("wiki_page-guide-developer-") for name in semantic_wiki_names):
+            raise AssertionError("Expected extractor-enabled smoke to include guide-developer wiki outputs")
+        if not any(name.startswith("wiki_page-techref-") for name in semantic_wiki_names):
+            raise AssertionError("Expected extractor-enabled smoke to include techref wiki outputs")
 
     monolith = read_text(os.path.join(publish_dir, "ucode", "bundled-reference.md"))
     if "ucode fs module" not in monolith or "ucode uloop module" not in monolith:
@@ -392,6 +425,8 @@ def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False):
     ]:
         if fragment not in full_catalog:
             raise AssertionError(f"Expected llms-full.txt to contain: {fragment}")
+    if not expect_fixture_wiki and "./wiki/chunked-reference/" not in full_catalog:
+        raise AssertionError("Expected llms-full.txt to catalog published wiki chunked-reference outputs")
 
     agents = read_text(os.path.join(publish_dir, "AGENTS.md"))
     agent_fragments = ["[module]/llms.txt", "chunked-reference/", "bundled-reference.md"]
@@ -403,9 +438,7 @@ def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False):
     readme_fragments = ["./llms.txt", "./AGENTS.md", "./ucode/map.md"]
     for fragment in readme_fragments:
         if fragment not in generated_readme:
-            raise AssertionError(
-                f"Expected generated README.md to route readers to: {fragment}"
-            )
+            raise AssertionError(f"Expected generated README.md to route readers to: {fragment}")
 
     index_html = read_text(os.path.join(publish_dir, "index.html"))
     index_fragments = [
@@ -414,8 +447,11 @@ def assert_fixture_outputs(outdir, processed_dir=None, expect_ai=False):
         "./index.html",
         "openwrt-docs4ai release tree",
         "./ucode/map.md",
-        "./wiki/chunked-reference/wiki_page-service-events.md",
     ]
+    if expect_fixture_wiki:
+        index_fragments.append("./wiki/chunked-reference/wiki_page-service-events.md")
+    else:
+        index_fragments.append("./wiki/chunked-reference/")
     for fragment in index_fragments:
         if fragment not in index_html:
             raise AssertionError(f"Expected index.html to contain: {fragment}")

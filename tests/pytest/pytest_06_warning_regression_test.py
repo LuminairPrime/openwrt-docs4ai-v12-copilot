@@ -14,6 +14,7 @@ def test_workflow_uses_node24_native_action_majors() -> None:
     expected_refs = [
         "actions/checkout@main",
         "actions/setup-python@main",
+        "actions/setup-go@main",
         "actions/cache@main",
         "actions/upload-artifact@main",
         "actions/download-artifact@main",
@@ -54,6 +55,9 @@ def test_workflow_uses_node24_native_action_majors() -> None:
     assert "Build distribution packages (09)" in workflow_text
     assert "gh release upload" in workflow_text
     assert "--clobber" in workflow_text
+    assert "validate_source:" in workflow_text
+    assert "python tests/check_linting.py --strict --result-root tmp/ci/lint-review/current" in workflow_text
+    assert "name: lint-review" in workflow_text
 
 
 def test_assemble_references_shards_oversized_modules() -> None:
@@ -85,10 +89,7 @@ def test_validate_known_dockerman_ucode_false_positive_is_exact() -> None:
         "openwrt-docs4ai-08-validate-output.py",
     )
 
-    rel_path = (
-        "L2-semantic/luci-examples/"
-        "example_app-luci-app-dockerman-root-usr-share-rpcd-ucode-docker-rpc-uc.md"
-    )
+    rel_path = "L2-semantic/luci-examples/example_app-luci-app-dockerman-root-usr-share-rpcd-ucode-docker-rpc-uc.md"
 
     assert validate.is_known_ucode_false_positive(
         rel_path,
@@ -181,9 +182,7 @@ def test_validate_routing_requires_sharded_part_links(tmp_path: Path) -> None:
         lambda _message: None,
     )
 
-    assert any(
-        "bundled-reference.part-01.md" in failure for failure in hard_failures
-    )
+    assert any("bundled-reference.part-01.md" in failure for failure in hard_failures)
 
 
 def test_validate_index_html_requires_full_publish_mirror(tmp_path: Path) -> None:
@@ -234,7 +233,4 @@ def test_validate_index_html_requires_full_publish_mirror(tmp_path: Path) -> Non
         hard_failures.append,
     )
 
-    assert any(
-        "release-tree index.html missing mirrored publish links" in failure
-        for failure in hard_failures
-    )
+    assert any("release-tree index.html missing mirrored publish links" in failure for failure in hard_failures)

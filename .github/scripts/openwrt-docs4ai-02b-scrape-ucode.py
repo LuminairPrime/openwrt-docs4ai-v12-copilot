@@ -20,22 +20,24 @@ import tempfile
 import html
 
 # Add project root to PYTHONPATH
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_UCODE
 
 UCODE_COMMIT = os.environ.get("UCODE_COMMIT", "unknown")
 
 JSDOC_ANCHOR_RE = re.compile(r'^\s*<a name=["\'][^"\']+["\']></a>\s*$', re.MULTILINE)
-JSDOC_TOC_START_RE = re.compile(r'^\s*\* \[[^\]]+\]\(#module_[^)]+\)\s*$')
-JSDOC_TOC_LINE_RE = re.compile(r'^\s*\* ')
-FENCE_RE = re.compile(r'^(\s*)```([^\s`]*)?\s*$')
-JSON_LIKE_BLOCK_RE = re.compile(r'^\s*[\[{]')
+JSDOC_TOC_START_RE = re.compile(r"^\s*\* \[[^\]]+\]\(#module_[^)]+\)\s*$")
+JSDOC_TOC_LINE_RE = re.compile(r"^\s*\* ")
+FENCE_RE = re.compile(r"^(\s*)```([^\s`]*)?\s*$")
+JSON_LIKE_BLOCK_RE = re.compile(r"^\s*[\[{]")
 JSON_KEY_RE = re.compile(r'^\s*"[^"]+"\s*:', re.MULTILINE)
-CODE_KEYWORD_RE = re.compile(r'^\s*(?:import|const|let|local|function|export|if|for|while|switch|return|try)\b', re.MULTILINE)
-PSEUDOCODE_ELLIPSIS_CALL_RE = re.compile(r'\(\s*…\s*(?:[,)]|$)')
-PSEUDOCODE_ELLIPSIS_ASSIGN_RE = re.compile(r'=\s*…\s*;?$')
-PSEUDOCODE_ELLIPSIS_ARG_RE = re.compile(r',\s*…\s*[)\]}]?\s*;?$')
+CODE_KEYWORD_RE = re.compile(
+    r"^\s*(?:import|const|let|local|function|export|if|for|while|switch|return|try)\b", re.MULTILINE
+)
+PSEUDOCODE_ELLIPSIS_CALL_RE = re.compile(r"\(\s*…\s*(?:[,)]|$)")
+PSEUDOCODE_ELLIPSIS_ASSIGN_RE = re.compile(r"=\s*…\s*;?$")
+PSEUDOCODE_ELLIPSIS_ARG_RE = re.compile(r",\s*…\s*[)\]}]?\s*;?$")
 JSDOC_TIMEOUT = int(os.environ.get("JSDOC_TIMEOUT", "120"))
 
 
@@ -63,12 +65,12 @@ def strip_jsdoc_toc(markdown):
 
 
 def strip_inline_ucode_comment(line):
-    return re.sub(r'(?<!:)//.*$', '', line)
+    return re.sub(r"(?<!:)//.*$", "", line)
 
 
 def looks_like_shell_block(lines):
     non_empty = [line.strip() for line in lines if line.strip()]
-    return bool(non_empty) and non_empty[0].startswith('$ ')
+    return bool(non_empty) and non_empty[0].startswith("$ ")
 
 
 def looks_like_json_example(lines):
@@ -77,7 +79,7 @@ def looks_like_json_example(lines):
         return False
     if CODE_KEYWORD_RE.search(body):
         return False
-    if re.search(r'\b[A-Za-z_]\w*\s*\(', body):
+    if re.search(r"\b[A-Za-z_]\w*\s*\(", body):
         return False
     return bool(JSON_KEY_RE.search(body))
 
@@ -85,9 +87,9 @@ def looks_like_json_example(lines):
 def looks_like_pseudocode(lines):
     for raw_line in lines:
         line = strip_inline_ucode_comment(raw_line).strip()
-        if not line or '…' not in line:
+        if not line or "…" not in line:
             continue
-        if line == '…':
+        if line == "…":
             return True
         if PSEUDOCODE_ELLIPSIS_CALL_RE.search(line):
             return True
@@ -102,28 +104,28 @@ def normalize_fenced_blocks(markdown, default_language):
     lines = markdown.splitlines()
     output = []
     block_lines = []
-    fence_indent = ''
-    fence_language = ''
+    fence_indent = ""
+    fence_language = ""
     in_fence = False
 
     def flush_block():
         nonlocal block_lines, fence_indent, fence_language
         language = fence_language or default_language
         if not fence_language and looks_like_shell_block(block_lines):
-            language = 'bash'
-        elif language in {'uc', 'ucode'}:
-            language = 'ucode'
+            language = "bash"
+        elif language in {"uc", "ucode"}:
+            language = "ucode"
             if looks_like_json_example(block_lines):
-                language = 'json'
+                language = "json"
             elif looks_like_pseudocode(block_lines):
-                language = 'text'
+                language = "text"
 
         output.append(f"{fence_indent}```{language}".rstrip())
         output.extend(block_lines)
         output.append(f"{fence_indent}```")
         block_lines = []
-        fence_indent = ''
-        fence_language = ''
+        fence_indent = ""
+        fence_language = ""
 
     for line in lines:
         match = FENCE_RE.match(line)
@@ -134,7 +136,7 @@ def normalize_fenced_blocks(markdown, default_language):
 
             in_fence = True
             fence_indent = match.group(1)
-            fence_language = (match.group(2) or '').strip().lower()
+            fence_language = (match.group(2) or "").strip().lower()
             block_lines = []
             continue
 
@@ -152,7 +154,7 @@ def normalize_fenced_blocks(markdown, default_language):
 
 
 def fix_known_ucode_example_issues(markdown):
-    cleaned = re.sub(r'(?m)^(\s*[^\n]*?;)\s+\*\s*$', r'\1', markdown)
+    cleaned = re.sub(r"(?m)^(\s*[^\n]*?;)\s+\*\s*$", r"\1", markdown)
     cleaned = cleaned.replace(
         "const [reader, writer] = io.pipe();",
         "const pipe_handles = io.pipe();\nconst reader = pipe_handles[0];\nconst writer = pipe_handles[1];",
@@ -167,25 +169,25 @@ def fix_known_ucode_example_issues(markdown):
         cleaned = cleaned.replace("let response = request(", "let response = nl80211.request(")
         cleaned = cleaned.replace("let wifiListener = listener(", "let wifiListener = nl80211.listener(")
         cleaned = cleaned.replace("let event = waitfor(", "let event = nl80211.waitfor(")
-        cleaned = re.sub(r'(?<!nl80211\.)const\.', 'nl80211.const.', cleaned)
+        cleaned = re.sub(r"(?<!nl80211\.)const\.", "nl80211.const.", cleaned)
 
     return cleaned
 
 
 def cleanup_ucode_jsdoc_output(markdown, is_c):
-    cleaned = re.sub(r'<pre class="prettyprint[^"]*"><code>', '```c\n' if is_c else '```ucode\n', markdown)
-    cleaned = cleaned.replace('</code></pre>', '\n```')
-    cleaned = re.sub(r'</?code>', '`', cleaned)
-    cleaned = re.sub(r'</?p>', '', cleaned)
-    cleaned = re.sub(r'</?(?:dl|dt|dd|ul|li|table|thead|tbody|tr|th|td|h[1-6])[^>]*>', '', cleaned)
+    cleaned = re.sub(r'<pre class="prettyprint[^"]*"><code>', "```c\n" if is_c else "```ucode\n", markdown)
+    cleaned = cleaned.replace("</code></pre>", "\n```")
+    cleaned = re.sub(r"</?code>", "`", cleaned)
+    cleaned = re.sub(r"</?p>", "", cleaned)
+    cleaned = re.sub(r"</?(?:dl|dt|dd|ul|li|table|thead|tbody|tr|th|td|h[1-6])[^>]*>", "", cleaned)
     cleaned = html.unescape(cleaned)
-    cleaned = JSDOC_ANCHOR_RE.sub('', cleaned)
+    cleaned = JSDOC_ANCHOR_RE.sub("", cleaned)
     cleaned = strip_jsdoc_toc(cleaned)
-    cleaned = re.sub(r'^\s*##\s+[^\n]+\n#\s+([^\n]+)', r'## \1', cleaned, count=1, flags=re.MULTILINE)
-    cleaned = re.sub(r'```(?:javascript|js)\r?\n', '```ucode\n', cleaned, flags=re.IGNORECASE)
-    cleaned = normalize_fenced_blocks(cleaned, 'ucode')
+    cleaned = re.sub(r"^\s*##\s+[^\n]+\n#\s+([^\n]+)", r"## \1", cleaned, count=1, flags=re.MULTILINE)
+    cleaned = re.sub(r"```(?:javascript|js)\r?\n", "```ucode\n", cleaned, flags=re.IGNORECASE)
+    cleaned = normalize_fenced_blocks(cleaned, "ucode")
     cleaned = fix_known_ucode_example_issues(cleaned)
-    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
 
 
@@ -214,15 +216,14 @@ def main():
         return 1
 
     if os.path.isfile(os.path.join(repo_ucode, "package.json")):
-        subprocess.run(["npm", "install", "--silent"], cwd=repo_ucode,
-                       shell=(os.name == "nt"), capture_output=True)
+        subprocess.run(["npm", "install", "--silent"], cwd=repo_ucode, shell=(os.name == "nt"), capture_output=True)
 
     saved = 0
 
     print("[02b] Processing tutorials...")
     for src in sorted(glob.glob(os.path.join(repo_ucode, "docs", "tutorial-*.md"))):
         base = os.path.basename(src)
-        slug = re.sub(r'tutorial-[0-9]*-', 'ucode-tutorial-', base).replace(".md", "")
+        slug = re.sub(r"tutorial-[0-9]*-", "ucode-tutorial-", base).replace(".md", "")
 
         with open(src, "r", encoding="utf-8") as fh:
             lines = fh.readlines()
@@ -247,7 +248,7 @@ def main():
             "source_commit": UCODE_COMMIT,
             "language": "text",
             "fetch_status": "success",
-            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         }
 
         extractor.write_l1_markdown("ucode", "readme", slug, final_content, metadata)
@@ -255,10 +256,11 @@ def main():
         print(f"[02b] OK: {slug}")
 
     print("[02b] Processing modules...")
-    srcs = sorted(glob.glob(os.path.join(repo_ucode, "lib", "*.js")) +
-                  glob.glob(os.path.join(repo_ucode, "lib", "*.c")))
+    srcs = sorted(
+        glob.glob(os.path.join(repo_ucode, "lib", "*.js")) + glob.glob(os.path.join(repo_ucode, "lib", "*.c"))
+    )
 
-    plugin_path = os.path.abspath(os.path.join(repo_ucode, "jsdoc", "c-transpiler")).replace('\\', '/')
+    plugin_path = os.path.abspath(os.path.join(repo_ucode, "jsdoc", "c-transpiler")).replace("\\", "/")
 
     for src in srcs:
         mod = os.path.splitext(os.path.basename(src))[0]
@@ -271,12 +273,25 @@ def main():
             ephemeral_conf = os.path.join(tempd, "jsdoc-ephemeral.json")
             with open(ephemeral_conf, "w", encoding="utf-8") as cw:
                 if is_c:
-                    cw.write('{"source": {"includePattern": ".+\\\\.c(pp)?$"}, "plugins": ["' + plugin_path.replace("\\", "\\\\") + '"]}')
+                    cw.write(
+                        '{"source": {"includePattern": ".+\\\\.c(pp)?$"}, "plugins": ["'
+                        + plugin_path.replace("\\", "\\\\")
+                        + '"]}'
+                    )
                 else:
-                    cw.write('{}')
+                    cw.write("{}")
 
-            cmd = [jsdoc2md, "--heading-depth", "2", "--global-index-format", "none",
-                   "--configure", "jsdoc-ephemeral.json", "--files", os.path.basename(temp_c)]
+            cmd = [
+                jsdoc2md,
+                "--heading-depth",
+                "2",
+                "--global-index-format",
+                "none",
+                "--configure",
+                "jsdoc-ephemeral.json",
+                "--files",
+                os.path.basename(temp_c),
+            ]
 
             try:
                 res = run_jsdoc_command(cmd, tempd)
@@ -325,7 +340,7 @@ def main():
             "source_commit": UCODE_COMMIT,
             "language": language,
             "fetch_status": "success",
-            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         }
 
         extractor.write_l1_markdown("ucode", origin_type, slug, final_content, metadata)

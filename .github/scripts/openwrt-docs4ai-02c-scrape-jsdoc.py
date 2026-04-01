@@ -17,7 +17,7 @@ import re
 import shutil
 import html
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_LUCI
 
@@ -27,13 +27,13 @@ JSDOC_TIMEOUT = int(os.environ.get("JSDOC_TIMEOUT", "120"))
 
 
 def clean_jsdoc_output(output):
-    output = re.sub(r'<pre class="prettyprint[^"]*"><code>', '```javascript\n', output)
-    output = output.replace('</code></pre>', '\n```')
-    output = re.sub(r'</?code>', '`', output)
-    output = re.sub(r'</?p>', '', output)
-    output = re.sub(r'</?(?:dl|dt|dd|ul|li|table|thead|tbody|tr|th|td|h[1-6]|a(?:\s+[^>]*)?|/a)[^>]*>', '', output)
+    output = re.sub(r'<pre class="prettyprint[^"]*"><code>', "```javascript\n", output)
+    output = output.replace("</code></pre>", "\n```")
+    output = re.sub(r"</?code>", "`", output)
+    output = re.sub(r"</?p>", "", output)
+    output = re.sub(r"</?(?:dl|dt|dd|ul|li|table|thead|tbody|tr|th|td|h[1-6]|a(?:\s+[^>]*)?|/a)[^>]*>", "", output)
     output = html.unescape(output)
-    output = re.sub(r'\n{3,}', '\n\n', output)
+    output = re.sub(r"\n{3,}", "\n\n", output)
     return output
 
 
@@ -121,7 +121,9 @@ def main():
 
         output = clean_jsdoc_output(output)
         live_url = f"{live_base}/LuCI.html" if mod == "luci" else f"{live_base}/LuCI.{mod}.html"
-        sub_path = relpath.replace("modules/luci-base/htdocs/luci-static/resources/", "").replace(".js", "").replace("/", "-")
+        sub_path = (
+            relpath.replace("modules/luci-base/htdocs/luci-static/resources/", "").replace(".js", "").replace("/", "-")
+        )
         slug = f"api-{sub_path}"
         title = f"LuCI API: {mod}"
         final_content = f"# {title}\n\n> **Live docs:** {live_url}\n\n---\n\n{output}"
@@ -136,7 +138,7 @@ def main():
             "source_commit": LUCI_COMMIT,
             "language": "javascript",
             "fetch_status": "success",
-            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+            "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         }
 
         extractor.write_l1_markdown("luci", "js_source", slug, final_content, metadata)
@@ -172,7 +174,7 @@ def main():
                     "source_commit": LUCI_COMMIT,
                     "language": "javascript",
                     "fetch_status": "success",
-                    "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+                    "extraction_timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
                 }
                 extractor.write_l1_markdown("luci", "js_source", "api-all", final_content, metadata)
                 file_count += 1

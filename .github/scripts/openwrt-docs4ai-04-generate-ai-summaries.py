@@ -86,6 +86,7 @@ _LEGACY_CACHE_PATH = os.path.abspath(
     )
 )
 
+
 def main() -> int:
     """Run the stage-04 AI enrichment step against the configured output tree."""
     return ai_enrichment.run_ai_enrichment(
@@ -107,4 +108,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -223,9 +223,7 @@ def test_run_promote_copies_reviewed_json_and_rechecks(
     monkeypatch.setattr(
         manage_ai_store,
         "run_validate_for_paths",
-        lambda *, base_dir, override_dir, l2_root: validate_calls.append(
-            (base_dir, override_dir, l2_root)
-        ),
+        lambda *, base_dir, override_dir, l2_root: validate_calls.append((base_dir, override_dir, l2_root)),
     )
     monkeypatch.setattr(
         manage_ai_store,
@@ -240,9 +238,7 @@ def test_run_promote_copies_reviewed_json_and_rechecks(
     promoted = paths.permanent_base_dir / "ucode" / "sample-doc.json"
     assert promoted.is_file()
     assert promoted.read_text(encoding="utf-8") == '{"slug": "sample-doc"}'
-    assert validate_calls == [
-        (paths.permanent_base_dir, paths.permanent_override_dir, paths.permanent_l2_root)
-    ]
+    assert validate_calls == [(paths.permanent_base_dir, paths.permanent_override_dir, paths.permanent_l2_root)]
     assert audit_calls == [
         (
             paths.permanent_base_dir,

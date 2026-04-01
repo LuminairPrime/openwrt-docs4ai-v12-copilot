@@ -26,8 +26,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run the maintained smoke suite")
     parser.add_argument("--run-ai", action="store_true", help="Enable the cache-backed local AI path where supported")
     parser.add_argument("--keep-temp", action="store_true", help="Preserve temporary smoke output trees")
-    parser.add_argument("--include-extractors", action="store_true", help="Include 01 and 02* in the full local smoke runner")
-    parser.add_argument("--skip-post-extract", action="store_true", help="Skip the deterministic post-extract smoke runner")
+    parser.add_argument(
+        "--include-extractors", action="store_true", help="Include 01 and 02* in the full local smoke runner"
+    )
+    parser.add_argument(
+        "--skip-post-extract", action="store_true", help="Skip the deterministic post-extract smoke runner"
+    )
     parser.add_argument("--skip-full-local", action="store_true", help="Skip the sequential full local smoke runner")
     parser.add_argument("--skip-ai-store", action="store_true", help="Skip the AI store contract smoke runner")
     parser.add_argument("--result-root", type=str, default=None, help="Optional output directory override")

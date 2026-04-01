@@ -23,7 +23,7 @@ import shutil
 import sys
 from typing import Any
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, partial_rerun_guard
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -54,13 +54,13 @@ def release_part_filename(part_number: int) -> str:
 def rewrite_relative_links(module: str, body_text: str) -> str:
     """Rewrite L2-relative markdown links so they remain valid from L4 files."""
     body_with_fixed_links = re.sub(
-        r'\[(.*?)\]\(\.\./((?!L2-semantic)[a-zA-Z0-9-]+/.*?\.md)\)',
-        r'[\1](../L2-semantic/\2)',
+        r"\[(.*?)\]\(\.\./((?!L2-semantic)[a-zA-Z0-9-]+/.*?\.md)\)",
+        r"[\1](../L2-semantic/\2)",
         body_text,
     )
     body_with_fixed_links = re.sub(
-        r'\[(.*?)\]\(\./(.*?\.md)\)',
-        f'[\\1](../L2-semantic/{module}/\\2)',
+        r"\[(.*?)\]\(\./(.*?\.md)\)",
+        f"[\\1](../L2-semantic/{module}/\\2)",
         body_with_fixed_links,
     )
     return body_with_fixed_links
@@ -103,13 +103,13 @@ def fail_if_partial_release_tree_rebuild(modules: list[str], allow_partial: bool
 def rewrite_release_relative_links(body_text: str) -> str:
     """Rewrite L2-relative markdown links for release-tree bundled outputs."""
     body_with_fixed_links = re.sub(
-        r'\[(.*?)\]\(\.\./(?!L2-semantic)([a-zA-Z0-9-]+)\/([^)]*?\.md)\)',
-        rf'[\1](../\2/{config.MODULE_CHUNKED_REF_DIRNAME}/\3)',
+        r"\[(.*?)\]\(\.\./(?!L2-semantic)([a-zA-Z0-9-]+)\/([^)]*?\.md)\)",
+        rf"[\1](../\2/{config.MODULE_CHUNKED_REF_DIRNAME}/\3)",
         body_text,
     )
     body_with_fixed_links = re.sub(
-        r'\[(.*?)\]\(\./([^)]*?\.md)\)',
-        rf'[\1](./{config.MODULE_CHUNKED_REF_DIRNAME}/\2)',
+        r"\[(.*?)\]\(\./([^)]*?\.md)\)",
+        rf"[\1](./{config.MODULE_CHUNKED_REF_DIRNAME}/\2)",
         body_with_fixed_links,
     )
     return body_with_fixed_links
@@ -118,8 +118,8 @@ def rewrite_release_relative_links(body_text: str) -> str:
 def rewrite_release_chunked_links(content: str) -> str:
     """Rewrite cross-module L2 links for copied chunked-reference pages."""
     return re.sub(
-        r'\[(.*?)\]\(\.\./((?!L2-semantic)[a-zA-Z0-9-]+)/([^)]*?\.md)\)',
-        rf'[\1](../../\2/{config.MODULE_CHUNKED_REF_DIRNAME}/\3)',
+        r"\[(.*?)\]\(\.\./((?!L2-semantic)[a-zA-Z0-9-]+)/([^)]*?\.md)\)",
+        rf"[\1](../../\2/{config.MODULE_CHUNKED_REF_DIRNAME}/\3)",
         content,
     )
 
@@ -130,11 +130,7 @@ def append_skeleton_lines(
     body_text: str,
 ) -> None:
     """Append summary, headings, and short signatures for the module skeleton."""
-    summary = (
-        frontmatter.get("routing_summary")
-        or frontmatter.get("ai_summary")
-        or frontmatter.get("description")
-    )
+    summary = frontmatter.get("routing_summary") or frontmatter.get("ai_summary") or frontmatter.get("description")
     if summary:
         skeleton_lines.append(f"> **Summary:** {summary}")
     if frontmatter.get("ai_when_to_use"):
@@ -143,9 +139,9 @@ def append_skeleton_lines(
     for line in body_text.splitlines():
         if line.startswith("#"):
             skeleton_lines.append(line)
-        elif re.match(r'^[-*]\s+[`*_a-zA-Z0-9]', line):
+        elif re.match(r"^[-*]\s+[`*_a-zA-Z0-9]", line):
             if "(" in line and ")" in line and len(line) < 150:
-                signature = re.split(r'[:|—\-]\s', line, maxsplit=1)[0].strip()
+                signature = re.split(r"[:|—\-]\s", line, maxsplit=1)[0].strip()
                 skeleton_lines.append(signature)
 
     skeleton_lines.append("")
@@ -205,7 +201,7 @@ def load_l2_sections(
             print(f"[05a] WARN: Could not read {fpath}: {exc}")
             continue
 
-        fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
+        fm_match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?(.*)", content, re.DOTALL)
         if not fm_match:
             print(f"[05a] WARN: Invalid L2 schema in {fpath}")
             continue
@@ -346,9 +342,7 @@ def write_sharded_reference_index(
             },
         )
         handle.write(f"# {module} Complete Reference\n\n")
-        handle.write(
-            f"> **Contains:** {section_count} documents across {len(parts)} sharded parts\n"
-        )
+        handle.write(f"> **Contains:** {section_count} documents across {len(parts)} sharded parts\n")
         handle.write(f"> **Tokens:** ~{total_tokens} (cl100k_base)\n")
         handle.write(
             f"> **Sharding Rule:** The module exceeded the {MAX_MONOLITH_TOKENS} token budget, so use one of the smaller parts below for deep context.\n\n"
@@ -390,14 +384,10 @@ def write_sharded_reference_part(
                 "generated": generated_at,
             },
         )
-        handle.write(
-            f"# {module} Complete Reference (Part {part['part_number']} of {part['part_count']})\n\n"
-        )
+        handle.write(f"# {module} Complete Reference (Part {part['part_number']} of {part['part_count']})\n\n")
         handle.write(f"> **Contains:** {part['section_count']} documents\n")
         handle.write(f"> **Tokens:** ~{part['token_count']} (cl100k_base)\n")
-        handle.write(
-            f"> **Index:** [./{module}-complete-reference.md](./{module}-complete-reference.md)\n\n---\n\n"
-        )
+        handle.write(f"> **Index:** [./{module}-complete-reference.md](./{module}-complete-reference.md)\n\n---\n\n")
         handle.write(join_reference_sections(part["sections"]))
 
 
@@ -450,9 +440,7 @@ def write_release_sharded_reference_index(
             },
         )
         handle.write(f"# {module} Bundled Reference\n\n")
-        handle.write(
-            f"> **Contains:** {section_count} documents across {len(parts)} sharded parts\n"
-        )
+        handle.write(f"> **Contains:** {section_count} documents across {len(parts)} sharded parts\n")
         handle.write(f"> **Tokens:** ~{total_tokens} (cl100k_base)\n")
         handle.write(
             f"> **Sharding Rule:** The module exceeded the {MAX_MONOLITH_TOKENS} token budget, so use one of the smaller parts below for deep context.\n\n"
@@ -494,9 +482,7 @@ def write_release_sharded_reference_part(
                 "generated": generated_at,
             },
         )
-        handle.write(
-            f"# {module} Bundled Reference (Part {part['part_number']} of {part['part_count']})\n\n"
-        )
+        handle.write(f"# {module} Bundled Reference (Part {part['part_number']} of {part['part_count']})\n\n")
         handle.write(f"> **Contains:** {part['section_count']} documents\n")
         handle.write(f"> **Tokens:** ~{part['token_count']} (cl100k_base)\n")
         handle.write(
@@ -544,7 +530,7 @@ def copy_release_chunked_pages(md_files: list[str], out_mod_dir: str, generated_
         with open(fpath, "r", encoding="utf-8") as handle:
             content = handle.read().strip()
 
-        fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
+        fm_match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?(.*)", content, re.DOTALL)
         if fm_match:
             try:
                 frontmatter = yaml.safe_load(fm_match.group(1)) or {}
@@ -561,6 +547,7 @@ def copy_release_chunked_pages(md_files: list[str], out_mod_dir: str, generated_
         out_path = os.path.join(chunked_dir, os.path.basename(fpath))
         with open(out_path, "w", encoding="utf-8", newline="\n") as handle:
             handle.write(output)
+
 
 def main(argv: list[str] | None = None) -> int:
     """Assemble publishable L4 references and L3 skeletons from staged L2 files."""
@@ -706,9 +693,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
         else:
-            print(
-                f"[05a] OK: {module} L4 ({layout['total_token_count']} tokens) and L3 skeleton"
-            )
+            print(f"[05a] OK: {module} L4 ({layout['total_token_count']} tokens) and L3 skeleton")
 
     print(f"[05a] Complete: {outputs_generated} artifacts generated.")
     if outputs_generated == 0:

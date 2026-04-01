@@ -15,7 +15,7 @@ import glob
 import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
@@ -46,50 +46,33 @@ def extract_makefile_meta(path):
     except Exception:
         return {}
     fields = {}
-    for key in ["PKG_NAME", "PKG_VERSION", "PKG_SOURCE_URL",
-                "PKG_MAINTAINER", "PKG_LICENSE"]:
-        m = re.search(
-            rf'^{key}\s*[?:+]?=\s*(.+?)(?=\n[A-Z_]|\Z)',
-            text, re.MULTILINE | re.DOTALL
-        )
+    for key in ["PKG_NAME", "PKG_VERSION", "PKG_SOURCE_URL", "PKG_MAINTAINER", "PKG_LICENSE"]:
+        m = re.search(rf"^{key}\s*[?:+]?=\s*(.+?)(?=\n[A-Z_]|\Z)", text, re.MULTILINE | re.DOTALL)
         if m:
             val = re.sub(r"\s+", " ", m.group(1).replace("\\\n", " ")).strip()
             if val and not val.startswith("$("):
                 fields[key] = val[:200]
 
-    m = re.search(
-        r'^PKG_DESCRIPTION\s*[?:+]?=\s*(.+?)(?=\n[A-Z]|\Z)',
-        text, re.MULTILINE | re.DOTALL
-    )
+    m = re.search(r"^PKG_DESCRIPTION\s*[?:+]?=\s*(.+?)(?=\n[A-Z]|\Z)", text, re.MULTILINE | re.DOTALL)
     if m:
-        fields["DESCRIPTION"] = re.sub(
-            r"\s+", " ", m.group(1).replace("\\\n", " ")
-        ).strip()[:500]
+        fields["DESCRIPTION"] = re.sub(r"\s+", " ", m.group(1).replace("\\\n", " ")).strip()[:500]
 
-    block_m = re.search(
-        r'define Package/[^\n]+\n(.*?)^endef',
-        text, re.MULTILINE | re.DOTALL
-    )
+    block_m = re.search(r"define Package/[^\n]+\n(.*?)^endef", text, re.MULTILINE | re.DOTALL)
     if block_m:
         block = block_m.group(1)
-        d = re.search(
-            r'DESCRIPTION\s*:?=\s*(.+?)(?=\n\s*[A-Z]|\Z)', block, re.DOTALL
-        )
+        d = re.search(r"DESCRIPTION\s*:?=\s*(.+?)(?=\n\s*[A-Z]|\Z)", block, re.DOTALL)
         if d:
             desc = re.sub(r"\s+", " ", d.group(1).replace("\\\n", " ")).strip()
             if desc:
                 fields.setdefault("DESCRIPTION", desc[:500])
 
     # FIX BUG-013: Support for 'define Package/foo/description' blocks
-    desc_block_m = re.search(
-        r'define Package/[^/]+/description\s*\n(.*?)^endef',
-        text, re.MULTILINE | re.DOTALL
-    )
+    desc_block_m = re.search(r"define Package/[^/]+/description\s*\n(.*?)^endef", text, re.MULTILINE | re.DOTALL)
     if desc_block_m:
         desc = re.sub(r"\s+", " ", desc_block_m.group(1).replace("\\\n", " ")).strip()
         if desc:
-            fields.setdefault("DESCRIPTION", desc[:1000]) # Descriptions can be longer
-            
+            fields.setdefault("DESCRIPTION", desc[:1000])  # Descriptions can be longer
+
     return fields
 
 
@@ -132,7 +115,7 @@ for cat_path in sorted(glob.glob(os.path.join(REPO, "package", "*"))):
     total_pkgs += len(entries)
     cat_src_url = f"{REPO_URL}/tree/master/package/{category}"
     slug = f"category-{category}"
-    
+
     content_lines = []
     content_lines.append(f"# OpenWrt Buildroot: {category} packages\n")
     content_lines.append(f"> **Source:** {cat_src_url}\n---\n")
@@ -174,7 +157,7 @@ for cat_path in sorted(glob.glob(os.path.join(REPO, "package", "*"))):
         "source_commit": OPENWRT_COMMIT,
         "language": "makefile",
         "fetch_status": "success",
-        "extraction_timestamp": TS
+        "extraction_timestamp": TS,
     }
 
     extractor.write_l1_markdown("openwrt-core", "makefile_meta", slug, "\n".join(content_lines), metadata)
@@ -211,7 +194,7 @@ if mk_entries:
         content_lines.append(f"## {fname_mk}\n")
         content_lines.append(extractor.wrap_code_block("Documentation", doc, "text"))
         content_lines.append(f"\n> Source: {REPO_URL}/blob/master/include/{fname_mk}\n---\n")
-        
+
     metadata = {
         "extractor": "02d-scrape-core-packages.py",
         "origin_type": "makefile_meta",

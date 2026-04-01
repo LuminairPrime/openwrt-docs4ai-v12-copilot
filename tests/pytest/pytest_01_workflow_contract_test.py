@@ -36,9 +36,7 @@ def test_smoke_selector_supports_stage_family_selector():
 def test_full_pipeline_registry_matches_files_on_disk():
     smoke = load_smoke_support_module("smoke_support_registry")
 
-    missing = [
-        script for script in smoke.FULL_PIPELINE if not (SCRIPTS_DIR / script).is_file()
-    ]
+    missing = [script for script in smoke.FULL_PIPELINE if not (SCRIPTS_DIR / script).is_file()]
 
     assert missing == []
 
@@ -51,11 +49,28 @@ def test_full_pipeline_matches_workflow_invocations():
     assert workflow_scripts == set(smoke.FULL_PIPELINE)
 
 
-def test_extract_wiki_runs_without_initialize_dependency():
+def test_validate_source_job_runs_strict_lint_review():
     workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
-    wiki_block = get_workflow_job_block(workflow_text, "extract_wiki")
+    validate_block = get_workflow_job_block(workflow_text, "validate_source")
 
-    assert re.search(r"^\s+needs:\s", wiki_block, flags=re.MULTILINE) is None
+    assert "python tests/check_linting.py --strict --result-root tmp/ci/lint-review/current" in validate_block
+    assert "name: lint-review" in validate_block
+
+
+def test_validate_source_runs_without_dependencies():
+    workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
+    validate_block = get_workflow_job_block(workflow_text, "validate_source")
+
+    assert re.search(r"^\s+needs:\s", validate_block, flags=re.MULTILINE) is None
+
+
+def test_parallel_extract_jobs_wait_for_validate_source():
+    workflow = load_workflow_yaml()
+    jobs = workflow["jobs"]
+
+    assert jobs["initialize"]["needs"] == "validate_source"
+    assert jobs["extract_wiki"]["needs"] == "validate_source"
+    assert jobs["extract_cookbook"]["needs"] == "validate_source"
 
 
 def test_process_waits_for_extract_and_extract_wiki():
@@ -124,7 +139,7 @@ def test_external_distribution_is_gated_to_main_and_secrets():
     deploy_block = get_workflow_job_block(workflow_text, "deploy")
 
     assert "Determine external distribution eligibility" in deploy_block
-    assert 'refs/heads/main' in deploy_block
+    assert "refs/heads/main" in deploy_block
     assert "DIST_APP_ID_PRESENT" in deploy_block
     assert "DIST_APP_PRIVATE_KEY_PRESENT" in deploy_block
 
@@ -134,9 +149,7 @@ def test_external_distribution_runs_after_source_pages_mirror():
     deploy_block = get_workflow_job_block(workflow_text, "deploy")
 
     source_pages_index = deploy_block.index("Publish GitHub Pages branch mirror")
-    external_distribution_index = deploy_block.index(
-        "Determine external distribution eligibility"
-    )
+    external_distribution_index = deploy_block.index("Determine external distribution eligibility")
 
     assert source_pages_index < external_distribution_index
 
@@ -153,7 +166,10 @@ def test_process_summary_depends_on_validate_output_outcome():
     assert 'validate_output_outcome = "${{ steps.validate_output.outcome }}" or "unknown"' in process_block
     assert '"contract_ok": (not missing) and validate_output_outcome == "success"' in process_block
     assert 'payload["stage_timings"] = stage_timings' in process_block
-    assert '(summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")' in process_block
+    assert (
+        '(summary_dir / "process-summary.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")'
+        in process_block
+    )
     assert process_block.index("- name: Validate published output (08)") < process_block.index(
         "- name: Validate staging contract and build process summary"
     )
@@ -181,8 +197,15 @@ def test_pipeline_summary_reports_validate_output_outcome():
     assert "- validate_output_outcome:" in pipeline_summary_block
 
 
+def test_pipeline_summary_includes_validate_source_result() -> None:
+    workflow = load_workflow_yaml()
+
+    assert "validate_source" in workflow["jobs"]["pipeline_summary"]["needs"]
+
+
 def test_pandoc_not_installed_in_extract_matrix():
     import yaml
+
     workflow_text = WORKFLOW_PATH.read_text(encoding="utf-8")
     wf = yaml.safe_load(workflow_text)
     extract_steps = wf.get("jobs", {}).get("extract", {}).get("steps", [])
@@ -203,12 +226,8 @@ def test_jsdoc_npm_install_is_conditional_on_02c_and_02b():
     assert npm_steps, "No jsdoc-to-markdown install step found in extract job"
     for step in npm_steps:
         condition = step.get("if", "")
-        assert "02c-scrape-jsdoc.py" in condition, (
-            f"jsdoc-to-markdown install not gated to 02c. Got: if: {condition!r}"
-        )
-        assert "02b-scrape-ucode.py" in condition, (
-            f"jsdoc-to-markdown install not gated to 02b. Got: if: {condition!r}"
-        )
+        assert "02c-scrape-jsdoc.py" in condition, f"jsdoc-to-markdown install not gated to 02c. Got: if: {condition!r}"
+        assert "02b-scrape-ucode.py" in condition, f"jsdoc-to-markdown install not gated to 02b. Got: if: {condition!r}"
 
 
 def test_jsdoc_npm_install_is_version_pinned():
@@ -218,6 +237,4 @@ def test_jsdoc_npm_install_is_version_pinned():
     assert npm_steps, "No jsdoc-to-markdown install step found in extract job"
     for step in npm_steps:
         run_text = step["run"]
-        assert "@" in run_text, (
-            f"jsdoc-to-markdown is not version-pinned. Got: {run_text!r}"
-        )
+        assert "@" in run_text, f"jsdoc-to-markdown is not version-pinned. Got: {run_text!r}"

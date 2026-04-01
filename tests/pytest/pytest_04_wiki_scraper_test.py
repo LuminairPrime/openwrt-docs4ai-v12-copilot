@@ -44,12 +44,14 @@ class FakeSession:
         self.calls = []
 
     def get(self, url, timeout=None, headers=None, allow_redirects=True):
-        self.calls.append({
-            "url": url,
-            "timeout": timeout,
-            "headers": headers or {},
-            "allow_redirects": allow_redirects,
-        })
+        self.calls.append(
+            {
+                "url": url,
+                "timeout": timeout,
+                "headers": headers or {},
+                "allow_redirects": allow_redirects,
+            }
+        )
         return self.responses.pop(0)
 
 
@@ -186,9 +188,9 @@ def test_process_page_expires_old_page_even_when_raw_hash_matches(tmp_path, monk
             "content_hash": "deadbeef",
         }
     }
-    session = FakeSession([
-        FakeResponse(status_code=200, text=raw_content, headers={"Last-Modified": "Sat, 01 Jan 2022 00:00:00 GMT"})
-    ])
+    session = FakeSession(
+        [FakeResponse(status_code=200, text=raw_content, headers={"Last-Modified": "Sat, 01 Jan 2022 00:00:00 GMT"})]
+    )
     stats = wiki.build_stats()
 
     outcome = wiki.process_page(session, path, cache, stats, cutoff=wiki.datetime.datetime(2024, 1, 1))
@@ -203,9 +205,9 @@ def test_discover_pages_ignores_bot_page_links_and_disables_cleanup(monkeypatch)
     monkeypatch.setattr(wiki, "sleep_with_rate_limit", lambda reason: None)
 
     responses = {
-        "docs%3Atechref": "<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href=\"/docs/techref/procd\">procd</a></body></html>",
-        "docs%3Aguide-developer": "<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href=\"/docs/guide-developer/example\">example</a></body></html>",
-        "docs%3Aguide-user%3Abase-system%3Auci": "<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href=\"/docs/guide-user/base-system/uci/foo\">foo</a></body></html>",
+        "docs%3Atechref": '<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href="/docs/techref/procd">procd</a></body></html>',
+        "docs%3Aguide-developer": '<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href="/docs/guide-developer/example">example</a></body></html>',
+        "docs%3Aguide-user%3Abase-system%3Auci": '<!doctype html><html><body><h1>Testing to determine if you are a bot</h1><a href="/docs/guide-user/base-system/uci/foo">foo</a></body></html>',
     }
 
     class NamespaceSession:
@@ -226,7 +228,7 @@ def test_discover_pages_ignores_offsite_absolute_urls(monkeypatch):
     monkeypatch.setattr(wiki, "sleep_with_rate_limit", lambda reason: None)
 
     responses = {
-        "docs%3Atechref": "<html><body><a href=\"https://evil.example/docs/techref/pwned\">bad</a><a href=\"https://openwrt.org/docs/techref/valid.page\">good</a></body></html>",
+        "docs%3Atechref": '<html><body><a href="https://evil.example/docs/techref/pwned">bad</a><a href="https://openwrt.org/docs/techref/valid.page">good</a></body></html>',
         "docs%3Aguide-developer": "<html><body></body></html>",
         "docs%3Aguide-user%3Abase-system%3Auci": "<html><body></body></html>",
     }
@@ -379,9 +381,13 @@ def test_process_page_discards_inconsistent_cached_output_and_refetches(tmp_path
     md_path.write_text("# Corrupted\n\nThis content no longer matches metadata.\n", encoding="utf-8")
 
     raw_content = "====== ubus ======\n\nEnough text to trigger a fresh rewrite after corruption.\n" * 5
-    session = FakeSession([
-        FakeResponse(status_code=200, text=raw_content, headers={}, url="https://openwrt.org/docs/techref/ubus?do=export_raw")
-    ])
+    session = FakeSession(
+        [
+            FakeResponse(
+                status_code=200, text=raw_content, headers={}, url="https://openwrt.org/docs/techref/ubus?do=export_raw"
+            )
+        ]
+    )
     cache = {
         "https://openwrt.org/docs/techref/ubus": {
             "path": "/docs/techref/ubus",
@@ -418,9 +424,16 @@ def test_process_page_skips_short_result_when_cached_short_hash_matches(tmp_path
             "skip_reason": "short",
         }
     }
-    session = FakeSession([
-        FakeResponse(status_code=200, text=raw_content, headers={}, url="https://openwrt.org/docs/techref/tiny-page?do=export_raw")
-    ])
+    session = FakeSession(
+        [
+            FakeResponse(
+                status_code=200,
+                text=raw_content,
+                headers={},
+                url="https://openwrt.org/docs/techref/tiny-page?do=export_raw",
+            )
+        ]
+    )
     stats = wiki.build_stats()
 
     monkeypatch.setattr(
@@ -441,9 +454,16 @@ def test_process_page_records_short_skip_reason_when_no_output_exists(tmp_path, 
     monkeypatch.setattr(wiki, "sleep_with_rate_limit", lambda reason: None)
 
     raw_content = "====== Tiny ======\n\nshort\n"
-    session = FakeSession([
-        FakeResponse(status_code=200, text=raw_content, headers={}, url="https://openwrt.org/docs/techref/tiny-page?do=export_raw")
-    ])
+    session = FakeSession(
+        [
+            FakeResponse(
+                status_code=200,
+                text=raw_content,
+                headers={},
+                url="https://openwrt.org/docs/techref/tiny-page?do=export_raw",
+            )
+        ]
+    )
     cache = {}
     stats = wiki.build_stats()
 

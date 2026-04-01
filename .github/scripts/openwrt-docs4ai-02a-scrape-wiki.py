@@ -26,7 +26,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 # Add project root to PYTHONPATH
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor, source_exclusions
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -44,10 +44,7 @@ MIN_MARKDOWN_LENGTH = 200
 RAW_FETCH_TIMEOUT = 20
 INDEX_FETCH_TIMEOUT = 30
 PANDOC_TIMEOUT = 30
-USER_AGENT = (
-    "openwrt-docs4ai-pipeline/1.0 "
-    "(+https://github.com/LuminairPrime/openwrt-docs4ai-pipeline)"
-)
+USER_AGENT = "openwrt-docs4ai-pipeline/1.0 (+https://github.com/LuminairPrime/openwrt-docs4ai-pipeline)"
 BASE_HOST = (urlparse(BASE_URL).hostname or "").lower()
 
 # Namespaces to crawl.
@@ -62,9 +59,7 @@ MANDATORY_PAGES = [
     "/docs/techref/ubus",
 ]
 
-SKIP_PATTERNS = [
-    "/toh/", "/inbox/", "/meta/", "/playground/", "changelog", "release_notes"
-]
+SKIP_PATTERNS = ["/toh/", "/inbox/", "/meta/", "/playground/", "changelog", "release_notes"]
 
 HTML_ERROR_SIGNATURES = [
     "404 not found",
@@ -86,10 +81,12 @@ def log(level, message):
 
 def create_session():
     session = requests.Session()
-    session.headers.update({
-        "User-Agent": USER_AGENT,
-        "Accept": "text/plain, text/html;q=0.9, */*;q=0.1",
-    })
+    session.headers.update(
+        {
+            "User-Agent": USER_AGENT,
+            "Accept": "text/plain, text/html;q=0.9, */*;q=0.1",
+        }
+    )
 
     retries = Retry(
         total=1,
@@ -369,7 +366,7 @@ def discover_pages(session):
                 continue
             if any(pattern in path for pattern in SKIP_PATTERNS):
                 continue
-            if re.match(r'^/[a-z]{2}(-[a-z]+)?/', path, re.IGNORECASE):
+            if re.match(r"^/[a-z]{2}(-[a-z]+)?/", path, re.IGNORECASE):
                 continue
             if "/_export/" in path or "/_detail/" in path or "/_media/" in path:
                 continue
@@ -411,12 +408,12 @@ def fetch_raw_page(session, url, cache_entry=None):
 
 def extract_title_from_dokuwiki(raw_content, path):
     for line in raw_content.splitlines():
-        match = re.match(r'^\s*(={2,6})\s*(.*?)\s*\1\s*$', line)
+        match = re.match(r"^\s*(={2,6})\s*(.*?)\s*\1\s*$", line)
         if match:
             title = match.group(2).strip()
-            title = re.sub(r'\[\[[^\]|]+\|([^\]]+)\]\]', r'\1', title)
-            title = re.sub(r'\[\[([^\]]+)\]\]', r'\1', title)
-            title = re.sub(r'[*/_`]+', '', title)
+            title = re.sub(r"\[\[[^\]|]+\|([^\]]+)\]\]", r"\1", title)
+            title = re.sub(r"\[\[([^\]]+)\]\]", r"\1", title)
+            title = re.sub(r"[*/_`]+", "", title)
             return title.strip() or path.split("/")[-1]
     return path.split("/")[-1]
 
@@ -424,19 +421,19 @@ def extract_title_from_dokuwiki(raw_content, path):
 def build_fallback_markdown(path, raw_content):
     title = extract_title_from_dokuwiki(raw_content, path)
     body = raw_content
-    body = re.sub(r'<(code|file)(?:\s+[^>]*)?>', '```', body, flags=re.IGNORECASE)
-    body = re.sub(r'</(code|file)>', '```', body, flags=re.IGNORECASE)
+    body = re.sub(r"<(code|file)(?:\s+[^>]*)?>", "```", body, flags=re.IGNORECASE)
+    body = re.sub(r"</(code|file)>", "```", body, flags=re.IGNORECASE)
 
     converted_lines = []
     title_removed = False
     for line in body.splitlines():
-        match = re.match(r'^\s*(={2,6})\s*(.*?)\s*\1\s*$', line)
+        match = re.match(r"^\s*(={2,6})\s*(.*?)\s*\1\s*$", line)
         if match:
             level = max(1, min(6, 7 - len(match.group(1))))
             heading_text = match.group(2).strip()
-            heading_text = re.sub(r'\[\[[^\]|]+\|([^\]]+)\]\]', r'\1', heading_text)
-            heading_text = re.sub(r'\[\[([^\]]+)\]\]', r'\1', heading_text)
-            heading_text = re.sub(r'[*/_`]+', '', heading_text).strip()
+            heading_text = re.sub(r"\[\[[^\]|]+\|([^\]]+)\]\]", r"\1", heading_text)
+            heading_text = re.sub(r"\[\[([^\]]+)\]\]", r"\1", heading_text)
+            heading_text = re.sub(r"[*/_`]+", "", heading_text).strip()
             if not title_removed and heading_text == title:
                 title_removed = True
                 continue
@@ -445,15 +442,15 @@ def build_fallback_markdown(path, raw_content):
         converted_lines.append(line.rstrip())
 
     body = "\n".join(converted_lines).strip()
-    body = re.sub(r'\n{3,}', '\n\n', body)
+    body = re.sub(r"\n{3,}", "\n\n", body)
     return title, f"# {title}\n\n{body}".strip() + "\n"
 
 
 def normalize_markdown_content(path, markdown):
-    cleaned = re.sub(r'\n{3,}', '\n\n', markdown).strip()
-    title_match = re.search(r'^#+\s+(.+)$', cleaned, re.MULTILINE)
-    title = title_match.group(1).strip() if title_match else path.split('/')[-1]
-    cleaned = re.sub(r'^#+\s+.+\n\n?', '', cleaned, count=1)
+    cleaned = re.sub(r"\n{3,}", "\n\n", markdown).strip()
+    title_match = re.search(r"^#+\s+(.+)$", cleaned, re.MULTILINE)
+    title = title_match.group(1).strip() if title_match else path.split("/")[-1]
+    cleaned = re.sub(r"^#+\s+.+\n\n?", "", cleaned, count=1)
     final_content = f"# {title}\n\n{cleaned}".strip() + "\n"
     return title, final_content
 
@@ -578,7 +575,10 @@ def process_page(session, path, cache, stats, cutoff):
     cache_entry = cache.get(url)
     existing_output = get_existing_output_info(slug)
     if existing_output and not existing_output["is_consistent"]:
-        log("WARN", f"Discarding inconsistent cached wiki output for {slug}; metadata hash does not match markdown content.")
+        log(
+            "WARN",
+            f"Discarding inconsistent cached wiki output for {slug}; metadata hash does not match markdown content.",
+        )
         remove_output(slug)
         existing_output = None
 
@@ -686,7 +686,10 @@ def process_page(session, path, cache, stats, cutoff):
     if len(converted["content"]) < MIN_MARKDOWN_LENGTH:
         if existing_output:
             stats["reused_cached"] += 1
-            log("WARN", f"Reusing cached wiki page {slug} after short conversion result ({len(converted['content'])} chars).")
+            log(
+                "WARN",
+                f"Reusing cached wiki page {slug} after short conversion result ({len(converted['content'])} chars).",
+            )
             return "reused_cached"
         update_cache_entry(
             cache,
@@ -746,9 +749,9 @@ def cleanup_orphaned_outputs(discovered_paths, cache, hit_cap):
         if not name.startswith("wiki_page-"):
             continue
         if name.endswith(".meta.json"):
-            slug = name[len("wiki_page-"):-len(".meta.json")]
+            slug = name[len("wiki_page-") : -len(".meta.json")]
         elif name.endswith(".md"):
-            slug = name[len("wiki_page-"):-len(".md")]
+            slug = name[len("wiki_page-") : -len(".md")]
         else:
             continue
 

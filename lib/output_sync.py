@@ -48,23 +48,15 @@ def assert_safe_tree_sync(source: Path, destination: Path) -> None:
     dst = destination.resolve()
 
     if src == dst:
-        raise ValueError(
-            f"source and destination resolve to the same path: {src}"
-        )
+        raise ValueError(f"source and destination resolve to the same path: {src}")
 
     # Check containment in both directions using Path.is_relative_to
     # (available from Python 3.9; fallback for older via str comparison)
     try:
         if src.is_relative_to(dst):
-            raise ValueError(
-                f"source {src} is inside destination {dst}; "
-                "this would cause recursive sync"
-            )
+            raise ValueError(f"source {src} is inside destination {dst}; this would cause recursive sync")
         if dst.is_relative_to(src):
-            raise ValueError(
-                f"destination {dst} is inside source {src}; "
-                "this would overwrite the source tree"
-            )
+            raise ValueError(f"destination {dst} is inside source {src}; this would overwrite the source tree")
     except AttributeError:
         # Python < 3.9 fallback
         src_str = str(src)
@@ -73,20 +65,12 @@ def assert_safe_tree_sync(source: Path, destination: Path) -> None:
 
         def _is_relative(child: str, parent: str) -> bool:
             parent_with_sep = parent.rstrip(sep) + sep
-            return child.rstrip(sep) + sep == parent_with_sep or child.startswith(
-                parent_with_sep
-            )
+            return child.rstrip(sep) + sep == parent_with_sep or child.startswith(parent_with_sep)
 
         if _is_relative(src_str, dst_str):
-            raise ValueError(
-                f"source {src} is inside destination {dst}; "
-                "this would cause recursive sync"
-            )
+            raise ValueError(f"source {src} is inside destination {dst}; this would cause recursive sync")
         if _is_relative(dst_str, src_str):
-            raise ValueError(
-                f"destination {dst} is inside source {src}; "
-                "this would overwrite the source tree"
-            )
+            raise ValueError(f"destination {dst} is inside source {src}; this would overwrite the source tree")
 
 
 # ---------------------------------------------------------------------------

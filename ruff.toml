@@ -1,0 +1,12 @@
+target-version = "py312"
+line-length = 120
+
+exclude = [
+    ".git",
+    ".specstory",
+    ".venv",
+    "tmp",
+]
+
+[lint]
+select = ["E4", "E7", "E9", "F"]

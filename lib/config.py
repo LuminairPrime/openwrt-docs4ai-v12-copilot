@@ -104,18 +104,11 @@ def _resolve_pipeline_run_dir() -> str:
 
 PIPELINE_RUN_DIR = _resolve_pipeline_run_dir()
 DOWNLOADS_DIR = os.path.normpath(
-    os.environ.get("DOWNLOADS_DIR")
-    or os.environ.get("WORKDIR")
-    or os.path.join(PIPELINE_RUN_DIR, "downloads")
+    os.environ.get("DOWNLOADS_DIR") or os.environ.get("WORKDIR") or os.path.join(PIPELINE_RUN_DIR, "downloads")
 )
-PROCESSED_DIR = os.path.normpath(
-    os.environ.get("PROCESSED_DIR")
-    or os.path.join(PIPELINE_RUN_DIR, "processed")
-)
+PROCESSED_DIR = os.path.normpath(os.environ.get("PROCESSED_DIR") or os.path.join(PIPELINE_RUN_DIR, "processed"))
 STAGED_DIR = os.path.normpath(
-    os.environ.get("STAGED_DIR")
-    or os.environ.get("OUTDIR")
-    or os.path.join(PIPELINE_RUN_DIR, "staged")
+    os.environ.get("STAGED_DIR") or os.environ.get("OUTDIR") or os.path.join(PIPELINE_RUN_DIR, "staged")
 )
 WORKDIR = DOWNLOADS_DIR
 OUTDIR = STAGED_DIR

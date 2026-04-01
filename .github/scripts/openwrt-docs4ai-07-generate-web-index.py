@@ -55,41 +55,32 @@ TOP_LEVEL_ORDER = [
 ]
 SECTION_DESCRIPTIONS = {
     ROOT_SECTION: (
-        "Top-level catalogs, routing files, telemetry, and release metadata "
-        "for the published OpenWrt corpus."
+        "Top-level catalogs, routing files, telemetry, and release metadata for the published OpenWrt corpus."
     ),
     "luci": (
-        "LuCI JavaScript references, skeletons, and complete-reference "
-        "guides for the main web interface codebase."
+        "LuCI JavaScript references, skeletons, and complete-reference guides for the main web interface codebase."
     ),
     "luci-examples": (
         "LuCI example applications and companion references that show "
         "concrete UI, RPC, and Docker integration patterns."
     ),
     "openwrt-core": (
-        "Core OpenWrt reference material covering build, package, and "
-        "platform-facing implementation surfaces."
+        "Core OpenWrt reference material covering build, package, and platform-facing implementation surfaces."
     ),
     "openwrt-hotplug": (
-        "Hotplug event documentation and publishable references for "
-        "OpenWrt event-driven shell workflows."
+        "Hotplug event documentation and publishable references for OpenWrt event-driven shell workflows."
     ),
     "procd": (
-        "procd service-management references, API maps, and generated "
-        "context files for process supervision surfaces."
+        "procd service-management references, API maps, and generated context files for process supervision surfaces."
     ),
     "uci": (
         "UCI schema references, navigational indexes, and generated "
         "material for configuration-driven OpenWrt subsystems."
     ),
     "ucode": (
-        "ucode API references, type surfaces, and generated navigation "
-        "files for scripting and rpcd integration work."
+        "ucode API references, type surfaces, and generated navigation files for scripting and rpcd integration work."
     ),
-    "wiki": (
-        "OpenWrt wiki-derived references and navigational outputs "
-        "preserved in the published product tree."
-    ),
+    "wiki": ("OpenWrt wiki-derived references and navigational outputs preserved in the published product tree."),
 }
 
 
@@ -210,145 +201,136 @@ def section_slug(section: str) -> str:
 
 
 def release_root_file_sort_key(name: str) -> tuple[int, str]:
-        """Keep release-tree root files in a human-first order."""
-        try:
-                return RELEASE_TREE_ROOT_FILES.index(name), name
-        except ValueError:
-                return len(RELEASE_TREE_ROOT_FILES), name
+    """Keep release-tree root files in a human-first order."""
+    try:
+        return RELEASE_TREE_ROOT_FILES.index(name), name
+    except ValueError:
+        return len(RELEASE_TREE_ROOT_FILES), name
 
 
 def release_section_file_sort_key(rel_path: str) -> tuple[int, str]:
-        """Sort release-tree module files by router, map, bundled docs, and details."""
-        parts = rel_path.split("/")
-        filename = parts[-1]
+    """Sort release-tree module files by router, map, bundled docs, and details."""
+    parts = rel_path.split("/")
+    filename = parts[-1]
 
-        if filename == "llms.txt":
-                return 0, filename
-        if filename == config.MODULE_MAP_FILENAME:
-                return 1, filename
-        if filename == config.MODULE_BUNDLED_REF_FILENAME:
-                return 2, filename
-        if filename.startswith(config.MODULE_BUNDLED_REF_FILENAME.removesuffix(".md") + ".part-"):
-                return 3, filename
-        if len(parts) > 1 and parts[1] == config.MODULE_TYPES_DIRNAME and filename.endswith(".d.ts"):
-                return 4, rel_path
-        if len(parts) > 1 and parts[1] == config.MODULE_CHUNKED_REF_DIRNAME:
-                return 5, rel_path
-        return 6, rel_path
+    if filename == "llms.txt":
+        return 0, filename
+    if filename == config.MODULE_MAP_FILENAME:
+        return 1, filename
+    if filename == config.MODULE_BUNDLED_REF_FILENAME:
+        return 2, filename
+    if filename.startswith(config.MODULE_BUNDLED_REF_FILENAME.removesuffix(".md") + ".part-"):
+        return 3, filename
+    if len(parts) > 1 and parts[1] == config.MODULE_TYPES_DIRNAME and filename.endswith(".d.ts"):
+        return 4, rel_path
+    if len(parts) > 1 and parts[1] == config.MODULE_CHUNKED_REF_DIRNAME:
+        return 5, rel_path
+    return 6, rel_path
 
 
 def iter_release_section_files(root: Path, section: str) -> list[str]:
-        """Return publishable file paths for one release-tree top-level section."""
-        if section == RELEASE_TREE_ROOT_SECTION:
-                root_files = {path.name for path in root.iterdir() if path.is_file()}
-                root_files.add("index.html")
-                return sorted(root_files, key=release_root_file_sort_key)
+    """Return publishable file paths for one release-tree top-level section."""
+    if section == RELEASE_TREE_ROOT_SECTION:
+        root_files = {path.name for path in root.iterdir() if path.is_file()}
+        root_files.add("index.html")
+        return sorted(root_files, key=release_root_file_sort_key)
 
-        section_dir = root / section
-        if not section_dir.is_dir():
-                return []
+    section_dir = root / section
+    if not section_dir.is_dir():
+        return []
 
-        return sorted(
-                (
-                        path.relative_to(root).as_posix()
-                        for path in section_dir.rglob("*")
-                        if path.is_file()
-                ),
-                key=release_section_file_sort_key,
-        )
+    return sorted(
+        (path.relative_to(root).as_posix() for path in section_dir.rglob("*") if path.is_file()),
+        key=release_section_file_sort_key,
+    )
 
 
 def collect_release_sections(root: Path) -> list[tuple[str, list[str]]]:
-        """Collect the direct-root release-tree sections and their file lists."""
-        sections: list[tuple[str, list[str]]] = []
+    """Collect the direct-root release-tree sections and their file lists."""
+    sections: list[tuple[str, list[str]]] = []
 
-        root_files = iter_release_section_files(root, RELEASE_TREE_ROOT_SECTION)
-        if root_files:
-                sections.append((RELEASE_TREE_ROOT_SECTION, root_files))
+    root_files = iter_release_section_files(root, RELEASE_TREE_ROOT_SECTION)
+    if root_files:
+        sections.append((RELEASE_TREE_ROOT_SECTION, root_files))
 
-        top_level_dirs = sorted(
-                (path.name for path in root.iterdir() if path.is_dir()),
-                key=section_sort_key,
-        )
-        for section in top_level_dirs:
-                files = iter_release_section_files(root, section)
-                if files:
-                        sections.append((section, files))
+    top_level_dirs = sorted(
+        (path.name for path in root.iterdir() if path.is_dir()),
+        key=section_sort_key,
+    )
+    for section in top_level_dirs:
+        files = iter_release_section_files(root, section)
+        if files:
+            sections.append((section, files))
 
-        return sections
+    return sections
 
 
 def describe_release_section(section: str, file_count: int) -> str:
-        """Return a stable human-readable description for one release-tree section."""
-        if section == RELEASE_TREE_ROOT_SECTION:
-                base = (
-                        "Top-level routing files, catalogs, and landing pages for the "
-                        "published release tree."
-                )
-        else:
-                base = (
-                        f"Release-ready routing files, bundled references, "
-                        f"chunked-reference pages, and generated type surfaces for {section}."
-                )
-        noun = "file" if file_count == 1 else "files"
-        return f"{base} This section currently lists {file_count} published {noun}."
+    """Return a stable human-readable description for one release-tree section."""
+    if section == RELEASE_TREE_ROOT_SECTION:
+        base = "Top-level routing files, catalogs, and landing pages for the published release tree."
+    else:
+        base = (
+            f"Release-ready routing files, bundled references, "
+            f"chunked-reference pages, and generated type surfaces for {section}."
+        )
+    noun = "file" if file_count == 1 else "files"
+    return f"{base} This section currently lists {file_count} published {noun}."
 
 
 def release_section_heading(section: str) -> str:
-        return "Root Files" if section == RELEASE_TREE_ROOT_SECTION else section
+    return "Root Files" if section == RELEASE_TREE_ROOT_SECTION else section
 
 
 def release_section_slug(section: str) -> str:
-        return "root-files" if section == RELEASE_TREE_ROOT_SECTION else section
+    return "root-files" if section == RELEASE_TREE_ROOT_SECTION else section
 
 
 def render_release_section_nav(sections: list[tuple[str, list[str]]]) -> str:
-        items = []
-        for section, files in sections:
-                items.append(
-                        "<li><a href=\"#{slug}\">{label}</a> <span>({count})</span></li>".format(
-                                slug=html.escape(release_section_slug(section)),
-                                label=html.escape(release_section_heading(section)),
-                                count=len(files),
-                        )
-                )
-        return "".join(items)
+    items = []
+    for section, files in sections:
+        items.append(
+            '<li><a href="#{slug}">{label}</a> <span>({count})</span></li>'.format(
+                slug=html.escape(release_section_slug(section)),
+                label=html.escape(release_section_heading(section)),
+                count=len(files),
+            )
+        )
+    return "".join(items)
 
 
 def render_release_section(section: str, files: Iterable[str]) -> str:
-        file_list = list(files)
-        items = []
-        for rel_path in file_list:
-                items.append(
-                        "<li><a href=\"{href}\">{label}</a></li>".format(
-                                href=quote(rel_path),
-                                label=html.escape(f"./{rel_path}"),
-                        )
-                )
-
-        return "".join(
-                [
-                        f"<section id=\"{html.escape(release_section_slug(section))}\">",
-                        f"<h2>{html.escape(release_section_heading(section))}</h2>",
-                        f"<p>{html.escape(describe_release_section(section, len(file_list)))}</p>",
-                        "<ul class=\"path-list\">",
-                        "".join(items),
-                        "</ul>",
-                        "</section>",
-                ]
+    file_list = list(files)
+    items = []
+    for rel_path in file_list:
+        items.append(
+            '<li><a href="{href}">{label}</a></li>'.format(
+                href=quote(rel_path),
+                label=html.escape(f"./{rel_path}"),
+            )
         )
+
+    return "".join(
+        [
+            f'<section id="{html.escape(release_section_slug(section))}">',
+            f"<h2>{html.escape(release_section_heading(section))}</h2>",
+            f"<p>{html.escape(describe_release_section(section, len(file_list)))}</p>",
+            '<ul class="path-list">',
+            "".join(items),
+            "</ul>",
+            "</section>",
+        ]
+    )
 
 
 def build_release_tree_html(root: Path) -> str:
-        """Build the direct-root release-tree landing page."""
-        sections = collect_release_sections(root)
-        publish_file_count = sum(len(files) for _section, files in sections)
-        rendered_sections = "".join(
-                render_release_section(section, files) for section, files in sections
-        )
-        section_nav = render_release_section_nav(sections)
+    """Build the direct-root release-tree landing page."""
+    sections = collect_release_sections(root)
+    publish_file_count = sum(len(files) for _section, files in sections)
+    rendered_sections = "".join(render_release_section(section, files) for section, files in sections)
+    section_nav = render_release_section_nav(sections)
 
-        return f"""<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang=\"en\">
 <head>
     <meta charset=\"UTF-8\">
@@ -580,7 +562,7 @@ def render_section_nav(sections: list[tuple[str, list[str]]]) -> str:
     items = []
     for section, files in sections:
         items.append(
-            "<li><a href=\"#{slug}\">{label}</a> <span>({count})</span></li>".format(
+            '<li><a href="#{slug}">{label}</a> <span>({count})</span></li>'.format(
                 slug=html.escape(section_slug(section)),
                 label=html.escape(section_heading(section)),
                 count=len(files),
@@ -597,7 +579,7 @@ def render_section(section: str, files: Iterable[str]) -> str:
         display_path = f"{PUBLISH_PREFIX}/{rel_path}"
         href = quote(rel_path)
         items.append(
-            "<li><a href=\"{href}\">{label}</a></li>".format(
+            '<li><a href="{href}">{label}</a></li>'.format(
                 href=href,
                 label=html.escape(display_path),
             )
@@ -605,10 +587,10 @@ def render_section(section: str, files: Iterable[str]) -> str:
 
     return "".join(
         [
-            f"<section id=\"{html.escape(section_slug(section))}\">",
+            f'<section id="{html.escape(section_slug(section))}">',
             f"<h2>{html.escape(section_heading(section))}</h2>",
             f"<p>{html.escape(describe_section(section, len(file_list)))}</p>",
-            "<ul class=\"path-list\">",
+            '<ul class="path-list">',
             "".join(items),
             "</ul>",
             "</section>",
@@ -620,9 +602,7 @@ def build_html(root: Path) -> str:
     """Build the final index.html document from the staged filesystem."""
     sections = collect_sections(root)
     publish_file_count = sum(len(files) for _section, files in sections)
-    rendered_sections = "".join(
-        render_section(section, files) for section, files in sections
-    )
+    rendered_sections = "".join(render_section(section, files) for section, files in sections)
     section_nav = render_section_nav(sections)
 
     return f"""<!DOCTYPE html>

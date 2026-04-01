@@ -14,7 +14,7 @@ import sys
 import re
 import datetime
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_LUCI
 
@@ -38,6 +38,7 @@ APPS = {
 if not os.path.isdir(SRC):
     print("[02e] FAIL: repo-luci not found")
     sys.exit(1)
+
 
 def main():
     outputs_generated = 0
@@ -72,7 +73,7 @@ def main():
                     continue
 
                 slug = f"{app}-{rel.replace('/', '-')}"
-                slug = re.sub(r'[^a-zA-Z0-9-]', '-', slug).lower()
+                slug = re.sub(r"[^a-zA-Z0-9-]", "-", slug).lower()
 
                 is_uc = fname.endswith(".uc")
                 lang = "ucode" if is_uc else "javascript"
@@ -94,7 +95,7 @@ def main():
                     "source_commit": LUCI_COMMIT,
                     "language": lang,
                     "fetch_status": "success",
-                    "extraction_timestamp": TS
+                    "extraction_timestamp": TS,
                 }
 
                 extractor.write_l1_markdown("luci-examples", "example_app", slug, final_content, metadata)

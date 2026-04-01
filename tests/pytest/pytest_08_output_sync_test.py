@@ -259,9 +259,7 @@ def test_cli_mirror_tree_with_exclude(tmp_path: Path) -> None:
     (dst / ".git").mkdir()
     (dst / ".git" / "HEAD").write_text("ref: refs/heads/main", encoding="utf-8")
 
-    result = _run_cli(
-        "mirror-tree", "--src", str(src), "--dest", str(dst), "--exclude", ".git"
-    )
+    result = _run_cli("mirror-tree", "--src", str(src), "--dest", str(dst), "--exclude", ".git")
 
     assert result.returncode == 0, f"stderr: {result.stderr}"
     assert (dst / ".git").exists(), ".git should be preserved when excluded"
@@ -337,9 +335,7 @@ def test_end_to_end_mirror_cycle(tmp_path: Path) -> None:
 
     result = _run_cli("mirror-tree", "--src", str(scratch), "--dest", str(publish))
 
-    assert result.returncode == 0, (
-        f"mirror-tree failed.\nstdout: {result.stdout}\nstderr: {result.stderr}"
-    )
+    assert result.returncode == 0, f"mirror-tree failed.\nstdout: {result.stdout}\nstderr: {result.stderr}"
     assert (publish / "AGENTS.md").exists()
     assert (publish / "release-tree" / "index.html").exists()
     assert not (publish / "stale-artifact.txt").exists()
@@ -433,4 +429,3 @@ def test_sync_tree_deletes_directory_symlink_without_touching_target(tmp_path: P
     assert not link.exists(), "symlink should be removed from destination"
     assert target.is_dir(), "symlink target directory should remain"
     assert (target / "keep.txt").read_text(encoding="utf-8") == "keep"
-

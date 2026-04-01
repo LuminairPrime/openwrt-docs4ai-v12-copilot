@@ -32,16 +32,12 @@ def build_release_tree(outdir: Path, validate, modules: list[str] | None = None)
         '<a href="llms-full.txt">./llms-full.txt</a>',
         '<a href="index.html">./index.html</a>',
     ]
-    llms_entries = "\n".join(
-        f"- [{module}](./{module}/llms.txt): {module} entry (~10 tokens)"
-        for module in modules
-    )
+    llms_entries = "\n".join(f"- [{module}](./{module}/llms.txt): {module} entry (~10 tokens)" for module in modules)
     release_tree.joinpath("llms.txt").write_text(
         "# openwrt-docs4ai - LLM Routing Index\n\n"
         "[llms-full.txt](./llms-full.txt)\n\n"
         "## Modules\n\n"
-        f"{llms_entries}\n\n"
-        + ("routing-contract\n" * 40),
+        f"{llms_entries}\n\n" + ("routing-contract\n" * 40),
         encoding="utf-8",
     )
     release_tree.joinpath("README.md").write_text(
@@ -109,8 +105,7 @@ def build_release_tree(outdir: Path, validate, modules: list[str] | None = None)
 
     llms_full_content = "\n".join(llms_full_entries)
     release_tree.joinpath("llms-full.txt").write_text(
-        "# openwrt-docs4ai - Complete Flat Catalog\n\n"
-        f"{llms_full_content}\n",
+        f"# openwrt-docs4ai - Complete Flat Catalog\n\n{llms_full_content}\n",
         encoding="utf-8",
     )
     release_tree.joinpath("index.html").write_text(
@@ -224,7 +219,9 @@ def test_validate_support_tree_contract_rejects_manifest_content_mismatch(tmp_pa
     hard_failures: list[str] = []
     validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
 
-    assert any("support-tree content mismatch: manifests/cross-link-registry.json" in failure for failure in hard_failures)
+    assert any(
+        "support-tree content mismatch: manifests/cross-link-registry.json" in failure for failure in hard_failures
+    )
 
 
 def test_validate_release_tree_contract_rejects_legacy_contract_leaks(
@@ -305,12 +302,8 @@ def test_copy_support_tree_materializes_validator_compatible_support_tree(
     validate.validate_support_tree_contract(outdir, hard_failures.append, lambda _msg: None)
 
     assert hard_failures == []
-    assert support_tree.joinpath("manifests", "cross-link-registry.json").read_text(
-        encoding="utf-8"
-    ) == "{}\n"
-    assert support_tree.joinpath("telemetry", "signature-inventory.json").read_text(
-        encoding="utf-8"
-    ) == "{}\n"
+    assert support_tree.joinpath("manifests", "cross-link-registry.json").read_text(encoding="utf-8") == "{}\n"
+    assert support_tree.joinpath("telemetry", "signature-inventory.json").read_text(encoding="utf-8") == "{}\n"
 
 
 def test_validate_release_tree_contract_requires_module_set_match(tmp_path: Path) -> None:
@@ -381,6 +374,7 @@ def test_validate_index_html_contract_ignores_release_and_support_trees(
 
     assert hard_failures == []
 
+
 def test_build_release_tree_index_html_reflects_release_layout(tmp_path: Path) -> None:
     release_tree_index = load_script_module(
         "release_tree_index_html_builder",
@@ -448,10 +442,7 @@ def test_release_include_overlay_copies_files_into_release_tree(tmp_path: Path) 
 
     assert sorted(copied) == ["README.md", "nested/marker.txt"]
     assert release_root.joinpath("README.md").read_text(encoding="utf-8") == "# overlaid\n"
-    assert (
-        release_root.joinpath("nested", "marker.txt").read_text(encoding="utf-8")
-        == "overlay marker\n"
-    )
+    assert release_root.joinpath("nested", "marker.txt").read_text(encoding="utf-8") == "overlay marker\n"
 
 
 def test_finalize_release_tree_indexes_additive_overlay_files(tmp_path: Path) -> None:
@@ -471,7 +462,9 @@ def test_finalize_release_tree_indexes_additive_overlay_files(tmp_path: Path) ->
     (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
-    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
+        "# topic\n", encoding="utf-8"
+    )
     root.joinpath("index.html").write_text("<html>stale</html>\n", encoding="utf-8")
 
     include_root = tmp_path / "release-include"
@@ -485,7 +478,7 @@ def test_finalize_release_tree_indexes_additive_overlay_files(tmp_path: Path) ->
 
     assert copied == ["extras/marker.txt"]
     assert hard_failures == []
-    assert './extras/marker.txt' in root.joinpath("index.html").read_text(encoding="utf-8")
+    assert "./extras/marker.txt" in root.joinpath("index.html").read_text(encoding="utf-8")
 
 
 def test_finalize_release_tree_rebuilds_stale_index_without_overlay(tmp_path: Path) -> None:
@@ -505,7 +498,9 @@ def test_finalize_release_tree_rebuilds_stale_index_without_overlay(tmp_path: Pa
     (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
-    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
+        "# topic\n", encoding="utf-8"
+    )
     stale_index = "<html>stale index</html>\n"
     root.joinpath("index.html").write_text(stale_index, encoding="utf-8")
 
@@ -534,7 +529,9 @@ def test_release_overlay_can_override_generated_release_index(tmp_path: Path) ->
     (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
-    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
+        "# topic\n", encoding="utf-8"
+    )
 
     include_root = tmp_path / "release-include"
     include_root.mkdir()
@@ -562,7 +559,9 @@ def test_release_overlay_index_rejects_parent_directory_links(tmp_path: Path) ->
     (root / "procd" / "llms.txt").write_text("# procd\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_MAP_FILENAME).write_text("# map\n", encoding="utf-8")
     (root / "procd" / release_tree_index.config.MODULE_BUNDLED_REF_FILENAME).write_text("# bundled\n", encoding="utf-8")
-    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text("# topic\n", encoding="utf-8")
+    (root / "procd" / release_tree_index.config.MODULE_CHUNKED_REF_DIRNAME / "topic.md").write_text(
+        "# topic\n", encoding="utf-8"
+    )
 
     include_root = tmp_path / "release-include"
     include_root.mkdir()
@@ -629,9 +628,7 @@ def test_check_dead_links_skips_external_and_anchor_links(tmp_path: Path) -> Non
     release_tree.mkdir(parents=True)
     # External links and anchor-only links should not trigger failures
     release_tree.joinpath("page.md").write_text(
-        "# Page\n\n"
-        "See [external](https://openwrt.org/docs/guide.md).\n"
-        "See [anchor](#section).\n",
+        "# Page\n\nSee [external](https://openwrt.org/docs/guide.md).\nSee [anchor](#section).\n",
         encoding="utf-8",
     )
 
@@ -668,12 +665,15 @@ def test_validate_release_tree_contract_rejects_broken_relative_link(tmp_path: P
 # A8 — Source exclusion tests (Phase 10)
 # ---------------------------------------------------------------------------
 
+
 def test_source_exclusions_should_exclude_returns_true_for_policy_entry() -> None:
     """should_exclude returns True for a slug listed in config/source-exclusions.yml."""
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
     from lib import source_exclusions  # noqa: PLC0415
+
     # Reload to pick up any reset from other tests
     assert source_exclusions.should_exclude("wiki", "guide-developer-luci") is True
     assert source_exclusions.should_exclude("wiki", "techref-hotplug-legacy") is True
@@ -684,8 +684,10 @@ def test_source_exclusions_should_exclude_returns_false_for_non_excluded_slug() 
     """should_exclude returns False for a slug that is not in the policy."""
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
     from lib import source_exclusions  # noqa: PLC0415
+
     assert source_exclusions.should_exclude("wiki", "guide-developer-helloworld") is False
     assert source_exclusions.should_exclude("wiki", "") is False
 
@@ -694,8 +696,10 @@ def test_source_exclusions_get_exclusion_reason_returns_string_for_excluded() ->
     """get_exclusion_reason returns a non-empty string for an excluded slug."""
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
     from lib import source_exclusions  # noqa: PLC0415
+
     reason = source_exclusions.get_exclusion_reason("wiki", "guide-developer-luci")
     assert reason is not None
     assert len(reason) > 0
@@ -705,8 +709,10 @@ def test_source_exclusions_get_exclusion_reason_returns_none_for_non_excluded() 
     """get_exclusion_reason returns None for a slug not in policy."""
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
     from lib import source_exclusions  # noqa: PLC0415
+
     assert source_exclusions.get_exclusion_reason("wiki", "guide-user-beginners") is None
 
 
@@ -714,8 +720,10 @@ def test_source_exclusions_get_all_exclusions_returns_three_entries() -> None:
     """get_all_exclusions returns exactly the 3 seed entries."""
     import sys
     import os
+
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
     from lib import source_exclusions  # noqa: PLC0415
+
     entries = source_exclusions.get_all_exclusions()
     assert len(entries) == 3
     sources = {e["source"] for e in entries}

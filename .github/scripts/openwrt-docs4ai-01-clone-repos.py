@@ -22,7 +22,7 @@ import json
 
 sys.stdout.reconfigure(line_buffering=True)
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, repo_manifest  # noqa: E402
 
 WORKDIR = config.DOWNLOADS_DIR
@@ -32,6 +32,7 @@ MANIFEST_PATH = os.path.join(WORKDIR, "repo-manifest.json")
 
 os.makedirs(WORKDIR, exist_ok=True)
 
+
 def run(cmd, **kwargs):
     """Run a command and exit on failure."""
     result = subprocess.run(cmd, **kwargs)
@@ -40,12 +41,10 @@ def run(cmd, **kwargs):
         sys.exit(1)
     return result
 
+
 def get_commit(repo_dir):
     """Get the short commit hash of a cloned repo."""
-    result = subprocess.run(
-        ["git", "-C", repo_dir, "rev-parse", "--short", "HEAD"],
-        capture_output=True, text=True
-    )
+    result = subprocess.run(["git", "-C", repo_dir, "rev-parse", "--short", "HEAD"], capture_output=True, text=True)
     if result.returncode != 0:
         stderr = (result.stderr or "").strip()
         raise RuntimeError(
@@ -57,12 +56,14 @@ def get_commit(repo_dir):
     except repo_manifest.ManifestError as exc:
         raise RuntimeError(str(exc)) from exc
 
+
 def set_env(name, value):
     """Write an env var to GITHUB_ENV for subsequent CI steps."""
     if GITHUB_ENV:
         with open(GITHUB_ENV, "a") as f:
             f.write(f"{name}={value}\n")
     os.environ[name] = value
+
 
 def clone_repo(url, dest, label, sparse_paths=None):
     """Clone a git repo into WORKDIR. Supports sparse checkout."""
@@ -88,32 +89,35 @@ def clone_repo(url, dest, label, sparse_paths=None):
 
 # --- Main ---
 
+
 def main():
     print("[01] Phase 1: Clone upstream repositories")
 
     try:
-        ucode_commit = clone_repo(
-            "https://github.com/jow-/ucode.git",
-            "repo-ucode", "ucode"
-        )
+        ucode_commit = clone_repo("https://github.com/jow-/ucode.git", "repo-ucode", "ucode")
         set_env("UCODE_COMMIT", ucode_commit)
 
-        luci_commit = clone_repo(
-            "https://github.com/openwrt/luci.git",
-            "repo-luci", "LuCI"
-        )
+        luci_commit = clone_repo("https://github.com/openwrt/luci.git", "repo-luci", "LuCI")
         set_env("LUCI_COMMIT", luci_commit)
 
         openwrt_commit = "skipped"
         if not SKIP_BUILDROOT:
             openwrt_commit = clone_repo(
                 "https://github.com/openwrt/openwrt.git",
-                "repo-openwrt", "OpenWrt buildroot (sparse)",
+                "repo-openwrt",
+                "OpenWrt buildroot (sparse)",
                 sparse_paths=[
-                    "package/network", "package/kernel", "package/utils",
-                    "package/system", "package/libs", "package/firmware",
-                    "package/boot", "package/multimedia", "include", "scripts"
-                ]
+                    "package/network",
+                    "package/kernel",
+                    "package/utils",
+                    "package/system",
+                    "package/libs",
+                    "package/firmware",
+                    "package/boot",
+                    "package/multimedia",
+                    "include",
+                    "scripts",
+                ],
             )
             set_env("OPENWRT_COMMIT", openwrt_commit)
 
@@ -121,7 +125,7 @@ def main():
             "ucode": ucode_commit,
             "luci": luci_commit,
             "openwrt": openwrt_commit,
-            "timestamp": datetime.datetime.now(datetime.UTC).isoformat()
+            "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         }
         with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)

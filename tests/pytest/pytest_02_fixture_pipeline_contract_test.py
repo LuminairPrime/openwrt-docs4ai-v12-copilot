@@ -1,4 +1,3 @@
-
 from tests.support.pytest_pipeline_support import PROJECT_ROOT, load_script_module
 from tests.support.smoke_pipeline_support import (
     assert_fixture_outputs,
@@ -80,9 +79,7 @@ def test_validator_rejects_module_indexes_missing_source_documents(tmp_path):
         encoding="utf-8",
     )
 
-    validate = load_script_module(
-        "validator_fixture_contract", "openwrt-docs4ai-08-validate-output.py"
-    )
+    validate = load_script_module("validator_fixture_contract", "openwrt-docs4ai-08-validate-output.py")
     hard_failures: list[str] = []
     validate.validate_release_tree_contract(
         str(outdir),
@@ -90,7 +87,4 @@ def test_validator_rejects_module_indexes_missing_source_documents(tmp_path):
         lambda _message: None,
     )
 
-    assert any(
-        "release-tree module llms.txt missing source entries for ucode" in failure
-        for failure in hard_failures
-    )
+    assert any("release-tree module llms.txt missing source entries for ucode" in failure for failure in hard_failures)

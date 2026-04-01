@@ -47,8 +47,15 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Sequential local smoke runner for openwrt-docs4ai")
     parser.add_argument("--keep-temp", action="store_true", help="Keep the temp directory after completion")
     parser.add_argument("--run-ai", action="store_true", help="Include the optional AI stage")
-    parser.add_argument("--include-extractors", action="store_true", help="Run 01 and 02* before the fixture-backed processing stages")
-    parser.add_argument("--only", type=str, default=None, help="Run only a stage id, stage family, or script name such as 03, 05, 05c, or 06")
+    parser.add_argument(
+        "--include-extractors", action="store_true", help="Run 01 and 02* before the fixture-backed processing stages"
+    )
+    parser.add_argument(
+        "--only",
+        type=str,
+        default=None,
+        help="Run only a stage id, stage family, or script name such as 03, 05, 05c, or 06",
+    )
     return parser.parse_args()
 
 
@@ -144,7 +151,12 @@ def main():
     overall = "PASS"
     if args.only is None:
         try:
-            assert_fixture_outputs(out_dir, processed_dir, expect_ai=args.run_ai)
+            assert_fixture_outputs(
+                out_dir,
+                processed_dir,
+                expect_ai=args.run_ai,
+                expect_fixture_wiki=not args.include_extractors,
+            )
         except AssertionError as exc:
             overall = "FAIL"
             results.append(("fixture assertions", "FAIL", 0.0))

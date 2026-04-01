@@ -23,6 +23,7 @@ from tests.support.pytest_pipeline_support import PROCESSED_DIR, PROJECT_ROOT, l
 # Stage 06 — choose_short_description prefers routing_summary (A5)
 # ---------------------------------------------------------------------------
 
+
 def test_choose_short_description_prefers_routing_summary() -> None:
     """routing_summary is used first, before ai_summary and description."""
     stage06 = load_script_module("stage06_routing_summary", "openwrt-docs4ai-06-generate-llm-routing-indexes.py")
@@ -70,6 +71,7 @@ def test_choose_short_description_falls_back_to_body() -> None:
 # Stage 05a — append_skeleton_lines prefers routing_summary (A5)
 # ---------------------------------------------------------------------------
 
+
 def test_append_skeleton_lines_prefers_routing_summary() -> None:
     """append_skeleton_lines uses routing_summary when present, even if ai_summary exists."""
     stage05a = load_script_module("stage05a_skeleton_routing", "openwrt-docs4ai-05a-assemble-references.py")
@@ -107,6 +109,7 @@ def test_append_skeleton_lines_falls_back_to_description() -> None:
 # ---------------------------------------------------------------------------
 # Stage 05a — build_provenance_block (A6)
 # ---------------------------------------------------------------------------
+
 
 def test_build_provenance_block_with_source_url() -> None:
     """Provenance block includes Source, Kind, and Normalized lines when source_url is present."""
@@ -169,6 +172,7 @@ def test_build_provenance_block_authored_has_no_commit() -> None:
 # ---------------------------------------------------------------------------
 # Stage 05a — copy_release_chunked_pages injects provenance (A6)
 # ---------------------------------------------------------------------------
+
 
 def test_copy_release_chunked_pages_injects_provenance_header(tmp_path: Path) -> None:
     """copy_release_chunked_pages writes a visible provenance block after the frontmatter."""

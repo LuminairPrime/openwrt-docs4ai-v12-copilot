@@ -28,7 +28,12 @@ def main():
     parser = argparse.ArgumentParser(description="Deterministic v12 local smoke test")
     parser.add_argument("--keep-temp", action="store_true", help="Keep the temporary directory after completion")
     parser.add_argument("--run-ai", action="store_true", help="Enable the optional AI stage")
-    parser.add_argument("--only", type=str, default=None, help="Run only a stage id, stage family, or script name such as 03, 05, 05c, or 06")
+    parser.add_argument(
+        "--only",
+        type=str,
+        default=None,
+        help="Run only a stage id, stage family, or script name such as 03, 05, 05c, or 06",
+    )
     args = parser.parse_args()
 
     log_file = get_local_log_path("smoke-00-post-extract-pipeline-log.txt")

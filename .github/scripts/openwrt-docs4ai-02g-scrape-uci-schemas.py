@@ -13,7 +13,7 @@ import os
 import datetime
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config, extractor
 from lib.source_provenance import make_git_source_url, REPO_BASE_OPENWRT
 
@@ -49,22 +49,22 @@ for schema_name, fpath in schema_files:
     try:
         with open(fpath, "r", encoding="utf-8", errors="replace") as f:
             content = f.read()
-            
+
         if "config " not in content:
             continue
-            
+
         rel_path = os.path.relpath(fpath, os.path.join(config.WORKDIR, "repo-openwrt")).replace("\\", "/")
-        
+
         # FIX BUG-011: Slug collision protection (UCI)
         # Identify package name from path
         pkg_parts = rel_path.split("/")
         pkg_name = pkg_parts[1] if len(pkg_parts) > 1 else "core"
         slug = f"schema-{pkg_name}-{schema_name}"
-        
+
         final_content = f"# UCI Default Schema: {schema_name}\n\n"
         final_content += f"> **Source:** `{rel_path}`\n\n"
         final_content += extractor.wrap_code_block(schema_name, content.strip(), "uci")
-        
+
         metadata = {
             "extractor": "02g-scrape-uci-schemas.py",
             "origin_type": "uci_schema",
@@ -75,12 +75,12 @@ for schema_name, fpath in schema_files:
             "source_commit": OPENWRT_COMMIT,
             "language": "uci",
             "fetch_status": "success",
-            "extraction_timestamp": ts
+            "extraction_timestamp": ts,
         }
 
         extractor.write_l1_markdown("uci", "uci_schema", slug, final_content, metadata)
         saved += 1
-        
+
     except Exception as e:
         print(f"[02g] WARN: Could not process {fpath}: {e}")
 

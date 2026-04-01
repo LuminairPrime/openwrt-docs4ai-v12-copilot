@@ -15,7 +15,7 @@ import os
 import re
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from lib import config
 
 sys.stdout.reconfigure(line_buffering=True)
@@ -66,7 +66,7 @@ def load_l2_summary():
             try:
                 with open(file_path, "r", encoding="utf-8") as handle:
                     content = handle.read()
-                fm_match = re.match(r'^---\r?\n(.*?)\r?\n---\r?\n?(.*)', content, re.DOTALL)
+                fm_match = re.match(r"^---\r?\n(.*?)\r?\n---\r?\n?(.*)", content, re.DOTALL)
                 if not fm_match:
                     continue
                 fm_data = yaml.safe_load(fm_match.group(1)) or {}

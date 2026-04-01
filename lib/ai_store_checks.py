@@ -141,9 +141,7 @@ def _validate_record(
     """Validate one AI summary record against schema and optional L2 data."""
     missing_fields = [field for field in REQUIRED_FIELDS if field not in record]
     if missing_fields:
-        errors.append(
-            f"{store_name} {module}/{slug}: missing required fields {missing_fields}"
-        )
+        errors.append(f"{store_name} {module}/{slug}: missing required fields {missing_fields}")
         return
 
     if record.get("slug") != slug:
@@ -156,20 +154,11 @@ def _validate_record(
         errors.append(f"{store_name} {module}/{slug}: title must be a non-empty string")
 
     content_hash = record.get("content_hash")
-    if content_hash is not None and (
-        not isinstance(content_hash, str)
-        or not _HASH_RE.fullmatch(content_hash)
-    ):
-        errors.append(
-            f"{store_name} {module}/{slug}: content_hash must be null or "
-            "12-char lowercase hex"
-        )
+    if content_hash is not None and (not isinstance(content_hash, str) or not _HASH_RE.fullmatch(content_hash)):
+        errors.append(f"{store_name} {module}/{slug}: content_hash must be null or 12-char lowercase hex")
 
     if store_name == "override" and content_hash is not None:
-        errors.append(
-            f"override {module}/{slug}: content_hash must be null for "
-            "human-pinned overrides"
-        )
+        errors.append(f"override {module}/{slug}: content_hash must be null for human-pinned overrides")
 
     summary = record.get("ai_summary")
     if not isinstance(summary, str) or not summary.strip():
@@ -177,34 +166,22 @@ def _validate_record(
 
     when_to_use = record.get("ai_when_to_use")
     if not isinstance(when_to_use, str) or not when_to_use.strip():
-        errors.append(
-            f"{store_name} {module}/{slug}: ai_when_to_use must be non-empty text"
-        )
+        errors.append(f"{store_name} {module}/{slug}: ai_when_to_use must be non-empty text")
 
     related_topics_any = record.get("ai_related_topics")
     if not isinstance(related_topics_any, list) or not related_topics_any:
-        errors.append(
-            f"{store_name} {module}/{slug}: ai_related_topics must be a "
-            "non-empty list"
-        )
+        errors.append(f"{store_name} {module}/{slug}: ai_related_topics must be a non-empty list")
     else:
         related_topics = cast(list[object], related_topics_any)
         if not all(isinstance(topic, str) and topic.strip() for topic in related_topics):
-            errors.append(
-                f"{store_name} {module}/{slug}: ai_related_topics entries must be "
-                "non-empty strings"
-            )
+            errors.append(f"{store_name} {module}/{slug}: ai_related_topics entries must be non-empty strings")
 
     if not is_iso_timestamp(record.get("generated_at")):
-        errors.append(
-            f"{store_name} {module}/{slug}: generated_at must be ISO 8601 text"
-        )
+        errors.append(f"{store_name} {module}/{slug}: generated_at must be ISO 8601 text")
 
     saved_at = record.get("saved_at")
     if saved_at is not None and not is_iso_timestamp(saved_at):
-        errors.append(
-            f"{store_name} {module}/{slug}: saved_at must be ISO 8601 text"
-        )
+        errors.append(f"{store_name} {module}/{slug}: saved_at must be ISO 8601 text")
 
     model = record.get("model")
     if not isinstance(model, str) or not model.strip():
@@ -219,10 +196,7 @@ def _validate_record(
     document = l2_documents.get((module, slug))
     if document is None:
         _report_issue(
-            message=(
-                f"{store_name} {module}/{slug}: no matching L2 document found "
-                f"for {path}"
-            ),
+            message=(f"{store_name} {module}/{slug}: no matching L2 document found for {path}"),
             errors=errors,
             warnings=warnings,
             as_warning=allow_orphans,
@@ -231,10 +205,7 @@ def _validate_record(
 
     if isinstance(title, str) and title.strip() and title.strip() != document.title:
         _report_issue(
-            message=(
-                f"{store_name} {module}/{slug}: title does not match L2 "
-                "frontmatter"
-            ),
+            message=(f"{store_name} {module}/{slug}: title does not match L2 frontmatter"),
             errors=errors,
             warnings=warnings,
             as_warning=allow_title_mismatch,
@@ -242,10 +213,7 @@ def _validate_record(
 
     if isinstance(content_hash, str) and content_hash != document.body_hash:
         _report_issue(
-            message=(
-                f"{store_name} {module}/{slug}: content_hash does not match "
-                "current L2 body"
-            ),
+            message=(f"{store_name} {module}/{slug}: content_hash does not match current L2 body"),
             errors=errors,
             warnings=warnings,
             as_warning=allow_hash_mismatch,
@@ -410,11 +378,7 @@ def summarize_audit_counts(counts: Mapping[str, int]) -> dict[str, int]:
 def default_audit_categories(counts: Mapping[str, int]) -> list[str]:
     """Return the non-empty detail categories worth printing by default."""
     totals = summarize_audit_counts(counts)
-    return [
-        category
-        for category in ("missing", "stale", "orphan", "invalid")
-        if totals[category] > 0
-    ]
+    return [category for category in ("missing", "stale", "orphan", "invalid") if totals[category] > 0]
 
 
 def print_validation_report(
@@ -445,10 +409,7 @@ def print_validation_report(
     status = "FAILED" if result.errors else "OK"
     print(f"{prefix} Checked {result.checked_records} records: {status}")
     if result.l2_document_count:
-        print(
-            f"{prefix} L2 documents available for cross-check: "
-            f"{result.l2_document_count}"
-        )
+        print(f"{prefix} L2 documents available for cross-check: {result.l2_document_count}")
     else:
         print(f"{prefix} L2 cross-checks were skipped")
 

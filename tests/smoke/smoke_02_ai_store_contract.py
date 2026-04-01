@@ -80,11 +80,17 @@ def validate_base_store_schema() -> tuple[int, dict[str, int]]:
             _assert(data["pipeline_version"] == "v12", f"pipeline_version must be v12 in {path}")
 
             _assert(isinstance(data["ai_summary"], str) and data["ai_summary"].strip(), f"ai_summary empty in {path}")
-            _assert(isinstance(data["ai_when_to_use"], str) and data["ai_when_to_use"].strip(), f"ai_when_to_use empty in {path}")
+            _assert(
+                isinstance(data["ai_when_to_use"], str) and data["ai_when_to_use"].strip(),
+                f"ai_when_to_use empty in {path}",
+            )
 
             related = data["ai_related_topics"]
             _assert(isinstance(related, list) and len(related) >= 1, f"ai_related_topics invalid in {path}")
-            _assert(all(isinstance(item, str) and item.strip() for item in related), f"ai_related_topics has invalid entries in {path}")
+            _assert(
+                all(isinstance(item, str) and item.strip() for item in related),
+                f"ai_related_topics has invalid entries in {path}",
+            )
 
             content_hash = data["content_hash"]
             valid_hash = content_hash is None or (
@@ -144,8 +150,7 @@ def validate_ai_store_roundtrip() -> None:
             status_ok, record_ok = ai_store.load_summary("ucode", "sample-doc", current_hash="0123456789ab")
             _assert(status_ok == "ok" and record_ok is not None, "Expected ok status on hash match")
             _assert(
-                isinstance(record_ok.get("generated_at"), str)
-                and str(record_ok.get("generated_at")).strip(),
+                isinstance(record_ok.get("generated_at"), str) and str(record_ok.get("generated_at")).strip(),
                 "Expected save_summary to add generated_at when missing",
             )
 
@@ -156,7 +161,10 @@ def validate_ai_store_roundtrip() -> None:
             _assert(created, "Expected override creation to succeed")
 
             status_override, record_override = ai_store.load_summary("ucode", "sample-doc", current_hash="ffffffffffff")
-            _assert(status_override == "ok" and record_override is not None, "Override with null hash should be always valid")
+            _assert(
+                status_override == "ok" and record_override is not None,
+                "Override with null hash should be always valid",
+            )
             _assert(record_override.get("content_hash") is None, "Override should force content_hash to null")
             _assert(record_override.get("model") == "manual-override", "Override should mark model as manual-override")
         finally:

@@ -27,16 +27,18 @@ REPO_BASE_UCODE = "https://github.com/nicowillis/ucode"
 # Git-backed origin types (require source_commit in L2)
 # ---------------------------------------------------------------------------
 
-GIT_BACKED_ORIGIN_TYPES: frozenset[str] = frozenset({
-    "readme",
-    "c_source",
-    "js_source",
-    "makefile_meta",
-    "example_app",
-    "header_api",
-    "uci_schema",
-    "hotplug_event",
-})
+GIT_BACKED_ORIGIN_TYPES: frozenset[str] = frozenset(
+    {
+        "readme",
+        "c_source",
+        "js_source",
+        "makefile_meta",
+        "example_app",
+        "header_api",
+        "uci_schema",
+        "hotplug_event",
+    }
+)
 
 # ---------------------------------------------------------------------------
 # Helpers
